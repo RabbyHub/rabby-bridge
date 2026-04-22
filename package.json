@@ -1,0 +1,34 @@
+{
+  "name": "@rabby-wallet/rabby-bridge",
+  "version": "0.0.1",
+  "description": "Bridge quote helpers and contract allowlists for Rabby",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "@debank/common": ">=0.3.60",
+    "@rabby-wallet/rabby-api": ">=0.9.58"
+  },
+  "scripts": {
+    "prepublishOnly": "yarn build",
+    "build": "rimraf dist && tsc"
+  },
+  "devDependencies": {
+    "@debank/common": "^0.3.60",
+    "@rabby-wallet/rabby-api": "^0.9.58",
+    "@types/node": "^18.19.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@4.12.0"
+}
