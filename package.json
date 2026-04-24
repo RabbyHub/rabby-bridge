@@ -21,12 +21,14 @@
   },
   "scripts": {
     "prepublishOnly": "yarn build",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc",
+    "test": "yarn build && NODE_OPTIONS=--experimental-vm-modules jest --runInBand --watchman=false"
   },
   "devDependencies": {
     "@debank/common": "^0.3.60",
     "@rabby-wallet/rabby-api": "^0.9.58",
     "@types/node": "^18.19.0",
+    "jest": "^29.7.0",
     "rimraf": "^3.0.2",
     "typescript": "^5.8.3"
   },
