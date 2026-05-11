@@ -8,6 +8,7 @@ export const BRIDGE_ENUM = {
   RELAY: 'relay',
   STARGATE: 'stargate',
   NEAR_INTENTS: 'near_intents',
+  MAYAN: 'mayan',
 } as const;
 
 export type BridgeAggregatorId = (typeof BRIDGE_AGGREGATORS)[number];

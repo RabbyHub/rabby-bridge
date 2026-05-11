@@ -61,4 +61,14 @@ describe('bridge allowlists', () => {
     expect(getBridgeSpender(BRIDGE_ENUM.NEAR_INTENTS, 'eth')).toBeUndefined();
     expect(getBridgeRouter(BRIDGE_ENUM.LIFI, 'not-a-chain')).toBeUndefined();
   });
+
+  test('exposes mayan aggregator with forwarder contract', () => {
+    const mayanForwarder = '0x337685fdab40d39bd02028545a4ffa7d287cc3e2';
+
+    expect(isSupportedBridgeAggregator(BRIDGE_ENUM.MAYAN)).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.MAYAN, 'eth')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.MAYAN, 'arb')).toBe(true);
+    expect(getBridgeSpender(BRIDGE_ENUM.MAYAN, 'eth')).toBe(mayanForwarder);
+    expect(getBridgeRouter(BRIDGE_ENUM.MAYAN, 'arb')).toBe(mayanForwarder);
+  });
 });
