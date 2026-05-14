@@ -1,6 +1,6 @@
 {
   "name": "@rabby-wallet/rabby-bridge",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Bridge quote helpers and contract allowlists for Rabby",
   "type": "module",
   "main": "./dist/index.js",
