@@ -6,6 +6,7 @@ export const SUPPORTED_AGGREGATORS = [
   'relay',
   'stargate',
   'near_intents',
+  'mayan',
 ] as const;
 
 const EXTRA_CHAINS = {
@@ -206,6 +207,19 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.TEMPO]: '0x3c18440268a78d651a3847653692fc82c31731c9',
   },
   near_intents: {},
+  mayan: {
+    [CHAINS_ENUM.ETH]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.OP]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.BSC]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.POLYGON]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.ARBITRUM]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.AVAX]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.BASE]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.UNI]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.LINEA]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+  },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
 
 export const BRIDGE_ROUTER_WHITELIST_DATA = {
@@ -355,4 +369,17 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.TEMPO]: '0x4683ce822272cd66cea73f5f1f9f5cbcaef4f066',
   },
   near_intents: {},
+  mayan: {
+    [CHAINS_ENUM.ETH]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.OP]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.BSC]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.POLYGON]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.ARBITRUM]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.AVAX]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.BASE]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.UNI]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [CHAINS_ENUM.LINEA]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+    [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+  },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
