@@ -71,4 +71,16 @@ describe('bridge allowlists', () => {
     expect(getBridgeSpender(BRIDGE_ENUM.MAYAN, 'eth')).toBe(mayanForwarder);
     expect(getBridgeRouter(BRIDGE_ENUM.MAYAN, 'arb')).toBe(mayanForwarder);
   });
+
+  test('exposes across aggregator with per-chain SpokePool contracts', () => {
+    const acrossEth = '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5';
+    const acrossArb = '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a';
+
+    expect(isSupportedBridgeAggregator(BRIDGE_ENUM.ACROSS)).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'eth')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'arb')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'hyper')).toBe(true);
+    expect(getBridgeSpender(BRIDGE_ENUM.ACROSS, 'eth')).toBe(acrossEth);
+    expect(getBridgeRouter(BRIDGE_ENUM.ACROSS, 'arb')).toBe(acrossArb);
+  });
 });
