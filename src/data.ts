@@ -7,6 +7,7 @@ export const SUPPORTED_AGGREGATORS = [
   'stargate',
   'near_intents',
   'mayan',
+  'across',
 ] as const;
 
 const EXTRA_CHAINS = {
@@ -220,7 +221,49 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
     [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
   },
+  // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
+  // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
+  across: {
+    [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
+    [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',
+    [CHAINS_ENUM.ARBITRUM]: '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a',
+    [CHAINS_ENUM.BASE]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [CHAINS_ENUM.POLYGON]: '0x9295ee1d8c5b022be115a2ad3c30c72e34e7f096',
+    [CHAINS_ENUM.LINEA]: '0x7e63a5f1a8f0b4d0934b2f2327daed3f6bb2ee75',
+    [CHAINS_ENUM.ERA]: '0x5a148a9260c1f670429361c34d40b477280f01a9',
+    [CHAINS_ENUM.BSC]: '0x10d8b8daa26d307489803e10477de69c0492b610',
+    [CHAINS_ENUM.MODE]: '0x3bad7ad0728f9917d1bf08af5782dcbd516cdd96',
+    [EXTRA_CHAINS.WORLD]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [CHAINS_ENUM.ZORA]: '0x13fdac9f9b4777705db45291bbff3c972c6d1d97',
+    [EXTRA_CHAINS.LISK]: '0x9552a0a6624a23b848060ae5901659cdda1f83f8',
+    [EXTRA_CHAINS.UNI]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [EXTRA_CHAINS.SONEIUM]: '0x3bad7ad0728f9917d1bf08af5782dcbd516cdd96',
+    [EXTRA_CHAINS.INK]: '0x10d8b8daa26d307489803e10477de69c0492b610',
+    [EXTRA_CHAINS.LENS]: '0xb234ca484866c811d0e6d3318866f583781ed045',
+    [CHAINS_ENUM.BLAST]: '0x2d509190ed0172ba588407d4c2df918f955cc6e1',
+    [EXTRA_CHAINS.HYPER]: '0x35e63ea3eb0fb7a3bc543c71fb66412e1f6b0e04',
+    [EXTRA_CHAINS.MEGAETH]: '0x3db06da8f0a24a525f314eec954fc5c6a973d40e',
+    [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
+    [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
+  },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
+
+// 部分聚合器除逐链合约外,API 还可能路由到全局合约(同时作为 approve 目标与 tx.to)。
+// 这些地址对该聚合器所有链均合法,校验时与逐链白名单并列接受。对应 DeBankCore 的 *_alt_contracts。
+export const BRIDGE_ALT_CONTRACTS_DATA = {
+  across: [
+    // SpokePoolPeriphery(swap+bridge 入口),多数链同址
+    '0x10d8b8daa26d307489803e10477de69c0492b610',
+    // SpokePoolPeriphery(zkSync 系: era / lens)
+    '0x5a148a9260c1f670429361c34d40b477280f01a9',
+  ],
+  relay: [
+    // ApprovalProxy v3 全局地址,按 EVM fork 类型区分,与逐链 Depository 同时在用
+    '0x8754bc615047de01228a7527b712806a71a8dc9a', // london
+    '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', // cancun
+    '0xf6e54bbf91e564fcf0df3ed9f2dd82913e9232c3', // zero / zkevm
+  ],
+} as const satisfies Partial<Record<string, readonly string[]>>;
 
 export const BRIDGE_ROUTER_WHITELIST_DATA = {
   lifi: {
@@ -381,5 +424,30 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [CHAINS_ENUM.LINEA]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
     [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
     [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
+  },
+  // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
+  // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
+  across: {
+    [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
+    [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',
+    [CHAINS_ENUM.ARBITRUM]: '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a',
+    [CHAINS_ENUM.BASE]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [CHAINS_ENUM.POLYGON]: '0x9295ee1d8c5b022be115a2ad3c30c72e34e7f096',
+    [CHAINS_ENUM.LINEA]: '0x7e63a5f1a8f0b4d0934b2f2327daed3f6bb2ee75',
+    [CHAINS_ENUM.ERA]: '0x5a148a9260c1f670429361c34d40b477280f01a9',
+    [CHAINS_ENUM.BSC]: '0x10d8b8daa26d307489803e10477de69c0492b610',
+    [CHAINS_ENUM.MODE]: '0x3bad7ad0728f9917d1bf08af5782dcbd516cdd96',
+    [EXTRA_CHAINS.WORLD]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [CHAINS_ENUM.ZORA]: '0x13fdac9f9b4777705db45291bbff3c972c6d1d97',
+    [EXTRA_CHAINS.LISK]: '0x9552a0a6624a23b848060ae5901659cdda1f83f8',
+    [EXTRA_CHAINS.UNI]: '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64',
+    [EXTRA_CHAINS.SONEIUM]: '0x3bad7ad0728f9917d1bf08af5782dcbd516cdd96',
+    [EXTRA_CHAINS.INK]: '0x10d8b8daa26d307489803e10477de69c0492b610',
+    [EXTRA_CHAINS.LENS]: '0xb234ca484866c811d0e6d3318866f583781ed045',
+    [CHAINS_ENUM.BLAST]: '0x2d509190ed0172ba588407d4c2df918f955cc6e1',
+    [EXTRA_CHAINS.HYPER]: '0x35e63ea3eb0fb7a3bc543c71fb66412e1f6b0e04',
+    [EXTRA_CHAINS.MEGAETH]: '0x3db06da8f0a24a525f314eec954fc5c6a973d40e',
+    [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
+    [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;

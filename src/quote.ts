@@ -2,6 +2,7 @@ import type { OpenApiService } from '@rabby-wallet/rabby-api';
 import { BRIDGE_ENUM } from './consts.js';
 import type { BridgeAggregatorId } from './consts.js';
 import {
+  getBridgeAltContracts,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -109,7 +110,12 @@ export const validateBridgeQuote = (
     return true;
   }
 
-  if (!isSameAddress(expectedSpender, receivedSpender)) {
+  const allowedSpenders = [
+    expectedSpender,
+    ...getBridgeAltContracts(aggregatorId),
+  ];
+
+  if (!allowedSpenders.some((addr) => isSameAddress(addr, receivedSpender))) {
     throw new InvalidBridgeContractError(
       'spender',
       aggregatorId,
@@ -139,7 +145,12 @@ export const validateBridgeTx = (
     return true;
   }
 
-  if (!isSameAddress(expectedRouter, tx.to)) {
+  const allowedRouters = [
+    expectedRouter,
+    ...getBridgeAltContracts(aggregatorId),
+  ];
+
+  if (!allowedRouters.some((addr) => isSameAddress(addr, tx.to))) {
     throw new InvalidBridgeContractError(
       'router',
       aggregatorId,

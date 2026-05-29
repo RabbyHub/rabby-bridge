@@ -88,6 +88,41 @@ describe('validateBridgeTx', () => {
       )
     ).toThrow(InvalidBridgeContractError);
   });
+
+  test('accepts across per-chain SpokePool and global periphery (alt)', () => {
+    const baseSpokePool = '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64';
+    const periphery = '0x10D8b8DaA26d307489803e10477De69C0492B610';
+
+    // direct depositV3 route -> per-chain SpokePool
+    expect(
+      validateBridgeTx(
+        BRIDGE_ENUM.ACROSS,
+        'base',
+        'bridge-1',
+        makeTx({ to: baseSpokePool })
+      )
+    ).toBe(true);
+
+    // swap+bridge route -> global SpokePoolPeriphery
+    expect(
+      validateBridgeTx(
+        BRIDGE_ENUM.ACROSS,
+        'base',
+        'bridge-1',
+        makeTx({ to: periphery })
+      )
+    ).toBe(true);
+
+    // anything else is still rejected
+    expect(() =>
+      validateBridgeTx(
+        BRIDGE_ENUM.ACROSS,
+        'base',
+        'bridge-1',
+        makeTx({ to: '0xdeadbeef' })
+      )
+    ).toThrow(InvalidBridgeContractError);
+  });
 });
 
 describe('getQuote', () => {

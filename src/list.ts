@@ -6,6 +6,7 @@ import {
   BRIDGE_SUPPORT_CHAINS_DATA,
   BRIDGE_ROUTER_WHITELIST_DATA,
   BRIDGE_SPENDER_WHITELIST_DATA,
+  BRIDGE_ALT_CONTRACTS_DATA,
 } from './data.js';
 
 export { CHAINS_ENUM };
@@ -86,5 +87,16 @@ export const getBridgeRouter = (
 
   return (BRIDGE_ROUTER_WHITELIST[aggregatorId] as Record<string, string> | undefined)?.[
     chainEnum
+  ];
+};
+
+// 该聚合器的全局合法合约(periphery 等),对其所有链均有效,与逐链白名单并列接受。
+export const getBridgeAltContracts = (
+  aggregatorId: BridgeAggregatorId
+): string[] => {
+  return [
+    ...((BRIDGE_ALT_CONTRACTS_DATA as Partial<
+      Record<BridgeAggregatorId, readonly string[]>
+    >)[aggregatorId] || []),
   ];
 };
