@@ -221,6 +221,8 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
     [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
   },
+  // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
+  // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
   across: {
     [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
     [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',
@@ -245,6 +247,23 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
+
+// 部分聚合器除逐链合约外,API 还可能路由到全局合约(同时作为 approve 目标与 tx.to)。
+// 这些地址对该聚合器所有链均合法,校验时与逐链白名单并列接受。对应 DeBankCore 的 *_alt_contracts。
+export const BRIDGE_ALT_CONTRACTS_DATA = {
+  across: [
+    // SpokePoolPeriphery(swap+bridge 入口),多数链同址
+    '0x10d8b8daa26d307489803e10477de69c0492b610',
+    // SpokePoolPeriphery(zkSync 系: era / lens)
+    '0x5a148a9260c1f670429361c34d40b477280f01a9',
+  ],
+  relay: [
+    // ApprovalProxy v3 全局地址,按 EVM fork 类型区分,与逐链 Depository 同时在用
+    '0x8754bc615047de01228a7527b712806a71a8dc9a', // london
+    '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', // cancun
+    '0xf6e54bbf91e564fcf0df3ed9f2dd82913e9232c3', // zero / zkevm
+  ],
+} as const satisfies Partial<Record<string, readonly string[]>>;
 
 export const BRIDGE_ROUTER_WHITELIST_DATA = {
   lifi: {
@@ -406,6 +425,8 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.HYPER]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
     [EXTRA_CHAINS.MONAD]: '0x337685fdab40d39bd02028545a4ffa7d287cc3e2',
   },
+  // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
+  // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
   across: {
     [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
     [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',

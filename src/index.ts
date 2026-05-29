@@ -6,6 +6,7 @@ export {
   BRIDGE_SPENDER_WHITELIST,
   BRIDGE_SUPPORT_CHAINS,
   CHAINS_ENUM,
+  getBridgeAltContracts,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,

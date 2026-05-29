@@ -5,6 +5,7 @@ import {
   BRIDGE_ENUM,
   BRIDGE_SUPPORT_CHAINS,
   CHAINS_ENUM,
+  getBridgeAltContracts,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -72,15 +73,35 @@ describe('bridge allowlists', () => {
     expect(getBridgeRouter(BRIDGE_ENUM.MAYAN, 'arb')).toBe(mayanForwarder);
   });
 
-  test('exposes across aggregator with per-chain SpokePool contracts', () => {
-    const acrossEth = '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5';
-    const acrossArb = '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a';
+  test('exposes across per-chain SpokePool plus global periphery alt contracts', () => {
+    const acrossEthSpokePool = '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5';
+    const acrossArbSpokePool = '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a';
+    const periphery = '0x10d8b8daa26d307489803e10477de69c0492b610';
+    const peripheryZkSync = '0x5a148a9260c1f670429361c34d40b477280f01a9';
 
     expect(isSupportedBridgeAggregator(BRIDGE_ENUM.ACROSS)).toBe(true);
     expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'eth')).toBe(true);
     expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'arb')).toBe(true);
     expect(isSupportedBridgeChain(BRIDGE_ENUM.ACROSS, 'hyper')).toBe(true);
-    expect(getBridgeSpender(BRIDGE_ENUM.ACROSS, 'eth')).toBe(acrossEth);
-    expect(getBridgeRouter(BRIDGE_ENUM.ACROSS, 'arb')).toBe(acrossArb);
+    expect(getBridgeSpender(BRIDGE_ENUM.ACROSS, 'eth')).toBe(acrossEthSpokePool);
+    expect(getBridgeRouter(BRIDGE_ENUM.ACROSS, 'arb')).toBe(acrossArbSpokePool);
+    // both periphery addresses are globally valid for across
+    expect(getBridgeAltContracts(BRIDGE_ENUM.ACROSS)).toEqual([
+      periphery,
+      peripheryZkSync,
+    ]);
+    // aggregators without alt contracts return an empty list
+    expect(getBridgeAltContracts(BRIDGE_ENUM.LIFI)).toEqual([]);
+  });
+
+  test('exposes relay per-chain Depository plus global ApprovalProxy alt contracts', () => {
+    const relayEthDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
+
+    expect(getBridgeRouter(BRIDGE_ENUM.RELAY, 'eth')).toBe(relayEthDepository);
+    expect(getBridgeAltContracts(BRIDGE_ENUM.RELAY)).toEqual([
+      '0x8754bc615047de01228a7527b712806a71a8dc9a',
+      '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be',
+      '0xf6e54bbf91e564fcf0df3ed9f2dd82913e9232c3',
+    ]);
   });
 });
