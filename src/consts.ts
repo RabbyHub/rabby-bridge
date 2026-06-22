@@ -10,6 +10,7 @@ export const BRIDGE_ENUM = {
   NEAR_INTENTS: 'near_intents',
   MAYAN: 'mayan',
   ACROSS: 'across',
+  SOCKET: 'socket',
 } as const;
 
 export type BridgeAggregatorId = (typeof BRIDGE_AGGREGATORS)[number];

@@ -94,6 +94,23 @@ describe('bridge allowlists', () => {
     expect(getBridgeAltContracts(BRIDGE_ENUM.LIFI)).toEqual([]);
   });
 
+  test('exposes socket aggregator with unified Allowance Holder contract', () => {
+    const socketAllowanceHolder = '0x50c4e75a512f2a14a7b304787adf79c4531a5909';
+
+    expect(isSupportedBridgeAggregator(BRIDGE_ENUM.SOCKET)).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'eth')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'hyper')).toBe(true);
+    // approve spender == tx.to, both lookups return the same address
+    expect(getBridgeSpender(BRIDGE_ENUM.SOCKET, 'eth')).toBe(
+      socketAllowanceHolder
+    );
+    expect(getBridgeRouter(BRIDGE_ENUM.SOCKET, 'arb')).toBe(
+      socketAllowanceHolder
+    );
+    // socket has no alt contracts
+    expect(getBridgeAltContracts(BRIDGE_ENUM.SOCKET)).toEqual([]);
+  });
+
   test('exposes relay per-chain Depository plus global ApprovalProxy alt contracts', () => {
     const relayEthDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
 
