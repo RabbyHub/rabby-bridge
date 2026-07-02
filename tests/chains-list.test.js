@@ -110,6 +110,9 @@ describe('bridge allowlists', () => {
     const relayEthDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
 
     expect(getBridgeRouter(BRIDGE_ENUM.RELAY, 'eth')).toBe(relayEthDepository);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.RELAY, 'hood')).toBe(true);
+    expect(getBridgeSpender(BRIDGE_ENUM.RELAY, 'hood')).toBe(relayEthDepository);
+    expect(getBridgeRouter(BRIDGE_ENUM.RELAY, 'HOOD')).toBe(relayEthDepository);
     expect(getBridgeAltContracts(BRIDGE_ENUM.RELAY)).toEqual([
       '0x8754bc615047de01228a7527b712806a71a8dc9a',
       '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be',
