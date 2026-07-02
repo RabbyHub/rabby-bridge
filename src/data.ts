@@ -43,6 +43,7 @@ const EXTRA_CHAINS = {
   STORY: 'STORY' as ChainEnum,
   CYBER: 'CYBER' as ChainEnum,
   ZIRCUIT: 'ZIRCUIT' as ChainEnum,
+  HOOD: 'HOOD' as ChainEnum,
 } as const;
 
 export const BRIDGE_SUPPORT_CHAINS_DATA = {
@@ -245,6 +246,7 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MEGAETH]: '0x3db06da8f0a24a525f314eec954fc5c6a973d40e',
     [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
     [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
+    [EXTRA_CHAINS.HOOD]: '0xD29C85F15DF544bA632C9E25829fd29d767d7978',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
 
@@ -449,5 +451,6 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MEGAETH]: '0x3db06da8f0a24a525f314eec954fc5c6a973d40e',
     [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
     [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
+    [EXTRA_CHAINS.HOOD]: '0xD29C85F15DF544bA632C9E25829fd29d767d7978',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
