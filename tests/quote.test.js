@@ -41,6 +41,18 @@ describe('validateBridgeQuote', () => {
     ).toBe(true);
   });
 
+  test('accepts socket v3 allowance holder as spender', () => {
+    expect(
+      validateBridgeQuote(
+        BRIDGE_ENUM.SOCKET,
+        'hood',
+        makeQuote({
+          approve_contract_id: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909',
+        })
+      )
+    ).toBe(true);
+  });
+
   test('skips validation for near intents', () => {
     expect(
       validateBridgeQuote(
@@ -76,6 +88,17 @@ describe('validateBridgeTx', () => {
     expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toBe(
       true
     );
+  });
+
+  test('accepts socket v3 allowance holder as router', () => {
+    expect(
+      validateBridgeTx(
+        BRIDGE_ENUM.SOCKET,
+        'hood',
+        'bridge-1',
+        makeTx({ to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' })
+      )
+    ).toBe(true);
   });
 
   test('throws when tx router does not match the allowlist', () => {
