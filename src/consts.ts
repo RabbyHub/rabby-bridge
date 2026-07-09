@@ -5,6 +5,7 @@ export const BRIDGE_AGGREGATORS = SUPPORTED_AGGREGATORS;
 export const BRIDGE_ENUM = {
   LIFI: 'lifi',
   BUNGEE: 'bungee',
+  SOCKET: 'socket',
   RELAY: 'relay',
   STARGATE: 'stargate',
   NEAR_INTENTS: 'near_intents',

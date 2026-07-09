@@ -77,6 +77,26 @@ describe('bridge allowlists', () => {
     expect(getBridgeRouter(BRIDGE_ENUM.MAYAN, 'arb')).toBe(mayanForwarder);
   });
 
+  test('exposes socket v3 allowance holder on verified chains', () => {
+    const socketAllowanceHolder =
+      '0x50c4e75a512f2a14a7b304787adf79c4531a5909';
+
+    expect(isSupportedBridgeAggregator(BRIDGE_ENUM.SOCKET)).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'eth')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'base')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'hood')).toBe(true);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'abs')).toBe(false);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'era')).toBe(false);
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.SOCKET, 'tempo')).toBe(false);
+    expect(getBridgeSpender(BRIDGE_ENUM.SOCKET, 'eth')).toBe(
+      socketAllowanceHolder
+    );
+    expect(getBridgeRouter(BRIDGE_ENUM.SOCKET, 'HOOD')).toBe(
+      socketAllowanceHolder
+    );
+    expect(getBridgeAltContracts(BRIDGE_ENUM.SOCKET)).toEqual([]);
+  });
+
   test('exposes across per-chain SpokePool plus global periphery alt contracts', () => {
     const acrossEthSpokePool = '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5';
     const acrossArbSpokePool = '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a';
