@@ -17,6 +17,7 @@ export interface BridgeQuoteListParams {
   toChainId: string;
   toTokenId: string;
   slippage?: string;
+  feeRate?: number;
 }
 
 export interface BridgeBuildTxParams extends BridgeQuoteListParams {
@@ -179,6 +180,7 @@ export const getQuote = async (
     from_token_raw_amount: params.fromTokenRawAmount,
     to_chain_id: params.toChainId,
     to_token_id: params.toTokenId,
+    fee_rate: params.feeRate,
   };
 
   const quotes = api.getBridgeQuoteListV2
