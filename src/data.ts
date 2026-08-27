@@ -291,10 +291,12 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
 // 这些地址对该聚合器所有链均合法,校验时与逐链白名单并列接受。对应 DeBankCore 的 *_alt_contracts。
 export const BRIDGE_ALT_CONTRACTS_DATA = {
   across: [
-    // SpokePoolPeriphery(swap+bridge 入口),多数链同址
+    // SpokePoolPeriphery(swap+bridge 入口),多数链同址(v1 / v2)
     '0x10d8b8daa26d307489803e10477de69c0492b610',
-    // SpokePoolPeriphery(zkSync 系: era / lens)
+    '0x97ccdbea4632140639ad5ea9b944aa034eb15fd4',
+    // SpokePoolPeriphery(zkSync 系: era / lens,v1 / v2)
     '0x5a148a9260c1f670429361c34d40b477280f01a9',
+    '0x7c99ced6d8011af8a52488884f7ba2c61b0fa57d',
   ],
   relay: [
     // ApprovalProxy v3 全局地址,按 EVM fork 类型区分,与逐链 Depository 同时在用
