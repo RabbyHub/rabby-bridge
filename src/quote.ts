@@ -181,14 +181,12 @@ export const getQuote = async (
     to_chain_id: params.toChainId,
     to_token_id: params.toTokenId,
     fee_rate: params.feeRate,
+    slippage: requireSlippage(params.slippage),
   };
 
   const quotes = api.getBridgeQuoteListV2
     ? await api.getBridgeQuoteListV2(baseParams)
-    : await api.getBridgeQuoteV2?.({
-        ...baseParams,
-        slippage: requireSlippage(params.slippage),
-      });
+    : await api.getBridgeQuoteV2?.(baseParams);
 
   if (!quotes) {
     throw new Error('Bridge API does not provide a quote list method');
