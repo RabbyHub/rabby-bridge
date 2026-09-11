@@ -7,6 +7,7 @@ import {
   BRIDGE_ROUTER_WHITELIST_DATA,
   BRIDGE_SPENDER_WHITELIST_DATA,
   BRIDGE_ALT_CONTRACTS_DATA,
+  BRIDGE_ROUTER_ALT_WHITELIST_DATA,
 } from './data.js';
 
 export { CHAINS_ENUM };
@@ -88,6 +89,21 @@ export const getBridgeRouter = (
   return (BRIDGE_ROUTER_WHITELIST[aggregatorId] as Record<string, string> | undefined)?.[
     chainEnum
   ];
+};
+
+export const getBridgeAltRouters = (
+  aggregatorId: BridgeAggregatorId,
+  chainId: string
+): string[] => {
+  const chainEnum = normalizeChainEnum(chainId);
+  if (!chainEnum) {
+    return [];
+  }
+
+  const routers = BRIDGE_ROUTER_ALT_WHITELIST_DATA as Partial<
+    Record<BridgeAggregatorId, Partial<Record<string, readonly string[]>>>
+  >;
+  return [...(routers[aggregatorId]?.[chainEnum] || [])];
 };
 
 // 该聚合器的全局合法合约(periphery 等),对其所有链均有效,与逐链白名单并列接受。

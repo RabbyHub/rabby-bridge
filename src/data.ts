@@ -224,6 +224,7 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MEGAETH]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [EXTRA_CHAINS.PLASMA]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [EXTRA_CHAINS.HOOD]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.ARC]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
   },
   stargate: {
     [CHAINS_ENUM.BASE]: '0x8eca03175fd5ac62fb6f4ecbb9a95d13dcdcb4f8',
@@ -287,6 +288,7 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
     [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
     [EXTRA_CHAINS.HOOD]: '0xD29C85F15DF544bA632C9E25829fd29d767d7978',
+    [EXTRA_CHAINS.ARC]: '0x9b4a302a548c7e313c2b74c461db7b84d3074a84',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
 
@@ -435,6 +437,7 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MEGAETH]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [EXTRA_CHAINS.PLASMA]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [EXTRA_CHAINS.HOOD]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.ARC]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
   },
   stargate: {
     [CHAINS_ENUM.BASE]: '0x7e07a9148e9149e430c6412b79a675028595ff1f',
@@ -498,5 +501,13 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.MONAD]: '0xd2ecb3afe598b746f8123cae365a598da831a449',
     [EXTRA_CHAINS.PLASMA]: '0x50039faefebef707cfd94d6d462fe6d10b39207a',
     [EXTRA_CHAINS.HOOD]: '0xD29C85F15DF544bA632C9E25829fd29d767d7978',
+    [EXTRA_CHAINS.ARC]: '0x9b4a302a548c7e313c2b74c461db7b84d3074a84',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
+
+// 仅在指定链生效的额外 router。
+export const BRIDGE_ROUTER_ALT_WHITELIST_DATA = {
+  relay: {
+    [EXTRA_CHAINS.ARC]: ['0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f'],
+  },
+} as const satisfies Record<string, Partial<Record<ChainEnum, readonly string[]>>>;

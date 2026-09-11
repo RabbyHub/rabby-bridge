@@ -171,6 +171,8 @@ describe('getQuote', () => {
       from_token_raw_amount: baseParams.fromTokenRawAmount,
       to_chain_id: baseParams.toChainId,
       to_token_id: baseParams.toTokenId,
+      slippage: baseParams.slippage,
+      fee_rate: undefined,
     });
     expect(api.getBridgeQuoteV2).not.toHaveBeenCalled();
     expect(quotes).toEqual([makeQuote({ bridge_id: 'valid-bridge' })]);
@@ -380,5 +382,60 @@ describe('getQuoteListWithTx', () => {
         tx: makeTx(),
       },
     ]);
+  });
+});
+
+
+describe('Arc contract validation', () => {
+  const relayRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
+
+  test.each([
+    [BRIDGE_ENUM.ACROSS, '0x9b4A302A548c7e313c2b74C461db7b84d3074A84', '0x9b4A302A548c7e313c2b74C461db7b84d3074A84'],
+    [BRIDGE_ENUM.RELAY, '0x4cd00e387622c35bddb9b4c962c136462338bc31', '0x4cd00e387622c35bddb9b4c962c136462338bc31'],
+    [BRIDGE_ENUM.RELAY, '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', relayRouter],
+  ])('accepts the configured %s route through quote and tx building', async (aggregator, spender, router) => {
+    const quote = makeQuote({ approve_contract_id: spender });
+    const tx = makeTx({ to: router });
+    const api = {
+      getBridgeQuoteListV2: jest.fn().mockResolvedValue([quote]),
+      buildBridgeTx: jest.fn().mockResolvedValue(tx),
+    };
+    await expect(getQuoteListWithTx(
+      aggregator,
+      { ...baseParams, fromChainId: 'arc' },
+      api
+    )).resolves.toEqual([{ ...quote, tx }]);
+    expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);
+    expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
+  });
+
+  test('accepts the additional router case-insensitively with a canonical chain enum', () => {
+    expect(validateBridgeTx(
+      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', makeTx({ to: relayRouter.toUpperCase() })
+    )).toBe(true);
+  });
+
+  test.each([
+    [BRIDGE_ENUM.RELAY, 'eth'],
+    [BRIDGE_ENUM.ACROSS, 'arc'],
+  ])('rejects the Arc Relay router for %s on %s', (aggregator, chainId) => {
+    expect(() => validateBridgeTx(
+      aggregator, chainId, 'bridge-1', makeTx({ to: relayRouter })
+    )).toThrow(InvalidBridgeContractError);
+  });
+
+  test('does not accept the additional router as a spender', () => {
+    expect(() => validateBridgeQuote(
+      BRIDGE_ENUM.RELAY, 'arc', makeQuote({ approve_contract_id: relayRouter })
+    )).toThrow(InvalidBridgeContractError);
+  });
+
+  test.each([BRIDGE_ENUM.ACROSS, BRIDGE_ENUM.RELAY])('rejects unknown Arc contracts for %s', (aggregator) => {
+    expect(() => validateBridgeQuote(
+      aggregator, 'arc', makeQuote({ approve_contract_id: '0xdeadbeef' })
+    )).toThrow(InvalidBridgeContractError);
+    expect(() => validateBridgeTx(
+      aggregator, 'arc', 'bridge-1', makeTx({ to: '0xdeadbeef' })
+    )).toThrow(InvalidBridgeContractError);
   });
 });
