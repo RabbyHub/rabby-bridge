@@ -387,12 +387,20 @@ describe('getQuoteListWithTx', () => {
 
 
 describe('Arc contract validation', () => {
-  const relayRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
+  const relayAltRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
+  const acrossPeriphery = '0xe791a2669bef779ff7a4a9cf789f8ee2ca20a32c';
+  const lifi = '0xa4072583658fae592a3506a42431cb6316a8d40b';
+  const socket = '0x50c4e75a512f2a14a7b304787adf79c4531a5909';
+  const acrossSpokePool = '0x9b4A302A548c7e313c2b74C461db7b84d3074A84';
+  const relayDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
 
   test.each([
-    [BRIDGE_ENUM.ACROSS, '0x9b4A302A548c7e313c2b74C461db7b84d3074A84', '0x9b4A302A548c7e313c2b74C461db7b84d3074A84'],
-    [BRIDGE_ENUM.RELAY, '0x4cd00e387622c35bddb9b4c962c136462338bc31', '0x4cd00e387622c35bddb9b4c962c136462338bc31'],
-    [BRIDGE_ENUM.RELAY, '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', relayRouter],
+    [BRIDGE_ENUM.LIFI, lifi, lifi],
+    [BRIDGE_ENUM.SOCKET, socket, socket],
+    [BRIDGE_ENUM.ACROSS, acrossSpokePool, acrossSpokePool],
+    [BRIDGE_ENUM.ACROSS, acrossSpokePool, acrossPeriphery],
+    [BRIDGE_ENUM.RELAY, relayDepository, relayDepository],
+    [BRIDGE_ENUM.RELAY, '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', relayAltRouter],
   ])('accepts the configured %s route through quote and tx building', async (aggregator, spender, router) => {
     const quote = makeQuote({ approve_contract_id: spender });
     const tx = makeTx({ to: router });
@@ -409,28 +417,41 @@ describe('Arc contract validation', () => {
     expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
   });
 
-  test('accepts the additional router case-insensitively with a canonical chain enum', () => {
+  test.each([
+    [BRIDGE_ENUM.RELAY, relayAltRouter],
+    [BRIDGE_ENUM.ACROSS, acrossPeriphery],
+  ])('accepts the additional %s router case-insensitively with a canonical chain enum', (aggregator, router) => {
     expect(validateBridgeTx(
-      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', makeTx({ to: relayRouter.toUpperCase() })
+      aggregator, 'ARC', 'bridge-1', makeTx({ to: router.toUpperCase() })
     )).toBe(true);
   });
 
   test.each([
-    [BRIDGE_ENUM.RELAY, 'eth'],
-    [BRIDGE_ENUM.ACROSS, 'arc'],
-  ])('rejects the Arc Relay router for %s on %s', (aggregator, chainId) => {
+    [BRIDGE_ENUM.RELAY, 'eth', relayAltRouter],
+    [BRIDGE_ENUM.ACROSS, 'arc', relayAltRouter],
+    [BRIDGE_ENUM.RELAY, 'arc', acrossPeriphery],
+    [BRIDGE_ENUM.ACROSS, 'eth', acrossPeriphery],
+  ])('rejects a chain-specific Arc router for %s on %s', (aggregator, chainId, router) => {
     expect(() => validateBridgeTx(
-      aggregator, chainId, 'bridge-1', makeTx({ to: relayRouter })
+      aggregator, chainId, 'bridge-1', makeTx({ to: router })
     )).toThrow(InvalidBridgeContractError);
   });
 
-  test('does not accept the additional router as a spender', () => {
+  test.each([
+    [BRIDGE_ENUM.RELAY, relayAltRouter],
+    [BRIDGE_ENUM.ACROSS, acrossPeriphery],
+  ])('does not accept the additional %s router as a spender', (aggregator, router) => {
     expect(() => validateBridgeQuote(
-      BRIDGE_ENUM.RELAY, 'arc', makeQuote({ approve_contract_id: relayRouter })
+      aggregator, 'arc', makeQuote({ approve_contract_id: router })
     )).toThrow(InvalidBridgeContractError);
   });
 
-  test.each([BRIDGE_ENUM.ACROSS, BRIDGE_ENUM.RELAY])('rejects unknown Arc contracts for %s', (aggregator) => {
+  test.each([
+    BRIDGE_ENUM.LIFI,
+    BRIDGE_ENUM.SOCKET,
+    BRIDGE_ENUM.ACROSS,
+    BRIDGE_ENUM.RELAY,
+  ])('rejects unknown Arc contracts for %s', (aggregator) => {
     expect(() => validateBridgeQuote(
       aggregator, 'arc', makeQuote({ approve_contract_id: '0xdeadbeef' })
     )).toThrow(InvalidBridgeContractError);

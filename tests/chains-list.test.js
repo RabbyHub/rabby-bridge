@@ -146,6 +146,13 @@ describe('bridge allowlists', () => {
 
 
 describe('Arc bridge allowlists', () => {
+  const lifi = '0xa4072583658fae592a3506a42431cb6316a8d40b';
+  const relay = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
+  const across = '0x9b4a302a548c7e313c2b74c461db7b84d3074a84';
+  const socket = '0x50c4e75a512f2a14a7b304787adf79c4531a5909';
+  const relayAltRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
+  const acrossPeriphery = '0xe791a2669bef779ff7a4a9cf789f8ee2ca20a32c';
+
   test.each(['arc', 'ARC', 'Arc'])('normalizes %s and preserves round-tripping', (chainId) => {
     expect(normalizeChainEnum(chainId)).toBe('ARC');
     expect(SERVER_ID_TO_CHAIN_ENUM.arc).toBe('ARC');
@@ -153,8 +160,10 @@ describe('Arc bridge allowlists', () => {
   });
 
   test.each([
-    [BRIDGE_ENUM.ACROSS, '0x9b4a302a548c7e313c2b74c461db7b84d3074a84'],
-    [BRIDGE_ENUM.RELAY, '0x4cd00e387622c35bddb9b4c962c136462338bc31'],
+    [BRIDGE_ENUM.LIFI, lifi],
+    [BRIDGE_ENUM.RELAY, relay],
+    [BRIDGE_ENUM.ACROSS, across],
+    [BRIDGE_ENUM.SOCKET, socket],
   ])('exposes Arc support and primary contracts for %s', (aggregator, address) => {
     expect(isSupportedBridgeChain(aggregator, 'arc')).toBe(true);
     expect(BRIDGE_SUPPORT_CHAINS[aggregator]).toContain('ARC');
@@ -163,14 +172,23 @@ describe('Arc bridge allowlists', () => {
     expect(getBridgeRouter(aggregator, 'ARC')).toBe(address);
   });
 
-  test('scopes the additional router to Relay on Arc', () => {
-    const router = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
+  test('scopes additional routers to the matching aggregator on Arc', () => {
     for (const chainId of ['arc', 'ARC', 'Arc']) {
-      expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, chainId)).toEqual([router]);
+      expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, chainId)).toEqual([
+        relayAltRouter,
+      ]);
+      expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, chainId)).toEqual([
+        acrossPeriphery,
+      ]);
     }
     expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'eth')).toEqual([]);
-    expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, 'arc')).toEqual([]);
+    expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, 'eth')).toEqual([]);
+    expect(getBridgeAltRouters(BRIDGE_ENUM.LIFI, 'arc')).toEqual([]);
+    expect(getBridgeAltRouters(BRIDGE_ENUM.SOCKET, 'arc')).toEqual([]);
     expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'not-a-chain')).toEqual([]);
-    expect(getBridgeAltContracts(BRIDGE_ENUM.RELAY)).not.toContain(router);
+    expect(getBridgeAltContracts(BRIDGE_ENUM.RELAY)).not.toContain(relayAltRouter);
+    expect(getBridgeAltContracts(BRIDGE_ENUM.ACROSS)).not.toContain(
+      acrossPeriphery
+    );
   });
 });

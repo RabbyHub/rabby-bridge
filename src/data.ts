@@ -510,4 +510,8 @@ export const BRIDGE_ROUTER_ALT_WHITELIST_DATA = {
   relay: {
     [EXTRA_CHAINS.ARC]: ['0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f'],
   },
+  across: {
+    // arc 专有 SpokePoolPeriphery,swap+bridge 路由的 tx.to
+    [EXTRA_CHAINS.ARC]: ['0xe791a2669bef779ff7a4a9cf789f8ee2ca20a32c'],
+  },
 } as const satisfies Record<string, Partial<Record<ChainEnum, readonly string[]>>>;
