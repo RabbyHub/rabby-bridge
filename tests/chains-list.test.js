@@ -7,6 +7,7 @@ import {
   CHAINS_ENUM,
   getBridgeAltContracts,
   getBridgeAltRouters,
+  getBridgeAltSpenders,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -180,9 +181,16 @@ describe('Arc bridge allowlists', () => {
       expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, chainId)).toEqual([
         acrossPeriphery,
       ]);
+      expect(getBridgeAltSpenders(BRIDGE_ENUM.ACROSS, chainId)).toEqual([
+        acrossPeriphery,
+      ]);
+      expect(getBridgeAltSpenders(BRIDGE_ENUM.RELAY, chainId)).toEqual([]);
     }
     expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'eth')).toEqual([]);
     expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, 'eth')).toEqual([]);
+    expect(getBridgeAltSpenders(BRIDGE_ENUM.ACROSS, 'eth')).toEqual([]);
+    expect(getBridgeAltSpenders(BRIDGE_ENUM.LIFI, 'arc')).toEqual([]);
+    expect(getBridgeAltSpenders(BRIDGE_ENUM.SOCKET, 'arc')).toEqual([]);
     expect(getBridgeAltRouters(BRIDGE_ENUM.LIFI, 'arc')).toEqual([]);
     expect(getBridgeAltRouters(BRIDGE_ENUM.SOCKET, 'arc')).toEqual([]);
     expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'not-a-chain')).toEqual([]);

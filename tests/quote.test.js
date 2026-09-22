@@ -399,6 +399,8 @@ describe('Arc contract validation', () => {
     [BRIDGE_ENUM.SOCKET, socket, socket],
     [BRIDGE_ENUM.ACROSS, acrossSpokePool, acrossSpokePool],
     [BRIDGE_ENUM.ACROSS, acrossSpokePool, acrossPeriphery],
+    [BRIDGE_ENUM.ACROSS, acrossPeriphery, acrossPeriphery],
+    [BRIDGE_ENUM.ACROSS, acrossPeriphery, acrossSpokePool],
     [BRIDGE_ENUM.RELAY, relayDepository, relayDepository],
     [BRIDGE_ENUM.RELAY, '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', relayAltRouter],
   ])('accepts the configured %s route through quote and tx building', async (aggregator, spender, router) => {
@@ -437,12 +439,17 @@ describe('Arc contract validation', () => {
     )).toThrow(InvalidBridgeContractError);
   });
 
-  test.each([
-    [BRIDGE_ENUM.RELAY, relayAltRouter],
-    [BRIDGE_ENUM.ACROSS, acrossPeriphery],
-  ])('does not accept the additional %s router as a spender', (aggregator, router) => {
+  test('accepts the Arc Across periphery as a spender', () => {
+    expect(validateBridgeQuote(
+      BRIDGE_ENUM.ACROSS,
+      'arc',
+      makeQuote({ approve_contract_id: acrossPeriphery.toUpperCase() })
+    )).toBe(true);
+  });
+
+  test('does not accept the additional relay router as a spender', () => {
     expect(() => validateBridgeQuote(
-      aggregator, 'arc', makeQuote({ approve_contract_id: router })
+      BRIDGE_ENUM.RELAY, 'arc', makeQuote({ approve_contract_id: relayAltRouter })
     )).toThrow(InvalidBridgeContractError);
   });
 

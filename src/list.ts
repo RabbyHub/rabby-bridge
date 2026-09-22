@@ -8,6 +8,7 @@ import {
   BRIDGE_SPENDER_WHITELIST_DATA,
   BRIDGE_ALT_CONTRACTS_DATA,
   BRIDGE_ROUTER_ALT_WHITELIST_DATA,
+  BRIDGE_SPENDER_ALT_WHITELIST_DATA,
 } from './data.js';
 
 export { CHAINS_ENUM };
@@ -91,7 +92,8 @@ export const getBridgeRouter = (
   ];
 };
 
-export const getBridgeAltRouters = (
+const getChainAltContracts = (
+  data: Partial<Record<BridgeAggregatorId, Partial<Record<string, readonly string[]>>>>,
   aggregatorId: BridgeAggregatorId,
   chainId: string
 ): string[] => {
@@ -100,10 +102,33 @@ export const getBridgeAltRouters = (
     return [];
   }
 
-  const routers = BRIDGE_ROUTER_ALT_WHITELIST_DATA as Partial<
-    Record<BridgeAggregatorId, Partial<Record<string, readonly string[]>>>
-  >;
-  return [...(routers[aggregatorId]?.[chainEnum] || [])];
+  return [...(data[aggregatorId]?.[chainEnum] || [])];
+};
+
+export const getBridgeAltSpenders = (
+  aggregatorId: BridgeAggregatorId,
+  chainId: string
+): string[] => {
+  return getChainAltContracts(
+    BRIDGE_SPENDER_ALT_WHITELIST_DATA as Partial<
+      Record<BridgeAggregatorId, Partial<Record<string, readonly string[]>>>
+    >,
+    aggregatorId,
+    chainId
+  );
+};
+
+export const getBridgeAltRouters = (
+  aggregatorId: BridgeAggregatorId,
+  chainId: string
+): string[] => {
+  return getChainAltContracts(
+    BRIDGE_ROUTER_ALT_WHITELIST_DATA as Partial<
+      Record<BridgeAggregatorId, Partial<Record<string, readonly string[]>>>
+    >,
+    aggregatorId,
+    chainId
+  );
 };
 
 // 该聚合器的全局合法合约(periphery 等),对其所有链均有效,与逐链白名单并列接受。

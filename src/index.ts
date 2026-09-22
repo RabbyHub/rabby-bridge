@@ -8,6 +8,7 @@ export {
   CHAINS_ENUM,
   getBridgeAltContracts,
   getBridgeAltRouters,
+  getBridgeAltSpenders,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,

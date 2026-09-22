@@ -505,6 +505,14 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
 
+// 仅在指定链生效的额外 spender(approve 目标)。
+export const BRIDGE_SPENDER_ALT_WHITELIST_DATA = {
+  across: {
+    // arc 专有 SpokePoolPeriphery,swap+bridge 路由的 approve 目标
+    [EXTRA_CHAINS.ARC]: ['0xe791a2669bef779ff7a4a9cf789f8ee2ca20a32c'],
+  },
+} as const satisfies Record<string, Partial<Record<ChainEnum, readonly string[]>>>;
+
 // 仅在指定链生效的额外 router。
 export const BRIDGE_ROUTER_ALT_WHITELIST_DATA = {
   relay: {

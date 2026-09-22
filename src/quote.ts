@@ -4,6 +4,7 @@ import type { BridgeAggregatorId } from './consts.js';
 import {
   getBridgeAltContracts,
   getBridgeAltRouters,
+  getBridgeAltSpenders,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -115,6 +116,7 @@ export const validateBridgeQuote = (
   const allowedSpenders = [
     expectedSpender,
     ...getBridgeAltContracts(aggregatorId),
+    ...getBridgeAltSpenders(aggregatorId, fromChainId),
   ];
 
   if (!allowedSpenders.some((addr) => isSameAddress(addr, receivedSpender))) {
