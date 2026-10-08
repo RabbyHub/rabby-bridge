@@ -3,7 +3,6 @@ import { BRIDGE_ENUM } from './consts.js';
 import type { BridgeAggregatorId } from './consts.js';
 import {
   getBridgeAltContracts,
-  getBridgeAltRouters,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -150,7 +149,6 @@ export const validateBridgeTx = (
   const allowedRouters = [
     expectedRouter,
     ...getBridgeAltContracts(aggregatorId),
-    ...getBridgeAltRouters(aggregatorId, fromChainId),
   ];
 
   if (!allowedRouters.some((addr) => isSameAddress(addr, tx.to))) {

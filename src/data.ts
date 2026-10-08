@@ -308,6 +308,10 @@ export const BRIDGE_ALT_CONTRACTS_DATA = {
     '0x8754bc615047de01228a7527b712806a71a8dc9a', // london
     '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', // cancun
     '0xf6e54bbf91e564fcf0df3ed9f2dd82913e9232c3', // zero / zkevm
+    // Router v3,后端 Relay 报价的 approve_contract_id 同样使用 tx.to
+    '0x9ef6d3c2f60d7b9008d74cab1fc0f899c957c819', // london
+    '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f', // cancun
+    '0xe16870b028704e38dbc254a84d3f72c8ba345ca9', // zero / zkevm
   ],
 } as const satisfies Partial<Record<string, readonly string[]>>;
 
@@ -504,10 +508,3 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
     [EXTRA_CHAINS.ARC]: '0x9b4a302a548c7e313c2b74c461db7b84d3074a84',
   },
 } as const satisfies Record<string, Partial<Record<ChainEnum, string>>>;
-
-// 仅在指定链生效的额外 router。
-export const BRIDGE_ROUTER_ALT_WHITELIST_DATA = {
-  relay: {
-    [EXTRA_CHAINS.ARC]: ['0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f'],
-  },
-} as const satisfies Record<string, Partial<Record<ChainEnum, readonly string[]>>>;
