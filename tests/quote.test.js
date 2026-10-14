@@ -409,14 +409,13 @@ describe('Arc contract validation', () => {
     expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
   });
 
-  test('accepts the additional router case-insensitively with a canonical chain enum', () => {
+  test('accepts the global router case-insensitively with a canonical chain enum', () => {
     expect(validateBridgeTx(
       BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', makeTx({ to: relayRouter.toUpperCase() })
     )).toBe(true);
   });
 
   test.each([
-    [BRIDGE_ENUM.RELAY, 'eth'],
     [BRIDGE_ENUM.ACROSS, 'arc'],
   ])('rejects the Arc Relay router for %s on %s', (aggregator, chainId) => {
     expect(() => validateBridgeTx(
@@ -424,10 +423,10 @@ describe('Arc contract validation', () => {
     )).toThrow(InvalidBridgeContractError);
   });
 
-  test('does not accept the additional router as a spender', () => {
-    expect(() => validateBridgeQuote(
+  test('accepts the global router as a quote contract', () => {
+    expect(validateBridgeQuote(
       BRIDGE_ENUM.RELAY, 'arc', makeQuote({ approve_contract_id: relayRouter })
-    )).toThrow(InvalidBridgeContractError);
+    )).toBe(true);
   });
 
   test.each([BRIDGE_ENUM.ACROSS, BRIDGE_ENUM.RELAY])('rejects unknown Arc contracts for %s', (aggregator) => {

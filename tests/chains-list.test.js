@@ -6,7 +6,6 @@ import {
   BRIDGE_SUPPORT_CHAINS,
   CHAINS_ENUM,
   getBridgeAltContracts,
-  getBridgeAltRouters,
   getBridgeRouter,
   getBridgeSpender,
   isSupportedBridgeAggregator,
@@ -129,7 +128,7 @@ describe('bridge allowlists', () => {
     expect(getBridgeAltContracts(BRIDGE_ENUM.LIFI)).toEqual([]);
   });
 
-  test('exposes relay per-chain Depository plus global ApprovalProxy alt contracts', () => {
+  test('exposes relay per-chain Depository plus global ApprovalProxy and Router alt contracts', () => {
     const relayEthDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
 
     expect(getBridgeRouter(BRIDGE_ENUM.RELAY, 'eth')).toBe(relayEthDepository);
@@ -140,6 +139,9 @@ describe('bridge allowlists', () => {
       '0x8754bc615047de01228a7527b712806a71a8dc9a',
       '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be',
       '0xf6e54bbf91e564fcf0df3ed9f2dd82913e9232c3',
+      '0x9ef6d3c2f60d7b9008d74cab1fc0f899c957c819',
+      '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f',
+      '0xe16870b028704e38dbc254a84d3f72c8ba345ca9',
     ]);
   });
 });
@@ -163,14 +165,4 @@ describe('Arc bridge allowlists', () => {
     expect(getBridgeRouter(aggregator, 'ARC')).toBe(address);
   });
 
-  test('scopes the additional router to Relay on Arc', () => {
-    const router = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
-    for (const chainId of ['arc', 'ARC', 'Arc']) {
-      expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, chainId)).toEqual([router]);
-    }
-    expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'eth')).toEqual([]);
-    expect(getBridgeAltRouters(BRIDGE_ENUM.ACROSS, 'arc')).toEqual([]);
-    expect(getBridgeAltRouters(BRIDGE_ENUM.RELAY, 'not-a-chain')).toEqual([]);
-    expect(getBridgeAltContracts(BRIDGE_ENUM.RELAY)).not.toContain(router);
-  });
 });
