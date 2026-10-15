@@ -142,6 +142,10 @@ describe('bridge allowlists', () => {
       '0x9ef6d3c2f60d7b9008d74cab1fc0f899c957c819',
       '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f',
       '0xe16870b028704e38dbc254a84d3f72c8ba345ca9',
+      '0xe4dfbd5e6784db1058124e2c87554c0591f0fb7b',
+      '0x5567954cd026cebfe486062cb75848e0f1c12e58',
+      '0x6328ea02d28131e58b28e55c6258258a30d90e05',
+      '0x0729e2a4716d9f7dd17858d5d504426d228697f7',
     ]);
   });
 });
