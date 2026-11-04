@@ -45,6 +45,7 @@ export type {
   BridgeQuote,
   BridgeQuoteListItem,
   BridgeQuoteListParams,
+  BridgeValidationOptions,
   BridgeTx,
 } from './quote.js';
 export {

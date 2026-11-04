@@ -19,6 +19,51 @@ Run `yarn test` to build the package and execute the Jest suite.
 
 See [reachable route discovery](tests/fixtures/route-discovery-20261104/README.md) for the latest parsing changes, fixture coverage and remaining verification limits.
 
+## Lite rollout
+
+Pass `lite: true` to `getQuote`, `buildTx` or `getQuoteListWithTx` to observe new
+validation without letting it change the business decisions from `main`.
+The default is `false`, retaining strict behavior.
+
+```ts
+const quotes = await getQuoteListWithTx(aggregatorId, {
+  ...params,
+  lite: true,
+  onError: (report) => reportToBusiness(report),
+}, api);
+```
+
+- Quotes and transactions come from the existing backend flow, including Relay
+  and Socket. Provider quotes never replace the selected backend quote in lite mode.
+- Configured Router/Spender mismatches, unsupported source chains/aggregators,
+  missing required slippage, missing backend results and backend request failures
+  keep their original blocking behavior.
+- Calldata parsing, intent comparison, missing-field checks, stricter missing
+  contract configuration and provider verification still run against the returned
+  transaction. Their failures are reported without discarding that quote/transaction.
+- No parser is reported as unsupported, including aggregators that strict mode
+  does not currently parse. It is never reported as a successful parse.
+- Relay/Socket verification uses available proof/cache for the selected transaction.
+  If that proof or client is missing, the original missing-proof error is reported;
+  dependent hash/order checks cannot complete. An unrelated fresh provider quote
+  is not fetched or used as evidence for the backend transaction.
+- LayerSwap lookup runs in the background in lite mode. Its result is reported
+  through `onError` and does not delay returning the backend transaction.
+
+`validateBridgeQuote` also accepts `{ lite, onError }` as its fourth argument;
+`validateBridgeTx` accepts it after the optional expectation as its sixth argument.
+Raw decode/calldata-check results remain truthful (`ok: false` on failure).
+Direct provider-client methods remain strict; use the high-level entry points for
+lite rollout decisions.
+
+Error codes and details are preserved. Lite observations carry `lite: true` and
+`blocking: false`; legacy failures carry `blocking: true` when reported by the
+high-level flow. Keep the callback installed while background checks are pending.
+Dependent checks still stop at their first unusable prerequisite, and independent
+stages may emit multiple reports. These are failure-event/path counts, not distinct
+user counts or a denominator for all successful transactions. No user identifiers
+are added. See error reporting below for catching failures that still throw.
+
 ## Error reporting
 
 All stable error codes, stages and messages are defined in

@@ -61,6 +61,8 @@ export const sanitizeBridgeError = (value: unknown): BridgeErrorDetail => {
   if (typeof raw.commandByte === 'number' && Number.isInteger(raw.commandByte) && raw.commandByte >= 0 && raw.commandByte <= 255) result.commandByte = raw.commandByte;
   if (typeof raw.httpStatus === 'number' && Number.isInteger(raw.httpStatus) && raw.httpStatus >= 100 && raw.httpStatus <= 599) result.httpStatus = raw.httpStatus;
   if (typeof raw.hasDestinationCall === 'boolean') result.hasDestinationCall = raw.hasDestinationCall;
+  if (typeof raw.lite === 'boolean') result.lite = raw.lite;
+  if (typeof raw.blocking === 'boolean') result.blocking = raw.blocking;
   if (Array.isArray(raw.destinationSelectors)) result.destinationSelectors = [...new Set(raw.destinationSelectors.filter(selector).map((item) => item.toLowerCase()))].slice(0, 16);
   if (Array.isArray(raw.unverifiedFields)) result.unverifiedFields = [...new Set(raw.unverifiedFields.filter((item): item is string => typeof item === 'string' && fields.has(item)))];
   return result;

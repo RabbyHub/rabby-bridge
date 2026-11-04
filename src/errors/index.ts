@@ -7,6 +7,8 @@ export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition } from '.
 
 /** Reporting context deliberately excludes calldata, wallet addresses and provider response bodies. */
 export type BridgeErrorContext = {
+  lite?: boolean;
+  blocking?: boolean;
   aggregatorId?: string;
   chainId?: string;
   toChainId?: string;

@@ -79,6 +79,9 @@ absent. Serialized quote keys are decoded before reading their raw output amount
 `ok: true` only means the structural checks and available comparisons passed.
 It does not mean all five fields were verified. `validateBridgeCalldata` itself
 does not check the outer router allowlist; `validateBridgeTx` does that separately.
+With `lite: true`, business entry points report new failures while retaining main's
+original quote/transaction decisions; the low-level check still returns its real
+failure and unverified fields. See [lite rollout](../../README.md#lite-rollout).
 For supported calldata aggregators, `validateBridgeTx` rejects empty or malformed
 calldata. Missing router configuration does not skip the allowlist check. A quote
 without an approval address is allowed; an approval address with no configured

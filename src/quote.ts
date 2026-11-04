@@ -1,4 +1,4 @@
-import type { BridgeErrorReporter } from './errors/index.js';
+import type { BridgeErrorContext, BridgeErrorReporter } from './errors/index.js';
 import { BRIDGE_ERRORS, BridgeError, asBridgeError, reportBridgeError } from './errors/index.js';
 import type { OpenApiService } from '@rabby-wallet/rabby-api';
 import {
@@ -22,7 +22,14 @@ import {
   isSupportedBridgeChain,
 } from './list.js';
 
-export interface BridgeQuoteListParams {
+export interface BridgeValidationOptions {
+  /** Observe new validation failures while preserving main's business decisions. Defaults to false. */
+  lite?: boolean;
+  /** Receives filtered failures and non-blocking lite validation failures. */
+  onError?: BridgeErrorReporter;
+}
+
+export interface BridgeQuoteListParams extends BridgeValidationOptions {
   userAddress: string;
   fromChainId: string;
   fromTokenId: string;
@@ -33,8 +40,6 @@ export interface BridgeQuoteListParams {
   feeRate?: number;
   /** Reuse the same client for quoting/building; transport connects directly to providers. */
   providerClient?: BridgeProviderClient;
-  /** Receives failures filtered from quote lists; thrown errors are handled by the caller. */
-  onError?: BridgeErrorReporter;
 }
 
 export interface BridgeBuildTxParams extends BridgeQuoteListParams {
@@ -119,10 +124,16 @@ const stringifyQuoteKey = (quoteKey?: string | Record<string, unknown>) => {
 const shouldValidateBridgeContracts = (aggregatorId: BridgeAggregatorId) =>
   aggregatorId !== BRIDGE_ENUM.NEAR_INTENTS;
 
+const handleNewValidationError = (error: unknown, options: BridgeValidationOptions, context: BridgeErrorContext) => {
+  if (!options.lite) throw error;
+  reportBridgeError(options.onError, asBridgeError(error), { ...context, lite: true, blocking: false });
+};
+
 export const validateBridgeQuote = (
   aggregatorId: BridgeAggregatorId,
   fromChainId: string,
-  quote: BridgeQuoteListItem
+  quote: BridgeQuoteListItem,
+  options: BridgeValidationOptions = {}
 ) => {
   if (!shouldValidateBridgeContracts(aggregatorId)) {
     return true;
@@ -135,8 +146,10 @@ export const validateBridgeQuote = (
     return true;
   }
   if (!expectedSpender) {
-    throw new InvalidBridgeContractError('spender', aggregatorId, fromChainId,
-      'configured spender', receivedSpender, quote.bridge_id);
+    handleNewValidationError(new InvalidBridgeContractError('spender', aggregatorId, fromChainId,
+      'configured spender', receivedSpender, quote.bridge_id), options,
+      { aggregatorId, chainId: fromChainId, bridgeId: quote.bridge_id, operation: 'getQuote' });
+    return true;
   }
 
   const allowedSpenders = [
@@ -172,18 +185,19 @@ const quotedToAmount = (quoteKey?: string | Record<string, unknown>) => {
   return undefined;
 };
 
-const checkBridgeTx = (
+const validateBridgeRouter = (
   aggregatorId: BridgeAggregatorId,
   fromChainId: string,
   bridgeId: string,
   tx: BridgeTx,
-  expectation?: BridgeCallExpectation
-): BridgeCheck | undefined => {
+  legacy = false
+): void => {
   if (!shouldValidateBridgeContracts(aggregatorId)) {
     return undefined;
   }
 
   const expectedRouter = getBridgeRouter(aggregatorId, fromChainId);
+  if (legacy && !expectedRouter) return;
 
   const allowedRouters = [
     ...(expectedRouter ? [expectedRouter] : []),
@@ -200,17 +214,32 @@ const checkBridgeTx = (
       bridgeId
     ), BRIDGE_ERRORS.ROUTER_NOT_ALLOWED, calldataDiagnostics(tx.data));
   }
+};
 
-  if (CALLDATA_AGGREGATORS.includes(aggregatorId)) {
-    const check = validateBridgeCalldata(aggregatorId, fromChainId, tx, expectation);
+const checkBridgeTx = (
+  aggregatorId: BridgeAggregatorId, fromChainId: string, bridgeId: string, tx: BridgeTx,
+  expectation?: BridgeCallExpectation, options: BridgeValidationOptions = {},
+  operation: 'buildTx' | 'verifyTx' = 'verifyTx'
+): BridgeCheck | undefined => {
+  const context = { aggregatorId, chainId: fromChainId, toChainId: expectation?.toChainId, bridgeId, operation,
+    ...calldataDiagnostics(tx.data) };
+  // A configured-router mismatch was already blocking on main; never suppress it.
+  if (options.lite) validateBridgeRouter(aggregatorId, fromChainId, bridgeId, tx, true);
+  try { validateBridgeRouter(aggregatorId, fromChainId, bridgeId, tx); }
+  catch (error) { handleNewValidationError(error, options, context); }
+
+  if (CALLDATA_AGGREGATORS.includes(aggregatorId) || options.lite) {
+    let check: BridgeCheck;
+    try { check = validateBridgeCalldata(aggregatorId, fromChainId, tx, expectation); }
+    catch (error) { handleNewValidationError(error, options, context); return undefined; }
     if (!check.ok) {
-      throw new InvalidBridgeCalldataError(
+      handleNewValidationError(new InvalidBridgeCalldataError(
         aggregatorId,
         fromChainId,
         check.method,
         check.reason || BRIDGE_ERRORS.INVALID_CALLDATA.message,
         check.errors.map((error) => ({ ...error, bridgeId }))
-      );
+      ), options, context);
     }
     return check;
   }
@@ -222,9 +251,10 @@ export const validateBridgeTx = (
   fromChainId: string,
   bridgeId: string,
   tx: BridgeTx,
-  expectation?: BridgeCallExpectation
+  expectation?: BridgeCallExpectation,
+  options: BridgeValidationOptions = {}
 ) => {
-  checkBridgeTx(aggregatorId, fromChainId, bridgeId, tx, expectation);
+  checkBridgeTx(aggregatorId, fromChainId, bridgeId, tx, expectation, options);
   return true;
 };
 
@@ -234,13 +264,17 @@ export const getQuote = async (
   api: BridgeApi
 ): Promise<BridgeQuoteListItem[]> => {
   try {
+    params = { ...params };
     assertSupported(aggregatorId, params.fromChainId);
-    const assertContext = params.providerClient?.captureContext();
+    let assertContext: (() => void) | undefined;
+    try { assertContext = params.providerClient?.captureContext(); }
+    catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' }); }
 
-    if (aggregatorId === BRIDGE_ENUM.RELAY) {
+    if (aggregatorId === BRIDGE_ENUM.RELAY && !params.lite) {
       if (!params.providerClient) throw new InvalidBridgeProviderError('relay', BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED);
       const quotes = await params.providerClient.getQuotes('relay', params);
-      assertContext?.();
+      try { assertContext?.(); }
+      catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' }); }
       return quotes;
     }
 
@@ -260,7 +294,7 @@ export const getQuote = async (
       api.getBridgeQuoteListV2
         ? api.getBridgeQuoteListV2(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); })
         : api.getBridgeQuoteV2?.(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); }),
-      aggregatorId === BRIDGE_ENUM.SOCKET && params.providerClient
+      aggregatorId === BRIDGE_ENUM.SOCKET && params.providerClient && !params.lite
         ? params.providerClient.getQuotes('socket', params).catch((error) => {
             if (error instanceof InvalidBridgeProviderError) {
               reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' });
@@ -270,31 +304,32 @@ export const getQuote = async (
           })
         : Promise.resolve([]),
     ]);
-    assertContext?.();
+    try { assertContext?.(); }
+    catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' }); }
 
     if (!backendQuotes) {
       throw new BridgeError(BRIDGE_ERRORS.MISSING_QUOTE_API);
     }
     const quotes = [
-      ...backendQuotes.filter((quote) => !(aggregatorId === BRIDGE_ENUM.SOCKET && params.providerClient &&
+      ...backendQuotes.filter((quote) => !(aggregatorId === BRIDGE_ENUM.SOCKET && params.providerClient && !params.lite &&
         SOCKET_PROVIDER_ROUTES.includes(quote.bridge_id))),
       ...providerQuotes,
     ];
 
     return quotes.filter((quote) => {
       try {
-        validateBridgeQuote(aggregatorId, params.fromChainId, quote);
+        validateBridgeQuote(aggregatorId, params.fromChainId, quote, params);
         return true;
       } catch (error) {
         if (error instanceof InvalidBridgeContractError) {
-          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'getQuote' });
+          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'getQuote', ...(params.lite ? { lite: true, blocking: true } : {}) });
           return false;
         }
         throw error;
       }
     });
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote', ...(params.lite ? { lite: true, blocking: true } : {}) });
   }
 };
 
@@ -307,13 +342,16 @@ export const buildTx = async (
     // Freeze signing intent before awaiting a backend response.
     params = { ...params };
     assertSupported(aggregatorId, params.fromChainId);
-    const assertContext = params.providerClient?.captureContext();
+    let assertContext: (() => void) | undefined;
+    try { assertContext = params.providerClient?.captureContext(); }
+    catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx' }); }
 
-    if (aggregatorId === BRIDGE_ENUM.RELAY ||
-        (aggregatorId === BRIDGE_ENUM.SOCKET && SOCKET_PROVIDER_ROUTES.includes(params.bridgeId))) {
+    if (!params.lite && (aggregatorId === BRIDGE_ENUM.RELAY ||
+        (aggregatorId === BRIDGE_ENUM.SOCKET && SOCKET_PROVIDER_ROUTES.includes(params.bridgeId)))) {
       if (!params.providerClient) throw new InvalidBridgeProviderError(aggregatorId, BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED);
       const tx = await params.providerClient.buildTx(aggregatorId as 'relay' | 'socket', params);
-      assertContext?.();
+      try { assertContext?.(); }
+      catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx' }); }
       return tx;
     }
 
@@ -343,7 +381,8 @@ export const buildTx = async (
     if (!tx) {
       throw new BridgeError(BRIDGE_ERRORS.MISSING_BUILD_API);
     }
-    assertContext?.();
+    try { assertContext?.(); }
+    catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx' }); }
 
     const expectation: BridgeCallExpectation = {
       userAddress: params.userAddress,
@@ -354,36 +393,61 @@ export const buildTx = async (
       toTokenRawAmount: params.toTokenRawAmount ?? quotedToAmount(params.quoteKey),
       slippage: params.slippage,
     };
-    const check = checkBridgeTx(aggregatorId, params.fromChainId, params.bridgeId, tx, expectation);
+    const check = checkBridgeTx(aggregatorId, params.fromChainId, params.bridgeId, tx, expectation, params, 'buildTx');
 
     // A backend may mislabel bridge_id. Decide from calldata as well, so renaming
     // an RFQ/CCTP/LayerSwap route cannot bypass the provider requirement.
     const parsed = check?.parsed;
-    if (aggregatorId === BRIDGE_ENUM.LIFI && parsed?.method.endsWith('ViaLayerSwap')) {
-      if (!params.providerClient) throw new InvalidBridgeProviderError('layerswap', BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED);
-      await params.providerClient.verifyLayerSwapTx({
-        ...params, toTokenRawAmount: expectation.toTokenRawAmount,
-      }, tx);
-      assertContext?.();
+    if (params.lite && (aggregatorId === BRIDGE_ENUM.RELAY ||
+        (aggregatorId === BRIDGE_ENUM.SOCKET && SOCKET_PROVIDER_ROUTES.includes(params.bridgeId)))) {
+      try {
+        if (!params.providerClient) throw new InvalidBridgeProviderError(aggregatorId, BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED);
+        params.providerClient.verifyTx(aggregatorId as 'relay' | 'socket', params, tx);
+      } catch (error) {
+        handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId,
+          toChainId: params.toChainId, bridgeId: params.bridgeId, operation: 'buildTx' });
+      }
       return tx;
     }
-    if (aggregatorId === BRIDGE_ENUM.SOCKET && parsed?.unresolvedFields?.length &&
-        ['receiveERC20', 'depositForBurn'].includes(parsed.protocolMethod ?? '')) {
-      throw new InvalidBridgeProviderError(aggregatorId, BRIDGE_ERRORS.PROVIDER_DESTINATION_UNBOUND);
-    }
-    // shortcut: chain-state output checks are deferred until the follow-up RPC PR.
-    const unverifiedFields = check?.unverifiedFields?.filter((field) =>
-      !(field === 'outputToken' && parsed?.outputToken === undefined && parsed?.outputTokenReference) &&
-      !(field === 'minOutputAmount' && parsed?.minOutputAmount === undefined && parsed?.outputAmountReference));
-    if (unverifiedFields?.length) {
-      throw new InvalidBridgeCalldataError(aggregatorId, params.fromChainId, check?.method,
-        `unverified bridge fields: ${unverifiedFields.join(',')}`,
-        [{ ...BRIDGE_ERRORS.UNVERIFIED_BRIDGE_FIELDS, bridgeId: params.bridgeId, unverifiedFields }]);
+    try {
+      if (aggregatorId === BRIDGE_ENUM.LIFI && parsed?.method.endsWith('ViaLayerSwap')) {
+        if (!params.providerClient) throw new InvalidBridgeProviderError('layerswap', BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED);
+        const verification = params.providerClient.verifyLayerSwapTx({
+          ...params, toTokenRawAmount: expectation.toTokenRawAmount,
+        }, params.lite ? { ...tx } : tx);
+        if (params.lite) {
+          void verification.then(() => assertContext?.()).catch((error) => {
+            handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId,
+              toChainId: params.toChainId, bridgeId: params.bridgeId, operation: 'buildTx' });
+          });
+          return tx;
+        }
+        await verification;
+        try { assertContext?.(); }
+        catch (error) { handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx' }); }
+        return tx;
+      }
+      if (aggregatorId === BRIDGE_ENUM.SOCKET && parsed?.unresolvedFields?.length &&
+          ['receiveERC20', 'depositForBurn'].includes(parsed.protocolMethod ?? '')) {
+        throw new InvalidBridgeProviderError(aggregatorId, BRIDGE_ERRORS.PROVIDER_DESTINATION_UNBOUND);
+      }
+      // shortcut: chain-state output checks are deferred until the follow-up RPC PR.
+      const unverifiedFields = check?.unverifiedFields?.filter((field) =>
+        !(field === 'outputToken' && parsed?.outputToken === undefined && parsed?.outputTokenReference) &&
+        !(field === 'minOutputAmount' && parsed?.minOutputAmount === undefined && parsed?.outputAmountReference));
+      if (unverifiedFields?.length) {
+        throw new InvalidBridgeCalldataError(aggregatorId, params.fromChainId, check?.method,
+          `unverified bridge fields: ${unverifiedFields.join(',')}`,
+          [{ ...BRIDGE_ERRORS.UNVERIFIED_BRIDGE_FIELDS, bridgeId: params.bridgeId, unverifiedFields }]);
+      }
+    } catch (error) {
+      handleNewValidationError(error, params, { aggregatorId, chainId: params.fromChainId,
+        toChainId: params.toChainId, bridgeId: params.bridgeId, operation: 'buildTx' });
     }
 
     return tx;
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx', bridgeId: params.bridgeId });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx', bridgeId: params.bridgeId, ...(params.lite ? { lite: true, blocking: true } : {}) });
   }
 };
 
@@ -420,7 +484,7 @@ export const getQuoteListWithTx = async (
           error instanceof InvalidBridgeCalldataError ||
           error instanceof InvalidBridgeProviderError
         ) {
-          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'buildTx' });
+          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'buildTx', ...(params.lite ? { lite: true, blocking: true } : {}) });
           return null;
         }
         throw error;

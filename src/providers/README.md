@@ -92,6 +92,12 @@ report filtered Socket failures via `params.onError`; see [error reporting](../.
 
 ## Provider behavior
 
+For observational deployment, high-level `lite: true` uses backend quote/build
+results and only verifies those selected transactions. Relay/Socket require matching
+cached proof; missing proof is reported without blocking. LayerSwap verification
+runs in the background. Direct client methods remain strict and no independent
+provider re-quote is used to validate a different backend selection.
+
 - **Relay**: `GET /chains`, cached for the client's lifetime, and
   `POST /quote/v2` with `includeProtocolData: true`. The SDK normalizes supported
   EVM v1 orders using the official settlement schema and recomputes the EIP-712
