@@ -29,7 +29,7 @@ describe('privacy-safe bridge diagnostics', () => {
     expect(malformed.errors[0]).not.toHaveProperty('calldataBytes');
     const truncated = toBridgeErrorReport(decodeBridgeCalldataResult('across', { data: '0xad5425c6' }));
     expect(truncated.errors[0]).toMatchObject({ error_code: BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS.error_code,
-      selector: '0xad5425c6', calldataBytes: 4, abiOffset: 0, abiBufferBytes: 0 });
+      selector: '0xad5425c6', calldataBytes: 4, abiOffset: 352, abiBufferBytes: 0 });
   });
 
   test('keeps Socket outer/router/unknown-protocol selectors through structural rejection', () => {
