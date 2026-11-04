@@ -69,6 +69,10 @@ const parseAmount = (amount: string): bigint | undefined => {
   }
 };
 
+/** Actual source payment may exceed local intent by at most 0.1%; lower payments still reject. */
+export const sourceAmountMatches = (actual: bigint | undefined, expected: bigint): boolean =>
+  actual !== undefined && expected >= 0n && actual >= expected && (actual - expected) * 1000n <= expected;
+
 /** Allow a 5% relative difference from the quote's slippage-adjusted minimum. */
 const minReceiveMatches = (minReceive: bigint, quoted: bigint, slippage: number) => {
   if (minReceive <= 0n || quoted <= 0n || slippage < 0 || slippage >= 1) {
@@ -105,7 +109,7 @@ export const expectationFailures = (
   }
   if (mask.fromAmount) {
     const expectedAmount = parseAmount(expectation.fromTokenRawAmount);
-    if (expectedAmount === undefined || parsed.sourceAmount !== expectedAmount) {
+    if (expectedAmount === undefined || !sourceAmountMatches(parsed.sourceAmount, expectedAmount)) {
       reasons.push(BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH);
     }
   }

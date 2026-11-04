@@ -1,3 +1,4 @@
+import { sourceAmountMatches } from '../calldata/expect.js';
 import type { BridgeErrorDefinition } from '../errors/index.js';
 import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import { evmChainId } from '../calldata/chains.js';
@@ -67,7 +68,7 @@ export const assertIntent = (
   const errors: BridgeErrorDefinition[] = [];
   if (parsed.sourceToken !== tokenAddress(params.fromTokenId, params.fromChainId) &&
       tokenAddress(parsed.sourceToken ?? '', params.fromChainId) !== tokenAddress(params.fromTokenId, params.fromChainId)) errors.push(BRIDGE_ERRORS.FROM_TOKEN_MISMATCH);
-  if (parsed.sourceAmount !== uint(params.fromTokenRawAmount) || parsed.sourceAmount === 0n) errors.push(BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH);
+  if (!sourceAmountMatches(parsed.sourceAmount, uint(params.fromTokenRawAmount)) || parsed.sourceAmount === 0n) errors.push(BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH);
   if (parsed.destinationChainId !== chain(params.toChainId)) errors.push(BRIDGE_ERRORS.TO_CHAIN_MISMATCH);
   if (tokenAddress(parsed.outputToken ?? '', params.toChainId) !== tokenAddress(params.toTokenId, params.toChainId)) errors.push(BRIDGE_ERRORS.TO_TOKEN_MISMATCH);
   if (parsed.receiver !== address(params.userAddress)) errors.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);

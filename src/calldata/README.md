@@ -62,6 +62,9 @@ minimum amount only when the parser supplies its corresponding protocol referenc
 These fields remain marked unverified. A successful build does not verify these
 output conditions. Fields available from calldata or local mappings still undergo
 normal comparison, including the minimum amount when it can be calculated locally.
+Source payment may equal the local `fromTokenRawAmount` or exceed it by at most
+0.1%, using integer arithmetic. A smaller payment or any excess above 0.1% rejects.
+This tolerance does not relax internal transaction/order/approval consistency.
 
 Other unverified fields still reject, including the source token/amount, final
 receiver, unknown destination chain, output conditions without a protocol reference,

@@ -66,6 +66,9 @@ new direct quote. A changed address, chain, token, input amount, output quote,
 slippage or application fee rejects the old quote. `clear()` invalidates both
 stored quotes and pending responses. Amounts used for comparison remain bigint;
 the legacy quote's numeric display fields are not a validation source.
+When comparing source payment to local intent, up to 0.1% excess is accepted.
+Order amounts, transaction amounts and approval amounts still have to agree with
+one another; changing local intent still invalidates an already cached quote.
 Direct-provider quote keys also retain the selected raw output amount. Reusing a
 Socket quote ID with a changed output amount invalidates the earlier selection.
 The SDK also guards backend waits against `clear()`. Host-side asynchronous

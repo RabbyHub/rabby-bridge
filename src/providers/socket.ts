@@ -1,3 +1,4 @@
+import { sourceAmountMatches } from '../calldata/expect.js';
 import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import { decodeBridgeCalldataResult } from '../calldata/index.js';
 import type { BridgeQuoteListParams } from '../quote.js';
@@ -19,7 +20,7 @@ export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQ
       uint(inputToken.chainId) !== chain(params.fromChainId) || uint(outputToken.chainId) !== chain(params.toChainId) ||
       address(result.userAddress) !== address(params.userAddress) || address(result.receiverAddress) !== address(params.userAddress) ||
       tokenAddress(text(inputToken.address), params.fromChainId) !== tokenAddress(params.fromTokenId, params.fromChainId) ||
-      uint(input.amount) !== uint(params.fromTokenRawAmount)) throw new BridgeError(BRIDGE_ERRORS.SOCKET_QUOTE_INPUT_MISMATCH);
+      !sourceAmountMatches(uint(input.amount), uint(params.fromTokenRawAmount))) throw new BridgeError(BRIDGE_ERRORS.SOCKET_QUOTE_INPUT_MISMATCH);
   const txData = object(route.txData);
   if (txData.kind !== 'evm_tx') throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOCKET_TRANSACTION);
   const tx = transaction(txData.object, params);
@@ -27,7 +28,8 @@ export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQ
   if (!decodedResult.ok) throw new BridgeError(BRIDGE_ERRORS.INVALID_CALLDATA, {}, decodedResult.errors);
   const parsed = decodedResult.parsed;
   const quoteId = bytes(route.quoteId, 32);
-  if (!parsed || parsed.quoteId !== quoteId || parsed.depositor !== address(params.userAddress)) throw new BridgeError(BRIDGE_ERRORS.SOCKET_SOURCE_QUOTE_MISMATCH);
+  if (!parsed || parsed.quoteId !== quoteId || parsed.depositor !== address(params.userAddress) ||
+      parsed.sourceAmount !== uint(input.amount)) throw new BridgeError(BRIDGE_ERRORS.SOCKET_SOURCE_QUOTE_MISMATCH);
   if (bridgeId === 'rfq-vault-executor') {
     if (parsed.protocolMethod !== 'receiveERC20' || parsed.orderId !== quoteId) throw new BridgeError(BRIDGE_ERRORS.SOCKET_RFQ_ORDER_MISMATCH);
   } else if (parsed.protocolMethod !== 'depositForBurn' || parsed.bridgeReceiver !== '0x424a31a57f7c63918ecaa2fac38016a8af5a6ec2') {
@@ -39,7 +41,7 @@ export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQ
   const approval = route.approval ? object(route.approval) : undefined;
   const native = tokenAddress(params.fromTokenId, params.fromChainId) === '0x0000000000000000000000000000000000000000';
   if (!native && (!approval || address(approval.tokenAddress) !== tokenAddress(params.fromTokenId, params.fromChainId) ||
-      address(approval.userAddress) !== address(params.userAddress) || uint(approval.amount) !== uint(params.fromTokenRawAmount))) throw new BridgeError(BRIDGE_ERRORS.SOCKET_APPROVAL_MISMATCH);
+      address(approval.userAddress) !== address(params.userAddress) || uint(approval.amount) !== uint(input.amount))) throw new BridgeError(BRIDGE_ERRORS.SOCKET_APPROVAL_MISMATCH);
   return {
     tx, orderId: quoteId, requestId: quoteId,
     approveAddress: native ? '' : address(approval!.spenderAddress),
