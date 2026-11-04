@@ -1,0 +1,154 @@
+[
+  {
+    "csvRow": 44,
+    "aggregatorId": "mayan",
+    "bridgeId": "FASTMCTP",
+    "chainKey": "avax",
+    "toChainKey": "base",
+    "txHash": "0xdfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+    "tx": {
+      "from": "0x428600041b259db374e0d17d3c2c6cbe428915f9",
+      "to": "0x337685fdab40d39bd02028545a4ffa7d287cc3e2",
+      "data": "0xfa74fd4300000000000000000000000000000000000000000000000001aa535d3d0c0000000000000000000000000000a575f37e869e6887564f87c07e2885e08d542c4a00000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000b97ef9ef8734c71904d8002f8b6bc66dd9c48a6e00000000000000000000000000000000000000000000000000000000000faaa7000000000000000000000000c1062b7c5dc8e4b1df9f200fe360cdc0ed6e774100000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000000d53f0bde258da4603206d6105217dd972e4ab30676a220ca393346000000000000000001aa535d3d0c0000000000000000000000000000000faa8107603206d6105217dd972e4ab30676a220ca393346337685fdab40d39bd02028545a4ffa7d287cc3e2eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb97ef9ef8734c71904d8002f8b6bc66dd9c48a6eb31f66aa3c1e785363f0875a1b74e27b85fd66c728bf6006d87de7f44445905aa4f5cb8c0d8cba02fae3f424a0a47706811521e3ee268f00cfb5c45e740447060405f904fd2f8c0301ff000000000000000000000000000000000000000000000000000000000000000000000000000000000001a4f58b6de8000000000000000000000000b97ef9ef8734c71904d8002f8b6bc66dd9c48a6e00000000000000000000000000000000000000000000000001aa535d3d0c000000000000000000000000000000000000000000000000000000000000000010f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000428600041b259db374e0d17d3c2c6cbe428915f900000000000000000000000000000000000000000000000000000000000000060000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000000000000019000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x1aa535d3d0c0000"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "mayan",
+        "name": "Mayan",
+        "logo_url": "https://static.debank.com/image/project/logo_url/uni_mayan/92dee39a0112c34a33750a3bc87499f0.png"
+      },
+      "bridge": {
+        "id": "FASTMCTP",
+        "name": "Mayan Fast MCTP",
+        "logo_url": "https://static.debank.com/image/project/logo_url/uni_mayan/92dee39a0112c34a33750a3bc87499f0.png"
+      },
+      "from_token": {
+        "id": "avax",
+        "chain": "avax",
+        "name": "AVAX",
+        "symbol": "AVAX",
+        "display_symbol": null,
+        "optimized_symbol": "AVAX",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/project/logo_url/avax_wavax/e195cdd89f44bf3d0c65d38ce2c6c662.png",
+        "protocol_id": "",
+        "price": "8.619",
+        "price_24h_change": "0.003025718608169417",
+        "credit_score": "3103720.436745318",
+        "total_supply": "234355028.41793847",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_token": {
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "chain": "base",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.001401962747847",
+        "price_24h_change": "0.00020028039254957984",
+        "credit_score": "10678211.790545277",
+        "total_supply": "4291577025.774848",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1692383789.0"
+      },
+      "to_actual_token": {
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "chain": "base",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.001401962747847",
+        "price_24h_change": "0.00020028039254957984",
+        "credit_score": "10678211.790545277",
+        "total_supply": "4291577025.774848",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1692383789.0"
+      },
+      "quote": {
+        "pay_token_amount": "0.12",
+        "receive_token_amount": "1.029827"
+      },
+      "actual": {
+        "pay_token_amount": "0.12",
+        "receive_token_amount": "1.029814"
+      },
+      "detail_url": "https://explorer.mayan.finance/swap/0xdfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+      "status": "completed",
+      "create_at": "1793708590.2396069",
+      "from_gas": {
+        "native_token": {
+          "id": "avax",
+          "chain": "avax",
+          "name": "AVAX",
+          "symbol": "AVAX",
+          "display_symbol": null,
+          "optimized_symbol": "AVAX",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/project/logo_url/avax_wavax/e195cdd89f44bf3d0c65d38ce2c6c662.png",
+          "protocol_id": "",
+          "price": "8.619",
+          "price_24h_change": "0.003025718608169417",
+          "credit_score": "3103720.436745318",
+          "total_supply": "234355028.41793847",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "0.001891688671368771",
+        "gas_price": "4.113860187",
+        "usd_value": "0.0163"
+      },
+      "from_tx": {
+        "tx_id": "0xdfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+        "chain_id": "avax",
+        "status": "success",
+        "time_at": "1793708589.0"
+      },
+      "to_tx": {
+        "tx_id": "0xc06cfb4cbf3861c795092c18fae55f766c9b581125c2cbecc1d94982c19c8de7",
+        "chain_id": "base"
+      }
+    },
+    "id": "mayan-FASTMCTP-dfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+    "selector": "0xfa74fd43",
+    "route": "avax -> base",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "120000000000000000",
+      "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "minOutputAmount": "1009611",
+      "receiver": "0x428600041b259db374e0d17d3c2c6cbe428915f9",
+      "destinationChainId": "8453"
+    },
+    "expectedEvidence": {
+      "source": "Quote/history decimal source amount and token IDs, checked against independent ABI word reads. No SDK parser is used to create these expected values.",
+      "destination": "Mayan Forwarder/FastMCTP ABI: native amountIn; minMiddleAmount minus redeemFee and circleMaxFee; bridge.destAddr and CCTP destination domain. No custom payload.",
+      "destinationFeeBound": "FastMCTP redeem deducts min(referrerBps,100) and up to 100 bps protocol fee after redeemFee and CCTP fee. Independent lower bound uses floor(net * (10000 - referrerBps - 100) / 10000), avoiding non-monotone separate rounded fee terms. Verified against exact-match deployed FastMCTP redeem source."
+    }
+  }
+]

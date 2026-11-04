@@ -1,0 +1,222 @@
+[
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x93bdd3d2bcda6cfe664db9dd527d313e7f8e87831bd2d33665a09beb387bc523&includeOrderData=true&limit=1",
+    "csvRow": 10,
+    "txHash": "0x93bdd3d2bcda6cfe664db9dd527d313e7f8e87831bd2d33665a09beb387bc523",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719311.50103,
+    "responseFile": "10-relay.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x31436d8d805547c986fb81312da984f9293d460d2ac14eb04c952c72a8294c8e&includeOrderData=true&limit=1",
+    "csvRow": 12,
+    "txHash": "0x31436d8d805547c986fb81312da984f9293d460d2ac14eb04c952c72a8294c8e",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719343.2643578,
+    "responseFile": "12-relay.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x19956524b3ecca5258eb2f10934931ebc2a791c6882386ce9711dcdb6d638cff&includeOrderData=true&limit=1",
+    "csvRow": 13,
+    "txHash": "0x19956524b3ecca5258eb2f10934931ebc2a791c6882386ce9711dcdb6d638cff",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719375.196984,
+    "responseFile": "13-relay.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0xdd5dcefdab146e7a026960fe159219082ec6793a8900a608277e4f9871ae5ab8&includeQuoteDetails=true",
+    "csvRow": 14,
+    "txHash": "0x818d6b3649697026f3718731e5dfe9104d6f5a81e2242dfa9ffbb18418d2f69c",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719287.283608,
+    "responseFile": "14-socket.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x3ecbbfa2c0bb7d1088e2df9ed879f5e3eff4533404a30efee7712086ab7f83dc&includeOrderData=true&limit=1",
+    "csvRow": 16,
+    "txHash": "0x3ecbbfa2c0bb7d1088e2df9ed879f5e3eff4533404a30efee7712086ab7f83dc",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719408.408142,
+    "responseFile": "16-relay.json"
+  },
+  {
+    "provider": "layerswap",
+    "url": "https://api.layerswap.io/api/v2/explorer/0x6b8775805c05e9dd8b4230984b33c3a79500d66e49eebc3ffaee4e0fd92c3164",
+    "csvRow": 17,
+    "txHash": "0x6b8775805c05e9dd8b4230984b33c3a79500d66e49eebc3ffaee4e0fd92c3164",
+    "bridgeId": "layerswap",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719282.880807,
+    "responseFile": "17-layerswap.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0x138c0e9365511b1973c83d2564a467439b1d26a012ec56421039e037fd34afd6&includeQuoteDetails=true",
+    "csvRow": 2,
+    "txHash": "0xdbfe2d25d79952cdd8a0839666dec568c645e7b40727339fcfb1e387afa7dfe8",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719283.420476,
+    "responseFile": "2-socket.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0x123147c5d13028a98b9a326827b1acbc585f701b182ea738956da6345766b873&includeQuoteDetails=true",
+    "csvRow": 24,
+    "txHash": "0x67e5c5cbaad8e529504ece992e84fa837176f1d145ebe8bce51261d8edbaa492",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719291.257538,
+    "responseFile": "24-socket.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0x87c2c277878a66859ab40b010ec50575a9b3ef1618bff4e3688fb8af0474691a&includeQuoteDetails=true",
+    "csvRow": 25,
+    "txHash": "0x666e61a8c24268789ffa1fa5d895eace1dd24a305bbaab368585fd15c08f0583",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719295.3777652,
+    "responseFile": "25-socket.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x336a716154fea7ae0c7da24edb34aab12de3b711d005541fa0a32822cc16bbba&includeOrderData=true&limit=1",
+    "csvRow": 26,
+    "txHash": "0x336a716154fea7ae0c7da24edb34aab12de3b711d005541fa0a32822cc16bbba",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719440.2277372,
+    "responseFile": "26-relay.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0xc81ece5f479f46e5db26cd40fab9af89ab29a241e12b3d15ffdeee007a62a1dd&includeQuoteDetails=true",
+    "csvRow": 27,
+    "txHash": "0x4c9f39ee6805e467362cd7625634fbf1b71e6b67fcf72789b63c5e837df0ffdf",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719298.446872,
+    "responseFile": "27-socket.json"
+  },
+  {
+    "provider": "layerswap",
+    "url": "https://api.layerswap.io/api/v2/explorer/0xd590a6cfada5fa34f290eca5a91d1a3ee68c6c6558d71b7e3a70d5ecb6bb3afc",
+    "csvRow": 29,
+    "txHash": "0xd590a6cfada5fa34f290eca5a91d1a3ee68c6c6558d71b7e3a70d5ecb6bb3afc",
+    "bridgeId": "layerswap",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719285.886862,
+    "responseFile": "29-layerswap.json"
+  },
+  {
+    "provider": "layerswap",
+    "url": "https://api.layerswap.io/api/v2/explorer/0x5b942fad621c099a054467907fcda13aa820634e8b1aa53ec6650a01c333882b",
+    "csvRow": 30,
+    "txHash": "0x5b942fad621c099a054467907fcda13aa820634e8b1aa53ec6650a01c333882b",
+    "bridgeId": "layerswap",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719288.85065,
+    "responseFile": "30-layerswap.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x405627825457004dd60b30ead87430edbaaf24eb6baa53acd98f63f3cb0c379a&includeOrderData=true&limit=1",
+    "csvRow": 32,
+    "txHash": "0x405627825457004dd60b30ead87430edbaaf24eb6baa53acd98f63f3cb0c379a",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719472.334489,
+    "responseFile": "32-relay.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x2345509de9d9c28818dc22206721d7616686c71c90639d46075b15224cc8a7c6&includeOrderData=true&limit=1",
+    "csvRow": 33,
+    "txHash": "0x2345509de9d9c28818dc22206721d7616686c71c90639d46075b15224cc8a7c6",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719505.4406762,
+    "responseFile": "33-relay.json"
+  },
+  {
+    "provider": "layerswap",
+    "url": "https://api.layerswap.io/api/v2/explorer/0x3835dee70f6e903b80614b21a913a773ab140f571b09bc281f6040df2c8428b3",
+    "csvRow": 34,
+    "txHash": "0x3835dee70f6e903b80614b21a913a773ab140f571b09bc281f6040df2c8428b3",
+    "bridgeId": "layerswap",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719291.987489,
+    "responseFile": "34-layerswap.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x459def284f14bde4fe7e41de166b52acc5e3421a4710433a12274af615284052&includeOrderData=true&limit=1",
+    "csvRow": 35,
+    "txHash": "0x459def284f14bde4fe7e41de166b52acc5e3421a4710433a12274af615284052",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719537.202671,
+    "responseFile": "35-relay.json"
+  },
+  {
+    "provider": "socket",
+    "url": "https://public-backend.socket.tech/v3/swap/status?quoteId=0x57ee62053961f0afe1be1f8b5599cbb05155e53d1e555c63a7474fed55c80cb9&includeQuoteDetails=true",
+    "csvRow": 38,
+    "txHash": "0x07247be11eaf3355625ffea2a446246adb429949865df7f312c567a1d860fbca",
+    "bridgeId": "rfq-vault-executor",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719303.3417192,
+    "responseFile": "38-socket.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x4f0209df3a1e18fdeeb8bd5646977627ddb22c818d3ccd302010f590eda72c87&includeOrderData=true&limit=1",
+    "csvRow": 39,
+    "txHash": "0x4f0209df3a1e18fdeeb8bd5646977627ddb22c818d3ccd302010f590eda72c87",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719570.37841,
+    "responseFile": "39-relay.json"
+  },
+  {
+    "provider": "relay",
+    "url": "https://api.relay.link/requests/v2?hash=0x53645a9bc18ccda2b8fde239211bd1bd029c95bab5705ca986e31efaec3c351e&includeOrderData=true&limit=1",
+    "csvRow": 49,
+    "txHash": "0x53645a9bc18ccda2b8fde239211bd1bd029c95bab5705ca986e31efaec3c351e",
+    "bridgeId": "relay",
+    "status": 200,
+    "attempts": 1,
+    "retrievedAt": 1793719607.593062,
+    "responseFile": "49-relay.json"
+  }
+]

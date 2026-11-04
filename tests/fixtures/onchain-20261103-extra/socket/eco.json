@@ -1,0 +1,153 @@
+[
+  {
+    "csvRow": 157,
+    "aggregatorId": "socket",
+    "bridgeId": "eco",
+    "chainKey": "base",
+    "toChainKey": "eth",
+    "txHash": "0xec546c048f46e9b6ee173659654fb34ea5bad63374d4ee64d8459610b56b4c6d",
+    "tx": {
+      "from": "0x0d99d9c32d012620ee07dbf0b7a020a633c4fbcd",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000e525420700000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000584b18248d559bc87d102e36f02b9e106d7b44e83adf61b24dc0d33360214c40404f4020d9c0000000000000000000000000d99d9c32d012620ee07dbf0b7a020a633c4fbcd000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000e52542070000000000000000000000009899f62ecf16b70bffc88677023026c47e48c218000000000000000000000000000000000000000000000000000000000092a734000000000000000000000000ec000769a73b70e16f361a442292500b3bcf4a85000000000000000000000000ec000769a73b70e16f361a442292500b3bcf4a85000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000404df00f8fa000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002600000000000000000000000000000000000000000000000000000000000000020ec00ec00ec00ec00ec00ec00ec00ec00aaaf8940ec75ab10da4b2fcf095f8cb4000000000000000000000000000000000000000000000000000000006ae9de18000000000000000000000000ec000769a73b70e16f361a442292500b3bcf4a85000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000e4929ad300000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb0000000000000000000000000d99d9c32d012620ee07dbf0b7a020a633c4fbcd00000000000000000000000000000000000000000000000000000000e4929ad300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006af318980000000000000000000000000d99d9c32d012620ee07dbf0b7a020a633c4fbcd000000000000000000000000ec08fb4647f3f50d1162a578d481266687c60fc5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000e4929ad30000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x0"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "eco",
+        "name": "Eco",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/bff45ef2e708cf0029c56395c86c2352/bff45ef2e708cf0029c56395c86c2352.png"
+      },
+      "from_token": {
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "chain": "base",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.0",
+        "credit_score": "10678211.790545277",
+        "total_supply": "4291577025.774848",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1692383789.0"
+      },
+      "to_token": {
+        "id": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "chain": "eth",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.00031114040028824136",
+        "credit_score": "19011650.62189649",
+        "total_supply": "47099003036.370224",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1533324504.0"
+      },
+      "to_actual_token": {
+        "id": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "chain": "eth",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.00031114040028824136",
+        "credit_score": "19011650.62189649",
+        "total_supply": "47099003036.370224",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1533324504.0"
+      },
+      "quote": {
+        "pay_token_amount": "3844.424199",
+        "receive_token_amount": "3834.813139"
+      },
+      "actual": {
+        "pay_token_amount": "3844.424199",
+        "receive_token_amount": "3834.813139"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xec546c048f46e9b6ee173659654fb34ea5bad63374d4ee64d8459610b56b4c6d",
+      "status": "completed",
+      "create_at": "1793711365.8690026",
+      "from_gas": {
+        "native_token": {
+          "id": "base",
+          "chain": "base",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2296.09",
+          "price_24h_change": "-0.001821604490102929",
+          "credit_score": "21356423.581090555",
+          "total_supply": "828261.0149327732",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "1.084046465487e-06",
+        "gas_price": "0.006544633",
+        "usd_value": "0.00249"
+      },
+      "from_tx": {
+        "tx_id": "0xec546c048f46e9b6ee173659654fb34ea5bad63374d4ee64d8459610b56b4c6d",
+        "chain_id": "base",
+        "status": "success",
+        "time_at": "1793711367.0"
+      },
+      "to_tx": {
+        "tx_id": "0x6ae5d256751a649b80f441b65cef85d20bc136c31dd695dd9d4e76b464ce8ead",
+        "chain_id": "eth"
+      }
+    },
+    "id": "socket-eco-ec546c048f46e9b6ee173659654fb34ea5bad63374d4ee64d8459610b56b4c6d",
+    "selector": "0x2213bc0b",
+    "route": "base -> eth",
+    "expected": {
+      "sourceToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "sourceAmount": "3844424199",
+      "outputToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "minOutputAmount": "3834813139",
+      "receiver": "0x0d99d9c32d012620ee07dbf0b7a020a633c4fbcd",
+      "destinationChainId": "1"
+    },
+    "expectedEvidence": {
+      "source": "Quote/history decimal source amount and token IDs, checked against independent ABI word reads. No SDK parser is used to create these expected values.",
+      "destination": "Socket/Eco ABI: outer input tuple; publishAndFund destination and Route.calls ERC20 transfer token/amount/to. All calls must be the same token and recipient."
+    }
+  }
+]

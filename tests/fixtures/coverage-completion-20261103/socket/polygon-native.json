@@ -1,0 +1,314 @@
+[
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 88,
+    "aggregatorId": "socket",
+    "bridgeId": "polygon-native",
+    "chainKey": "eth",
+    "toChainKey": "matic",
+    "route": "eth -> matic",
+    "txHash": "0x50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+    "tx": {
+      "from": "0x9d0e5739b9adf21e938f48d248fb4bf8f4689796",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a0000000000000000000000007d1afa7b718fb893db30a3abc0cfc608aacfebb00000000000000000000000000000000000000000000000008ac7230489e8000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001e4b18248d5d9a140d078a7800d36a1b596df0ae1bd09c926e85630350673b44585421d4a5d0000000000000000000000009d0e5739b9adf21e938f48d248fb4bf8f46897960000000000000000000000007d1afa7b718fb893db30a3abc0cfc608aacfebb00000000000000000000000000000000000000000000000008ac7230489e800000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000058d15e17628000000000000000000000000000401f6c983ea34274ec46f84d70b31c151321188b000000000000000000000000401f6c983ea34274ec46f84d70b31c151321188b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000648b9e4f930000000000000000000000007d1afa7b718fb893db30a3abc0cfc608aacfebb00000000000000000000000009d0e5739b9adf21e938f48d248fb4bf8f46897960000000000000000000000000000000000000000000000008a6e51a6728580000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x0"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "polygon-native",
+        "name": "Polygon POS",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/acbb1fe61de520d2cec33965d208659a/acbb1fe61de520d2cec33965d208659a.png"
+      },
+      "from_token": {
+        "id": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+        "chain": "eth",
+        "name": "Matic Token",
+        "symbol": "MATIC",
+        "display_symbol": null,
+        "optimized_symbol": "MATIC",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0/20aac20baa9069bd39342edd8c5cc801.png",
+        "protocol_id": "",
+        "price": "0.0897378510289541",
+        "price_24h_change": "-0.008202792843708258",
+        "credit_score": "168451.07338384324",
+        "total_supply": "9971945006.655806",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1555778052.0"
+      },
+      "to_token": {
+        "id": "matic",
+        "chain": "matic",
+        "name": "POL",
+        "symbol": "POL",
+        "display_symbol": null,
+        "optimized_symbol": "POL",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png",
+        "protocol_id": "",
+        "price": "0.08935",
+        "price_24h_change": "-0.028487550288137407",
+        "credit_score": "13695417.4600336",
+        "total_supply": "10050989941.151691",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "matic",
+        "chain": "matic",
+        "name": "POL",
+        "symbol": "POL",
+        "display_symbol": null,
+        "optimized_symbol": "POL",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png",
+        "protocol_id": "",
+        "price": "0.08935",
+        "price_24h_change": "-0.028487550288137407",
+        "credit_score": "13695417.4600336",
+        "total_supply": "10050989941.151691",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "10.0",
+        "receive_token_amount": "9.975"
+      },
+      "actual": {
+        "pay_token_amount": "10.0",
+        "receive_token_amount": "9.975"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+      "status": "completed",
+      "create_at": "1792970460.4935207",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "0.000152643522117528",
+        "gas_price": "0.640637946",
+        "usd_value": "0.35069"
+      },
+      "from_tx": {
+        "tx_id": "0x50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1792970483.0"
+      },
+      "to_tx": {
+        "tx_id": null,
+        "chain_id": "matic"
+      }
+    },
+    "id": "coverage-socket-50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+    "path": "bridge / depositERC20ForUser",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+      "sourceAmount": "10000000000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "9975000000000000000",
+      "receiver": "0x9d0e5739b9adf21e938f48d248fb4bf8f4689796",
+      "destinationChainId": "137"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. Known Polygon native bridge; MATIC/POL maps to native destination POL, explicit receiver/amount."
+      ]
+    }
+  },
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 90,
+    "aggregatorId": "socket",
+    "bridgeId": "polygon-native",
+    "chainKey": "eth",
+    "toChainKey": "matic",
+    "route": "eth -> matic",
+    "txHash": "0xbe425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+    "tx": {
+      "from": "0x04738a5218560e7c8aa8fcef38c2b18dab4a95dd",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000000e35fa931a000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000904324012e299db4449f1b72eea842879ffc53b6dbaf810eedc8a7e20bc43afbd1bd1be018b000000000000000000000000000000000000000000000000000000000044000a00000000000000000000000004738a5218560e7c8aa8fcef38c2b18dab4a95dd000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000000e35fa931a00000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c218000000000000000000000000000000000000000000000000000009184e72a0000000000000000000000000000000000000001ff3684f28c67538d4d072c227340000000000000000000000000000000000000000000000000000000000000000000000000000000000000000455e53cbb86018ac2b8092fdcd39d8444affc3f6000000000000000000000000000000000000000000000000000e2ce244a76000000000000000000000000000000000000000000000000005a6b5e4706fc377c300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000240000000000000000000000000401f6c983ea34274ec46f84d70b31c151321188b000000000000000000000000401f6c983ea34274ec46f84d70b31c151321188b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000086000000000000000000000000000000000000000000000000000000000000005e42213bc0b0000000000000000000000000cef320d0c5793ade37964e2661a033771e53cd50000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e2ce244a760000000000000000000000000000cef320d0c5793ade37964e2661a033771e53cd500000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000005041fff991f00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000455e53cbb86018ac2b8092fdcd39d8444affc3f6000000000000000000000000000000000000000000000005a6b5e4706fc377c300000000000000000000000000000000000000000000000000000000000000a0ad94c94753bc3bc08ebc15350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000024000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000044bd01c226000000000000000000000000000000000000000000000000000000006ade0c49000000000000000000000000000000000000000000000000000e2ce244a7600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010438c9c147000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000000000000f4240000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000024d0e30db00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e48d68a1560000000000000000000000000cef320d0c5793ade37964e2661a033771e53cd500000000000000000000000000000000000000000000000000000000000f4240000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000bb8fffd8963efd1fc6a506488495d951d5263988d25455e53cbb86018ac2b8092fdcd39d8444affc3f60000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a45f80abae000000000000000000000000f5c4f3dc02c3fb9279495a8fef7b0741da956157000000000000000000000000455e53cbb86018ac2b8092fdcd39d8444affc3f6000000000000000000000000000000000000000000000005b57dfd4f94166c8600000000000000000000000000000000000000000000000000000000000f424000000000000000000000000000000000000000000000000000000000000f424000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000648b9e4f93000000000000000000000000455e53cbb86018ac2b8092fdcd39d8444affc3f600000000000000000000000004738a5218560e7c8aa8fcef38c2b18dab4a95dd00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0xe35fa931a0000"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "polygon-native",
+        "name": "Polygon POS",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/acbb1fe61de520d2cec33965d208659a/acbb1fe61de520d2cec33965d208659a.png"
+      },
+      "from_token": {
+        "id": "eth",
+        "chain": "eth",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2297.44",
+        "price_24h_change": "0.010130723265047669",
+        "credit_score": "37364405.57193334",
+        "total_supply": "122180209.38070501",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1483200000.0"
+      },
+      "to_token": {
+        "id": "matic",
+        "chain": "matic",
+        "name": "POL",
+        "symbol": "POL",
+        "display_symbol": null,
+        "optimized_symbol": "POL",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png",
+        "protocol_id": "",
+        "price": "0.08935",
+        "price_24h_change": "-0.028487550288137407",
+        "credit_score": "13695417.4600336",
+        "total_supply": "10050989941.151691",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "matic",
+        "chain": "matic",
+        "name": "POL",
+        "symbol": "POL",
+        "display_symbol": null,
+        "optimized_symbol": "POL",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png",
+        "protocol_id": "",
+        "price": "0.08935",
+        "price_24h_change": "-0.028487550288137407",
+        "credit_score": "13695417.4600336",
+        "total_supply": "10050989941.151691",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.004",
+        "receive_token_amount": "105.29947385978886"
+      },
+      "actual": {
+        "pay_token_amount": "0.004",
+        "receive_token_amount": "105.29947385978886"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xbe425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+      "status": "completed",
+      "create_at": "1792936742.2818284",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "0.000199553320157024",
+        "gas_price": "0.641584532",
+        "usd_value": "0.45846"
+      },
+      "from_tx": {
+        "tx_id": "0xbe425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1792936751.0"
+      },
+      "to_tx": {
+        "tx_id": null,
+        "chain_id": "matic"
+      }
+    },
+    "id": "coverage-socket-be425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+    "path": "swapAndBridge / depositERC20ForUser",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "4000000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "104246479121190975427",
+      "receiver": "0x04738a5218560e7c8aa8fcef38c2b18dab4a95dd",
+      "destinationChainId": "137"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. Known Polygon native bridge; MATIC/POL maps to native destination POL, explicit receiver/amount."
+      ]
+    }
+  }
+]

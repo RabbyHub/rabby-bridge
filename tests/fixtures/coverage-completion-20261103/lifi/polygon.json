@@ -1,0 +1,158 @@
+[
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 86,
+    "aggregatorId": "lifi",
+    "bridgeId": "polygon",
+    "chainKey": "eth",
+    "toChainKey": "matic",
+    "route": "eth -> matic",
+    "txHash": "0x650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+    "tx": {
+      "from": "0x00cbdee334b142be80d3a8f006b74abbcc3c4e69",
+      "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+      "data": "0xb4f3758100000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200d07f4c80b8667566acbc74ea94581842d455ec67aca1e05470f2fb50a59ec9ef00000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000045804880de22913dafe09f4980848ece6ecbaf7800000000000000000000000000cbdee334b142be80d3a8f006b74abbcc3c4e690000000000000000000000000000000000000000000000000072c8e3162a0a000000000000000000000000000000000000000000000000000000000000000089000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007706f6c79676f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a72616262796b6d7376320000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd00000000000000000000000045804880de22913dafe09f4980848ece6ecbaf7800000000000000000000000045804880de22913dafe09f4980848ece6ecbaf78000000000000000000000000000000000000000000000000007312888c46600000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a4332d746b00000000000000000000000045804880de22913dafe09f4980848ece6ecbaf78000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000009899f62ecf16b70bffc88677023026c47e48c218000000000000000000000000000000000000000000000000000049a5761c560000000000000000000000000000000000000000000000000000000000",
+      "value": "0x0"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "lifi",
+        "name": "LI.FI",
+        "logo_url": "https://static.debank.com/image/project/logo_url/lifiprotocol/22262cb8c3879421c841c1e1e8c468ee.png"
+      },
+      "bridge": {
+        "id": "polygon",
+        "name": "Polygon Bridge (PoS)",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/2d2c17f60239c2c4763206584655925a/2d2c17f60239c2c4763206584655925a.png"
+      },
+      "from_token": {
+        "id": "0x45804880de22913dafe09f4980848ece6ecbaf78",
+        "chain": "eth",
+        "name": "Paxos Gold",
+        "symbol": "PAXG",
+        "display_symbol": null,
+        "optimized_symbol": "PAXG",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0x45804880de22913dafe09f4980848ece6ecbaf78/c67db744859c16615fa81fcb3a71b3ae.png",
+        "protocol_id": "",
+        "price": "3914.19",
+        "price_24h_change": "0.012600785652018354",
+        "credit_score": "956372.7748060531",
+        "total_supply": "442884.6437868368",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1566830180.0"
+      },
+      "to_token": {
+        "id": "0x553d3d295e0f695b9228246232edf400ed3560b5",
+        "chain": "matic",
+        "name": "Paxos Gold (PoS)",
+        "symbol": "PAXG",
+        "display_symbol": null,
+        "optimized_symbol": "PAXG",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hmy_token/logo_url/0x7afb0e2eba6dc938945fe0f42484d3b8f442d0ac/ef485bf9a6db58cdb906a39b4b1ab531.png",
+        "protocol_id": "",
+        "price": "3895.869835348081",
+        "price_24h_change": "0.017920568575905377",
+        "credit_score": "37142.801224902665",
+        "total_supply": "192.98701814072274",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1614597525.0"
+      },
+      "to_actual_token": {
+        "id": "0x553d3d295e0f695b9228246232edf400ed3560b5",
+        "chain": "matic",
+        "name": "Paxos Gold (PoS)",
+        "symbol": "PAXG",
+        "display_symbol": null,
+        "optimized_symbol": "PAXG",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hmy_token/logo_url/0x7afb0e2eba6dc938945fe0f42484d3b8f442d0ac/ef485bf9a6db58cdb906a39b4b1ab531.png",
+        "protocol_id": "",
+        "price": "3895.869835348081",
+        "price_24h_change": "0.017920568575905377",
+        "credit_score": "37142.801224902665",
+        "total_supply": "192.98701814072274",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1614597525.0"
+      },
+      "quote": {
+        "pay_token_amount": "0.03239",
+        "receive_token_amount": "0.032309025"
+      },
+      "actual": {
+        "pay_token_amount": "0.03239",
+        "receive_token_amount": "0.032309025"
+      },
+      "detail_url": "https://explorer.li.fi/tx/0x650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+      "status": "completed",
+      "create_at": "1792841889.798478",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "3.7839278201835e-05",
+        "gas_price": "0.192875491",
+        "usd_value": "0.08693"
+      },
+      "from_tx": {
+        "tx_id": "0x650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1792841915.0"
+      },
+      "to_tx": {
+        "tx_id": "0x672d500689892e29c6ba66831948fb0fad8be00b2aece3be212eeac1922bcfcf",
+        "chain_id": "matic"
+      }
+    },
+    "id": "coverage-lifi-650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+    "path": "swapAndStartBridgeTokensViaPolygonBridge / -",
+    "selector": "0xb4f37581",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x45804880de22913dafe09f4980848ece6ecbaf78",
+      "sourceAmount": "32390000000000000",
+      "outputToken": "0x553d3d295e0f695b9228246232edf400ed3560b5",
+      "minOutputAmount": "32309025000000000",
+      "receiver": "0x00cbdee334b142be80d3a8f006b74abbcc3c4e69",
+      "destinationChainId": "137"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Polygon RootChainManager.rootToChildToken(source bridge token) from stored real RPC; BridgeData.minAmount and receiver supply exact output floor and recipient."
+      ]
+    }
+  }
+]

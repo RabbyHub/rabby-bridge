@@ -1,0 +1,1818 @@
+{
+  "sourceFile": "New_Query_2026_11_03.csv",
+  "sourceSha256": "741ed8431e8b5be2a8cf7a9b3db0515180698c3de571f4343a9fd55b247d1dd5",
+  "baseline": {
+    "bridgeTypes": 27,
+    "functionPaths": 46,
+    "expandedFunctionPaths": 48
+  },
+  "supplied": {
+    "rows": 112,
+    "bridgeTypes": 14,
+    "functionPaths": 22,
+    "baselineFunctionPaths": 20,
+    "decodeFailures": 0,
+    "newFunctionPaths": [
+      "across:across:depositNative / -",
+      "mayan:FASTMCTP:swapAndForwardEth / bridge"
+    ]
+  },
+  "combined": {
+    "bridgeTypes": 18,
+    "baselineFunctionPaths": 25,
+    "functionPaths": 27
+  },
+  "complete": {
+    "newUnits": 34,
+    "units": 46,
+    "bridgeTypes": 16,
+    "baselineFunctionPaths": 17,
+    "functionPaths": 19,
+    "fieldReplayPassed": 46,
+    "jestRun": false
+  },
+  "reason": "Only rows with five fixed independent reference expectations and source calldata enter the test suite. Quote/actual receive amounts are never substituted for a signed minimum. Other rows remain excluded.",
+  "bridgeCoverage": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "csvSamples": 10,
+      "completeSamples": 9,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "csvSamples": 1,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "csvSamples": 10,
+      "completeSamples": 2,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "csvSamples": 10,
+      "completeSamples": 10,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "csvSamples": 10,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "csvSamples": 10,
+      "completeSamples": 8,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "csvSamples": 10,
+      "completeSamples": 2,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "csvSamples": 10,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "csvSamples": 10,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "csvSamples": 4,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "csvSamples": 10,
+      "completeSamples": 5,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "csvSamples": 1,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "csvSamples": 6,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "csvSamples": 10,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    }
+  ],
+  "pathCoverage": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "swapAndBridge / -",
+      "csvSamples": 3,
+      "completeSamples": 2,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "deposit / -",
+      "csvSamples": 1,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+      "csvSamples": 1,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "method": "swapAndStartBridgeTokensViaGnosisBridge / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "method": "swapAndStartBridgeTokensViaLayerSwap / -",
+      "csvSamples": 10,
+      "completeSamples": 2,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -",
+      "csvSamples": 10,
+      "completeSamples": 10,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrderWithToken",
+      "csvSamples": 10,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / bridgeWithFee",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrder",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "method": "swapAndStartBridgeTokensViaPaxosTransit / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "method": "swapAndStartBridgeTokensViaPolygonBridge / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -",
+      "csvSamples": 10,
+      "completeSamples": 8,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "method": "swapAndStartBridgeTokensViaSuperset / -",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "forwardERC20 / createOrder",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / createOrder",
+      "csvSamples": 9,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / createOrder",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositNative / -",
+      "csvSamples": 8,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "transferAndMulticall / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositErc20 / -",
+      "csvSamples": 2,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "multicall / -",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / outboundTransfer",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / createRetryableTicket",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "swapAndBridge / outboundTransfer",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "swapAndBridge / ccipSend",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "bridge / ccipSend",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "swapAndBridge / depositForBurn",
+      "csvSamples": 7,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "bridge / depositForBurn",
+      "csvSamples": 3,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "swapAndBridge / depositForBurn",
+      "csvSamples": 1,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "method": "bridge / publishAndFund",
+      "csvSamples": 10,
+      "completeSamples": 5,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "method": "swapAndBridge / relayTokens",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositERC20To",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositETHTo",
+      "csvSamples": 1,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositERC20To",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositETHTo",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "swapAndBridge / send",
+      "csvSamples": 2,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / sendFrom",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / send",
+      "csvSamples": 4,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "bridge / depositERC20ForUser",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "swapAndBridge / depositERC20ForUser",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "bridge / receiveERC20",
+      "csvSamples": 2,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "swapAndBridge / receiveERC20",
+      "csvSamples": 8,
+      "completeSamples": 0,
+      "transactionCovered": true,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "method": "bridge / createRetryableTicket",
+      "csvSamples": 0,
+      "completeSamples": 0,
+      "transactionCovered": false,
+      "completeCovered": false
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "method": "bridge / swaps-xyz/execute/transferRemoteTo",
+      "csvSamples": 0,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "bridge / depositForBurn",
+      "csvSamples": 3,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "depositNative / -",
+      "newInThisCsv": true,
+      "csvSamples": 6,
+      "completeSamples": 6,
+      "transactionCovered": true,
+      "completeCovered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / bridge",
+      "newInThisCsv": true,
+      "csvSamples": 1,
+      "completeSamples": 1,
+      "transactionCovered": true,
+      "completeCovered": true
+    }
+  ],
+  "records": [
+    {
+      "csvRow": 2,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "arb",
+      "destinationChain": "bsc",
+      "txHash": "0xb30cdcf9ea670ae3f3b57205c4d41e0c31421f8b470692f10ca14e1cec4b32c0",
+      "selector": "0x110560ad",
+      "pathKey": "across:across:swapAndBridge / -"
+    },
+    {
+      "csvRow": 3,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "arb",
+      "destinationChain": "eth",
+      "txHash": "0x30fe82415bcb062ba02d2982abc4d509f1b1eb5cdf094b3882860d985066d823",
+      "selector": "0x110560ad",
+      "pathKey": "across:across:swapAndBridge / -"
+    },
+    {
+      "csvRow": 4,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "eth",
+      "destinationChain": "ink",
+      "txHash": "0xfe5e6639501db9820f9088d60dc165aa8f63bc869671acbb97f82ef377282c32",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 5,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "hood",
+      "destinationChain": "eth",
+      "txHash": "0xee5b2e75208832c2a483527c390b11cc5106895d51d5dce92cfd3cd397a18a8b",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 6,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "hood",
+      "destinationChain": "base",
+      "txHash": "0x74d10379dcb68f4e9743a64947e38f09db102e46f8568d6c56bce60fc14a1b3f",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 7,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "eth",
+      "destinationChain": "ink",
+      "txHash": "0xe4625a68e083742122f0efa594f0c92cc7762fc9944f8489dabaa62d9fd0d37a",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 8,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "eth",
+      "destinationChain": "base",
+      "txHash": "0x0441c3372944364dbe3c764fb84874525e76b6ce995a712d5cf3d271e7caa61b",
+      "selector": "0x110560ad",
+      "pathKey": "across:across:swapAndBridge / -"
+    },
+    {
+      "csvRow": 9,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "eth",
+      "destinationChain": "ink",
+      "txHash": "0xaca3db2646a8a808c3475c7e98354388523da4f926f5e28025be1ed3f204b665",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 10,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "hyper",
+      "destinationChain": "eth",
+      "txHash": "0x2d21651d2d9158df050d7ed3817cebb80126a56dee3ae8fcc8724a6bd89764e0",
+      "selector": "0xad5425c6",
+      "pathKey": "across:across:deposit / -"
+    },
+    {
+      "csvRow": 11,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "sourceChain": "hood",
+      "destinationChain": "ink",
+      "txHash": "0xc9ba4ef735375ef9c1cdfb5bb840f6ff64f4c60e5c35deb114f5293a080afa29",
+      "selector": "0x609ea081",
+      "pathKey": "across:across:depositNative / -"
+    },
+    {
+      "csvRow": 12,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "base",
+      "destinationChain": "hyper",
+      "txHash": "0x4307ab35ebc69e07342a108ce6484ec8860d9f3b7df81806a0afb7695b80e9ef",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 13,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0x20ac3e9d0043f944fb10d916ecc0041a9ea0bf570102dd290bc4d0ff6f66dfd0",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 14,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "sonic",
+      "txHash": "0x2018d55f313bd4fb2099172d33376422566a193b259351bba99866b90e5b8942",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 15,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "sonic",
+      "txHash": "0x4932fa17d4c2702494a880bc88b1b56fbc6d1e2341c1dd7026c4d0b287011a0d",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 16,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "sonic",
+      "txHash": "0xba77aec43fd9b476f8328177fd1ce80a7174e36f617a01beb2eff2a77f7cfd5c",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 17,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "plume",
+      "destinationChain": "base",
+      "txHash": "0x60b54803deecd44e74db8953d1d8e696a3b7060f73bbd7252c8eeaf3c862779c",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 18,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "arb",
+      "destinationChain": "hyper",
+      "txHash": "0x1ad630ebfac90e6debe5e48c49d6addc340f3b52ee10f03c7785739ae874821b",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 19,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0x08b20e18e3553f889d068c65ea7a4dc9e94a42f3fec93244a58239e26bad2f14",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 20,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "eth",
+      "destinationChain": "matic",
+      "txHash": "0x89f05ada0799ed26189bfb5700b921dae8ed16688fbaedad25068744ed3aaef1",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 21,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "sourceChain": "world",
+      "destinationChain": "arb",
+      "txHash": "0x277120fd5aeb94cc63316c8a6d84f3e4404e1f053372e3ff752a840b0890c050",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 22,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "sourceChain": "monad",
+      "destinationChain": "base",
+      "txHash": "0x606bef2949a712bf61db6dbf111a68136db11ee24b50ba14a785e7ac31c4ed04",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2-slow:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 23,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "sourceChain": "hyper",
+      "destinationChain": "arb",
+      "txHash": "0xb38461b43acaafe2cc992a816ffc8d9733c4c334dd9325c82bce3244182153b2",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2-slow:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 24,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "sourceChain": "sonic",
+      "destinationChain": "linea",
+      "txHash": "0xe092756fb0445f7f819212bc777cc60176447da9b7e717e16c6ce90c8ddb2784",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2-slow:bridge / depositForBurn"
+    },
+    {
+      "csvRow": 25,
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "sourceChain": "hyper",
+      "destinationChain": "base",
+      "txHash": "0xce900c650e796c4b3948856c7a5bb0d9fd4000406d40c2c0967a869ced47a714",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:cctp-v2-slow:swapAndBridge / depositForBurn"
+    },
+    {
+      "csvRow": 26,
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "sourceChain": "base",
+      "destinationChain": "eth",
+      "txHash": "0xee28240a860765a85e8176a9aa3182e7a0af71814829b7b95e06479ea0c22b93",
+      "selector": "0x4f3b0759",
+      "pathKey": "lifi:celercircle:swapAndStartBridgeTokensViaCelerCircleBridge / -"
+    },
+    {
+      "csvRow": 27,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "hyper",
+      "destinationChain": "arb",
+      "txHash": "0x4b4b117e143314b55c8331b94a4a1b5cbd7b523e6d97eae67e8350d6b56a9fe4",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 28,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "hyper",
+      "destinationChain": "base",
+      "txHash": "0x7be775eb0e269b44abd57b9dc48a45eef2158c67f6127f251281ed4abf07f6f3",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 29,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0xc0414d6b05541093f26056309abf1d15e8b32da8aa48269c20ccc248df617f6c",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 30,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "hyper",
+      "destinationChain": "eth",
+      "txHash": "0x0b4519776080fe0faa0f3f15b167807f46da01b6fe354376947d65f67f148bd2",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 31,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "base",
+      "destinationChain": "eth",
+      "txHash": "0x1c80d239758484ce66605dfe9e75f39489f2be1142f616284a7aa9ad77ff185b",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 32,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "plasma",
+      "destinationChain": "base",
+      "txHash": "0x963ac390e8e11cf4f47a984f2a63993f1337393fe4fe12a7f46139ae08619016",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 33,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0x7c4390f0faa4c49f16c9ffe23d76caa79afcafb656ad151a493fbe7942dc7d13",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 34,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "base",
+      "destinationChain": "eth",
+      "txHash": "0x3f60baa10baab3ae338d647f8a9ad11a44b3a107f2de04d9c95d9b36b9401b17",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 35,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "hyper",
+      "destinationChain": "eth",
+      "txHash": "0x831462254509f178d4044ea623c1143e31ba305313371213fcfe6de3366ad94b",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 36,
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0xda930acb9598cfe5d60de4606104a70ea25acd3cba0f6e79ee8c91fee5c051b2",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:eco:bridge / publishAndFund"
+    },
+    {
+      "csvRow": 37,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "avax",
+      "destinationChain": "base",
+      "txHash": "0x0f77b9826394b000a14b182516029bd57139921ebb06d47e95bcded696a5adf0",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 38,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "base",
+      "destinationChain": "avax",
+      "txHash": "0x901f199683b8915fd354a44a2c91e9ae180dd3722cf145c27122ba739f68ceb2",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 39,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "arb",
+      "destinationChain": "base",
+      "txHash": "0xcd926a2de9361104419958d7b48cf84d7f0e0bdd018f20cf43b3e35c42e650e2",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 40,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "base",
+      "destinationChain": "hyper",
+      "txHash": "0xcec5e7c14b98616436fd7966a2d750bb4c87bff716feef67d76db533ba68ff7d",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 41,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "base",
+      "destinationChain": "hyper",
+      "txHash": "0x646bb80d96bfc4e644ac1b6fe8f89efe33e7d8d694a05921c565d6623389690d",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 42,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "eth",
+      "destinationChain": "base",
+      "txHash": "0x5fe9788bfcfd16935f791332c8fd066858362772ff86896f1787267aa288fff8",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 43,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "eth",
+      "destinationChain": "avax",
+      "txHash": "0x7b01a7812c644ee42e2326bd5618ee6d36480bc17b183dfad1e2ec50ba0f5342",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 44,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "avax",
+      "destinationChain": "base",
+      "txHash": "0xdfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / bridge"
+    },
+    {
+      "csvRow": 45,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "base",
+      "destinationChain": "hyper",
+      "txHash": "0xd19dc798b782484701b3a68b86feafc1abe8859992cb0db69b569fb7ab0683ec",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 46,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "sourceChain": "hyper",
+      "destinationChain": "uni",
+      "txHash": "0xf485cdce05fc16c5ca941603c80fca73dd8fe46c05120f97f2c49dd8a900a4e4",
+      "selector": "0xfa74fd43",
+      "pathKey": "mayan:FASTMCTP:swapAndForwardEth / createOrder"
+    },
+    {
+      "csvRow": 47,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "abs",
+      "destinationChain": "hood",
+      "txHash": "0x2b1f0c93872f97d7d3c76bd505bceafb402b9c792a4a0164aef0130ae3296ae1",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 48,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "base",
+      "destinationChain": "op",
+      "txHash": "0x7c9a4e375980ca117c5c4c00561b37376cf35fbca5a4177d5ec10ed727aa9888",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 49,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "base",
+      "destinationChain": "hood",
+      "txHash": "0xb66e20eca43f8e9a5c46934b7d8c9abb05caea431ca56f32400599a52b5e04fa",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 50,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "base",
+      "destinationChain": "uni",
+      "txHash": "0x88f63ac3712e1eaa57044e9c784cd3b21d20fa990cf1742598cc8f532aad377b",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 51,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "base",
+      "destinationChain": "eth",
+      "txHash": "0x5a1dcf90ca3f3d40a00933fa3e5720bad096b91e7f0195bcd087447ee9fe41e3",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 52,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "scrl",
+      "destinationChain": "arb",
+      "txHash": "0xc50c0d3950cd715174a4a77d36a0f01d4dc8c038e9b097f0140a1da5ad194ac5",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 53,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0x88ecfc396eb16100df98ae68e378277e9a339511753e616590513ea77a9cb682",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 54,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "avax",
+      "destinationChain": "arb",
+      "txHash": "0xf2cd0e9d4a4bc8ccdb24aa380db763bb5c84ff07d724496dba604e5b70737bcd",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 55,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "mnt",
+      "destinationChain": "arb",
+      "txHash": "0xed2d4b1813cca93257da438ba6b0a0ea07bffd85b4477ecc367e0363e5ca77d0",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 56,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "sourceChain": "arb",
+      "destinationChain": "eth",
+      "txHash": "0xca2a99257874f9d4f3ac53746a1e223e06be97352049b5034dc1a7b7aed73260",
+      "selector": "0x4c279d6b",
+      "pathKey": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "csvRow": 57,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "base",
+      "destinationChain": "uni",
+      "txHash": "0xc62244e91360615aded73905fa0e6a1f8bc129692600705a995ddd67dd57bb7c",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 58,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "bsc",
+      "destinationChain": "arb",
+      "txHash": "0x3ab401aec7b09f83b59c5bd2703f1dd78575c96852072c4bbb2c3231ad600862",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 59,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x5e525b68aeda899e1e03b701f6616c67ebf99fb969a26ab3acd0e2705032c1bd",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 60,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "matic",
+      "destinationChain": "bsc",
+      "txHash": "0xeb87e12471cffd0248389c35846ca9be6b8f46fb1682918cd814720b551615c4",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 61,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "arb",
+      "destinationChain": "eth",
+      "txHash": "0xd7519f657359b9d5a032e8b2731ba0c1ee1fb8ef770fa05874642aa9aa063fe5",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 62,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "uni",
+      "destinationChain": "bsc",
+      "txHash": "0xb535b0c11f76fa63e44aa98adbb3cccb88ef527ab224e525f48ccb799b3cb880",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 63,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x6418df536e8ef5421496d6043762a6e46696e206d976e208b12a5c82509bbd55",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 64,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0xc728d10c8b47c6cbeba3cd0b83a1c28593367485b046932b6525a1f5342e2f2c",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 65,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "op",
+      "destinationChain": "base",
+      "txHash": "0x3b60bd6b7e5896061b41cddf8b34241ee80f5c384d8685ed09705da4d3da0e72",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 66,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x82e119d7a03a793ec14d4442c122f87a3705fd75e30debb5c825299c44ca9115",
+      "selector": "0x6d21c5df",
+      "pathKey": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "csvRow": 67,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0xee4ef6c62995c4cd0e7c723b9d8c032a5bdcf354a49ab5c55c919c5a6bbb3aa5",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 68,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0xe5ebc04c47a32d13d5716561f13c4b86a86f65fe27e3d8fc1362764738ddfb83",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 69,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x14a461b072f678dc40c0d5c13c8eee5e4b8dcca5612564f47edcc73644fab0af",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 70,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "avax",
+      "destinationChain": "eth",
+      "txHash": "0xee2d0157c599ef379727a74a55666d123661e5813820b96b85c03de274ce7599",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 71,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x5f7cfc7c787b1e200151f2da4689e95eefbd1ad3416f9bbc36b507fd9d92bc54",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 72,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "avax",
+      "destinationChain": "bsc",
+      "txHash": "0xb95ad8b3a78a39138948bdaf044b159c6e75adb0d3ed3f294b12d84b42c1a545",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 73,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "arb",
+      "destinationChain": "base",
+      "txHash": "0x0db60a5c1443774b3baa9c6b3d37f0f343911d279b36bff5c7875ed3a9b5c22b",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 74,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "arb",
+      "destinationChain": "bsc",
+      "txHash": "0xca038c7e89825c8e6a8f4d258435ced3e0775af8fde4ccab3be81a8b90872b84",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 75,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0xfb08a81671448c99afe6d004e7e257acdc3b4310340559e4a3021e43f9a41d94",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 76,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "sourceChain": "arb",
+      "destinationChain": "bsc",
+      "txHash": "0x9a15286998642773de621eed00bc35589d0101830d784c81bcf1711112102075",
+      "selector": "0x80c65808",
+      "pathKey": "lifi:mayan:swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "csvRow": 77,
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "sourceChain": "eth",
+      "destinationChain": "base",
+      "txHash": "0x26324b423ec4c70e3d1bc06ea70c00e3b4407b6faf07eda7fe440fffd38fa8a1",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:native-op-stack:swapAndBridge / depositETHTo"
+    },
+    {
+      "csvRow": 78,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "base",
+      "destinationChain": "arb",
+      "txHash": "0xf72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:bridge / send"
+    },
+    {
+      "csvRow": 79,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "arb",
+      "destinationChain": "base",
+      "txHash": "0x4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:bridge / send"
+    },
+    {
+      "csvRow": 80,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "hood",
+      "destinationChain": "hyper",
+      "txHash": "0x8781137dc8b0ee715c338da46381cc6bffd4ecb8ca2fae70df07253a3f204593",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:swapAndBridge / send"
+    },
+    {
+      "csvRow": 81,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "scrl",
+      "destinationChain": "base",
+      "txHash": "0xaf197acefef438e1e5a2138cd7a6fa464672b61298918a9b3616b372d1c145d1",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:swapAndBridge / send"
+    },
+    {
+      "csvRow": 82,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "arb",
+      "destinationChain": "op",
+      "txHash": "0xfee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:bridge / send"
+    },
+    {
+      "csvRow": 83,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "sourceChain": "arb",
+      "destinationChain": "op",
+      "txHash": "0xbf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:oft:bridge / send"
+    },
+    {
+      "csvRow": 84,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "base",
+      "destinationChain": "arb",
+      "txHash": "0xa18905cb4dad17b06b74567f886e1b3f5e6f31a1ef44f826961f4df832f66342",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 85,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "hyper",
+      "destinationChain": "arb",
+      "txHash": "0x4606b79daf165da7f78c240c87b054b8362f2f843ea7dc18a898f01054d9cc76",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 86,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "hyper",
+      "destinationChain": "matic",
+      "txHash": "0x375c46815ee22159f0afc19ee98839b3769618fdc74260c1b68dcecb6f6b2b6c",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 87,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "hyper",
+      "destinationChain": "arb",
+      "txHash": "0x66a7fcd233e18cc961813e8aa82b899fb86a34d7e90a1b02f0b691d4eb06d303",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 88,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "matic",
+      "destinationChain": "arb",
+      "txHash": "0xbafe63e6959fe6f9e7394251113918ce3115f6765d11f1128581e571bf9115ac",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 89,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "hyper",
+      "destinationChain": "base",
+      "txHash": "0x80b415cf8b62e0a09f70a50b4e3965cdc96b033149c7a88730d129bdb2aa8e44",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 90,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "arb",
+      "destinationChain": "eth",
+      "txHash": "0x02bb06d4ed4fa25be13a37958dfea1d8a4ff4f7fa9fc9591741e5559cf281d8a",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 91,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "base",
+      "destinationChain": "arb",
+      "txHash": "0x46f86d2342ffc5cde25b1ae18b7ef243c96fa4d2e031b9b4aab67146324f2135",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 92,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "sonic",
+      "destinationChain": "arb",
+      "txHash": "0x32ad8a4ae9cd8f89b5ccccc1bbb6b5bfcae33dd9bf90fcdb38e9c54bc1bac87f",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 93,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "sourceChain": "op",
+      "destinationChain": "base",
+      "txHash": "0x380a079d5abc9bdaf56cd8263b92520cecafa32ee39ee9b1a094b78acbba37d2",
+      "selector": "0x17917a4e",
+      "pathKey": "lifi:polymerStandard:swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "csvRow": 94,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "arb",
+      "destinationChain": "hyper",
+      "txHash": "0x4c562b7647800bb8fe47eb9297bc5660729b86949d9471bcbade1ed7b2361554",
+      "selector": "0xe8017952",
+      "pathKey": "relay:relay:depositErc20 / -"
+    },
+    {
+      "csvRow": 95,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "abs",
+      "destinationChain": "base",
+      "txHash": "0xe596acf931020c7587df67cd0b349db1e0873b1ec500957c83a94d52817d5a0e",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 96,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "ink",
+      "destinationChain": "bsc",
+      "txHash": "0x0fca01cb15f200ebb60e303709aa554fa9d8ef509584adb41b3aaea355db4c78",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 97,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "mode",
+      "destinationChain": "base",
+      "txHash": "0x9a96a47104ed7350cdd7314d1cc767847126f57e8a5976f6c222491e43d8711a",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 98,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "abs",
+      "destinationChain": "base",
+      "txHash": "0xb3335f7ce6f48159ade13bde96f707dcc195434d595d67c5c660d2a3753cf906",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 99,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "bsc",
+      "destinationChain": "hyper",
+      "txHash": "0x8bbcff7548aea680454df2d5233cc2019141b9513aa44fffbddbe90a5f7b7d54",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 100,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "hood",
+      "destinationChain": "eth",
+      "txHash": "0xb050f0060580b26aa1e450573502965d228c167201cd1384ad13d07d135f2220",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 101,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "hood",
+      "destinationChain": "base",
+      "txHash": "0x2b53d176d5ec4f2f90ce5ecf054e365ab41037a9ba4ddadca2aadf47f43d3ee4",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 102,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "bsc",
+      "destinationChain": "hyper",
+      "txHash": "0xe882d193bc9b8525307a9de503256a77338953278f923c2647948f0a69063ac2",
+      "selector": "0xe8017952",
+      "pathKey": "relay:relay:depositErc20 / -"
+    },
+    {
+      "csvRow": 103,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "sourceChain": "megaeth",
+      "destinationChain": "hood",
+      "txHash": "0x6286f8246dbce453590ee8a819b391bda9062424f7a859677f53d467a44bdcd5",
+      "selector": "0x49290c1c",
+      "pathKey": "relay:relay:depositNative / -"
+    },
+    {
+      "csvRow": 104,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x4404e64dbfd68f7f1020699be77670db5f1b089a3438373c813d1423d5050caf",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 105,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "hood",
+      "destinationChain": "base",
+      "txHash": "0x230fc3dcafcb020ba2f84f958c6d9817640a62199b1433b7ae655dcb788fda14",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 106,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "eth",
+      "destinationChain": "arb",
+      "txHash": "0xdd6ae5ef746b061e24308bb125449b78521c4bfc5430ab98304f9edb4fcf8d2e",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 107,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "hood",
+      "destinationChain": "arc",
+      "txHash": "0xdac725d54c5698a1269b8b6f96682762f83a99cb2b11dff569982f2f1070c801",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 108,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "bsc",
+      "destinationChain": "base",
+      "txHash": "0xc184c1bc93690a904ed423ca5f1e7db9492744acdd3b1d2506fcbb677d11be19",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:bridge / receiveERC20"
+    },
+    {
+      "csvRow": 109,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0xbfd937456b9b5971849e08692d8502af56bc61fbf98b942829df49357863a696",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 110,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "base",
+      "destinationChain": "bsc",
+      "txHash": "0x9d76d36e121bc21e3f32b587c935068954953277b48e4997bec6f8a60c2e003c",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 111,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "base",
+      "destinationChain": "op",
+      "txHash": "0xb4b9f54bf61fc46157229b257ea437ea0fe0c415092fd552674dbac1e6168201",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 112,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "eth",
+      "destinationChain": "bsc",
+      "txHash": "0x7066956ee6f076043cee5036f812990d6ba5f23b45af051b86d203bc62fba4db",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:swapAndBridge / receiveERC20"
+    },
+    {
+      "csvRow": 113,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "sourceChain": "base",
+      "destinationChain": "eth",
+      "txHash": "0x543b7860a9d3d8e634d79fe4a575a0085bc10e6cb5325e91a49743e72c7dd953",
+      "selector": "0x2213bc0b",
+      "pathKey": "socket:rfq-vault-executor:bridge / receiveERC20"
+    }
+  ],
+  "excludedCount": 78,
+  "providerLookups": {
+    "provider": "layerswap",
+    "attempted": 10,
+    "succeeded": 0,
+    "failures": "8 HTTP 403 responses; 2 TLS timeouts. No fresh quotes substituted for these historical transactions."
+  }
+}

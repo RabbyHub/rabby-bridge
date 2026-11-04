@@ -1,0 +1,320 @@
+{
+  "capturedAt": 1793700988323,
+  "provenance": "User-supplied LI.FI LayerSwap quote and build transaction. Provider response was fetched directly while user_transfer_pending and before the calldata deadline. Only the matching order is retained.",
+  "providerRequest": {
+    "url": "https://api.layerswap.io/api/v2/explorer/0x341a1fbd51825e5a107db54ccb3166deba145479",
+    "method": "GET"
+  },
+  "quote": {
+    "aggregator": {
+      "id": "lifi",
+      "name": "LI.FI",
+      "logo_url": "https://static.debank.com/image/project/logo_url/lifiprotocol/22262cb8c3879421c841c1e1e8c468ee.png"
+    },
+    "bridge_id": "layerswap",
+    "bridge": {
+      "logo_url": "https://static.debank.com/image/bridge/logo_url/879befcfcb94d6b5df8f3ab61e983216/879befcfcb94d6b5df8f3ab61e983216.png",
+      "id": "layerswap",
+      "name": "layerswap"
+    },
+    "to_token_raw_amount": 996640000000000,
+    "to_token_raw_amount_hex_str": "0x38a70552b4000",
+    "to_token_amount": 0.00099664,
+    "protocol_fee": {
+      "raw_amount_hex_str": "0xc81ba5b243",
+      "usd_value": 0.00195
+    },
+    "rabby_fee": {
+      "raw_amount_hex_str": "0x245b59447b3",
+      "usd_value": 0.00566
+    },
+    "gas_fee": {
+      "raw_amount_hex_str": "0xe4671751c80",
+      "usd_value": 0.0355
+    },
+    "approve_contract_id": null,
+    "duration": 10,
+    "quote_key": {
+      "to_token_raw_amount": 996640000000000,
+      "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "fee_rate": 0.25
+    }
+  },
+  "tx": {
+    "value": "0x38d7ea4c68000",
+    "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+    "data": "0x4c279d6b000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002200000000000000000000000000000000000000000000000000000000000000400b1af5859725d1b141dbe00d906c1851c3b15dd835c1c32f7c22007a1c75d34be0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000038b389129d800000000000000000000000000000000000000000000000000000000000000a4b10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000096c61796572737761700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a72616262796b6d7376320000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038d7ea4c6800000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000840e8ae67f000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000009899f62ecf16b70bffc88677023026c47e48c21800000000000000000000000000000000000000000000000000000246139ca8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000015564c80000000000000000000000002fc617e933a52713247ce25730f6695920b3befe000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000006ae9b5ea000000000000000000000000000000000000000000000000000000000000004166eeff2e3cf06f5b074c3f3a4c3eba4b55f59a9bfdb801457dea820500e6f7510581c3ea603228b02d1480b6e8682c0e9134f35c8e654d9d0aae5a49a274eb181b00000000000000000000000000000000000000000000000000000000000000",
+    "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+    "chainId": 1,
+    "gasPrice": "0x5493bd3",
+    "gasLimit": "0x38d12",
+    "nonce": "0xdb8",
+    "gas": "0x29cbd"
+  },
+  "providerResponse": {
+    "data": [
+      {
+        "swap": {
+          "integrator_fee_splits": [],
+          "id": "d9895d8d-6acb-4087-859f-7a1dc1100ca4",
+          "created_date": "2026-11-03T10:12:34.355707+00:00",
+          "source_network": {
+            "name": "ETHEREUM_MAINNET",
+            "display_name": "Ethereum",
+            "logo": "https://cdn.layerswap.io/layerswap/networks/ethereum_mainnet.png",
+            "chain_id": "1",
+            "node_url": "https://ethereum-rpc.publicnode.com",
+            "nodes": [
+              "https://ethereum-rpc.publicnode.com"
+            ],
+            "type": "evm",
+            "transaction_explorer_template": "https://etherscan.io/tx/{0}",
+            "account_explorer_template": "https://etherscan.io/address/{0}",
+            "source_rank": 3,
+            "destination_rank": 2,
+            "token": {
+              "symbol": "ETH",
+              "display_asset": "ETH",
+              "asset": "ETH",
+              "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+              "contract": null,
+              "decimals": 18,
+              "price_in_usd": 2262.51,
+              "precision": 8,
+              "listing_date": "2022-05-29T17:30:19.14963+00:00",
+              "source_rank": 4,
+              "destination_rank": 3,
+              "group": "ETH",
+              "supports_gasless_deposit": false,
+              "gasless_standard": "none"
+            },
+            "metadata": {
+              "listing_date": "2022-05-28T20:00:00+00:00",
+              "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+            },
+            "deposit_methods": [
+              "deposit_address",
+              "wallet"
+            ]
+          },
+          "source_token": {
+            "symbol": "ETH",
+            "display_asset": "ETH",
+            "asset": "ETH",
+            "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+            "contract": null,
+            "decimals": 18,
+            "price_in_usd": 2262.51,
+            "precision": 8,
+            "listing_date": "2022-05-29T17:30:19.14963+00:00",
+            "source_rank": 0,
+            "destination_rank": 0,
+            "group": null,
+            "supports_gasless_deposit": false,
+            "gasless_standard": "none"
+          },
+          "destination_network": {
+            "name": "ARBITRUM_MAINNET",
+            "display_name": "Arbitrum One",
+            "logo": "https://cdn.layerswap.io/layerswap/networks/arbitrum_mainnet.png",
+            "chain_id": "42161",
+            "node_url": "https://arb-one.api.pocket.network",
+            "nodes": [
+              "https://arb-one.api.pocket.network",
+              "https://arbitrum.drpc.org"
+            ],
+            "type": "evm",
+            "transaction_explorer_template": "https://arbiscan.io/tx/{0}",
+            "account_explorer_template": "https://arbiscan.io/address/{0}",
+            "source_rank": 5,
+            "destination_rank": 1,
+            "token": {
+              "symbol": "ETH",
+              "display_asset": "ETH",
+              "asset": "ETH",
+              "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+              "contract": null,
+              "decimals": 18,
+              "price_in_usd": 2262.51,
+              "precision": 8,
+              "listing_date": "2021-09-21T00:25:30.790797+00:00",
+              "source_rank": 3,
+              "destination_rank": 1,
+              "group": "ETH",
+              "supports_gasless_deposit": false,
+              "gasless_standard": "none"
+            },
+            "metadata": {
+              "listing_date": "2021-09-20T20:00:00+00:00",
+              "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+            }
+          },
+          "destination_token": {
+            "symbol": "ETH",
+            "display_asset": "ETH",
+            "asset": "ETH",
+            "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+            "contract": null,
+            "decimals": 18,
+            "price_in_usd": 2262.51,
+            "precision": 8,
+            "listing_date": "2021-09-21T00:25:30.790797+00:00",
+            "source_rank": 0,
+            "destination_rank": 0,
+            "group": null,
+            "supports_gasless_deposit": false,
+            "gasless_standard": "none"
+          },
+          "requested_amount": 0.0009975,
+          "destination_address": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+          "status": "user_transfer_pending",
+          "fail_reason": null,
+          "use_deposit_address": false,
+          "metadata": {
+            "sequence_number": 22373576
+          },
+          "transactions": []
+        },
+        "quote": {
+          "integrator_fee_splits": [],
+          "fee_sponsorship_percentage": 0,
+          "source_network": {
+            "name": "ETHEREUM_MAINNET",
+            "display_name": "Ethereum",
+            "logo": "https://cdn.layerswap.io/layerswap/networks/ethereum_mainnet.png",
+            "chain_id": "1",
+            "node_url": "https://ethereum-rpc.publicnode.com",
+            "nodes": [
+              "https://ethereum-rpc.publicnode.com"
+            ],
+            "type": "evm",
+            "transaction_explorer_template": "https://etherscan.io/tx/{0}",
+            "account_explorer_template": "https://etherscan.io/address/{0}",
+            "source_rank": 3,
+            "destination_rank": 2,
+            "token": {
+              "symbol": "ETH",
+              "display_asset": "ETH",
+              "asset": "ETH",
+              "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+              "contract": null,
+              "decimals": 18,
+              "price_in_usd": 2262.51,
+              "precision": 8,
+              "listing_date": "2022-05-29T17:30:19.14963+00:00",
+              "source_rank": 4,
+              "destination_rank": 3,
+              "group": "ETH",
+              "supports_gasless_deposit": false,
+              "gasless_standard": "none"
+            },
+            "metadata": {
+              "listing_date": "2022-05-28T20:00:00+00:00",
+              "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+            },
+            "deposit_methods": [
+              "deposit_address",
+              "wallet"
+            ]
+          },
+          "source_token": {
+            "symbol": "ETH",
+            "display_asset": "ETH",
+            "asset": "ETH",
+            "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+            "contract": null,
+            "decimals": 18,
+            "price_in_usd": 2262.51,
+            "precision": 8,
+            "listing_date": "2022-05-29T17:30:19.14963+00:00",
+            "source_rank": 0,
+            "destination_rank": 0,
+            "group": null,
+            "supports_gasless_deposit": false,
+            "gasless_standard": "none"
+          },
+          "destination_network": {
+            "name": "ARBITRUM_MAINNET",
+            "display_name": "Arbitrum One",
+            "logo": "https://cdn.layerswap.io/layerswap/networks/arbitrum_mainnet.png",
+            "chain_id": "42161",
+            "node_url": "https://arb-one.api.pocket.network",
+            "nodes": [
+              "https://arb-one.api.pocket.network",
+              "https://arbitrum.drpc.org"
+            ],
+            "type": "evm",
+            "transaction_explorer_template": "https://arbiscan.io/tx/{0}",
+            "account_explorer_template": "https://arbiscan.io/address/{0}",
+            "source_rank": 5,
+            "destination_rank": 1,
+            "token": {
+              "symbol": "ETH",
+              "display_asset": "ETH",
+              "asset": "ETH",
+              "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+              "contract": null,
+              "decimals": 18,
+              "price_in_usd": 2262.51,
+              "precision": 8,
+              "listing_date": "2021-09-21T00:25:30.790797+00:00",
+              "source_rank": 3,
+              "destination_rank": 1,
+              "group": "ETH",
+              "supports_gasless_deposit": false,
+              "gasless_standard": "none"
+            },
+            "metadata": {
+              "listing_date": "2021-09-20T20:00:00+00:00",
+              "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+            }
+          },
+          "destination_token": {
+            "symbol": "ETH",
+            "display_asset": "ETH",
+            "asset": "ETH",
+            "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+            "contract": null,
+            "decimals": 18,
+            "price_in_usd": 2262.51,
+            "precision": 8,
+            "listing_date": "2021-09-21T00:25:30.790797+00:00",
+            "source_rank": 0,
+            "destination_rank": 0,
+            "group": null,
+            "supports_gasless_deposit": false,
+            "gasless_standard": "none"
+          },
+          "requested_amount": 0.0009975,
+          "receive_amount": 0.00099664,
+          "fee_discount": 0,
+          "min_receive_amount": 0.00098667,
+          "blockchain_fee": 4.2e-7,
+          "service_fee": 4.4e-7,
+          "avg_completion_time": "00:00:09.4087820",
+          "refuel_in_source": 0,
+          "slippage": 0.01,
+          "rate": 0,
+          "path": [],
+          "total_fee": 8.6e-7,
+          "total_fee_in_usd": 0.001945
+        },
+        "refuel": null,
+        "reward": null
+      }
+    ]
+  },
+  "expected": {
+    "sourceToken": "0x0000000000000000000000000000000000000000",
+    "sourceAmount": "1000000000000000",
+    "bridgeAmount": "997500000000000",
+    "outputToken": "0x0000000000000000000000000000000000000000",
+    "minOutputAmount": "986670000000000",
+    "expectedOutputAmount": "996640000000000",
+    "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+    "sourceChainId": "1",
+    "destinationChainId": "42161",
+    "requestId": "22373576",
+    "swapId": "d9895d8d-6acb-4087-859f-7a1dc1100ca4"
+  }
+}

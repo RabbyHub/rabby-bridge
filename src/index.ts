@@ -13,6 +13,23 @@ export {
   isSupportedBridgeChain,
 } from './list.js';
 export {
+  CALLDATA_AGGREGATORS,
+  InvalidBridgeCalldataError,
+  decodeBridgeCalldata,
+  decodeBridgeCalldataResult,
+  hasBridgeCalldata,
+  validateBridgeCalldata,
+} from './calldata/index.js';
+export type {
+  BridgeCalldataTx,
+  BridgeTokenReference,
+  BridgeAmountReference,
+  BridgeCallExpectation,
+  BridgeCheck,
+  DecodeHit,
+  ParsedBridgeCall,
+} from './calldata/index.js';
+export {
   InvalidBridgeContractError,
   buildBridgeQuoteTx,
   buildTx,
@@ -30,3 +47,22 @@ export type {
   BridgeQuoteListParams,
   BridgeTx,
 } from './quote.js';
+export {
+  BRIDGE_PROVIDER_ORIGINS,
+  InvalidBridgeProviderError,
+  createBridgeFetchRequest,
+  createBridgeProviderClient,
+  isDirectBridgeProviderRoute,
+} from './providers/index.js';
+export type {
+  BridgeFetch,
+  BridgeProviderClient,
+  BridgeProviderClientOptions,
+  BridgeProviderVerification,
+  BridgeVerificationProvider,
+  BridgeServiceRequest,
+  DirectBridgeProvider,
+} from './providers/index.js';
+
+export { BRIDGE_ERRORS, BridgeError } from './errors/index.js';
+export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition, BridgeErrorContext, BridgeErrorDetail, BridgeErrorReport, BridgeErrorReporter } from './errors/index.js';

@@ -1,0 +1,158 @@
+[
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 113,
+    "aggregatorId": "socket",
+    "bridgeId": "robinhood-native",
+    "chainKey": "eth",
+    "toChainKey": "hood",
+    "route": "eth -> hood",
+    "txHash": "0x7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+    "tx": {
+      "from": "0x8ec5c37eb787a1bc09ee818ce34f59dc9b0d1531",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000170e9ee097a000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000002a4b18248d5ce260bf61374268627ab9e391cf7cbe65b159974d4acccd66ead3261d47636340000000000000000000000008ec5c37eb787a1bc09ee818ce34f59dc9b0d1531000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000170e9ee097a00000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000ec1ad5c8a0000000000000000000000000001a07cc4bd17e0118bdb54d70990d2158abad7a2d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001701d622522004000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000124679b6ded0000000000000000000000008ec5c37eb787a1bc09ee818ce34f59dc9b0d1531000000000000000000000000000000000000000000000000016ffdd333b160000000000000000000000000000000000000000000000000000000038a2125fa400000000000000000000000000e1b5ab67af1c99f8c7ebc71f41f75d4d6211e530000000000000000000000000e1b5ab67af1c99f8c7ebc71f41f75d4d6211e53000000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000000000000000000000000000000000007584f60000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x171097cfaeaa040"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "robinhood-native",
+        "name": "Robinhood Native",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/a52bf4b653ef721ffd297f19a91e01e1/a52bf4b653ef721ffd297f19a91e01e1.png"
+      },
+      "from_token": {
+        "id": "eth",
+        "chain": "eth",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2297.44",
+        "price_24h_change": "0.010130723265047669",
+        "credit_score": "37364405.57193334",
+        "total_supply": "122180209.38070501",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1483200000.0"
+      },
+      "to_token": {
+        "id": "hood",
+        "chain": "hood",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hood_token/logo_url/hood/80dd95753396b5619cf84b0df135eae5.png",
+        "protocol_id": "",
+        "price": "2297.44",
+        "price_24h_change": "0.010130723265047669",
+        "credit_score": "13908083.370277507",
+        "total_supply": "257185.2165059136",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "hood",
+        "chain": "hood",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hood_token/logo_url/hood/80dd95753396b5619cf84b0df135eae5.png",
+        "protocol_id": "",
+        "price": "2297.44",
+        "price_24h_change": "0.010130723265047669",
+        "credit_score": "13908083.370277507",
+        "total_supply": "257185.2165059136",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.10384",
+        "receive_token_amount": "0.1035804"
+      },
+      "actual": {
+        "pay_token_amount": "0.10384",
+        "receive_token_amount": "0.1035804"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+      "status": "completed",
+      "create_at": "1793375853.805671",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "0.000223882782",
+        "gas_price": "1.614",
+        "usd_value": "0.51436"
+      },
+      "from_tx": {
+        "tx_id": "0x7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1793375867.0"
+      },
+      "to_tx": {
+        "tx_id": "0x1b38405a94bf772c6253961444561bd0735ab5d130ada003bcc5619987f893aa",
+        "chain_id": "hood"
+      }
+    },
+    "id": "coverage-socket-7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+    "path": "bridge / createRetryableTicket",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "103840000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "103580400000000000",
+      "receiver": "0x8ec5c37eb787a1bc09ee818ce34f59dc9b0d1531",
+      "destinationChainId": "4663"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. Known Arbitrum/Robinhood Inbox; empty retryable calldata, explicit to and l2CallValue."
+      ]
+    }
+  }
+]

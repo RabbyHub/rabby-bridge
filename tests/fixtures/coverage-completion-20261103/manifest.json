@@ -1,0 +1,179 @@
+{
+  "sourceFile": "New_Query_2026_11_02.csv",
+  "sourceSha256": "7c2c4308e2839e49ee8d5d164f9cce03bdcd878786b3de334512faa028b0c744",
+  "retained": 20,
+  "calldataUnits": 19,
+  "providerUnits": 1,
+  "fiveFieldReplayPassed": 20,
+  "expectedRejections": 0,
+  "rpcNewCalls": 23,
+  "providerRequests": {
+    "socket": 1
+  },
+  "sourceRows": [
+    27,
+    32,
+    48,
+    81,
+    86,
+    93,
+    44,
+    7,
+    10,
+    11,
+    13,
+    71,
+    73,
+    75,
+    76,
+    77,
+    88,
+    90,
+    113,
+    23
+  ],
+  "removedFromExcluded": [
+    {
+      "caseId": "lifi-celercircle-base-eth-1406f7d0b75fd79526f7e9c62c1c0b442d061096adf62b8bf21fa418d2973089",
+      "csvRow": 27,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercirclefast-eth-arb-f02bf99302598393441fe46452e790640cccc14fb88fa45a6e02a2d5c3574c11",
+      "csvRow": 32,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-gnosis-eth-xdai-99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+      "csvRow": 48,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-paxos-arb-hood-3afd1523bc187cf74b5b741019015a404a88c2ac162041d44470109a2a3fe135",
+      "csvRow": 81,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polygon-eth-matic-650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+      "csvRow": 86,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymer-base-eth-19020e952a1e2f2050c595206cbd1117ac3e2a497013f2136acc3f5fcf070847",
+      "csvRow": 93,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "mayan-FASTMCTP-linea-matic-2cef5bff8159af71cdea8812706eda55ebf57cd57f98f6ebb190bd816783e386",
+      "csvRow": 44,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-arbitrum-native-eth-arb-3512d7913822761f88c98b8c671ce534cbe8964926c862f02b1ad25f6149a6bf",
+      "csvRow": 7,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-arbitrum-native-eth-arb-b69fe78f2aa0157f13085d0f17dc0bbad92407116f50d7a713aee8cefada1183",
+      "csvRow": 10,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-arbitrum-native-eth-arb-13bc1c9bab51c7e8e416a8c9317cd2702387e769220be0d8184a2d91b6110c9d",
+      "csvRow": 11,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-ccip-eth-bsc-50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+      "csvRow": 13,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-slow-sonic-base-b508cbf03d3f04b3011d0cbd79bf78baa967d44e68cef94c4dcfb3004dddd7c5",
+      "csvRow": 23,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-native-op-stack-eth-base-c09f1039da6114a14d9b2032ba2be53e015bd4b30d3da973e0236e1d92edab88",
+      "csvRow": 71,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-native-op-stack-eth-base-9fef7c84258f6684e2844a229d7d7dfd9358b2ccfc2ffc5da38cf6bc62f6cacf",
+      "csvRow": 73,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-native-op-stack-eth-base-4e2f0e01b15fb1cd00ace4bcb39b66fb1679ae623b11cbf0bf79d3d0681443f1",
+      "csvRow": 75,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-oft-hood-hyper-226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+      "csvRow": 76,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-oft-avax-arb-cd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+      "csvRow": 77,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-polygon-native-eth-matic-50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+      "csvRow": 88,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-polygon-native-eth-matic-be425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+      "csvRow": 90,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-robinhood-native-eth-hood-7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+      "csvRow": 113,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    }
+  ],
+  "httpInTests": false,
+  "jestRun": false
+}

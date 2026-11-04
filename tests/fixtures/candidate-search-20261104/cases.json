@@ -1,0 +1,809 @@
+{
+  "expectationSource": "Fixed regression values reviewed from source calldata and recorded RPC/provider evidence. Original Rabby quotes are unavailable.",
+  "cases": [
+    {
+      "id": "lifi-celercirclefast-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "chainKey": "eth",
+      "txHash": "0x171c7c03cc7d3c3438e4fc0b90d7757606c320d20e015f597b2b20fe361ead96",
+      "explorer": "https://etherscan.io/tx/0x171c7c03cc7d3c3438e4fc0b90d7757606c320d20e015f597b2b20fe361ead96",
+      "path": "startBridgeTokensViaCelerCircleBridge / -",
+      "selector": "0xe0a4201c",
+      "tx": {
+        "from": "0x585f4fbe2d2a889c286fa71fb81d01f30773f4b1",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0xe0a4201c00000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000003c59c1300000000000000000000000000000000000000000000000000000000000003e84516fc2b682e6d9b7d94875d46bee2c8b8b88a9141ed3335304ae5a9c828f71a000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000585f4fbe2d2a889c286fa71fb81d01f30773f4b1000000000000000000000000000000000000000000000000000000935720ad11000000000000000000000000000000000000000000000000000000000000a4b100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f63656c6572636972636c6566617374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095f617262697472756d0000000000000000000000000000000000000000000000",
+        "value": "0x0",
+        "chainId": 1
+      },
+      "receipt": {
+        "transactionHash": "0x171c7c03cc7d3c3438e4fc0b90d7757606c320d20e015f597b2b20fe361ead96",
+        "blockHash": "0xbca59f8a918058e400d17c110713fddfc5d80b358b46bdbaf5cb2e5e18790ca3",
+        "blockNumber": "0x173a93d",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "sourceAmount": "632821951761",
+        "outputToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "minOutputAmount": "632758569566",
+        "receiver": "0x585f4fbe2d2a889c286fa71fb81d01f30773f4b1",
+        "destinationChainId": "42161"
+      },
+      "rpcReads": [
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x173a93d",
+          "contract": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+          "data": "0xcdffacc6e0a4201c00000000000000000000000000000000000000000000000000000000",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x000000000000000000000000b815b47ad429436892fc3c6ed1d401f515c7f763"
+          }
+        },
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x173a93d",
+          "contract": "0xb815b47ad429436892fc3c6ed1d401f515c7f763",
+          "data": "0xbf69fa61",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x000000000000000000000000c75fdd24820ddcdadee9bb653ae6cd73ba8f0e80"
+          }
+        },
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x173a93d",
+          "contract": "0xc75fdd24820ddcdadee9bb653ae6cd73ba8f0e80",
+          "data": "0xee90fc40000000000000000000000000000000000000000000000000000000935720ad11000000000000000000000000000000000000000000000000000000000000a4b1",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x00000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lifi-layerswap-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "chainKey": "celo",
+      "txHash": "0xc052d2b35e1ae6d74f27a082a7d24975b91a43fbb61842f1d527beb731c302f2",
+      "explorer": "https://celoscan.io/tx/0xc052d2b35e1ae6d74f27a082a7d24975b91a43fbb61842f1d527beb731c302f2",
+      "path": "startBridgeTokensViaLayerSwap / -",
+      "selector": "0xee9e98e0",
+      "tx": {
+        "from": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0xee9e98e00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000020033736a92108351834f542df8c007cf75fad349b072619b071fd0b7125011952c000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ceba9300f2b948710d2653dd7b07f33a8b32118c000000000000000000000000c06ebbefd94032b85424d51906e2a335efae264b00000000000000000000000000000000000000000000000000000000010de298000000000000000000000000000000000000000000000000000000000000a4b10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000096c6179657273776170000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000116665652d636f6e736f6c69646174696f6e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f040f10000000000000000000000002fc617e933a52713247ce25730f6695920b3befe000000000000000000000000c06ebbefd94032b85424d51906e2a335efae264b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000006aa072ab000000000000000000000000000000000000000000000000000000000000004183a5510e01fa86218077947c63eb15ec772a9b458a135c499b1e4b9ed982bd626bc5f72804d6a4360fd49fab1b6c34d315d00322a44115a54c3178ee1f4fffcb1c00000000000000000000000000000000000000000000000000000000000000",
+        "value": "0x0",
+        "chainId": 42220
+      },
+      "receipt": {
+        "transactionHash": "0xc052d2b35e1ae6d74f27a082a7d24975b91a43fbb61842f1d527beb731c302f2",
+        "blockHash": "0x3e8787ea93d57223005c10b7b77ebda89f22fa6a8dd58eaaffa970c991714359",
+        "blockNumber": "0x496e800",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0xceba9300f2b948710d2653dd7b07f33a8b32118c",
+        "sourceAmount": "17687192",
+        "outputToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "minOutputAmount": "17091006",
+        "receiver": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+        "destinationChainId": "42161"
+      },
+      "provider": {
+        "responseUrl": "https://api.layerswap.io/api/v2/explorer/0xc052d2b35e1ae6d74f27a082a7d24975b91a43fbb61842f1d527beb731c302f2",
+        "response": {
+          "data": [
+            {
+              "swap": {
+                "integrator_fee_splits": [],
+                "id": "dfe81582-1123-48ea-b966-783970048070",
+                "created_date": "2026-09-08T20:30:11.81103+00:00",
+                "close_date": "2026-09-08T20:30:18.739655+00:00",
+                "source_network": {
+                  "name": "CELO_MAINNET",
+                  "display_name": "Celo",
+                  "logo": "https://cdn.layerswap.io/layerswap/networks/celo_mainnet.png",
+                  "chain_id": "42220",
+                  "node_url": "https://rpc.ankr.com/celo",
+                  "nodes": [
+                    "https://rpc.ankr.com/celo",
+                    "https://forno.celo.org"
+                  ],
+                  "type": "evm",
+                  "transaction_explorer_template": "https://celoscan.io/tx/{0}",
+                  "account_explorer_template": "https://celoscan.io/address/{0}",
+                  "source_rank": 26,
+                  "destination_rank": 21,
+                  "token": {
+                    "symbol": "CELO",
+                    "display_asset": "",
+                    "asset": "CELO",
+                    "logo": "https://cdn.layerswap.io/layerswap/currencies/celo.png",
+                    "contract": "0x471ece3750da237f93b8e339c536989b8978a438",
+                    "decimals": 18,
+                    "price_in_usd": 0.072723,
+                    "precision": 8,
+                    "listing_date": "2024-12-18T15:34:56.557+00:00",
+                    "source_rank": 131,
+                    "destination_rank": 49,
+                    "group": "CELO",
+                    "supports_gasless_deposit": false,
+                    "gasless_standard": "none"
+                  },
+                  "metadata": {
+                    "listing_date": "2024-11-18T17:08:09.323017+00:00",
+                    "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                  }
+                },
+                "source_token": {
+                  "symbol": "USDC",
+                  "display_asset": "",
+                  "asset": "USDC",
+                  "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                  "contract": "0xceba9300f2b948710d2653dd7b07f33a8b32118c",
+                  "decimals": 6,
+                  "price_in_usd": 0.999516,
+                  "precision": 6,
+                  "listing_date": "2024-12-18T15:34:56.557+00:00",
+                  "source_rank": 0,
+                  "destination_rank": 0,
+                  "group": null,
+                  "supports_gasless_deposit": false,
+                  "gasless_standard": "none"
+                },
+                "destination_network": {
+                  "name": "ARBITRUM_MAINNET",
+                  "display_name": "Arbitrum One",
+                  "logo": "https://cdn.layerswap.io/layerswap/networks/arbitrum_mainnet.png",
+                  "chain_id": "42161",
+                  "node_url": "https://arb-one.api.pocket.network",
+                  "nodes": [
+                    "https://arb-one.api.pocket.network",
+                    "https://arbitrum.drpc.org"
+                  ],
+                  "type": "evm",
+                  "transaction_explorer_template": "https://arbiscan.io/tx/{0}",
+                  "account_explorer_template": "https://arbiscan.io/address/{0}",
+                  "source_rank": 4,
+                  "destination_rank": 2,
+                  "token": {
+                    "symbol": "ETH",
+                    "display_asset": "ETH",
+                    "asset": "ETH",
+                    "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+                    "contract": null,
+                    "decimals": 18,
+                    "price_in_usd": 2299.17,
+                    "precision": 8,
+                    "listing_date": "2021-09-21T00:25:30.790797+00:00",
+                    "source_rank": 5,
+                    "destination_rank": 3,
+                    "group": "ETH",
+                    "supports_gasless_deposit": false,
+                    "gasless_standard": "none"
+                  },
+                  "metadata": {
+                    "listing_date": "2021-09-20T20:00:00+00:00",
+                    "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                  }
+                },
+                "destination_token": {
+                  "symbol": "USDC",
+                  "display_asset": "USDC",
+                  "asset": "USDC",
+                  "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                  "contract": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                  "decimals": 6,
+                  "price_in_usd": 0.999516,
+                  "precision": 6,
+                  "listing_date": "2024-01-25T13:38:04.822198+00:00",
+                  "source_rank": 0,
+                  "destination_rank": 0,
+                  "group": null,
+                  "supports_gasless_deposit": true,
+                  "gasless_standard": "eip3009"
+                },
+                "requested_amount": 17.687192,
+                "destination_address": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+                "source_address": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+                "status": "completed",
+                "fail_reason": null,
+                "use_deposit_address": false,
+                "metadata": {
+                  "sequence_number": 15745265
+                },
+                "transactions": [
+                  {
+                    "from": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+                    "to": "0x2fc617e933a52713247ce25730f6695920b3befe",
+                    "timestamp": "2026-09-08T20:30:14+00:00",
+                    "transaction_hash": "0xc052d2b35e1ae6d74f27a082a7d24975b91a43fbb61842f1d527beb731c302f2",
+                    "confirmations": 3,
+                    "max_confirmations": 1,
+                    "amount": 17.687192,
+                    "amount_in_usd": 17.686484,
+                    "type": "input",
+                    "status": "completed",
+                    "token": {
+                      "symbol": "USDC",
+                      "display_asset": "",
+                      "asset": "USDC",
+                      "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                      "contract": "0xceba9300f2b948710d2653dd7b07f33a8b32118c",
+                      "decimals": 6,
+                      "price_in_usd": 0.999516,
+                      "precision": 6,
+                      "listing_date": "2024-12-18T15:34:56.557+00:00",
+                      "source_rank": 54,
+                      "destination_rank": 33,
+                      "group": "USDC",
+                      "supports_gasless_deposit": false,
+                      "gasless_standard": "none"
+                    },
+                    "network": {
+                      "name": "CELO_MAINNET",
+                      "display_name": "Celo",
+                      "logo": "https://cdn.layerswap.io/layerswap/networks/celo_mainnet.png",
+                      "chain_id": "42220",
+                      "node_url": "https://rpc.ankr.com/celo",
+                      "nodes": [
+                        "https://rpc.ankr.com/celo",
+                        "https://forno.celo.org"
+                      ],
+                      "type": "evm",
+                      "transaction_explorer_template": "https://celoscan.io/tx/{0}",
+                      "account_explorer_template": "https://celoscan.io/address/{0}",
+                      "source_rank": 26,
+                      "destination_rank": 21,
+                      "token": null,
+                      "metadata": {
+                        "listing_date": "2024-11-18T17:08:09.323017+00:00",
+                        "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                      }
+                    },
+                    "fee_amount": 0.028567942839,
+                    "fee_token": {
+                      "symbol": "CELO",
+                      "display_asset": "",
+                      "asset": "CELO",
+                      "logo": "https://cdn.layerswap.io/layerswap/currencies/celo.png",
+                      "contract": "0x471ece3750da237f93b8e339c536989b8978a438",
+                      "decimals": 18,
+                      "price_in_usd": 0.072723,
+                      "precision": 8,
+                      "listing_date": "2024-12-18T15:34:56.557+00:00",
+                      "source_rank": 131,
+                      "destination_rank": 49,
+                      "group": "CELO",
+                      "supports_gasless_deposit": false,
+                      "gasless_standard": "none"
+                    }
+                  },
+                  {
+                    "from": "0x2fc617e933a52713247ce25730f6695920b3befe",
+                    "to": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+                    "timestamp": "2026-09-08T20:30:18+00:00",
+                    "transaction_hash": "0x410b7fa2d0b9734b01fbbb44dbc3b910a92624d3f74a63863df1326ac99eb04f",
+                    "confirmations": 1,
+                    "max_confirmations": 1,
+                    "amount": 17.619594,
+                    "amount_in_usd": 17.618889,
+                    "type": "output",
+                    "status": "completed",
+                    "token": {
+                      "symbol": "USDC",
+                      "display_asset": "USDC",
+                      "asset": "USDC",
+                      "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                      "contract": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                      "decimals": 6,
+                      "price_in_usd": 0.999516,
+                      "precision": 6,
+                      "listing_date": "2024-01-25T13:38:04.822198+00:00",
+                      "source_rank": 15,
+                      "destination_rank": 5,
+                      "group": "USDC",
+                      "supports_gasless_deposit": true,
+                      "gasless_standard": "eip3009"
+                    },
+                    "network": {
+                      "name": "ARBITRUM_MAINNET",
+                      "display_name": "Arbitrum One",
+                      "logo": "https://cdn.layerswap.io/layerswap/networks/arbitrum_mainnet.png",
+                      "chain_id": "42161",
+                      "node_url": "https://arb-one.api.pocket.network",
+                      "nodes": [
+                        "https://arb-one.api.pocket.network",
+                        "https://arbitrum.drpc.org"
+                      ],
+                      "type": "evm",
+                      "transaction_explorer_template": "https://arbiscan.io/tx/{0}",
+                      "account_explorer_template": "https://arbiscan.io/address/{0}",
+                      "source_rank": 4,
+                      "destination_rank": 2,
+                      "token": null,
+                      "metadata": {
+                        "listing_date": "2021-09-20T20:00:00+00:00",
+                        "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                      }
+                    },
+                    "fee_amount": 9.1128375e-07,
+                    "fee_token": {
+                      "symbol": "ETH",
+                      "display_asset": "ETH",
+                      "asset": "ETH",
+                      "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+                      "contract": null,
+                      "decimals": 18,
+                      "price_in_usd": 2299.17,
+                      "precision": 8,
+                      "listing_date": "2021-09-21T00:25:30.790797+00:00",
+                      "source_rank": 5,
+                      "destination_rank": 3,
+                      "group": "ETH",
+                      "supports_gasless_deposit": false,
+                      "gasless_standard": "none"
+                    }
+                  }
+                ]
+              },
+              "quote": {
+                "integrator_fee_splits": [],
+                "fee_sponsorship_percentage": 0,
+                "source_network": {
+                  "name": "CELO_MAINNET",
+                  "display_name": "Celo",
+                  "logo": "https://cdn.layerswap.io/layerswap/networks/celo_mainnet.png",
+                  "chain_id": "42220",
+                  "node_url": "https://rpc.ankr.com/celo",
+                  "nodes": [
+                    "https://rpc.ankr.com/celo",
+                    "https://forno.celo.org"
+                  ],
+                  "type": "evm",
+                  "transaction_explorer_template": "https://celoscan.io/tx/{0}",
+                  "account_explorer_template": "https://celoscan.io/address/{0}",
+                  "source_rank": 26,
+                  "destination_rank": 21,
+                  "token": {
+                    "symbol": "CELO",
+                    "display_asset": "",
+                    "asset": "CELO",
+                    "logo": "https://cdn.layerswap.io/layerswap/currencies/celo.png",
+                    "contract": "0x471ece3750da237f93b8e339c536989b8978a438",
+                    "decimals": 18,
+                    "price_in_usd": 0.072723,
+                    "precision": 8,
+                    "listing_date": "2024-12-18T15:34:56.557+00:00",
+                    "source_rank": 131,
+                    "destination_rank": 49,
+                    "group": "CELO",
+                    "supports_gasless_deposit": false,
+                    "gasless_standard": "none"
+                  },
+                  "metadata": {
+                    "listing_date": "2024-11-18T17:08:09.323017+00:00",
+                    "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                  }
+                },
+                "source_token": {
+                  "symbol": "USDC",
+                  "display_asset": "",
+                  "asset": "USDC",
+                  "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                  "contract": "0xceba9300f2b948710d2653dd7b07f33a8b32118c",
+                  "decimals": 6,
+                  "price_in_usd": 0.999516,
+                  "precision": 6,
+                  "listing_date": "2024-12-18T15:34:56.557+00:00",
+                  "source_rank": 0,
+                  "destination_rank": 0,
+                  "group": null,
+                  "supports_gasless_deposit": false,
+                  "gasless_standard": "none"
+                },
+                "destination_network": {
+                  "name": "ARBITRUM_MAINNET",
+                  "display_name": "Arbitrum One",
+                  "logo": "https://cdn.layerswap.io/layerswap/networks/arbitrum_mainnet.png",
+                  "chain_id": "42161",
+                  "node_url": "https://arb-one.api.pocket.network",
+                  "nodes": [
+                    "https://arb-one.api.pocket.network",
+                    "https://arbitrum.drpc.org"
+                  ],
+                  "type": "evm",
+                  "transaction_explorer_template": "https://arbiscan.io/tx/{0}",
+                  "account_explorer_template": "https://arbiscan.io/address/{0}",
+                  "source_rank": 4,
+                  "destination_rank": 2,
+                  "token": {
+                    "symbol": "ETH",
+                    "display_asset": "ETH",
+                    "asset": "ETH",
+                    "logo": "https://cdn.layerswap.io/layerswap/currencies/eth.png",
+                    "contract": null,
+                    "decimals": 18,
+                    "price_in_usd": 2299.17,
+                    "precision": 8,
+                    "listing_date": "2021-09-21T00:25:30.790797+00:00",
+                    "source_rank": 5,
+                    "destination_rank": 3,
+                    "group": "ETH",
+                    "supports_gasless_deposit": false,
+                    "gasless_standard": "none"
+                  },
+                  "metadata": {
+                    "listing_date": "2021-09-20T20:00:00+00:00",
+                    "evm_multicall_contract": "0xca11bde05977b3631167028862be2a173976ca11"
+                  }
+                },
+                "destination_token": {
+                  "symbol": "USDC",
+                  "display_asset": "USDC",
+                  "asset": "USDC",
+                  "logo": "https://cdn.layerswap.io/layerswap/currencies/usdc.png",
+                  "contract": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                  "decimals": 6,
+                  "price_in_usd": 0.999516,
+                  "precision": 6,
+                  "listing_date": "2024-01-25T13:38:04.822198+00:00",
+                  "source_rank": 0,
+                  "destination_rank": 0,
+                  "group": null,
+                  "supports_gasless_deposit": true,
+                  "gasless_standard": "eip3009"
+                },
+                "requested_amount": 17.687192,
+                "receive_amount": 17.619594,
+                "fee_discount": 0,
+                "min_receive_amount": 17.091006,
+                "blockchain_fee": 0.002287,
+                "service_fee": 0.065311,
+                "avg_completion_time": "00:00:04.1856103",
+                "refuel_in_source": 0,
+                "slippage": 0.03,
+                "rate": 0,
+                "path": [],
+                "total_fee": 0.067598,
+                "total_fee_in_usd": 0.067565
+              },
+              "refuel": null,
+              "reward": null
+            }
+          ]
+        },
+        "expectedOutputAmount": "17619594",
+        "slippage": "0.03"
+      }
+    },
+    {
+      "id": "lifi-lifiIntents-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "chainKey": "arb",
+      "txHash": "0xaf489759ece5c3bd4a214cf950390fffdd4437d47a437d290cea5c7089e26a5c",
+      "explorer": "https://arbiscan.io/tx/0xaf489759ece5c3bd4a214cf950390fffdd4437d47a437d290cea5c7089e26a5c",
+      "path": "startBridgeTokensViaLiFiIntentEscrowV2 / -",
+      "selector": "0x7dbcf1d9",
+      "tx": {
+        "from": "0x05f6c7c0178b1ec6e305c0fb92fdd015df967f25",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0x7dbcf1d900000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200df53807286f32e7ec495429076975342d5f2764cc9c9f366d5bfa972b4669473000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000005f6c7c0178b1ec6e305c0fb92fdd015df967f2500000000000000000000000000000000000000000000000000000010f63abce1000000000000000000000000000000000000000000000000000000000000123700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b6c696669496e74656e7473000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f6a756d7065722e65786368616e67650000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005f6c7c0178b1ec6e305c0fb92fdd015df967f2500000000000000000000000005f6c7c0178b1ec6e305c0fb92fdd015df967f250000000000000000000000000000000001a153b8075d88f7b60387dbf622bc2b000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000000258000000000000000000000000008c3800f3ad9b3b662d002e90cc00000000ee17000000000000000000000000008c3800f3ad9b3b662d002e90cc00000000ee1700000000000000000000000075220b7600c300005038432a0000f308e00000680000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d1680000000000000000000000000000000000000000000000000de045a542b37bf100000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000025e000000000000000000000000094807fe4300d15909c1a4fd39f76c61d68aee11e0000005a000000000000000000000000000000000000000000000000000000",
+        "value": "0x0",
+        "chainId": 42161
+      },
+      "receipt": {
+        "transactionHash": "0xaf489759ece5c3bd4a214cf950390fffdd4437d47a437d290cea5c7089e26a5c",
+        "blockHash": "0xcfe4e11f15d91530eb1e857b2a76091c8e151ec65c9d299b5eae45f03125fd25",
+        "blockNumber": "0x1ec57cd0",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "sourceAmount": "72850521313",
+        "outputToken": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+        "minOutputAmount": "72841465509",
+        "receiver": "0x05f6c7c0178b1ec6e305c0fb92fdd015df967f25",
+        "destinationChainId": "4663"
+      }
+    },
+    {
+      "id": "lifi-polymerStandard-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "chainKey": "avax",
+      "txHash": "0xdec175385426737daa4c1cce66c6ffc34d0c93be8d69ff5a90df00f601db2a47",
+      "explorer": "https://snowtrace.io/tx/0xdec175385426737daa4c1cce66c6ffc34d0c93be8d69ff5a90df00f601db2a47",
+      "path": "startBridgeTokensViaPolymerCCTP / -",
+      "selector": "0xf434d6ca",
+      "tx": {
+        "from": "0x25d870f41c8a0419b48982b6fb58f56eadb4b79d",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0xf434d6ca00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200c1ea2d667ccccf2bbfdf8d1b8a47769454c905104f49e023897de741e9f24ff1000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b97ef9ef8734c71904d8002f8b6bc66dd9c48a6e00000000000000000000000025d870f41c8a0419b48982b6fb58f56eadb4b79d00000000000000000000000000000000000000000000000000000000017ae202000000000000000000000000000000000000000000000000000000000000210500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f706f6c796d65725374616e64617264000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000116665652d636f6e736f6c69646174696f6e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007d000000000000000000000000025d870f41c8a0419b48982b6fb58f56eadb4b79d00000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0x0",
+        "chainId": 43114
+      },
+      "receipt": {
+        "transactionHash": "0xdec175385426737daa4c1cce66c6ffc34d0c93be8d69ff5a90df00f601db2a47",
+        "blockHash": "0x70ec95de84c09e6a96e83133dc0da89659fe16508dc9e671649c43c7c6e630c6",
+        "blockNumber": "0x5e10bc9",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+        "sourceAmount": "24830466",
+        "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "minOutputAmount": "24830466",
+        "receiver": "0x25d870f41c8a0419b48982b6fb58f56eadb4b79d",
+        "destinationChainId": "8453"
+      }
+    },
+    {
+      "id": "lifi-megaeth-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth",
+      "chainKey": "eth",
+      "txHash": "0x971c9a2e730026683fb482081d9e40349b02abb3eeb4f33a43dce7281867bdec",
+      "explorer": "https://etherscan.io/tx/0x971c9a2e730026683fb482081d9e40349b02abb3eeb4f33a43dce7281867bdec",
+      "path": "startBridgeTokensViaMegaETHBridge / -",
+      "selector": "0x4213dfff",
+      "tx": {
+        "from": "0x5b4a38c21affae35d30ad4e99e9a875fbbd65bf3",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0x4213dfff000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004e200000000000000000000000000000000000000000000000000000000000000000d3bcd013d7832264f4537b29535c3810f63b45e528ac668c32b44e84f764dc8c00000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005b4a38c21affae35d30ad4e99e9a875fbbd65bf300000000000000000000000000000000000000000000000004064976a8dd000000000000000000000000000000000000000000000000000000000000000010e60000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000076d65676165746800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f6d6567612d726162626974686f6c650000000000000000000000000000000000",
+        "value": "0x4064976a8dd0000",
+        "chainId": 1
+      },
+      "receipt": {
+        "transactionHash": "0x971c9a2e730026683fb482081d9e40349b02abb3eeb4f33a43dce7281867bdec",
+        "blockHash": "0xd0a9ae074c17374cff134e935bed147ecbed3e5cb3f3a187f35ac7f0331f1894",
+        "blockNumber": "0x1822671",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0x0000000000000000000000000000000000000000",
+        "sourceAmount": "290000000000000000",
+        "outputToken": "0x0000000000000000000000000000000000000000",
+        "minOutputAmount": "290000000000000000",
+        "receiver": "0x5b4a38c21affae35d30ad4e99e9a875fbbd65bf3",
+        "destinationChainId": "4326"
+      }
+    },
+    {
+      "id": "lifi-frax-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "frax",
+      "chainKey": "eth",
+      "txHash": "0xa7094326f532104ffbc608b110c46c5b45f07965a4be835e02e6df263f9fbcba",
+      "explorer": "https://etherscan.io/tx/0xa7094326f532104ffbc608b110c46c5b45f07965a4be835e02e6df263f9fbcba",
+      "path": "swapAndStartBridgeTokensViaFrax / -",
+      "selector": "0x07b8e4c7",
+      "tx": {
+        "from": "0x48389665e859bc0f172498908ac1099c77301977",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0x07b8e4c700000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000007311cea93ccf5f4f7b789ee31eba5d9b9290e126000000000000000000000000000000000000000000000000000000000000759d0000000000000000000000000000000000000000000000000009d5b76ac80ee100000000000000000000000048389665e859bc0f172498908ac1099c77301977000000000000000000000000000000000000000000000000000000000000000094bbc365c82f0025cdecf0cafa734db3db26ce99a49476faae2e1720a0fcde3b000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000cf62f905562626cfcdd2261162a51fd02fc9c5b600000000000000000000000048389665e859bc0f172498908ac1099c7730197700000000000000000000000000000000000000000000001d6f8a81cbb5f10f040000000000000000000000000000000000000000000000000000000000000089000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004667261780000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000046672617800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e29000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e29000000000000000000000000000000000000000000000024267335bf957a223c00000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a4332d746b000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e2900000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000c06ebbefd94032b85424d51906e2a335efae264b0000000000000000000000000000000000000000000000001722d91828b195d8000000000000000000000000000000000000000000000000000000000000000000000000000000008feab81d36e7576107d5de0758c1b839be31b4f600000000000000000000000040aa958dd87fc8305b97f2ba922cddca374bcd7f000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e29000000000000000000000000cf62f905562626cfcdd2261162a51fd02fc9c5b60000000000000000000000000000000000000000000000240f505ca76cc88c6400000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003a40c307f76000000000000000000000000000000000000000000000000000000003baaf6b40000000000000000000000001231deb6f5749ef6ce6943a275a1d3e7486f4eae000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e29000000000000000000000000cf62f905562626cfcdd2261162a51fd02fc9c5b60000000000000000000000000000000000000000000000240f505ca76cc88c6400000000000000000000000000000000000000000000001d6f8a81cbb5f10f03000000000000000000000000000000000000000000000000000000006aea81e200000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000001200000000000000000000000000000000000000000000000000000000000000160000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e290000000000000000000000000000000000000000000000000000000000000001000000000000000000000000ecd7eef15713997528896cb5db7ec316db4c21010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000ecd7eef15713997528896cb5db7ec316db4c21010000000000000000000000000000000000000000000000000000000000000001800000000000000000012710f292eb6c5dcb693eaaf392d0562a01c3710e59780000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000cacd6fd266af91b8aed52accc382b4e165586e29000000000000000000000000cf62f905562626cfcdd2261162a51fd02fc9c5b600000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0x9d5b76ac80ee1",
+        "chainId": 1
+      },
+      "receipt": {
+        "transactionHash": "0xa7094326f532104ffbc608b110c46c5b45f07965a4be835e02e6df263f9fbcba",
+        "blockHash": "0x4a99fceef06cd8edee568e4e6ce4456a16f4a915c874cab895f4737160ae9def",
+        "blockNumber": "0x191e197",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0xcacd6fd266af91b8aed52accc382b4e165586e29",
+        "sourceAmount": "666853403946269680188",
+        "outputToken": "0x5bff88ca1442c2496f7e475e9e7786383bc070c0",
+        "minOutputAmount": "542992957000000000000",
+        "receiver": "0x48389665e859bc0f172498908ac1099c77301977",
+        "destinationChainId": "137"
+      },
+      "rpcReads": [
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x191e197",
+          "contract": "0x7311cea93ccf5f4f7b789ee31eba5d9b9290e126",
+          "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000762f",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x00000000000000000000000088aa7854d3b2daa5e37e7ce73a1f39669623a361"
+          }
+        },
+        {
+          "chainId": "252",
+          "url": "https://rpc.frax.com",
+          "block": "latest",
+          "contract": "0x88aa7854d3b2daa5e37e7ce73a1f39669623a361",
+          "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759d",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x0000000000000000000000005bff88ca1442c2496f7e475e9e7786383bc070c0"
+          }
+        },
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x191e197",
+          "contract": "0x7311cea93ccf5f4f7b789ee31eba5d9b9290e126",
+          "data": "0xfc0c546a",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x000000000000000000000000cf62f905562626cfcdd2261162a51fd02fc9c5b6"
+          }
+        },
+        {
+          "chainId": "137",
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "block": "latest",
+          "contract": "0x5bff88ca1442c2496f7e475e9e7786383bc070c0",
+          "data": "0xfc0c546a",
+          "response": {
+            "jsonrpc": "2.0",
+            "id": 2,
+            "result": "0x0000000000000000000000005bff88ca1442c2496f7e475e9e7786383bc070c0"
+          }
+        },
+        {
+          "chainId": "137",
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "block": "latest",
+          "contract": "0x5bff88ca1442c2496f7e475e9e7786383bc070c0",
+          "data": "0x313ce567",
+          "response": {
+            "jsonrpc": "2.0",
+            "id": 2,
+            "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+          }
+        },
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x191e197",
+          "contract": "0xcf62f905562626cfcdd2261162a51fd02fc9c5b6",
+          "data": "0x313ce567",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+          }
+        },
+        {
+          "chainId": "1",
+          "url": "https://eth.drpc.org",
+          "block": "0x191e197",
+          "contract": "0x7311cea93ccf5f4f7b789ee31eba5d9b9290e126",
+          "data": "0x963efcaa",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x000000000000000000000000000000000000000000000000000000e8d4a51000"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lifi-mayan-onchain-candidate",
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "chainKey": "eth",
+      "txHash": "0xf869ae8ff3df9c06cad782bdf99c309fcc6bc8600ce47ff2be9b4d08e2808c6b",
+      "explorer": "https://etherscan.io/tx/0xf869ae8ff3df9c06cad782bdf99c309fcc6bc8600ce47ff2be9b4d08e2808c6b",
+      "path": "startBridgeTokensViaMayan / createOrderWithToken",
+      "selector": "0xb4875292",
+      "tx": {
+        "from": "0x0ea9e354c3ca91165ce676b0d2a4bd734a668bc6",
+        "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+        "data": "0xb487529200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200b31d8583abb399d962bacd0599dd31e6660eb26094b97f22d14bbe78073c786400000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ea9e354c3ca91165ce676b0d2a4bd734a668bc600000000000000000000000000000000000000000000000002c68af0bb140000000000000000000000000000000000000000000000000000000000000000a4b10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000056d6179616e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003436f7700000000000000000000000000000000000000000000000000000000000000000000000000000000000ea9e354c3ca91165ce676b0d2a4bd734a668bc600000000000000000000000040ffe85a28dc9993541449464d7529a9221429600000000000000000000000000000000000000000000000000000000000000120000000000000000000000000529863940bf6065d8c122a550c2ff37c1cfefa1600000000000000000000000000000000000000000000000000000000000003a0000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000002c5189f13dd6c000000000000000000000000000ea9e354c3ca91165ce676b0d2a4bd734a668bc600000000000000000000000000000000000000000000000002c68af0bb1400000000000000000000000000000000000000000000000000000000000000000244a3a30834000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002c68af0bb14000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000ea9e354c3ca91165ce676b0d2a4bd734a668bc60000000000000000000000000ea9e354c3ca91165ce676b0d2a4bd734a668bc60000000000000000000000000000000000000000000000000000000000000017000000000000000000000000a5aa6e2171b416e1d27ec53ca8c13db3f91a89cd000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831000000000000000000000000000000000000000000000000000000001a8a26e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d000000000000000000000000000000000000000000000000000000000000011e0000000000000000000000000000000000000000000000000000000006aea897f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000026847e50ddc33ca162d5dfb403ba229b13268ce4940edcf613b344d6efa2b454600000000000000000000000000000000000000000000000000000000000002200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d46eb11900000000000000000000000000000000000000000000000000000000",
+        "value": "0x2c68af0bb140000",
+        "chainId": 1
+      },
+      "receipt": {
+        "transactionHash": "0xf869ae8ff3df9c06cad782bdf99c309fcc6bc8600ce47ff2be9b4d08e2808c6b",
+        "blockHash": "0x742621a74efd81458225791dc0c961aa707a2243a96e8fe32bae2c13b24a2443",
+        "blockNumber": "0x191e2e7",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0x0000000000000000000000000000000000000000",
+        "sourceAmount": "200000000000000000",
+        "outputToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "minOutputAmount": "445261536",
+        "receiver": "0x0ea9e354c3ca91165ce676b0d2a4bd734a668bc6",
+        "destinationChainId": "42161"
+      },
+      "rpcReads": [
+        {
+          "chainId": "42161",
+          "url": "https://arbitrum.drpc.org",
+          "block": "latest",
+          "contract": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+          "data": "0x313ce567",
+          "response": {
+            "id": 2,
+            "jsonrpc": "2.0",
+            "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+          }
+        }
+      ]
+    },
+    {
+      "id": "across-across-onchain-candidate",
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "chainKey": "monad",
+      "txHash": "0xaaae7d762a96052ebbb8fe9678339b6299d1f8d2453dfcfd24bae652a1975915",
+      "explorer": "https://monadscan.com/tx/0xaaae7d762a96052ebbb8fe9678339b6299d1f8d2453dfcfd24bae652a1975915",
+      "path": "depositV3 / -",
+      "selector": "0x7b939232",
+      "tx": {
+        "from": "0x32404828729ad4403b241c00b253ff7b9d01dc00",
+        "to": "0xd2ecb3afe598b746f8123cae365a598da831a449",
+        "data": "0x7b93923200000000000000000000000032404828729ad4403b241c00b253ff7b9d01dc0000000000000000000000000032404828729ad4403b241c00b253ff7b9d01dc00000000000000000000000000754704bc059f8c67012fed69bc8a327a5aafb603000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000065f4c3800000000000000000000000000000000000000000000000000000000065ef6a8000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000069ab94370000000000000000000000000000000000000000000000000000000069abb0570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000001dc0de00410000000c",
+        "value": "0x0",
+        "chainId": 143
+      },
+      "receipt": {
+        "transactionHash": "0xaaae7d762a96052ebbb8fe9678339b6299d1f8d2453dfcfd24bae652a1975915",
+        "blockHash": "0xfc707e70c720047ad5a3711fc4a1fc9eda5183ce35ac2af39d144ea3ed5619f3",
+        "blockNumber": "0x3900331",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0x754704bc059f8c67012fed69bc8a327a5aafb603",
+        "sourceAmount": "106908728",
+        "outputToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "minOutputAmount": "106886824",
+        "receiver": "0x32404828729ad4403b241c00b253ff7b9d01dc00",
+        "destinationChainId": "1"
+      }
+    },
+    {
+      "id": "socket-polygon-native-onchain-candidate",
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "chainKey": "eth",
+      "txHash": "0x0915d4b896d98f8ce07106146886724cf21c6af85d960179727675d0eae38690",
+      "explorer": "https://etherscan.io/tx/0x0915d4b896d98f8ce07106146886724cf21c6af85d960179727675d0eae38690",
+      "path": "bridge / depositEtherFor",
+      "selector": "0x2213bc0b",
+      "tx": {
+        "from": "0x917004d23335fbde5878ac37a522d5a0aa410c39",
+        "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+        "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000001c6bf5263400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001a4b18248d518079306dd4230df848a855a2e2a5a2967f4c94a7d3bc241ee49ed13717a475c000000000000000000000000917004d23335fbde5878ac37a522d5a0aa410c39000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000001c6bf526340000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000012309ce5400000000000000000000000000a0c68c638235ee32657e8f720a23cec1bfc77c7700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c59c4894ec00000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000244faa8a26000000000000000000000000917004d23335fbde5878ac37a522d5a0aa410c390000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0x1c6bf52634000",
+        "chainId": 1
+      },
+      "receipt": {
+        "transactionHash": "0x0915d4b896d98f8ce07106146886724cf21c6af85d960179727675d0eae38690",
+        "blockHash": "0x1058f8e232dacd8091711fd484e7ac0faa317f3824a3ea672a3b130c867afced",
+        "blockNumber": "0x18fea90",
+        "status": "0x1"
+      },
+      "expected": {
+        "sourceToken": "0x0000000000000000000000000000000000000000",
+        "sourceAmount": "500000000000000",
+        "outputToken": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+        "minOutputAmount": "498750000000000",
+        "receiver": "0x917004d23335fbde5878ac37a522d5a0aa410c39",
+        "destinationChainId": "137"
+      }
+    }
+  ]
+}

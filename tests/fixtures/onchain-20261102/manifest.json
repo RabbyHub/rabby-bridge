@@ -1,0 +1,1328 @@
+{
+  "sourceFile": "New_Query_2026_11_02.csv",
+  "sourceSha256": "7c2c4308e2839e49ee8d5d164f9cce03bdcd878786b3de334512faa028b0c744",
+  "sourceSampleCount": 126,
+  "originalQuotedSampleCount": 125,
+  "sampleCount": 154,
+  "quotedSampleCount": 154,
+  "bridgeTypeCount": 21,
+  "aggregators": {
+    "lifi": 35,
+    "mayan": 16,
+    "socket": 29,
+    "across": 74
+  },
+  "completeUnitCount": 348,
+  "providerUnitCount": 151,
+  "completeBridgeTypeCount": 29,
+  "coverage": [
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "file": "lifi/superset.json",
+      "count": 1,
+      "selectors": [
+        "0xf26e657f"
+      ],
+      "routes": [
+        "base -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "mayan/FASTMCTP.json",
+      "count": 1,
+      "selectors": [
+        "0xe4269fc4"
+      ],
+      "routes": [
+        "arb -> base"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "file": "socket/ccip.json",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "bsc -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "file": "socket/gnosis-native.json",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> xdai"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "file": "socket/oft.json",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "plume -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "file": "socket/swaps-xyz.json",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../onchain-20261103/across/across.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 9,
+      "selectors": [
+        "0x110560ad",
+        "0x609ea081",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "arb -> eth",
+        "eth -> base",
+        "eth -> ink",
+        "hood -> base",
+        "hood -> eth",
+        "hood -> ink",
+        "hyper -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "file": "../onchain-20261103/socket/eco.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 5,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> eth",
+        "eth -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../onchain-20261103/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 1,
+      "selectors": [
+        "0xfa74fd43"
+      ],
+      "routes": [
+        "avax -> base"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "file": "../onchain-20261103/lifi/lifiIntents.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 10,
+      "selectors": [
+        "0x6d21c5df"
+      ],
+      "routes": [
+        "arb -> eth",
+        "base -> bsc",
+        "base -> uni",
+        "bsc -> arb",
+        "matic -> bsc",
+        "op -> base",
+        "uni -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "file": "../onchain-20261103/socket/native-op-stack.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> base"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "file": "../onchain-20261103/lifi/polymerStandard.json",
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "count": 8,
+      "selectors": [
+        "0x17917a4e"
+      ],
+      "routes": [
+        "arb -> eth",
+        "base -> arb",
+        "hyper -> arb",
+        "hyper -> matic",
+        "matic -> arb",
+        "op -> base"
+      ]
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../onchain-20261103-extra/across/across.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 45,
+      "selectors": [
+        "0x110560ad",
+        "0x609ea081",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "arb -> base",
+        "arb -> eth",
+        "arb -> ink",
+        "base -> arb",
+        "base -> eth",
+        "bsc -> base",
+        "bsc -> eth",
+        "eth -> arb",
+        "eth -> base",
+        "eth -> bsc",
+        "eth -> ink",
+        "eth -> matic",
+        "hood -> base",
+        "hood -> ink",
+        "hyper -> arb",
+        "hyper -> base",
+        "linea -> arb",
+        "matic -> eth",
+        "megaeth -> ink",
+        "op -> eth",
+        "soneium -> base",
+        "uni -> op"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "file": "../onchain-20261103-extra/lifi/lifiIntents.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 7,
+      "selectors": [
+        "0x6d21c5df"
+      ],
+      "routes": [
+        "arb -> bsc",
+        "arb -> eth",
+        "base -> bsc",
+        "bsc -> hyper",
+        "hyper -> bsc",
+        "ink -> bsc",
+        "matic -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "file": "../onchain-20261103-extra/lifi/mayan.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 2,
+      "selectors": [
+        "0x80c65808"
+      ],
+      "routes": [
+        "arb -> bsc",
+        "base -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../onchain-20261103-extra/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 2,
+      "selectors": [
+        "0xe4269fc4",
+        "0xfa74fd43"
+      ],
+      "routes": [
+        "arb -> base",
+        "eth -> monad"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "file": "../onchain-20261103-extra/socket/eco.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../onchain-20261103-gaps/across/across.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 8,
+      "selectors": [
+        "0x110560ad",
+        "0x609ea081",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "arb -> hood",
+        "eth -> hood",
+        "eth -> hyper",
+        "hood -> hyper",
+        "hyper -> hood"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../onchain-20261103-gaps/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0xe4269fc4"
+      ],
+      "routes": [
+        "base -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "file": "../onchain-20261103-gaps/socket/oft.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> soneium"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "file": "../completed-20261103/socket/oft.json",
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "count": 5,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "arb -> base",
+        "arb -> eth",
+        "arb -> op",
+        "base -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../completed-20261103/mayan/FASTMCTP.json",
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "count": 10,
+      "selectors": [
+        "0xe4269fc4",
+        "0xfa74fd43"
+      ],
+      "routes": [
+        "arb -> base",
+        "base -> arb",
+        "hyper -> arb",
+        "op -> avax"
+      ]
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../completed-20261103/across/across.json",
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "count": 12,
+      "selectors": [
+        "0x110560ad",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "eth -> arb",
+        "hyper -> arb",
+        "hyper -> avax",
+        "hyper -> base"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "file": "../completed-20261103/lifi/lifiIntents.json",
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "count": 1,
+      "selectors": [
+        "0x6d21c5df"
+      ],
+      "routes": [
+        "hyper -> base"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "file": "../coverage-completion-20261103/lifi/celercircle.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x4f3b0759"
+      ],
+      "routes": [
+        "base -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "file": "../coverage-completion-20261103/lifi/celercirclefast.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x4f3b0759"
+      ],
+      "routes": [
+        "eth -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "file": "../coverage-completion-20261103/lifi/gnosis.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x7bf96e0a"
+      ],
+      "routes": [
+        "eth -> xdai"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "file": "../coverage-completion-20261103/lifi/paxos.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x637f1d04"
+      ],
+      "routes": [
+        "arb -> hood"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "file": "../coverage-completion-20261103/lifi/polygon.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0xb4f37581"
+      ],
+      "routes": [
+        "eth -> matic"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "file": "../coverage-completion-20261103/lifi/polymer.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x17917a4e"
+      ],
+      "routes": [
+        "base -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../coverage-completion-20261103/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x30dedc57"
+      ],
+      "routes": [
+        "linea -> matic"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "file": "../coverage-completion-20261103/socket/arbitrum-native.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 3,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "file": "../coverage-completion-20261103/socket/ccip.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "file": "../coverage-completion-20261103/socket/native-op-stack.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 3,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> base"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "file": "../coverage-completion-20261103/socket/oft.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 2,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "avax -> arb",
+        "hood -> hyper"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "file": "../coverage-completion-20261103/socket/polygon-native.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 2,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> matic"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "file": "../coverage-completion-20261103/socket/robinhood-native.json",
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "eth -> hood"
+      ]
+    }
+  ],
+  "movedToProviderFixtures": [
+    {
+      "caseId": "lifi-layerswap-eth-arb-c73bdb424d4fbccc7fd9d6c58d0eeac8f65a32f891c2e96dd3432d6c276c0d1f",
+      "fixture": "../providers/layerswap-completed-20261103.json"
+    }
+  ],
+  "excluded": [
+    {
+      "caseId": "lifi-frax-matic-sei-ee6cbea6ae01ee2fa3e5d00aec36fb5202c58358ffe350fab0e263dbcdba8ec0",
+      "csvRow": 47,
+      "reasons": [
+        "missing_quote"
+      ]
+    },
+    {
+      "caseId": "across-across-eth-bsc-1fcd9c82483d96f8323aba9b95109b1af64f4e29992d5c56e01b5ae9c12310cf",
+      "csvRow": 2,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "across-across-hood-eth-c7deff3a88779683c026e8531d4efbc0f2700a393227525a522b6fece5b22f3b",
+      "csvRow": 3,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "across-across-op-eth-6e7f0dab43574f4bb8c6c29a922ab879bfaf780936cee5d878b28946fb60c871",
+      "csvRow": 4,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "across-across-eth-bsc-54a3a40613dd416ea3fe9e1eb70ec9998ecb4181bc5be8e810d90ff075090f36",
+      "csvRow": 5,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "across-across-arb-eth-4a5341f617a8be12c33224e3843f7fcafa2c978e1b2908401a317b48fc1cebb0",
+      "csvRow": 6,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercircle-arb-eth-eff6762263ec892884fc02d2497d5bfd96d615f0acd3de3f43fd8ae613c90406",
+      "csvRow": 28,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercircle-arb-eth-7a7e7a4c078b17a952eacd94930fa3af7207d69458b5ec0cb6c0558fc987fce1",
+      "csvRow": 29,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercircle-matic-base-9c9e9b5c1608302c91be433e1714031809fcff5b8bbe74c665f6474c2c94aa85",
+      "csvRow": 30,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercircle-eth-base-7d4b14c9016285bc6e9555c69fbe2aeb6521d8ec11385f191875c13c32fb4bed",
+      "csvRow": 31,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercirclefast-avax-base-fdfeae11653f806bb6f5754d648f1ca4e9a6f18beda0e0496a7efb7477bba261",
+      "csvRow": 33,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercirclefast-avax-base-4c0ab57b8f500615d952e2ea0aef53fcc21e5af4f770b2ad96bb432287697c2c",
+      "csvRow": 34,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercirclefast-avax-base-bb701ae84dfeb15861e1b750087dd0131fdae93ada35b9c0957f073d067a8084",
+      "csvRow": 35,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-celercirclefast-avax-arb-ea63699cfae085712dedbd2687d2941b7650d235944c0edd66780126a049700c",
+      "csvRow": 36,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-gnosis-eth-xdai-e55247a6f8b0c1bb46b8703c5a9ee433737b448da6769bdad76ee48e07ed4adc",
+      "csvRow": 49,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-layerswap-base-soneium-e79dd0ab86d79be1bbb853ca8f96d9205f88c70d172112903e444b7fdde8ad20",
+      "csvRow": 52,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-layerswap-mnt-arb-67c22ca490fc887cc1992f008efbdfb1c685f638cdbfddecde67ca69da0ff02d",
+      "csvRow": 53,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-layerswap-base-arb-5d2e5631aef0a5063740791844d99f6458d97af1b8969e3328bb51bbdbcb97cd",
+      "csvRow": 54,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-layerswap-abs-op-f098d1f578446b4d32241a09c984fc6156c34c474f5ba18bc911b76a3fdcb64c",
+      "csvRow": 55,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-lifiIntents-eth-bsc-7e3ea81deb52e020fb47e44ab1d6d22e47313fae10a89acb2f6289accb1e56c2",
+      "csvRow": 56,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-lifiIntents-bsc-eth-b221a0cdddc886072741134f0a343ac893c873a16bb8127b8d10f588c2797472",
+      "csvRow": 57,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-lifiIntents-bsc-base-84151607dcca0489409ab06f5f19f643e7ec6dac70ba52951118a6c4fca6db38",
+      "csvRow": 58,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-lifiIntents-bsc-arb-3bca36d521280dd6ab41e39e814c6ae9695c8e1186c13dddc8f4ca3c82acd630",
+      "csvRow": 59,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-lifiIntents-op-bsc-787b0cb00c20e42122c1f16acecb8a37e722856245eb726f8db350fb2817fc76",
+      "csvRow": 60,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayan-matic-bsc-459a5a927fcf19967b4a0eb7fa2057fc9e33a78949c1ec0cb868c71c61006a09",
+      "csvRow": 61,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayan-eth-bsc-e71f74520f7af19a9745244d66bbeddfc8ce2abcc84120a83363392257425748",
+      "csvRow": 62,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayan-avax-matic-39a3994260fc68c923d53a93ec2a065e1c0a99fa1bb2f05aca2efee9a9776995",
+      "csvRow": 63,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayan-base-avax-5944ff2ebb07f17639ef0c73efd605b6da6f9ef02a1be7f9740e815cbeb691c7",
+      "csvRow": 64,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayan-eth-bsc-7b29458eb3ccc803c580f0ddc93a71f584f69dc008b6393757149174d6871e28",
+      "csvRow": 65,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayanMCTP-avax-base-17432d55235934781f79b9f278f99a84e7faa9a8f8e0ea3856e7b7bfac6f7ccb",
+      "csvRow": 66,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayanMCTP-avax-base-0373d89450318c1ddf720b4200ef7bad7c2d1e9431fec01fb78c8939c17a7fd6",
+      "csvRow": 67,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayanMCTP-avax-base-4f8bee0219eb02051e17e248e4102be2ced5652adcc7075c2bcff81ef09bc418",
+      "csvRow": 68,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayanMCTP-avax-base-53ceb5202a52c2732f86f7c47427d8bb9b7d5ecc0175a18477b4688a771c748b",
+      "csvRow": 69,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-mayanMCTP-base-eth-f712a456144bfbfab35aa24d06c767ab5904da3757ca95c9feefdf88e56e9cc3",
+      "csvRow": 70,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-paxos-eth-hood-4c145630e80734fd3bd513d7683ec9773a15f0f945569bfd1d2cc4b5d8946534",
+      "csvRow": 82,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-paxos-eth-hood-e6945842fd91cb2fa8a9b2fb01151a69f843410ea54b330983efd22c9ad54b10",
+      "csvRow": 83,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-paxos-eth-hood-7cc8c613fb916a974cccb080a13de6b6ca476742752657093efb265e75b64202",
+      "csvRow": 84,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-paxos-arb-hood-6aefedce2a3444b93df4a5e2ec023946fd4f12524804b63507a6df42a5adbc77",
+      "csvRow": 85,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polygon-eth-matic-d755eb55c6be47165cf258dd7072373e1803581adbb96d5ce2085efdf7fc612c",
+      "csvRow": 87,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymer-monad-eth-98e86f652bbf15e7d9bb256e833df4f4bc18900b1a25ca062dda0df40d6b233a",
+      "csvRow": 94,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymer-eth-linea-fc0734add340963343f887c4673393cf30066cb41989c744e2ca806817a96806",
+      "csvRow": 95,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymer-hyper-eth-e78bf91bf750e754c0b749d62b4726ce73c7ca723c061e82c14dfbb4b6013148",
+      "csvRow": 96,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymer-uni-arb-c278e5b53ab5e53439b7e146d4ded2054d8d05bd146476ac0409403304d8f9d8",
+      "csvRow": 97,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymerStandard-hyper-arb-015955e5e6932884590341f3892d59e0f48b7f0f8d646034ff93f557574b3747",
+      "csvRow": 98,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymerStandard-eth-arb-cbf6c454ced4320e0073f47c7f08028f6cebd71debff8e448c00238b0f76b890",
+      "csvRow": 99,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymerStandard-cro-arb-8a1ca4ff9160ad95f57a29112763047e2e2b32a38501db24daa0ccc1a036af34",
+      "csvRow": 100,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymerStandard-avax-matic-6ef07600cfd81201212830960fc743cdc079c9b9da0255a9d3bae9f21abb2521",
+      "csvRow": 101,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-polymerStandard-avax-arb-3c71abfc3f0bd5d785e8d92adec65972771215c6cf4c9d275d76b4bfe9449040",
+      "csvRow": 102,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-superset-base-arb-e2bedaf98e3b44fa800333078d210dcf90668f4be17913033ca2a036d8ab3074",
+      "csvRow": 119,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-superset-base-arb-d6680948a877db11a37789ec0de44e70fe38cf8ba3e6abecd4c81263be84d5cb",
+      "csvRow": 120,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-superset-base-arb-8119a331cb9bad835f30a5b696b72811fdad0f633de9dd0c18da7cb5d3db7358",
+      "csvRow": 121,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "lifi-superset-base-arb-165fc576824b249ca5c71ff804b36064aa576b29d02a2614bcbe1aa70c013e66",
+      "csvRow": 122,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "mayan-FASTMCTP-avax-op-87d059f3c820c21e95ba6c17db5978aaa3afa83c35636dfdcd04c84084078e03",
+      "csvRow": 43,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "mayan-FASTMCTP-arb-base-61b6310b8edd0f787190805e327fe89514785f18fb359d5b1ab26283ce8a2aaa",
+      "csvRow": 45,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "mayan-FASTMCTP-eth-op-2de2225f7543ef24744b511e496474b0706c15a549f17adb59cc7ae360a62b4b",
+      "csvRow": 46,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "relay-relay-megaeth-arb-654922d58430b0d8de610d314cd50ef7eb160a30a04bc450d60a2d6507e30a0f",
+      "csvRow": 103,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "relay-relay-arb-ink-b59567978c4a3d599d14c2c600693256e98776878978d913a455952cbcf14621",
+      "csvRow": 104,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "relay-relay-matic-eth-b5f9aed0d9410cdcc0aa19190f5112ada06db0e9f4145aae8e1ffb2ce950602a",
+      "csvRow": 105,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "relay-relay-xdai-arb-3ade67736503343a5fdcc7de7d683ef7b42fbbc8050399274ea1dfad2db8ebc2",
+      "csvRow": 106,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "relay-relay-sonic-eth-783d6058f6a835b399b3fa0955ab6b45e37ae93c1e995421414bb9af09a0a0b4",
+      "csvRow": 107,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-arbitrum-native-eth-arb-bcee04ea8e9210d1e1bb5192e3b8ae5236b108d2784f2d9902e1613a66499dfe",
+      "csvRow": 8,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-arbitrum-native-eth-arb-551780b80e77582aaffe0228c76ebdcfe93cc8e16e97259962c722551473caf1",
+      "csvRow": 9,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-ccip-monad-base-c95fe959d3eaf2338860e456c415b797565faf3dadc30ebf3b29354ec5b61b09",
+      "csvRow": 12,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-ccip-mnt-eth-9e442246f6258ca3874cb1f2f753498066ea2904468da8bff4bc6dba7d46d4e8",
+      "csvRow": 14,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-ccip-op-eth-05bc1ed2de258c9a5a96d48a01ebe37782bcd239e72e85e72115f638e0f318ae",
+      "csvRow": 15,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-ink-base-1b1239b934004d86ca7414f0203aefd4bdac76eaedb298552c8605d9eb88552c",
+      "csvRow": 17,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-uni-base-70597bcbabd0cc4071606d7af4af57933ad4f66c4d25e8dfb5b5358cfe0cbb50",
+      "csvRow": 18,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-eth-base-db81a434cf2ac9c9a8fc1343edb6269feaab82ffba3f9d16f9e720adedfe4f87",
+      "csvRow": 19,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-eth-base-3925eee0ffe532a5ed6e2e70ad09c0a276f38e96f6cf0b96e0f2a205745e7702",
+      "csvRow": 20,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-eth-arb-afd5b762c517d0a5d38a96ab7fb0797747d8a9114571473a83a6f7f638c202e4",
+      "csvRow": 21,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-slow-avax-base-36941f83feef3e5781df5371cc610c07ee0be5d8ae6526c7149b08c4a26ff0cf",
+      "csvRow": 22,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-slow-matic-base-6cbce9bbb72189f1d024171cd1605a883ce1a701c9a9937216403020f882d3b8",
+      "csvRow": 24,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-slow-avax-base-8d7bdbc856cc369bd527408d32d8509046fef8e7d574024f468656e4b7fa3828",
+      "csvRow": 25,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-cctp-v2-slow-sonic-eth-a759b37b440d17c7b3ce9e4c7406116fc7a34e3a482f1beaf7fb410bffcf6292",
+      "csvRow": 26,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-eco-eth-base-9768fbc3d5220c8139306532e4d3f2f7dd7e725924d531c47901d0d05a633acb",
+      "csvRow": 37,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-eco-base-eth-88ee518815e25d1395631520a9d5d54e5187d1739bf0212ed39bf3ff8116c001",
+      "csvRow": 38,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-eco-eth-arb-6275428bf78da7f10e8276b0f550a4fff30df87f2b611c7b709ce3c693fa8e1e",
+      "csvRow": 39,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-eco-eth-arb-b7a8c4c10fe88efdb30e2b3a53497a1d0d66e744e1be4cb6306ad1039085de9f",
+      "csvRow": 40,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-eco-base-eth-07ad783cc14f7e91c39a3d89c0e99b91f94b47dee36172cbd1263221f1a57e42",
+      "csvRow": 41,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-native-op-stack-eth-base-92252d5efe45822329e03e119e94cd9b5f475ad332460a84fc26f65f33399b0e",
+      "csvRow": 72,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-native-op-stack-eth-base-b8e408eec9de334f5a5fd9a25ccd6df71481494a2e08c04cdee6489b037d8c4f",
+      "csvRow": 74,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-oft-base-soneium-b3cdac7303169ad4c873796c7db917166227ecb1b5bc0f8a6d7fe8a1f17320e4",
+      "csvRow": 78,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-oft-plasma-eth-31dd8ef85371871592e00a95743ac49b68c818dd6793949e04a4db3a922acd36",
+      "csvRow": 79,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-polygon-native-eth-matic-b8cf0d0dad8c92af2838265ba58271da8c2cbda1cbc01f0ce3d1da6ae7bccea0",
+      "csvRow": 89,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-polygon-native-eth-matic-c1aff4d36fcbbe78d7f55ec6f1efd109b38fc38222ebd684f8e0cfc71e1da67a",
+      "csvRow": 91,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-polygon-native-eth-matic-3ba9e32083f204de71b5d5e68da572784d0a48bb96a21a8d2cb084d1d9729922",
+      "csvRow": 92,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-rfq-vault-executor-hood-base-ed438bfb89b0e4aa6fdcc827a3e0af5a5373f14fb7bcc1dc7fd07354a0b546ea",
+      "csvRow": 108,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-rfq-vault-executor-bsc-hood-9c316ccee72ebae4f96d13cc4af65dfff575d250264ae0a3371e243e48139236",
+      "csvRow": 109,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-rfq-vault-executor-hood-base-721ce2ad703325f8373bd5217352cd652f50cee3c518545c1de6610a81a57e7e",
+      "csvRow": 110,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-rfq-vault-executor-bsc-arb-9a0935cf51a02fb8cd33e68f98bb539d772dd0e1e450ceba59df1acb2050aaa2",
+      "csvRow": 111,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-rfq-vault-executor-bsc-op-8716760f372a2332c9874026ea80b970d4beda57677325b641d9b5e70091ee63",
+      "csvRow": 112,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-robinhood-native-eth-hood-d3c104959af528d1bc97db77ed262b329d84bef15a3ed1e704a3ee5a4b7a2365",
+      "csvRow": 114,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-robinhood-native-eth-hood-d37496ddbbe487c8229e46d47b53f0e51e542933404f00624ab835706c2913cf",
+      "csvRow": 115,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-robinhood-native-eth-hood-76a6ed88f71787692ec5a0eb4085fe0c823bf59f771218b972a2a421becd1e54",
+      "csvRow": 116,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-robinhood-native-eth-hood-096a5a08506c839cea597e82d6303aa1945275e68de3c1d003ab0060a7d5063e",
+      "csvRow": 117,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-swaps-xyz-bsc-arb-170c3b0fc4929fd0ff7dd9342ba0721575e233bd67decce594d77091da3b2d3f",
+      "csvRow": 124,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-swaps-xyz-bsc-eth-6838c65ca2a7480615ef912d59abb4092ff2510b9fab32be4f47538ef8397482",
+      "csvRow": 125,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-swaps-xyz-bsc-eth-7b7bffe00a8eee69abc3e0dd89b6f9c0efd0830bfb8073607b70f4aaf8f32862",
+      "csvRow": 126,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    },
+    {
+      "caseId": "socket-swaps-xyz-bsc-eth-f48f625a198c6eae1e05d7003c6855e046070e69806fbc90e504ba8cecb1af4c",
+      "csvRow": 127,
+      "reasons": [
+        "missing_complete_five_field_expectation"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "sourceSha256": "7c2c4308e2839e49ee8d5d164f9cce03bdcd878786b3de334512faa028b0c744",
+      "quotedRows": 125,
+      "retainedInHistoricalDirectory": 6,
+      "coverageCompletionUnits": 20,
+      "coverageCompletionFixtures": "../coverage-completion-20261103/manifest.json",
+      "retainedCompleteUnits": 27
+    },
+    {
+      "sourceFile": "New_Query_2026_11_03.csv",
+      "sourceSha256": "741ed8431e8b5be2a8cf7a9b3db0515180698c3de571f4343a9fd55b247d1dd5",
+      "quotedRows": 112,
+      "retainedCompleteUnits": 34
+    },
+    {
+      "sourceFile": "bridge-valid-quotes-20261103-214141.json",
+      "sourceSha256": "15ccb55de2629451c7c514ee0e9080f8ca08282715ad3f74a48c9f2d7c2a9440",
+      "records": 99,
+      "retainedCompleteUnits": 28
+    },
+    {
+      "sourceFile": "bridge-valid-quotes-20261103-214730.json",
+      "sourceSha256": "953a90e75d56b69ec0a927f68d69a206622323eb10516a74d5e6a1765993c75a",
+      "records": 15,
+      "retainedCompleteUnits": 7
+    },
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "sourceSha256": "07bb0b3eb3f2fe8db8eac4841f5e66c0b99a11c3fdbb56199775bf399e7bdd09",
+      "sourceSampleCount": 200,
+      "retainedCompleteUnits": 191,
+      "retainedHistoricalUnits": 67,
+      "retainedProviderHistoryUnits": 124,
+      "providerBackfillRequested": 124
+    },
+    {
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "sourceSha256": "205bbe797026bf7c4a1473df7a697bc2a9663cc117971331e93a492972613e15",
+      "sourceSampleCount": 48,
+      "retainedCompleteUnits": 48,
+      "retainedHistoricalUnits": 28,
+      "retainedProviderHistoryUnits": 20,
+      "providerBackfillRequested": 20
+    },
+    {
+      "sourceFile": "direct-provider-route-discovery-20261104",
+      "retainedCompleteUnits": 8,
+      "positiveUnits": 6,
+      "knownRejectedUnits": 2,
+      "fixture": "../route-discovery-20261104/manifest.json"
+    }
+  ],
+  "quoteStatuses": {
+    "completed": 152,
+    "pending": 2
+  },
+  "quoteUnitCount": 43,
+  "providerHistoryUnitCount": 145,
+  "negativeProviderHistoryUnitCount": 5,
+  "negativeQuoteUnitCount": 2
+}

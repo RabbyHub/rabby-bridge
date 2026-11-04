@@ -1,0 +1,158 @@
+[
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 13,
+    "aggregatorId": "socket",
+    "bridgeId": "ccip",
+    "chainKey": "eth",
+    "toChainKey": "bsc",
+    "route": "eth -> bsc",
+    "txHash": "0x50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+    "tx": {
+      "from": "0xfe20569b7439cac431c416d299c64ed78dee4984",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a0000000000000000000000006c76de483f1752ac8473e2b4983a873991e70da700000000000000000000000000000000000000000000027c6d3a96d06df0000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000344b18248d5beed9fdf70d1230dc424532e41218134a00dbdf496f4cb41fbdf64ca8aed243a000000000000000000000000fe20569b7439cac431c416d299c64ed78dee49840000000000000000000000006c76de483f1752ac8473e2b4983a873991e70da700000000000000000000000000000000000000000000027c6d3a96d06df000000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000019750257f3db7000000000000000000000000000080226fc0ee2b096224eeac085bb9a8cba1146f7d00000000000000000000000080226fc0ee2b096224eeac085bb9a8cba1146f7d0000000000000000000000000000000000000000000000000000d366be6b3482000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001c496f4e9f90000000000000000000000000000000000000000000000009d70576d8e253bcf000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001600000000000000000000000000000000000000000000000000000000000000020000000000000000000000000fe20569b7439cac431c416d299c64ed78dee4984000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000006c76de483f1752ac8473e2b4983a873991e70da700000000000000000000000000000000000000000000027ad5ea71513039000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0xd366be6b3482"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "ccip",
+        "name": "CCIP",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/113eb991de07527fe0218a845dcdf2d4/113eb991de07527fe0218a845dcdf2d4.png"
+      },
+      "from_token": {
+        "id": "0x6c76de483f1752ac8473e2b4983a873991e70da7",
+        "chain": "eth",
+        "name": "BTR token",
+        "symbol": "BTR",
+        "display_symbol": null,
+        "optimized_symbol": "BTR",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0x6c76de483f1752ac8473e2b4983a873991e70da7/388256f353c0f62edf9c08276704bfae.png",
+        "protocol_id": "bitlayer",
+        "price": "0.04458",
+        "price_24h_change": "0.011492239690626896",
+        "credit_score": "60556.12338732925",
+        "total_supply": "137529120.66509598",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1743563771.0"
+      },
+      "to_token": {
+        "id": "0xfed13d0c40790220fbde712987079eda1ed75c51",
+        "chain": "bsc",
+        "name": "BTR token",
+        "symbol": "BTR",
+        "display_symbol": null,
+        "optimized_symbol": "BTR",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/btr_token/logo_url/0x0e4cf4affdb72b39ea91fa726d291781cbd020bf/388256f353c0f62edf9c08276704bfae.png",
+        "protocol_id": "",
+        "price": "0.04486390484739596",
+        "price_24h_change": "-0.027109522227738065",
+        "credit_score": "117275.96599758469",
+        "total_supply": "269196354.65375155",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1754910421.0"
+      },
+      "to_actual_token": {
+        "id": "0xfed13d0c40790220fbde712987079eda1ed75c51",
+        "chain": "bsc",
+        "name": "BTR token",
+        "symbol": "BTR",
+        "display_symbol": null,
+        "optimized_symbol": "BTR",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/btr_token/logo_url/0x0e4cf4affdb72b39ea91fa726d291781cbd020bf/388256f353c0f62edf9c08276704bfae.png",
+        "protocol_id": "",
+        "price": "0.04486390484739596",
+        "price_24h_change": "-0.027109522227738065",
+        "credit_score": "117275.96599758469",
+        "total_supply": "269196354.65375155",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1754910421.0"
+      },
+      "quote": {
+        "pay_token_amount": "11740.0",
+        "receive_token_amount": "11710.65"
+      },
+      "actual": {
+        "pay_token_amount": "11740.0",
+        "receive_token_amount": "11710.65"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+      "status": "completed",
+      "create_at": "1793194599.8719797",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "0.0002968814064762",
+        "gas_price": "0.7641322",
+        "usd_value": "0.68207"
+      },
+      "from_tx": {
+        "tx_id": "0x50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1793194619.0"
+      },
+      "to_tx": {
+        "tx_id": "0x2f40b73b4b1b255c368fac9f80fbff2ae828d1f8e15015ee2f6c07334178e93f",
+        "chain_id": "bsc"
+      }
+    },
+    "id": "coverage-socket-50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+    "path": "bridge / ccipSend",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x6c76de483f1752ac8473e2b4983a873991e70da7",
+      "sourceAmount": "11740000000000000000000",
+      "outputToken": "0xfed13d0c40790220fbde712987079eda1ed75c51",
+      "minOutputAmount": "11710650000000000000000",
+      "receiver": "0xfe20569b7439cac431c416d299c64ed78dee4984",
+      "destinationChainId": "56"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. CCIP direct token delivery; router/onRamp/pool remote-token RPC and source/destination decimals convert the explicit tokenAmounts minimum."
+      ]
+    }
+  }
+]

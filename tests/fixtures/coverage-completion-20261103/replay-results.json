@@ -1,0 +1,26 @@
+{
+  "units": 340,
+  "newUnits": 20,
+  "newFiveFieldPassed": 20,
+  "directUnits": 189,
+  "directPassed": 189,
+  "historyUnits": 145,
+  "historyPassed": 140,
+  "originalProviderUnits": 6,
+  "positiveUnits": 335,
+  "expectedRejections": 5,
+  "unexpectedFailures": [],
+  "integrityUnits": 340,
+  "existingUnitsPreserved": 320,
+  "providerResponseSha256Checked": 145,
+  "rpcCalls": 84,
+  "guards": {
+    "missingCelerFeeRpc": true,
+    "excessiveCelerFee": true,
+    "invalidOftV1RemotePath": true,
+    "wrongSocketCctpSourceTx": true,
+    "unregisteredStargateAsset": true
+  },
+  "httpInTests": false,
+  "jestRun": false
+}

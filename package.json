@@ -22,7 +22,13 @@
   "scripts": {
     "prepublishOnly": "yarn build",
     "build": "rimraf dist && tsc",
-    "test": "yarn build && NODE_OPTIONS=--experimental-vm-modules jest --runInBand --watchman=false"
+    "test": "yarn build && NODE_OPTIONS=--experimental-vm-modules jest --runInBand --watchman=false",
+    "test:bridge-calldata": "yarn build && NODE_OPTIONS=--experimental-vm-modules jest --runInBand --watchman=false tests/calldata",
+    "test:bridge-calldata:lifi": "yarn test:bridge-calldata --testNamePattern='\\[LiFi\\]'",
+    "test:bridge-calldata:socket": "yarn test:bridge-calldata --testNamePattern='\\[Socket\\]'",
+    "test:bridge-calldata:relay": "yarn test:bridge-calldata --testNamePattern='\\[Relay\\]'",
+    "test:bridge-calldata:across": "yarn test:bridge-calldata --testNamePattern='\\[Across\\]'",
+    "test:bridge-calldata:mayan": "yarn test:bridge-calldata --testNamePattern='\\[Mayan\\]'"
   },
   "devDependencies": {
     "@debank/common": "^0.3.60",
@@ -32,5 +38,9 @@
     "rimraf": "^3.0.2",
     "typescript": "^5.8.3"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.12.0",
+  "dependencies": {
+    "@ethersproject/hash": "5.8.0",
+    "@ethersproject/strings": "5.8.0"
+  }
 }
