@@ -161,7 +161,8 @@ export const finishCheck = (
     ...(structural ? [structural] : []),
     ...(unsupportedCall ? [BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL] : []),
     ...expected,
-  ].map((error) => ({ ...error, aggregatorId, chainId, method: parsed.method }));
+  ].map((error) => ({ ...error, ...parsed.diagnostics, aggregatorId, chainId, method: parsed.method,
+    hasDestinationCall: Boolean(parsed.hasDestinationCall || parsed.destinationCallData !== undefined) }));
   const unverifiedFields = Object.entries({
     sourceToken: mask.fromToken, sourceAmount: mask.fromAmount, outputToken: mask.toToken,
     minOutputAmount: mask.toAmount && expectation?.toTokenRawAmount !== undefined,

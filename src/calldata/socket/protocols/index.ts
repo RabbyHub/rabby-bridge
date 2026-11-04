@@ -1,4 +1,5 @@
-import { BRIDGE_ERRORS, BridgeError } from '../../../errors/index.js';
+import { BRIDGE_ERRORS, BridgeError, asBridgeError } from '../../../errors/index.js';
+import { innerCallDiagnostics } from '../../diagnostics.js';
 import { asBigint, asString, decodeCall } from '../../abi.js';
 import { readSelector } from '../../hex.js';
 import type { ParsedBridgeCall } from '../../types.js';
@@ -9,7 +10,7 @@ import { readNativeBridge } from './native.js';
 import { readOft } from './oft.js';
 import { readSwapsXYZ } from './swapsXYZ.js';
 
-export const readSocketBridge = (data: string, target: string, token: string, value: bigint, spender: string): Partial<ParsedBridgeCall> | undefined => {
+const decodeSocketBridge = (data: string, target: string, token: string, value: bigint, spender: string): Partial<ParsedBridgeCall> | undefined => {
   const selector = readSelector(data);
   const native = readNativeBridge(data, target, value);
   if (native) return native;
@@ -34,6 +35,16 @@ export const readSocketBridge = (data: string, target: string, token: string, va
     return { protocolMethod: 'receiveERC20', orderId: asString(a.quoteId), bridgeToken: asString(a.token), bridgeAmount: asBigint(a.amount) };
   }
   return undefined;
+};
+
+export const readSocketBridge = (data: string, target: string, token: string, value: bigint, spender: string): Partial<ParsedBridgeCall> => {
+  const diagnostics = innerCallDiagnostics(data, 'protocol');
+  try {
+    const parsed = decodeSocketBridge(data, target, token, value, spender);
+    return { ...parsed, diagnostics: { ...parsed?.diagnostics, ...diagnostics } };
+  } catch (error) {
+    throw asBridgeError(error, BRIDGE_ERRORS.CALLDATA_DECODE_FAILED, diagnostics);
+  }
 };
 
 const word = (data: string, offset: number): number => {

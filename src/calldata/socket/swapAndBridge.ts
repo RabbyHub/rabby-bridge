@@ -1,3 +1,5 @@
+import { BRIDGE_ERRORS, asBridgeError } from '../../errors/index.js';
+import { innerCallDiagnostics } from '../diagnostics.js';
 import { asBigint, asRecord, asString, decodeCall } from '../abi.js';
 import type { CalldataMethod } from '../abi.js';
 import { subtractFees } from '../protocols.js';
@@ -18,7 +20,10 @@ export const swapAndBridge: CalldataMethod = {
     const value = asBigint(hop.value) + ((flags & 4n) !== 0n ? amount : 0n);
     const token = asString(swap.outputToken);
     const target = asString(hop.target);
-    const callData = spliceBridgeAmount(asString(a.bridgeCallData), flags, amount);
+    const bridgeCallData = asString(a.bridgeCallData);
+    let callData: string;
+    try { callData = spliceBridgeAmount(bridgeCallData, flags, amount); }
+    catch (error) { throw asBridgeError(error, BRIDGE_ERRORS.CALLDATA_DECODE_FAILED, innerCallDiagnostics(bridgeCallData, 'protocol')); }
     return {
       aggregatorId: 'socket', method: 'swapAndBridge', kind: 'bridge', quoteId: asString(a.quoteId),
       sourceToken: asString(source.inputToken), sourceAmount: asBigint(source.inputAmount), depositor: asString(source.user),

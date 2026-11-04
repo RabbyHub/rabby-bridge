@@ -229,7 +229,7 @@ export const createBridgeProviderClient = (options: BridgeProviderClientOptions)
           }
         }
         return quotes;
-      }, { aggregatorId: provider, chainId: params.fromChainId, ...(provider === 'relay' ? { bridgeId: 'relay' } : {}), operation: 'getQuote' });
+      }, { aggregatorId: provider, chainId: params.fromChainId, toChainId: params.toChainId, ...(provider === 'relay' ? { bridgeId: 'relay' } : {}), operation: 'getQuote' });
     },
     async buildTx(provider, originalParams) {
       const params = { ...originalParams };
@@ -238,7 +238,7 @@ export const createBridgeProviderClient = (options: BridgeProviderClientOptions)
         const tx = { ...entry.data.tx };
         client.verifyTx(provider, params, tx);
         return tx;
-      }, { aggregatorId: provider, chainId: params.fromChainId, bridgeId: params.bridgeId, operation: 'buildTx' });
+      }, { aggregatorId: provider, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: params.bridgeId, operation: 'buildTx' });
     },
     async verifyLayerSwapTx(originalParams, tx) {
       const params = { ...originalParams };
@@ -279,7 +279,7 @@ export const createBridgeProviderClient = (options: BridgeProviderClientOptions)
           seenPages.add(fingerprint);
         }
         throw new BridgeError(BRIDGE_ERRORS.LAYERSWAP_ORDER_NOT_FOUND);
-      }, { aggregatorId: 'lifi', chainId: params.fromChainId, bridgeId: params.bridgeId, operation: 'verifyLayerSwapTx' });
+      }, { aggregatorId: 'lifi', chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: params.bridgeId, operation: 'verifyLayerSwapTx' });
     },
     verifyTx(provider, params, tx) {
       try {
@@ -291,7 +291,7 @@ export const createBridgeProviderClient = (options: BridgeProviderClientOptions)
           parsed: { ...entry.data.parsed, unresolvedFields: [] } };
       } catch (error) {
         const failure = asBridgeError(error, BRIDGE_ERRORS.INVALID_TRANSACTION, { provider,
-          aggregatorId: provider === 'layerswap' ? 'lifi' : provider, chainId: params.fromChainId,
+          aggregatorId: provider === 'layerswap' ? 'lifi' : provider, chainId: params.fromChainId, toChainId: params.toChainId,
           bridgeId: params.bridgeId, operation: 'verifyTx' });
         if (failure instanceof InvalidBridgeProviderError) throw failure;
         throw new InvalidBridgeProviderError(provider, failure);

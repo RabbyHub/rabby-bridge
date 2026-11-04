@@ -8,6 +8,7 @@ import {
 } from './calldata/index.js';
 import type { BridgeCallExpectation } from './calldata/expect.js';
 import type { BridgeCheck } from './calldata/types.js';
+import { calldataDiagnostics } from './calldata/diagnostics.js';
 import { InvalidBridgeProviderError } from './providers/errors.js';
 import type { BridgeProviderClient } from './providers/types.js';
 import { SOCKET_PROVIDER_ROUTES } from './providers/socket.js';
@@ -190,14 +191,14 @@ const checkBridgeTx = (
   ];
 
   if (!allowedRouters.some((addr) => isSameAddress(addr, tx.to))) {
-    throw new InvalidBridgeContractError(
+    throw asBridgeError(new InvalidBridgeContractError(
       'router',
       aggregatorId,
       fromChainId,
       expectedRouter || allowedRouters.join(',') || 'configured router',
       tx.to,
       bridgeId
-    );
+    ), BRIDGE_ERRORS.ROUTER_NOT_ALLOWED, calldataDiagnostics(tx.data));
   }
 
   if (CALLDATA_AGGREGATORS.includes(aggregatorId)) {
@@ -257,12 +258,12 @@ export const getQuote = async (
 
     const [backendQuotes, providerQuotes] = await Promise.all([
       api.getBridgeQuoteListV2
-        ? api.getBridgeQuoteListV2(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED); })
-        : api.getBridgeQuoteV2?.(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED); }),
+        ? api.getBridgeQuoteListV2(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); })
+        : api.getBridgeQuoteV2?.(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); }),
       aggregatorId === BRIDGE_ENUM.SOCKET && params.providerClient
         ? params.providerClient.getQuotes('socket', params).catch((error) => {
             if (error instanceof InvalidBridgeProviderError) {
-              reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, operation: 'getQuote' });
+              reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' });
               return [];
             }
             throw error;
@@ -286,14 +287,14 @@ export const getQuote = async (
         return true;
       } catch (error) {
         if (error instanceof InvalidBridgeContractError) {
-          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, bridgeId: quote.bridge_id, operation: 'getQuote' });
+          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'getQuote' });
           return false;
         }
         throw error;
       }
     });
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, operation: 'getQuote' });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' });
   }
 };
 
@@ -332,11 +333,11 @@ export const buildTx = async (
       ? await api.buildBridgeTx({
           ...buildParams,
           quote_key: stringifyQuoteKey(params.quoteKey),
-        }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED); })
+        }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED, { requestKind: 'backend_build' }); })
       : (
           await api.getBridgeQuoteTxV2?.({
             ...buildParams,
-          }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED); })
+          }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED, { requestKind: 'backend_build' }); })
         )?.tx;
 
     if (!tx) {
@@ -382,7 +383,7 @@ export const buildTx = async (
 
     return tx;
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, operation: 'buildTx', bridgeId: params.bridgeId });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx', bridgeId: params.bridgeId });
   }
 };
 
@@ -419,7 +420,7 @@ export const getQuoteListWithTx = async (
           error instanceof InvalidBridgeCalldataError ||
           error instanceof InvalidBridgeProviderError
         ) {
-          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, bridgeId: quote.bridge_id, operation: 'buildTx' });
+          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'buildTx' });
           return null;
         }
         throw error;

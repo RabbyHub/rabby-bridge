@@ -23,6 +23,8 @@ export const requestProvider = async (
     : provider === 'socket' ? path.startsWith('/v3/swap/quote?')
       : /^\/api\/v2\/explorer\/0x[0-9a-f]{40}\?page=[1-9][0-9]*$/i.test(path);
   if (!allowed) throw new InvalidBridgeProviderError(provider, BRIDGE_ERRORS.UNSUPPORTED_SERVICE_PATH);
+  const requestKind = provider === 'relay' ? (path === '/chains' ? 'relay_chains' : 'relay_quote')
+    : provider === 'socket' ? 'socket_quote' : 'layerswap_orders';
   const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
@@ -43,9 +45,10 @@ export const requestProvider = async (
       }),
     ]);
   } catch (error) {
-    if (error instanceof InvalidBridgeProviderError) throw error;
+    const failure = asBridgeError(error, BRIDGE_ERRORS.SERVICE_REQUEST_FAILED, { requestKind });
+    if (failure instanceof InvalidBridgeProviderError) throw failure;
     // Do not propagate provider bodies, wallet addresses or request details as errors.
-    throw new InvalidBridgeProviderError(provider, asBridgeError(error, BRIDGE_ERRORS.SERVICE_REQUEST_FAILED));
+    throw new InvalidBridgeProviderError(provider, failure);
   } finally {
     if (timer !== undefined) clearTimeout(timer);
   }

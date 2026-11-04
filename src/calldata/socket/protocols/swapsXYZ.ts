@@ -31,12 +31,12 @@ export const readSwapsXYZ = (data: string): Partial<ParsedBridgeCall> => {
     { name: 'inputs', kind: 'array', item: { name: 'input', kind: 'bytes' } }], payload);
   const commands = asString(commandData.commands).slice(2).match(/../g) ?? [];
   const inputs = asArray(commandData.inputs);
-  if (commands.length !== inputs.length) throw new BridgeError(BRIDGE_ERRORS.HYPERLANE_COMMAND_LENGTH_MISMATCH);
+  if (commands.length !== inputs.length) throw new BridgeError(BRIDGE_ERRORS.HYPERLANE_COMMAND_LENGTH_MISMATCH, { commandCount: commands.length });
   let result: Partial<ParsedBridgeCall> | undefined;
   for (let i = 0; i < commands.length; i += 1) {
     const command = Number.parseInt(commands[i], 16);
     if ([0, 1, 2, 3, 8].includes(command)) continue;
-    if (![4, 5].includes(command) || result) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_HYPERLANE_OPERATION);
+    if (![4, 5].includes(command) || result) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_HYPERLANE_OPERATION, { commandByte: command, commandCount: commands.length });
     const p = decodeParameters([
       { name: 'router', kind: 'address' }, { name: 'destination', kind: 'uint' }, { name: 'recipient', kind: 'bytes', size: 32 },
       { name: 'amount', kind: 'uint' }, ...(command === 5 ? [{ name: 'targetRouter', kind: 'bytes' as const, size: 32 }] : []),

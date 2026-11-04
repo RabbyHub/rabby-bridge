@@ -64,5 +64,5 @@ export type {
   DirectBridgeProvider,
 } from './providers/index.js';
 
-export { BRIDGE_ERRORS, BridgeError } from './errors/index.js';
+export { BRIDGE_ERRORS, BridgeError, toBridgeErrorReport } from './errors/index.js';
 export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition, BridgeErrorContext, BridgeErrorDetail, BridgeErrorReport, BridgeErrorReporter } from './errors/index.js';

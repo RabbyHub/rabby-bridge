@@ -1,4 +1,4 @@
-import type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDetail } from '../errors/index.js';
+import type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDetail, BridgeErrorContext } from '../errors/index.js';
 import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import type { BridgeAggregatorId } from '../consts.js';
 
@@ -49,6 +49,8 @@ export type ParsedBridgeCall = {
   destinationCallData?: string;
   hasDestinationCall?: boolean;
   unresolvedFields?: string[];
+  /** Non-personal call structure retained for unsupported-path diagnostics. */
+  diagnostics?: BridgeErrorContext;
 };
 
 export type DecodeHit =

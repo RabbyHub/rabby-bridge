@@ -50,7 +50,7 @@ const staticWordCount = (param: AbiParam): number => {
 
 const readWord = (buf: Uint8Array, offset: number): bigint => {
   if (offset < 0 || offset + 32 > buf.length) {
-    throw new BridgeError(BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS);
+    throw new BridgeError(BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS, { abiOffset: offset, abiBufferBytes: buf.length });
   }
   let value = 0n;
   for (let index = 0; index < 32; index += 1) {
@@ -67,7 +67,7 @@ const toAddress = (word: bigint): string => {
 const readByteLength = (buf: Uint8Array, offset: number): number => {
   const length = readWord(buf, offset);
   if (length > BigInt(buf.length)) {
-    throw new BridgeError(BRIDGE_ERRORS.ABI_BYTES_OUT_OF_BOUNDS);
+    throw new BridgeError(BRIDGE_ERRORS.ABI_BYTES_OUT_OF_BOUNDS, { abiOffset: offset, abiBufferBytes: buf.length });
   }
   return Number(length);
 };
@@ -76,7 +76,7 @@ const readDynamicBytes = (buf: Uint8Array, offset: number): string => {
   const length = readByteLength(buf, offset);
   const start = offset + 32;
   if (start + length > buf.length) {
-    throw new BridgeError(BRIDGE_ERRORS.ABI_BYTES_OUT_OF_BOUNDS);
+    throw new BridgeError(BRIDGE_ERRORS.ABI_BYTES_OUT_OF_BOUNDS, { abiOffset: offset, abiBufferBytes: buf.length });
   }
   return bytesToHex(buf.subarray(start, start + length));
 };
@@ -88,7 +88,7 @@ const decodeSequence = (params: AbiParam[], buf: Uint8Array, base: number): AbiV
     if (isDynamic(param)) {
       const relative = readWord(buf, cursor);
       if (relative > BigInt(buf.length)) {
-        throw new BridgeError(BRIDGE_ERRORS.ABI_OFFSET_OUT_OF_BOUNDS);
+        throw new BridgeError(BRIDGE_ERRORS.ABI_OFFSET_OUT_OF_BOUNDS, { abiOffset: cursor, abiBufferBytes: buf.length });
       }
       locations.push(base + Number(relative));
       cursor += 32;
@@ -118,7 +118,7 @@ const decodeAt = (param: AbiParam, buf: Uint8Array, offset: number): AbiValue =>
         return readDynamicBytes(buf, offset);
       }
       if (offset + 32 > buf.length) {
-        throw new BridgeError(BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS);
+        throw new BridgeError(BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS, { abiOffset: offset, abiBufferBytes: buf.length });
       }
       return bytesToHex(buf.subarray(offset, offset + param.size));
     }

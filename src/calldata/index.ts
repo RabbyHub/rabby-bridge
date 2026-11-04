@@ -11,6 +11,8 @@ import type { BridgeCallExpectation } from './expect.js';
 import type { BridgeCalldataTx, BridgeCheck, DecodeHit, ParsedBridgeCall } from './types.js';
 import { txCalldata, txValue } from './types.js';
 import { sourceChainMismatch } from './chains.js';
+import { calldataDiagnostics } from './diagnostics.js';
+import { sanitizeBridgeError } from '../errors/sanitize.js';
 
 const DECODERS: Partial<Record<BridgeAggregatorId, (data: string, value: bigint) => DecodeHit>> = {
   across: decodeAcross,
@@ -60,14 +62,14 @@ export const hasBridgeCalldata = (tx: BridgeCalldataTx): boolean => {
 
 /** Detailed decoding for callers that need failures instead of a nullable result. */
 export const decodeBridgeCalldataResult = (aggregatorId: string, tx: BridgeCalldataTx): DecodeHit => {
-  const context = { aggregatorId, selector: readSelector(txCalldata(tx)) ?? undefined };
+  const context = { aggregatorId, ...calldataDiagnostics(tx.data || tx.input) };
   const decode = DECODERS[aggregatorId as BridgeAggregatorId];
   if (!decode) return bridgeFailure([{ ...BRIDGE_ERRORS.UNSUPPORTED_CALLDATA_AGGREGATOR, ...context }]);
   let value: bigint;
   try { value = txValue(tx); }
   catch (error) { return bridgeFailure(asBridgeError(error, BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE, context).errors); }
   const hit = decode(txCalldata(tx), value);
-  return hit.ok ? hit : { ...hit, errors: hit.errors.map((error) => ({ ...error, ...context })) };
+  return hit.ok ? hit : { ...hit, errors: hit.errors.map((error) => sanitizeBridgeError({ ...error, ...context })) };
 };
 
 export const decodeBridgeCalldata = (aggregatorId: string, tx: BridgeCalldataTx): ParsedBridgeCall | null => {
@@ -81,7 +83,7 @@ export const validateBridgeCalldata = (
   tx: BridgeCalldataTx,
   expectation?: BridgeCallExpectation
 ): BridgeCheck => {
-  const context = { aggregatorId, chainId, selector: readSelector(txCalldata(tx)) ?? undefined };
+  const context = { aggregatorId, chainId, toChainId: expectation?.toChainId, ...calldataDiagnostics(tx.data || tx.input) };
   if (sourceChainMismatch(chainId, tx.chainId)) return { ...bridgeFailure([{ ...BRIDGE_ERRORS.FROM_CHAIN_MISMATCH, ...context }]), aggregatorId };
   if (expectation && tx.from !== undefined &&
       (typeof tx.from !== 'string' || tx.from.toLowerCase() !== expectation.userAddress.toLowerCase())) {
@@ -98,7 +100,7 @@ export const validateBridgeCalldata = (
   try { value = txValue(tx); }
   catch (error) { return { ...bridgeFailure(asBridgeError(error, BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE, context).errors), aggregatorId }; }
   const check = validate(txCalldata(tx), value, expectation, chainId);
-  return { ...check, errors: check.errors.map((error) => ({ ...error, ...context })) };
+  return { ...check, errors: check.errors.map((error) => sanitizeBridgeError({ ...error, ...context })) };
 };
 
 export type { BridgeCallExpectation } from './expect.js';

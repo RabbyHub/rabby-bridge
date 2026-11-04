@@ -76,7 +76,7 @@ export const assertIntent = (
   if (minimumQuantum < 1n) throw new BridgeError(BRIDGE_ERRORS.INVALID_MINIMUM_PRECISION);
   const minimum = expectedAmount * BigInt(10000 - slippageBps(params.slippage)) / 10000n / minimumQuantum * minimumQuantum;
   if (expectedAmount <= 0n || minimum <= 0n || parsed.minOutputAmount === undefined || parsed.minOutputAmount < minimum) errors.push(BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH);
-  if (errors.length) throw new BridgeError(errors[0], { method: parsed.method }, errors);
+  if (errors.length) throw new BridgeError(errors[0], { ...parsed.diagnostics, method: parsed.method }, errors);
 };
 
 /** Copy only signing fields; never carry arbitrary keys supplied by a service. */

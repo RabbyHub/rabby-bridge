@@ -1,4 +1,5 @@
 import { BRIDGE_ERRORS, BridgeError } from '../../errors/index.js';
+import { innerCallDiagnostics } from '../diagnostics.js';
 import {
   asArray,
   asBigint,
@@ -239,9 +240,10 @@ export const applyMayanData = (parsed: ParsedBridgeCall, raw: AbiValue): void =>
     parsed.receiver = receiver;
   }
   parsed.innerTarget = asString(data.mayanProtocol);
+  parsed.diagnostics = innerCallDiagnostics(asString(data.protocolData), 'protocol');
   const protocol = readMayanProtocol(asString(data.protocolData),
     asBigint(data.minMiddleAmount) > 0n ? asBigint(data.minMiddleAmount) : parsed.bridgeAmount);
-  if (!protocol) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_MAYAN_PROTOCOL_CALLDATA);
+  if (!protocol) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_MAYAN_PROTOCOL_CALLDATA, parsed.diagnostics);
   const { sourceToken, sourceAmount, aggregatorId, method, kind, ...destination } = protocol;
   Object.assign(parsed, destination);
 };

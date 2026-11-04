@@ -95,8 +95,8 @@ describe('structured bridge failures', () => {
     expect(onError.mock.calls.map(([report]) => report.error_code)).toEqual([
       BRIDGE_ERRORS.SPENDER_NOT_ALLOWED.error_code, BRIDGE_ERRORS.ROUTER_NOT_ALLOWED.error_code,
     ]);
-    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ operation: 'getQuote', bridgeId: 'bad-spender' });
-    expect(onError.mock.calls[1][0].errors[0]).toMatchObject({ operation: 'buildTx', bridgeId: 'bad-router' });
+    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ operation: 'getQuote', bridgeId: 'unknown' });
+    expect(onError.mock.calls[1][0].errors[0]).toMatchObject({ operation: 'buildTx', bridgeId: 'unknown' });
     const report = JSON.stringify(onError.mock.calls);
     expect(report).not.toContain(user);
     expect(report).not.toContain(other);

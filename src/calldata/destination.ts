@@ -1,8 +1,9 @@
-import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
+import { BRIDGE_ERRORS, BridgeError, asBridgeError } from '../errors/index.js';
 import { asArray, asBigint, asRecord, asString, decodeCall, decodeParameters, type AbiParam, type AbiValue } from './abi.js';
 import { isZeroWord, readSelector } from './hex.js';
 import { NATIVE_TOKEN, WRAPPED_NATIVE_TOKENS, subtractFees } from './protocols.js';
 import type { ParsedBridgeCall } from './types.js';
+import { calldataDiagnostics } from './diagnostics.js';
 
 export const destinationCall: AbiParam = {
   name: 'call', kind: 'tuple', components: [
@@ -18,14 +19,17 @@ export const readTransfer = (target: string, data: string, value: bigint): Parti
 };
 
 export const readDestinationTransfers = (calls: AbiValue[]): Partial<ParsedBridgeCall> => {
+  const diagnostics = { destinationCallCount: calls.length,
+    destinationSelectors: [...new Set(calls.map((call) => calldataDiagnostics(asRecord(call).data).selector)
+      .filter((selector): selector is string => Boolean(selector)))].slice(0, 16) };
   const transfers = calls.map((call) => {
     const c = asRecord(call);
     return readTransfer(asString(c.target), asString(c.data), asBigint(c.value));
   });
-  if (!transfers.length || transfers.some((transfer) => !transfer)) return {};
+  if (!transfers.length || transfers.some((transfer) => !transfer)) return { diagnostics };
   const first = transfers[0] as Partial<ParsedBridgeCall>;
-  if (!transfers.every((transfer) => transfer !== undefined && transfer.receiver === first.receiver && transfer.outputToken === first.outputToken)) return {};
-  return { ...first, minOutputAmount: transfers.reduce((sum, transfer) => sum + (transfer?.minOutputAmount ?? 0n), 0n) };
+  if (!transfers.every((transfer) => transfer !== undefined && transfer.receiver === first.receiver && transfer.outputToken === first.outputToken)) return { diagnostics };
+  return { ...first, diagnostics, minOutputAmount: transfers.reduce((sum, transfer) => sum + (transfer?.minOutputAmount ?? 0n), 0n) };
 };
 
 const instructions: AbiParam = {
@@ -43,7 +47,7 @@ const ACROSS_MESSAGE_HANDLERS: Record<string, string> = {
   43114: '0x9610954acdca5ff7905f051a040ce33fe613c60e',
 };
 
-export const applyAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBridgeCall => {
+const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBridgeCall => {
   if (message === '0x') {
     const wrapped = WRAPPED_NATIVE_TOKENS[parsed.destinationChainId?.toString() ?? ''];
     if (parsed.outputToken !== undefined && (wrapped === undefined || parsed.outputToken === wrapped)) {
@@ -59,6 +63,7 @@ export const applyAcrossMessage = (parsed: ParsedBridgeCall, message: string): P
   parsed.bridgeOutputToken = parsed.outputToken;
   parsed.bridgeOutputAmount = parsed.minOutputAmount;
   parsed.destinationCallData = message;
+  parsed.diagnostics = { hasDestinationCall: true, destinationCalldataBytes: calldataDiagnostics(message).calldataBytes };
   delete parsed.receiver;
   delete parsed.outputToken;
   delete parsed.minOutputAmount;
@@ -69,9 +74,13 @@ export const applyAcrossMessage = (parsed: ParsedBridgeCall, message: string): P
   const emitter = parsed.destinationChainId === 43114n
     ? '0x25b15fc38d6a2c13feddd9cb51f184f7cf0d4c11' : '0xbf75133b48b0a42ab9374027902e83c5e2949034';
   const args = asRecord(decodeParameters([instructions], message).instructions);
+  const calls = asArray(args.calls);
+  parsed.diagnostics.destinationCallCount = calls.length;
+  parsed.diagnostics.destinationSelectors = [...new Set(calls.map((call) => calldataDiagnostics(asRecord(call).callData).selector)
+    .filter((selector): selector is string => Boolean(selector)))].slice(0, 16);
   const balances = new Map<string, bigint>([[parsed.bridgeOutputToken as string, parsed.bridgeOutputAmount as bigint]]);
   const payouts: Partial<ParsedBridgeCall>[] = [];
-  for (const raw of asArray(args.calls)) {
+  for (const raw of calls) {
     const call = asRecord(raw);
     const target = asString(call.target);
     const data = asString(call.callData);
@@ -124,4 +133,9 @@ export const applyAcrossMessage = (parsed: ParsedBridgeCall, message: string): P
     Object.assign(parsed, payouts[0]);
   }
   return parsed;
+};
+
+export const applyAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBridgeCall => {
+  try { return readAcrossMessage(parsed, message); }
+  catch (error) { throw asBridgeError(error, BRIDGE_ERRORS.CALLDATA_DECODE_FAILED, parsed.diagnostics); }
 };

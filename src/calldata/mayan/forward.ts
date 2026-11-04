@@ -1,6 +1,7 @@
 import type { AbiParam } from '../abi.js';
 import type { ParsedBridgeCall } from '../types.js';
 import { readMayanProtocol } from './readProtocol.js';
+import { innerCallDiagnostics } from '../diagnostics.js';
 
 export const permitParams: AbiParam = {
   name: 'permitParams',
@@ -27,6 +28,7 @@ export const finishForward = (
     innerTarget: protocol,
     sourceToken: source.token,
     sourceAmount: source.amount,
+    diagnostics: innerCallDiagnostics(protocolData, 'protocol'),
   };
   const order = readMayanProtocol(protocolData, source.protocolAmount ?? source.amount);
   if (!order) {
