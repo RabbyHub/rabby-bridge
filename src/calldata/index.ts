@@ -84,23 +84,28 @@ export const validateBridgeCalldata = (
   expectation?: BridgeCallExpectation
 ): BridgeCheck => {
   const context = { aggregatorId, chainId, toChainId: expectation?.toChainId, ...calldataDiagnostics(tx.data || tx.input) };
-  if (sourceChainMismatch(chainId, tx.chainId)) return { ...bridgeFailure([{ ...BRIDGE_ERRORS.FROM_CHAIN_MISMATCH, ...context }]), aggregatorId };
+  const inputErrors: BridgeErrorDetail[] = [];
+  if (sourceChainMismatch(chainId, tx.chainId)) inputErrors.push(BRIDGE_ERRORS.FROM_CHAIN_MISMATCH);
   if (expectation && tx.from !== undefined &&
       (typeof tx.from !== 'string' || tx.from.toLowerCase() !== expectation.userAddress.toLowerCase())) {
-    return { ...bridgeFailure([{ ...BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH, ...context }]), aggregatorId };
+    inputErrors.push(BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH);
   }
   const validate = VALIDATORS[aggregatorId as BridgeAggregatorId];
   if (!validate) {
     return {
-      ...bridgeFailure([{ ...BRIDGE_ERRORS.UNSUPPORTED_CALLDATA_AGGREGATOR, ...context }]),
+      ...bridgeFailure([...inputErrors, BRIDGE_ERRORS.UNSUPPORTED_CALLDATA_AGGREGATOR].map((error) => ({ ...error, ...context }))),
       aggregatorId,
     };
   }
   let value: bigint;
   try { value = txValue(tx); }
-  catch (error) { return { ...bridgeFailure(asBridgeError(error, BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE, context).errors), aggregatorId }; }
+  catch (error) {
+    return { ...bridgeFailure([...inputErrors, ...asBridgeError(error, BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE).errors]
+      .map((detail) => ({ ...detail, ...context }))), aggregatorId };
+  }
   const check = validate(txCalldata(tx), value, expectation, chainId);
-  return { ...check, errors: check.errors.map((error) => sanitizeBridgeError({ ...error, ...context })) };
+  const errors = [...inputErrors, ...check.errors].map((error) => sanitizeBridgeError({ ...error, ...context }));
+  return { ...check, ...(errors.length ? bridgeFailure(errors) : {}), errors };
 };
 
 export type { BridgeCallExpectation } from './expect.js';

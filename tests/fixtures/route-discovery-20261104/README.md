@@ -82,7 +82,7 @@
 
 - **AllBridge**：已补 `startBridgeTokensViaAllBridge / swapAndStart...` 部分解析。参数 `recipient / receiveToken` 明确目标币和 Receiver；源输入也可取。但目标量由目标池兑换状态决定，源签名没有最低量。[官方 FAQ](https://docs-core.allbridge.io/product/faq/how-to-transfer-assets) 说明 minimum receive 具有概率性。多请求报价不能变成链上保证，当前高层拒绝。
 - **Garden**：已补 `startBridgeTokensViaGarden / swapAndStart...` 源输入、`secretHash` 关联标识。源 HTLC 的 `redeemer / refundAddress / timelock / secretHash` 没绑定完整目标条件；BridgeData 事件字段不是 HTLC 保证。需完整服务商订单逐项关联；尚未确认可用签前接口，不能假设 secretHash 就是订单哈希，当前高层拒绝。
-- **Across 目标链 DEX**：真实 USDC→AERO `deposit` 的 message 有 AllowanceHolder `exec`→Settler `execute`，成功可得至少 **147467013112760530532 raw AERO**；失败则向同一用户退 **99969945 raw USDC**。需验证 Settler、费用、drain，并引入成功/fallback 结果校验政策；当前保留 `unsupported destination call` 负例，不能宣称保证收到 AERO。
+- **Across 目标链 DEX**：真实 USDC→AERO `deposit` 的 message 有 AllowanceHolder `exec`→Settler `execute`，成功可得至少 **147467013112760530532 raw AERO**；失败则向同一用户退 **99969945 raw USDC**。2026-11-05 已针对该 Base Settler 验证部署源码并补齐本地解析：成功和退款 receiver 可比较，目标 token／最低金额因两种结果不同仍未解析。轻量版现允许构建，并上报目标字段未验证；原 `unsupported destination call` 作为 historicalValidationError 保留，不再计作当前拒绝预期。部署证据见 `evidence/base-settler-verification.json`；本次新增测试未执行。
 - **LI.FI Intents 目标调用**：当前 后端 `allowDestinationCall=true`，单个顶层 step 不排除内部目标 swap。可以深解 `dstCallSwapData`，但须核实 ReceiverOIF、Executor、outputSettler 身份及 DEX 最低量、最终收款人和 fallback。当前仍拒绝任意目标执行；本次取得的 Intents 报价不含真实目标 swap，不冒充覆盖。
 - **SmartDeposits**：元数据有 SDK 支持的 EVM 链对，未取得完整源交易。需 deposit factory/config 或可验证订单确定目标条件；普通转账不能推断跨链目标。
 - **Frax**：已有 OFT→Fraxtal hub→目标 peer 解析；原数据记录缺报价，本次也未取得可用报价，仍缺完整真实单元。

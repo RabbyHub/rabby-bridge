@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, jest, test } from '@jest/globals';
 import {
-  BRIDGE_ERRORS, InvalidBridgeCalldataError, InvalidBridgeContractError, InvalidBridgeProviderError,
+  BRIDGE_ERRORS, InvalidBridgeContractError, toBridgeErrorReport,
   buildTx, getQuote, getQuoteListWithTx, getBridgeRouter, validateBridgeCalldata, validateBridgeQuote, validateBridgeTx,
 } from '../dist/index.js';
 
@@ -18,7 +18,7 @@ const tx = { from: user, to: getBridgeRouter('across', 'eth'), value: '0x0', cha
 const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}-20261103.json`, import.meta.url)));
 const failures = (onError) => onError.mock.calls.flatMap(([report]) => report.errors);
 
-describe('lite preserves main decisions while observing new validation', () => {
+describe('local validation observes fields while only the router blocks', () => {
   test.each([
     [{ ...tx, data: '0xdeadbeef' }, params, BRIDGE_ERRORS.UNSUPPORTED_METHOD.error_code],
     [tx, { ...params, fromTokenRawAmount: '1' }, BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH.error_code],
@@ -32,8 +32,13 @@ describe('lite preserves main decisions while observing new validation', () => {
     expect(api.buildBridgeTx.mock.calls[0][0]).not.toHaveProperty('lite');
     expect(failures(onError)).toEqual(expect.arrayContaining([expect.objectContaining({ error_code: code, lite: true, blocking: false })]));
     expect(validateBridgeCalldata('across', 'eth', sourceTx, intent).ok).toBe(false);
-    await expect(buildTx('across', intent, api)).rejects.toBeInstanceOf(InvalidBridgeCalldataError);
-    await expect(buildTx('across', { ...intent, lite: false }, api)).rejects.toBeInstanceOf(InvalidBridgeCalldataError);
+    for (const lite of [undefined, false]) {
+      const onError = jest.fn();
+      await expect(buildTx('across', { ...intent, lite, onError }, api)).resolves.toBe(sourceTx);
+      expect(failures(onError)).toEqual(expect.arrayContaining([
+        expect.objectContaining({ error_code: code, pass: true, routerPass: true, lite: false, blocking: false }),
+      ]));
+    }
   });
 
   test('does not filter a quote for a new calldata failure, but still filters a legacy spender failure', async () => {
@@ -62,74 +67,128 @@ describe('lite preserves main decisions while observing new validation', () => {
       .rejects.toMatchObject({ error_code: BRIDGE_ERRORS.UNSUPPORTED_BRIDGE_AGGREGATOR.error_code });
   });
 
-  test('missing whitelist configuration remains non-blocking as on main, but is reported', () => {
+  test('lite retains the missing-spender rollout but never skips a missing router', () => {
     const onError = jest.fn();
     const quote = { bridge_id: 'across', approve_contract_id: other };
     expect(validateBridgeQuote('lifi', 'not-configured', quote, { lite: true, onError })).toBe(true);
     expect(() => validateBridgeQuote('lifi', 'not-configured', quote)).toThrow(InvalidBridgeContractError);
-    expect(validateBridgeTx('lifi', 'not-configured', 'across', { ...tx, to: other }, params, { lite: true, onError })).toBe(true);
-    expect(failures(onError).map((error) => error.error_code)).toContain(BRIDGE_ERRORS.ROUTER_NOT_ALLOWED.error_code);
-    expect(failures(onError).map((error) => error.error_code)).toContain(BRIDGE_ERRORS.FROM_CHAIN_MISMATCH.error_code);
+    expect(() => validateBridgeTx('lifi', 'not-configured', 'across', { ...tx, to: other }, params, { lite: true, onError }))
+      .toThrow(InvalidBridgeContractError);
   });
 
   test('reports aggregators without a parser instead of silently counting them as covered', () => {
     const onError = jest.fn();
-    expect(validateBridgeTx('near_intents', 'eth', 'near_intents', { ...tx, data: '0xdeadbeef' }, params, { lite: true, onError })).toBe(true);
+    expect(validateBridgeTx('near_intents', 'eth', 'near_intents', { ...tx, data: '0xdeadbeef' }, params, { onError }))
+      .toMatchObject({ pass: true, routerPass: true, fromPass: false, toPass: false, receiverPass: false });
     expect(failures(onError)).toEqual(expect.arrayContaining([
       expect.objectContaining({ error_code: BRIDGE_ERRORS.UNSUPPORTED_CALLDATA_AGGREGATOR.error_code, blocking: false }),
     ]));
   });
 
-  test.each(['relay', 'socket'])('%s uses backend results, never replaces them with an unrelated provider quote', async (provider) => {
+  test('returns independent field results and emits no observation for a fully verified transaction', () => {
+    const onError = jest.fn();
+    const result = validateBridgeTx('across', 'eth', 'across', tx, params, { onError });
+    expect(result).toEqual({ pass: true, routerPass: true, fromPass: true, toPass: true,
+      receiverPass: true, errors: [], unverifiedFields: [] });
+    expect(onError).not.toHaveBeenCalled();
+    expect(toBridgeErrorReport(result)).toBeUndefined();
+  });
+
+  test.each([
+    [{ fromTokenId: other }, {}, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_TOKEN_MISMATCH.error_code],
+    [{ fromTokenRawAmount: '1' }, {}, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH.error_code],
+    [{ toTokenId: other }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.TO_TOKEN_MISMATCH.error_code],
+    [{ toTokenRawAmount: '1' }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH.error_code],
+    [{ toChainId: 'arb' }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.TO_CHAIN_MISMATCH.error_code],
+    [{}, { from: other }, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH.error_code],
+    [{}, { chainId: 10 }, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_CHAIN_MISMATCH.error_code],
+    [{}, { data: tx.data.slice(0, 74) + BigInt(other).toString(16).padStart(64, '0') + tx.data.slice(138) },
+      { fromPass: true, toPass: true, receiverPass: false }, BRIDGE_ERRORS.RECEIVER_MISMATCH.error_code],
+  ])('keeps independent results for field mismatch %#', (intent, changes, flags, code) => {
+    const onError = jest.fn();
+    const result = validateBridgeTx('across', 'eth', 'across', { ...tx, ...changes }, { ...params, ...intent }, { onError });
+    expect(result).toMatchObject({ pass: true, routerPass: true, ...flags });
+    expect(failures(onError)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: code, ...flags, pass: true, blocking: false }),
+    ]));
+    expect(toBridgeErrorReport(result).error_code).toBe(code);
+  });
+
+  test('does not count a skipped minimum comparison as a verified destination', () => {
+    const result = validateBridgeTx('across', 'eth', 'across', tx, { ...params, toTokenRawAmount: undefined });
+    expect(result).toMatchObject({ pass: true, fromPass: true, toPass: false, receiverPass: true,
+      unverifiedFields: ['minOutputAmount'] });
+  });
+
+  test('reports an unknown destination path without losing its verified source', () => {
+    const data = JSON.parse(readFileSync(new URL('./fixtures/route-discovery-20261104/cases.json', import.meta.url)))
+      .find((item) => item.id === 'discovery-across-destination-dex-5pct');
+    const sourceTx = { ...data.tx, data: data.tx.data.replace('38c9c147', 'deadbeef') };
+    const onError = jest.fn();
+    const result = validateBridgeTx('across', data.chainKey, data.bridgeId, sourceTx,
+      { ...data.request, toTokenRawAmount: data.quoteBenchmark.quotedOutputAmount }, { onError });
+    expect(result).toMatchObject({ pass: true, routerPass: true, fromPass: true, toPass: false, receiverPass: false });
+    expect(result.unverifiedFields).toEqual(expect.arrayContaining(['outputToken', 'minOutputAmount', 'receiver']));
+    expect(failures(onError)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL.error_code,
+        method: 'deposit', hasDestinationCall: true, blocking: false }),
+    ]));
+    const report = JSON.stringify(failures(onError));
+    expect(report).not.toContain(data.request.userAddress);
+    expect(report).not.toContain(sourceTx.data);
+  });
+
+  test('router rejection retains its blocking result in the sanitized error', () => {
+    try {
+      validateBridgeTx('across', 'eth', 'across', { ...tx, to: other }, params);
+      throw new Error('expected router rejection');
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidBridgeContractError);
+      expect(error.toJSON().errors[0]).toMatchObject({ pass: false, routerPass: false, blocking: true });
+    }
+  });
+
+  test.each(['relay', 'socket'])('%s uses backend results without touching a legacy provider client', async (provider) => {
     const data = fixture(provider === 'relay' ? 'relay-v2' : 'socket-v3');
     const sourceTx = provider === 'relay' ? data.tx : data.cases[0].tx;
     const bridgeId = provider === 'relay' ? 'relay' : data.cases[0].bridgeId;
     const quote = { bridge_id: bridgeId, quote_key: { quote_id: 'backend-selection' }, to_token_raw_amount_hex_str: '0x100' };
-    const providerClient = {
-      captureContext: () => () => {},
-      getQuotes: jest.fn(), buildTx: jest.fn(),
-      verifyTx: jest.fn(() => { throw new InvalidBridgeProviderError(provider, BRIDGE_ERRORS.A_DIRECT_PROVIDER_QUOTE_IS_REQUIRED); }),
-    };
+    const providerClient = { captureContext: jest.fn(), getQuotes: jest.fn(), buildTx: jest.fn(), verifyTx: jest.fn() };
     const onError = jest.fn();
     const api = { getBridgeQuoteListV2: jest.fn(async () => [quote]), buildBridgeTx: jest.fn(async () => sourceTx) };
     await expect(getQuoteListWithTx(provider, { ...data.params, lite: true, providerClient, onError }, api))
       .resolves.toEqual([{ ...quote, tx: sourceTx }]);
-    expect(providerClient.getQuotes).not.toHaveBeenCalled();
-    expect(providerClient.buildTx).not.toHaveBeenCalled();
-    expect(providerClient.verifyTx).toHaveBeenCalledWith(provider, expect.objectContaining({ quoteKey: quote.quote_key }), sourceTx);
-    expect(failures(onError)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: BRIDGE_ERRORS.A_DIRECT_PROVIDER_QUOTE_IS_REQUIRED.error_code, lite: true, blocking: false }),
-    ]));
+    for (const fn of Object.values(providerClient)) expect(fn).not.toHaveBeenCalled();
+    expect(onError).not.toHaveBeenCalled();
+    const check = validateBridgeTx(provider, data.params.fromChainId, bridgeId, sourceTx, data.params, { onError });
+    expect(check).toMatchObject({ pass: true, fromPass: true, toPass: false, receiverPass: false, errors: [] });
+    expect(check.unverifiedFields).toContain('receiver');
+    expect(toBridgeErrorReport(check)).toBeUndefined();
+    expect(onError).not.toHaveBeenCalled();
   });
 
-  test('LayerSwap verification runs in the background and keeps its original error code', async () => {
+  test.each([true, false])('LayerSwap performs no lookup with lite=%s', async (lite) => {
     const data = fixture('layerswap-pending');
-    let reject;
-    const verification = new Promise((resolve, fail) => { reject = fail; });
-    const providerClient = { captureContext: () => () => {}, verifyLayerSwapTx: jest.fn(() => verification) };
+    const providerClient = { captureContext: jest.fn(), verifyLayerSwapTx: jest.fn() };
     const onError = jest.fn();
-    const inputParams = { userAddress: data.tx.from, fromChainId: 'eth', fromTokenId: data.expected.sourceToken,
+    const intent = { userAddress: data.tx.from, fromChainId: 'eth', fromTokenId: data.expected.sourceToken,
       fromTokenRawAmount: data.expected.sourceAmount, toChainId: 'arb', toTokenId: data.expected.outputToken,
-      toTokenRawAmount: data.expected.expectedOutputAmount, slippage: '0.01', bridgeId: 'layerswap',
-      lite: true, providerClient, onError };
-    await expect(buildTx('lifi', inputParams, { buildBridgeTx: async () => data.tx })).resolves.toBe(data.tx);
-    expect(providerClient.verifyLayerSwapTx).toHaveBeenCalledTimes(1);
-    reject(new InvalidBridgeProviderError('layerswap', BRIDGE_ERRORS.REQUEST_TIMED_OUT));
-    await verification.catch(() => {});
-    await Promise.resolve();
-    expect(failures(onError)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: BRIDGE_ERRORS.REQUEST_TIMED_OUT.error_code, blocking: false, lite: true }),
-    ]));
+      slippage: '0.01', bridgeId: 'layerswap', lite, providerClient, onError };
+    await expect(buildTx('lifi', intent, { buildBridgeTx: async () => data.tx })).resolves.toBe(data.tx);
+    expect(providerClient.captureContext).not.toHaveBeenCalled();
+    expect(providerClient.verifyLayerSwapTx).not.toHaveBeenCalled();
+    expect(onError).not.toHaveBeenCalled();
+    const check = validateBridgeTx('lifi', 'eth', 'layerswap', data.tx, intent);
+    expect(check).toMatchObject({ pass: true, fromPass: true, toPass: false, receiverPass: true,
+      unverifiedFields: ['outputToken', 'minOutputAmount'], errors: [] });
   });
 
-  test('missing clients, context invalidation and throwing reporters do not veto a lite result', async () => {
+  test('throwing reporters cannot veto skipped checks or a lite parse failure', async () => {
     const data = fixture('relay-v2');
-    const onError = jest.fn();
-    await expect(buildTx('relay', { ...data.params, bridgeId: 'relay', lite: true, onError }, { buildBridgeTx: async () => data.tx }))
+    const onError = () => { throw new Error('reporter'); };
+    await expect(buildTx('relay', { ...data.params, bridgeId: 'relay', onError }, { buildBridgeTx: async () => data.tx }))
       .resolves.toBe(data.tx);
-    expect(failures(onError).map((error) => error.error_code)).toContain(BRIDGE_ERRORS.DIRECT_PROVIDER_CLIENT_IS_REQUIRED.error_code);
-    const providerClient = { captureContext: () => () => { throw new InvalidBridgeProviderError('context', BRIDGE_ERRORS.PROVIDER_CLIENT_CONTEXT_CHANGED); } };
-    await expect(buildTx('across', { ...params, lite: true, providerClient, onError: () => { throw new Error('reporter'); } },
+    await expect(buildTx('across', { ...params, lite: true, onError },
       { buildBridgeTx: async () => ({ ...tx, data: '0xdeadbeef' }) })).resolves.toMatchObject({ data: '0xdeadbeef' });
   });
 });

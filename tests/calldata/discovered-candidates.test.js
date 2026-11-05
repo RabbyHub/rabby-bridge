@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
-import { describe, expect, jest, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import {
-  createBridgeProviderClient,
   validateBridgeCalldata,
   validateBridgeTx,
 } from '../../dist/index.js';
+import { verifyLayerSwapRecord } from './provider-offline.js';
 
 const { cases } = JSON.parse(readFileSync(
   new URL('../fixtures/candidate-search-20261104/cases.json', import.meta.url), 'utf8'
@@ -30,24 +30,18 @@ describe('nine discovered onchain candidate paths', () => {
       };
       let parsed;
       if (item.provider) {
-        const request = jest.fn(async ({ method, url }) => {
-          expect(method).toBe('GET');
-          expect(url).toBe(`https://api.layerswap.io/api/v2/explorer/${intent.userAddress}?page=1`);
-          return structuredClone(item.provider.response);
-        });
-        const client = createBridgeProviderClient({ request });
-        const checked = await client.verifyLayerSwapTx({
+        const checked = verifyLayerSwapRecord({
           ...intent,
           fromChainId: item.chainKey,
           bridgeId: item.bridgeId,
           toTokenRawAmount: item.provider.expectedOutputAmount,
           slippage: item.provider.slippage,
-        }, item.tx);
+        }, item.tx, item.provider.response);
         expect(checked.binding).toBe('provider-record');
-        expect(request).toHaveBeenCalledTimes(1);
         parsed = checked.parsed;
       } else {
-        expect(validateBridgeTx(item.aggregatorId, item.chainKey, item.bridgeId, item.tx, intent)).toBe(true);
+        expect(validateBridgeTx(item.aggregatorId, item.chainKey, item.bridgeId, item.tx, intent))
+          .toMatchObject({ pass: true, routerPass: true, fromPass: true, receiverPass: true });
         const checked = validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx, intent);
         expect(checked.ok).toBe(true);
         expect(checked.unverifiedFields).toEqual(checked.parsed.unresolvedFields);

@@ -112,9 +112,9 @@ describe('complete onchain calldata test units', () => {
       const parsed = check.parsed;
       expect(parsed.sourceToken).toBe(item.expected.sourceToken);
       expect(parsed.sourceAmount).toBe(BigInt(item.expected.sourceAmount));
-      if (parsed.outputToken === undefined) expect(parsed.outputTokenReference).toBeDefined();
+      if (parsed.outputToken === undefined) expect(parsed.unresolvedFields).toContain('outputToken');
       else expect(parsed.outputToken).toBe(item.expected.outputToken);
-      if (parsed.minOutputAmount === undefined) expect(parsed.outputAmountReference).toBeDefined();
+      if (parsed.minOutputAmount === undefined) expect(parsed.unresolvedFields).toContain('minOutputAmount');
       else expect(parsed.minOutputAmount).toBe(BigInt(item.expected.minOutputAmount));
       expect(parsed.receiver).toBe(item.expected.receiver);
       expect(parsed.destinationChainId).toBe(BigInt(item.expected.destinationChainId));

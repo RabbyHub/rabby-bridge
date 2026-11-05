@@ -31,6 +31,7 @@ describe('reachable route modes beyond the historical function list', () => {
       expect(check.parsed.unresolvedFields).toEqual(item.expectedUnresolvedFields);
       expect(check.parsed.sourceToken).toBe(item.expected.sourceToken);
       expect(check.parsed.sourceAmount).toBe(BigInt(item.expected.sourceAmount));
+      if (item.expectedReceiverVerified) expect(check.parsed.receiver).toBe(item.expected.receiver);
     } else {
       for (const f of ['sourceToken', 'receiver']) expect(check.parsed[f]).toBe(item.expected[f]);
       for (const f of ['sourceAmount', 'destinationChainId']) expect(check.parsed[f]).toBe(BigInt(item.expected[f]));
@@ -47,7 +48,11 @@ describe('reachable route modes beyond the historical function list', () => {
     if (item.expectedValidationError) {
       expect(check.ok).toBe(false);
       expect(check.reason).toContain(item.expectedValidationError);
-      await expect(buildTx(item.aggregatorId, params, api)).rejects.toThrow(item.expectedValidationError);
+      const reports = [];
+      await expect(buildTx(item.aggregatorId, { ...params, onError: (report) => reports.push(report) }, api)).resolves.toBeDefined();
+      expect(reports.flatMap((report) => report.errors)).toEqual(expect.arrayContaining([
+        expect.objectContaining({ error_code: check.error_code, pass: true, blocking: false }),
+      ]));
     } else {
       expect(check.ok).toBe(true);
       expect(check.unverifiedFields).toEqual(check.parsed.unresolvedFields);
@@ -88,7 +93,13 @@ describe('reachable route modes beyond the historical function list', () => {
     for (const [bridgeId, tx] of [['allbridge', allbridge], ['garden', garden]]) {
       const params = { userAddress: user, fromChainId: 'eth', toChainId: 'base', fromTokenId: input,
         fromTokenRawAmount: '10000000', toTokenId: output, toTokenRawAmount: '9900000', slippage: '0.01', bridgeId };
-      await expect(buildTx('lifi', params, { buildBridgeTx: async () => tx })).rejects.toThrow();
+      const reports = [];
+      await expect(buildTx('lifi', { ...params, onError: (report) => reports.push(report) },
+        { buildBridgeTx: async () => tx })).resolves.toBe(tx);
+      if (bridgeId === 'allbridge') expect(reports).toEqual([]);
+      else expect(reports.flatMap((report) => report.errors)).toEqual(expect.arrayContaining([
+        expect.objectContaining({ error_code: 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS', toPass: false, blocking: false }),
+      ]));
     }
   });
 

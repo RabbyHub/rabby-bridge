@@ -7,6 +7,11 @@ export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition } from '.
 
 /** Reporting context deliberately excludes calldata, wallet addresses and provider response bodies. */
 export type BridgeErrorContext = {
+  pass?: boolean;
+  routerPass?: boolean;
+  fromPass?: boolean;
+  toPass?: boolean;
+  receiverPass?: boolean;
   lite?: boolean;
   blocking?: boolean;
   aggregatorId?: string;
@@ -83,7 +88,7 @@ export type BridgeErrorReporter = (error: BridgeErrorReport) => void | Promise<v
 export const toBridgeErrorReport = (value: unknown): BridgeErrorReport | undefined => {
   if (value instanceof BridgeError) return value.toJSON();
   const result = value && typeof value === 'object' ? value as Record<string, unknown> : {};
-  if (result.ok === true) return undefined;
+  if (result.ok === true || (result.pass === true && Array.isArray(result.errors) && !result.errors.length)) return undefined;
   const errors = Array.isArray(result.errors) ? result.errors.slice(0, 32).map(sanitizeBridgeError) : undefined;
   return new BridgeError(BRIDGE_ERRORS.UNKNOWN, {}, errors).toJSON();
 };

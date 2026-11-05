@@ -1,0 +1,65 @@
+{
+  "reviewedAt": "2026-11-05",
+  "deployments": [
+    {
+      "chainId": "8453",
+      "address": "0xe6ee2a573047598B2452a879F2188B31d0442dbF",
+      "matchId": "43338997",
+      "runtimeMatch": "match",
+      "creationMatch": "match",
+      "verifiedAt": "2026-08-06T07:30:36Z",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/8453/0xe6ee2a573047598B2452a879F2188B31d0442dbF?fields=compilation,sources,creationBytecode",
+      "contract": "src/Periphery/ReceiverOIF.sol:ReceiverOIF",
+      "sourceHashes": {
+        "src/Periphery/ReceiverOIF.sol": "824de1fad016b5c34ad404c62b320cb92d3eeac5b196c054aae1931dcd279d0e",
+        "src/Libraries/LibSwap.sol": "2ae8b638c2829749d831349b4b6191835072e2e31049f5a45eefc1b08745404c",
+        "lib/solady/src/utils/SafeTransferLib.sol": "86b07c78f78c36117da64449bd89d7ad419026ca4af4749f1f1b7d2173603bcc",
+        "src/Libraries/LibAsset.sol": "c2c8a4b8caecd4ece284cff94b4c1f51b232f8587bfe95e3d50e9a1940dda729",
+        "src/Interfaces/ILiFi.sol": "5f38e0c648c6bf1ed7869f286b39078f6251498791137cc7d923483703a2381f",
+        "src/Interfaces/IExecutor.sol": "480816e386f2f5225893434f0758914309d6ed888cd7a46bae7479f09077e44b",
+        "src/Helpers/WithdrawablePeriphery.sol": "eb78e0abf9079fc90089989300cc1207698395ed485cc1509f137bff785b7c93",
+        "src/Errors/GenericErrors.sol": "0e51d50afc869898dfbe5ff5308f42211cfd051e27c54aae681983df987a3468",
+        "src/Libraries/LibUtil.sol": "403f011ef54f5730eb5c28ba5da04b1a0518f309a591641e9d5d99a7a6f4e6c5",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": "7ebde70853ccafcf1876900dad458f46eb9444d591d39bfc58e952e2582f5587",
+        "src/Helpers/TransferrableOwnership.sol": "0f583fe899e87c44edf9dcd40fe3d5520f9bc79b775f49b8f9cec7287c172ca3",
+        "src/Libraries/LibBytes.sol": "c2b31e6da1912238c9c67b4d796b867fe8f88807ea4574416408d1116131c9f2",
+        "src/Interfaces/IERC173.sol": "832f9314383d4858ad3d94c01ec2e11d3a232167b56078ca168b9ac9e42bffde"
+      },
+      "constructorArguments": "0x000000000000000000000000156cebba59deb2cb23742f70dcb0a11cc775591f0000000000000000000000004dac9d1769b9b304cb04741dcdeb2fc14abdf11000000000000000000000000075220b7600c300005038432a0000f308e0000068"
+    },
+    {
+      "chainId": "8453",
+      "address": "0x4DaC9d1769b9b304cb04741DCDEb2FC14aBdF110",
+      "matchId": "99356",
+      "runtimeMatch": "match",
+      "creationMatch": "match",
+      "verifiedAt": "2025-03-23T16:00:16Z",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/8453/0x4DaC9d1769b9b304cb04741DCDEb2FC14aBdF110?fields=compilation,sources,creationBytecode",
+      "contract": "src/Periphery/Executor.sol:Executor",
+      "sourceHashes": {
+        "src/Interfaces/ILiFi.sol": "20968705ade06b05aa9b70267eefde4fc33731bd690c03e591385458b1ddad08",
+        "src/Libraries/LibSwap.sol": "6f38624a405a6f2ec97a3867946a9f85a33dda3d0bb364158894c4d1c7a2ef6f",
+        "src/Libraries/LibUtil.sol": "41f4ef5842a03f05549029a87ffc96ae1a18717452cc8d275a8d40161af69489",
+        "src/Libraries/LibAsset.sol": "e33fc95c15377dffad4deab7818ea7abe20bf2cf8b5905183f4b609f33cd9b86",
+        "src/Libraries/LibBytes.sol": "db43b1d20ad11d6c230fac44860d00c43a91dae2a0de85fb8e7b219aa6b61fb4",
+        "src/Periphery/Executor.sol": "86e70ffa35a138599c347c7da65532bd9a22657bdf30206d6e9103d5b9c79ce5",
+        "src/Errors/GenericErrors.sol": "e42dbf8b3bfffee41b4d8ede26825e03f14a9f7ccbd61b05a4018ea36e31496a",
+        "src/Interfaces/IERC20Proxy.sol": "973de16061b05ca1f577f49ae938c2902ab0c0381aac5ae73ae7ae39c2979482",
+        "src/Helpers/ReentrancyGuard.sol": "737cec63ebe9352c21ee349d34a85026f52b59b56c477b2c2678076770c4dafa",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol": "8b85a2463eda119c2f42c34fa3d942b61aee65df381f48ed436fe8edb3a7d602",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": "7ebde70853ccafcf1876900dad458f46eb9444d591d39bfc58e952e2582f5587",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol": "8806a632d7b656cadb8133ff8f2acae4405b3a64d8709d93b0fa6a216a8a6154",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": "c8309ed2c1c7edf52a23833798c94507702248debfc4ed1f645e571e3c230f8b",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": "701e025d13ec6be09ae892eb029cd83b3064325801d73654847a5fb11c58b1e5",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol": "77f0f7340c2da6bb9edbc90ab6e7d3eb8e2ae18194791b827a3e8c0b11a09b43",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/IERC1155Receiver.sol": "578834a1bcdac6a22de5e07ae63bbbd4d41615f35950afc6e6c068d92619b334",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol": "995380c950997080660556ba6bc4e3bb37c1323b0539f31d6af40349fb2d7c4c",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Holder.sol": "a7ad38fa0a06fe6e24f81fee4f1fc3870767db96d1ba37df7be1199f7a3ace7f",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Receiver.sol": "cf407886a0ce7e2af7efe7867e2d2864903426f63eeaa68eecf33d57f7d910c2",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol": "b7383c48331f3cc9901fc05e5d5830fcd533699a77f3ee1e756a98681bfbb2ee"
+      },
+      "constructorArguments": null
+    }
+  ],
+  "scope": "ReceiverOIF callback with exactly one reviewed transfer or pinned Settler swap; unknown deployments or calls do not resolve destination fields"
+}

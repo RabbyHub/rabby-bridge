@@ -23,7 +23,9 @@ export const readOft = (data: string, target: string, token: string): Partial<Pa
   const id = asBigint(a.dstEid);
   const ref = { protocol: 'oft' as const, contract: target, token,
     destinationChainId: LAYERZERO_CHAINS[id.toString()], destinationChainRef: `layerzero:${id}` };
-  const direct = legacy || (asString(a.composeMsg) === '0x' && asString(a.oftCmd) === '0x');
+  // Stargate's one-byte bus command changes transport, not the recipient. Compose
+  // can execute arbitrary destination code and still needs a dedicated decoder.
+  const direct = legacy || (asString(a.composeMsg) === '0x' && ['0x', '0x01'].includes(asString(a.oftCmd)));
   return { protocolMethod: legacy ? 'sendFrom' : 'send', destinationChainId: ref.destinationChainId,
     destinationChainRef: ref.destinationChainRef, bridgeReceiver: accountFromBytes32(asString(a.to)),
     receiver: direct ? accountFromBytes32(asString(a.to)) : undefined,

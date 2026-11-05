@@ -12,6 +12,7 @@ import { accountFromBytes32 } from '../hex.js';
 import type { ParsedBridgeCall } from '../types.js';
 import { readMayanProtocol } from '../mayan/readProtocol.js';
 import { LAYERZERO_CHAINS, subtractFees } from '../protocols.js';
+import { readLifiDestination } from './destination.js';
 
 const swapComponents: AbiParam[] = [
   { name: 'callTo', kind: 'address' },
@@ -326,12 +327,16 @@ export const applyLifiIntentData = (parsed: ParsedBridgeCall, raw: AbiValue): vo
   parsed.outputToken = accountFromBytes32(asString(data.outputToken));
   parsed.minOutputAmount = (parsed.bridgeAmount ?? 0n) * asBigint(data.outputAmountMultiplier) / 10n ** 18n;
   if (asArray(data.dstCallSwapData).length) {
+    const destination = readLifiDestination(parsed, data);
     parsed.hasDestinationCall = true;
     parsed.bridgeReceiver = accountFromBytes32(asString(data.dstCallReceiver));
-    // An arbitrary dstCallReceiver is not proof of a genuine ReceiverOIF execution.
+    parsed.bridgeOutputToken = parsed.outputToken;
+    parsed.bridgeOutputAmount = parsed.minOutputAmount;
     delete parsed.receiver;
     delete parsed.outputToken;
     delete parsed.minOutputAmount;
+    // Unknown deployments and arbitrary calls remain unverified.
+    if (destination) Object.assign(parsed, destination);
   }
   parsed.orderId = asBigint(data.nonce).toString(16).padStart(64, '0');
   parsed.orderId = `0x${parsed.orderId}`;
@@ -395,6 +400,8 @@ export const applyPaxosData = (parsed: ParsedBridgeCall, raw: AbiValue): void =>
 
 export const applyLayerSwapData = (parsed: ParsedBridgeCall, raw: AbiValue): void => {
   const data = asRecord(raw);
+  if (asString(data.refundRecipient) !== parsed.receiver) throw new BridgeError(BRIDGE_ERRORS.LAYERSWAP_REFUND_RECIPIENT_MISMATCH);
+  if (!/^0x0*$/.test(asString(data.nonEVMReceiver))) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_LAYERSWAP_NON_EVM_RECEIVER);
   parsed.orderId = asString(data.requestId);
   // The LayerSwap signature binds bridgeData.receiver to this request ID.
 };

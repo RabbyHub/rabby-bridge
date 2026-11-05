@@ -23,6 +23,7 @@ import * as relay from './relay/index.js';
 import * as squid from './squid/index.js';
 import * as stargate from './stargate/index.js';
 import * as swap from './swap/index.js';
+import { isNative } from '../protocols.js';
 
 type LifiRoute = {
   methods: CalldataMethod[];
@@ -81,7 +82,8 @@ export const validateLifi = (
   return finishCheck(
     'lifi',
     hit.parsed,
-    route.check(hit.parsed),
+    hit.parsed.method.endsWith('ViaLayerSwap') && value !== (isNative(hit.parsed.sourceToken ?? '') ? hit.parsed.sourceAmount : 0n)
+      ? BRIDGE_ERRORS.LAYERSWAP_SOURCE_VALUE_MISMATCH : route.check(hit.parsed),
     expectation,
     chainId,
     route.compare(hit.parsed)

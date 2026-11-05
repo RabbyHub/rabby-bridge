@@ -3,8 +3,6 @@ import { describe, expect, jest, test } from '@jest/globals';
 import {
   BRIDGE_ENUM,
   InvalidBridgeContractError,
-  InvalidBridgeCalldataError,
-  InvalidBridgeProviderError,
   buildTx,
   getQuote,
   getQuoteListWithTx,
@@ -106,9 +104,9 @@ describe('validateBridgeQuote', () => {
 });
 
 describe('validateBridgeTx', () => {
-  test.each(['0x', '0x12', 'not-hex'])('rejects missing or malformed calldata: %s', (data) => {
-    expect(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx({ data })))
-      .toThrow(InvalidBridgeCalldataError);
+  test.each(['0x', '0x12', 'not-hex'])('observes missing or malformed calldata: %s', (data) => {
+    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx({ data })))
+      .toMatchObject({ pass: true, routerPass: true, fromPass: false, toPass: false, receiverPass: false });
   });
 
   test('rejects an unconfigured router instead of skipping transaction checks', () => {
@@ -117,9 +115,7 @@ describe('validateBridgeTx', () => {
   });
 
   test('accepts case-insensitive router matches', () => {
-    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toBe(
-      true
-    );
+    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toMatchObject({ pass: true, routerPass: true });
   });
 
   test('accepts socket v3 allowance holder as router', () => {
@@ -130,7 +126,7 @@ describe('validateBridgeTx', () => {
         'bridge-1',
         { ...socketSample.tx, to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' }
       )
-    ).toBe(true);
+    ).toMatchObject({ pass: true, routerPass: true });
   });
 
   test('throws when tx router does not match the allowlist', () => {
@@ -148,23 +144,23 @@ describe('validateBridgeTx', () => {
     const baseSpokePool = '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64';
     const periphery = '0x10D8b8DaA26d307489803e10477De69C0492B610';
 
-    expect(() =>
+    expect(
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
         'base',
         'bridge-1',
         makeTx({ to: baseSpokePool })
       )
-    ).toThrow(InvalidBridgeCalldataError);
+    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
 
-    expect(() =>
+    expect(
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
         sample.chainKey,
         'bridge-1',
         makeTx({ to: periphery })
       )
-    ).toThrow(InvalidBridgeCalldataError);
+    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
 
     // anything else is still rejected
     expect(() =>
@@ -265,17 +261,23 @@ describe('buildTx', () => {
     }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
   });
 
-  test('rejects a source sender that differs from the local wallet', async () => {
+  test('reports a source sender that differs from the local wallet without blocking', async () => {
+    const onError = jest.fn();
+    const sourceTx = makeTx({ from: '0x1111111111111111111111111111111111111111' });
     await expect(buildTx(BRIDGE_ENUM.LIFI, {
-      ...baseParams, bridgeId: sample.bridgeId,
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx({ from: '0x1111111111111111111111111111111111111111' })) }))
-      .rejects.toThrow('from_address');
+      ...baseParams, bridgeId: sample.bridgeId, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(sourceTx) })).resolves.toBe(sourceTx);
+    expect(onError.mock.calls[0][0].errors).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: 'BRIDGE_FROM_ADDRESS_MISMATCH', pass: true, fromPass: false, blocking: false }),
+    ]));
   });
 
-  test('rejects a missing expected output amount instead of skipping that comparison', async () => {
+  test('reports a missing expected output amount without blocking the lightweight build', async () => {
+    const onError = jest.fn();
     await expect(buildTx(BRIDGE_ENUM.LIFI, {
-      ...baseParams, bridgeId: sample.bridgeId, toTokenRawAmount: undefined, quoteKey: {},
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).rejects.toThrow('unverified bridge fields: minOutputAmount');
+      ...baseParams, bridgeId: sample.bridgeId, toTokenRawAmount: undefined, quoteKey: {}, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
+    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ unverifiedFields: ['minOutputAmount'], blocking: false });
   });
 
   test('builds OFT while reporting its deferred destination token and amount', async () => {
@@ -296,18 +298,22 @@ describe('buildTx', () => {
   });
 
   test.each([
-    ['fromTokenId', '0x0000000000000000000000000000000000000001', 'from_token'],
-    ['fromTokenRawAmount', '1', 'from_amount'],
-    ['userAddress', '0x0000000000000000000000000000000000000001', 'from_address'],
-    ['toChainId', 'not-a-chain', 'destinationChainId'],
-  ])('keeps OFT %s checks while its output fields are deferred', async (field, value, reason) => {
+    ['fromTokenId', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_TOKEN_MISMATCH'],
+    ['fromTokenRawAmount', '1', 'BRIDGE_FROM_AMOUNT_MISMATCH'],
+    ['userAddress', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_ADDRESS_MISMATCH'],
+    ['toChainId', 'not-a-chain', 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS'],
+  ])('reports OFT %s checks while its output fields are deferred', async (field, value, code) => {
+    const onError = jest.fn();
     await expect(buildTx(BRIDGE_ENUM.SOCKET, {
       userAddress: oftSample.tx.from, fromChainId: oftSample.chainKey,
       fromTokenId: oftSample.expected.sourceToken, fromTokenRawAmount: oftSample.expected.sourceAmount,
       toChainId: oftSample.toChainKey, toTokenId: oftSample.expected.outputToken,
       toTokenRawAmount: quotedRawAmount(oftSample).toString(), bridgeId: 'oft', slippage: '0.01',
-      [field]: value,
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) })).rejects.toThrow(reason);
+      [field]: value, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) })).resolves.toBe(oftSample.tx);
+    expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: code, pass: true, blocking: false }),
+    ]));
   });
 
   test('uses buildBridgeTx and stringifies object quote keys', async () => {
@@ -474,20 +480,23 @@ describe('Arc contract validation', () => {
   test('accepts the configured Across contracts before checking calldata', () => {
     const contract = '0x9b4A302A548c7e313c2b74C461db7b84d3074A84';
     expect(validateBridgeQuote(BRIDGE_ENUM.ACROSS, 'arc', makeQuote({ approve_contract_id: contract }))).toBe(true);
-    expect(() => validateBridgeTx(BRIDGE_ENUM.ACROSS, 'arc', 'bridge-1', makeTx({ to: contract })))
-      .toThrow(InvalidBridgeCalldataError);
+    expect(validateBridgeTx(BRIDGE_ENUM.ACROSS, 'arc', 'bridge-1', makeTx({ to: contract })))
+      .toMatchObject({ pass: true, routerPass: true, fromPass: false });
   });
 
-  test('requires a direct provider quote for Relay despite an allowed router', async () => {
+  test('Relay quote lookup uses the existing backend without a provider client', async () => {
+    const api = { getBridgeQuoteListV2: jest.fn(async () => []), buildBridgeTx: jest.fn() };
     await expect(getQuoteListWithTx(BRIDGE_ENUM.RELAY, { ...baseParams, fromChainId: 'arc' }, {
-      getBridgeQuoteListV2: jest.fn(), buildBridgeTx: jest.fn(),
-    })).rejects.toThrow(InvalidBridgeProviderError);
+      ...api,
+    })).resolves.toEqual([]);
+    expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);
+    expect(api.buildBridgeTx).not.toHaveBeenCalled();
   });
 
   test('accepts the global router case-insensitively with a canonical chain enum', () => {
     expect(validateBridgeTx(
       BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', { ...relaySample.tx, chainId: 5042, to: relayRouter.toUpperCase() }
-    )).toBe(true);
+    )).toMatchObject({ pass: true, routerPass: true });
   });
 
   test.each([

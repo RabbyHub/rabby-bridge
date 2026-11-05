@@ -4,6 +4,7 @@ import { isZeroWord, readSelector } from './hex.js';
 import { NATIVE_TOKEN, WRAPPED_NATIVE_TOKENS, subtractFees } from './protocols.js';
 import type { ParsedBridgeCall } from './types.js';
 import { calldataDiagnostics } from './diagnostics.js';
+import { ALLOWANCE_HOLDER, readSettlerSwap } from './destinationSwap.js';
 
 export const destinationCall: AbiParam = {
   name: 'call', kind: 'tuple', components: [
@@ -13,7 +14,7 @@ export const destinationCall: AbiParam = {
 
 export const readTransfer = (target: string, data: string, value: bigint): Partial<ParsedBridgeCall> | undefined => {
   if (data === '0x' && value > 0n) return { receiver: target, outputToken: NATIVE_TOKEN, minOutputAmount: value };
-  if (readSelector(data) !== '0xa9059cbb') return undefined;
+  if (value !== 0n || readSelector(data) !== '0xa9059cbb') return undefined;
   const args = decodeCall([{ name: 'to', kind: 'address' }, { name: 'amount', kind: 'uint' }], data);
   return { receiver: asString(args.to), outputToken: target, minOutputAmount: asBigint(args.amount) };
 };
@@ -28,7 +29,9 @@ export const readDestinationTransfers = (calls: AbiValue[]): Partial<ParsedBridg
   });
   if (!transfers.length || transfers.some((transfer) => !transfer)) return { diagnostics };
   const first = transfers[0] as Partial<ParsedBridgeCall>;
-  if (!transfers.every((transfer) => transfer !== undefined && transfer.receiver === first.receiver && transfer.outputToken === first.outputToken)) return { diagnostics };
+  if (!transfers.every((transfer) => transfer?.receiver === first.receiver)) return { diagnostics };
+  // Different assets can have one recipient without having one comparable output amount.
+  if (!transfers.every((transfer) => transfer?.outputToken === first.outputToken)) return { receiver: first.receiver, diagnostics };
   return { ...first, diagnostics, minOutputAmount: transfers.reduce((sum, transfer) => sum + (transfer?.minOutputAmount ?? 0n), 0n) };
 };
 
@@ -80,6 +83,8 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
     .filter((selector): selector is string => Boolean(selector)))].slice(0, 16);
   const balances = new Map<string, bigint>([[parsed.bridgeOutputToken as string, parsed.bridgeOutputAmount as bigint]]);
   const payouts: Partial<ParsedBridgeCall>[] = [];
+  const directTransfers: Partial<ParsedBridgeCall>[] = [];
+  const approvals = new Map<string, bigint>();
   for (const raw of calls) {
     const call = asRecord(raw);
     const target = asString(call.target);
@@ -88,6 +93,23 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
     const selector = readSelector(data);
     // emitData is telemetry; its amounts are not an enforced receive floor.
     if (selector === '0xd836083e' && target === emitter && value === 0n) continue;
+    if (selector === '0x095ea7b3' && value === 0n && balances.has(target)) {
+      const approval = decodeCall([{ name: 'spender', kind: 'address' }, { name: 'amount', kind: 'uint' }], data);
+      const amount = asBigint(approval.amount);
+      if (asString(approval.spender) !== ALLOWANCE_HOLDER ||
+          (amount > (balances.get(target) ?? 0n) && amount !== (1n << 256n) - 1n)) return parsed;
+      approvals.set(target, amount);
+      continue;
+    }
+    if (target === ALLOWANCE_HOLDER && value === 0n) {
+      const swap = readSettlerSwap(data, parsed.destinationChainId, handler);
+      if (!swap || (approvals.get(swap.inputToken) ?? 0n) < swap.inputAmount ||
+          (balances.get(swap.inputToken) ?? 0n) < swap.inputAmount) return parsed;
+      approvals.set(swap.inputToken, (approvals.get(swap.inputToken) ?? 0n) - swap.inputAmount);
+      balances.set(swap.inputToken, (balances.get(swap.inputToken) ?? 0n) - swap.inputAmount);
+      balances.set(swap.outputToken, (balances.get(swap.outputToken) ?? 0n) + swap.minOutputAmount);
+      continue;
+    }
     if (selector === '0xc41e8295' && target === handler) {
       if (value !== 0n) return parsed;
       const nested = decodeCall([
@@ -121,16 +143,36 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
     if (!transfer || !balances.has(transfer.outputToken as string)) return parsed;
     const token = transfer.outputToken as string;
     balances.set(token, subtractFees(balances.get(token) ?? 0n, transfer.minOutputAmount ?? 0n));
+    directTransfers.push(transfer);
   }
-  if (payouts.length === 1) {
-    const fallback = asString(args.fallbackRecipient);
-    if (!isZeroWord(fallback) && fallback !== payouts[0].receiver) {
+  const fallback = asString(args.fallbackRecipient);
+  const hasDrain = payouts.length > 0;
+  // The Handler drains the original bridge asset to fallback even after successful calls.
+  const remaining = balances.get(parsed.bridgeOutputToken as string) ?? 0n;
+  if (!isZeroWord(fallback) && remaining > 0n) {
+    payouts.push({ receiver: fallback, outputToken: parsed.bridgeOutputToken, minOutputAmount: remaining });
+    balances.set(parsed.bridgeOutputToken as string, 0n);
+  }
+  // Existing drain routes may contain explicit fee transfers; without a drain every
+  // direct transfer must agree on the recipient, and no tracked funds may be stranded.
+  const delivered = hasDrain
+    ? [...payouts, ...directTransfers.filter((transfer) => transfer.receiver === payouts[0].receiver)]
+    : [...directTransfers, ...payouts];
+  if (delivered.length && [...balances.values()].every((amount) => amount === 0n)) {
+    const receiver = delivered[0].receiver;
+    if (!delivered.every((payout) => payout.receiver === receiver)) return parsed;
+    if (!isZeroWord(fallback) && fallback !== receiver) {
       throw new BridgeError(BRIDGE_ERRORS.ACROSS_FALLBACK_RECEIVER_MISMATCH);
     }
-    if (!isZeroWord(fallback) && parsed.bridgeOutputToken !== payouts[0].outputToken) {
-      throw new BridgeError(BRIDGE_ERRORS.ACROSS_FALLBACK_TOKEN_MISMATCH);
+    parsed.receiver = receiver;
+    const token = delivered[0].outputToken;
+    if (delivered.every((payout) => payout.outputToken === token) &&
+        (isZeroWord(fallback) || token === parsed.bridgeOutputToken)) {
+      parsed.outputToken = token;
+      parsed.minOutputAmount = delivered.reduce((sum, payout) => sum + (payout.minOutputAmount ?? 0n), 0n);
     }
-    Object.assign(parsed, payouts[0]);
+    // Different success/fallback assets do not invalidate a shared receiver, but
+    // neither asset nor a single minimum can be claimed for both outcomes.
   }
   return parsed;
 };

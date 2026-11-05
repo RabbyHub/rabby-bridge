@@ -46,24 +46,10 @@ export type {
   BridgeQuoteListItem,
   BridgeQuoteListParams,
   BridgeValidationOptions,
+  BridgeValidationResult,
   BridgeTx,
 } from './quote.js';
-export {
-  BRIDGE_PROVIDER_ORIGINS,
-  InvalidBridgeProviderError,
-  createBridgeFetchRequest,
-  createBridgeProviderClient,
-  isDirectBridgeProviderRoute,
-} from './providers/index.js';
-export type {
-  BridgeFetch,
-  BridgeProviderClient,
-  BridgeProviderClientOptions,
-  BridgeProviderVerification,
-  BridgeVerificationProvider,
-  BridgeServiceRequest,
-  DirectBridgeProvider,
-} from './providers/index.js';
+export { InvalidBridgeProviderError } from './providers/errors.js';
 
 export { BRIDGE_ERRORS, BridgeError, toBridgeErrorReport } from './errors/index.js';
 export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition, BridgeErrorContext, BridgeErrorDetail, BridgeErrorReport, BridgeErrorReporter } from './errors/index.js';

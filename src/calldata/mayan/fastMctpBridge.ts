@@ -27,7 +27,11 @@ export const decodeFastMctpBridge = (data: string, amountFloor?: bigint): Partia
   );
   const destination = mayanDestination('cctp', asBigint(args.destDomain));
   const token = { protocol: 'cctp' as const, destinationChainId: destination.destinationChainId };
-  const custom = asString(args.customPayload) !== '0x';
+  const payloadType = asBigint(args.payloadType);
+  if (payloadType !== 1n && payloadType !== 2n) throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_MAYAN_PROTOCOL_CALLDATA);
+  // FastMCTP.bridge hashes customPayload only for type 2; type 1 is a direct
+  // payout even when the unused bytes are nonempty (verified FastMCTP.sol).
+  const custom = payloadType === 2n;
   const net = subtractFees(amountFloor ?? asBigint(args.amountIn), asBigint(args.redeemFee), asBigint(args.circleMaxFee));
   const referrerBps = asBigint(args.referrerBps);
   if (referrerBps > 100n) throw new BridgeError(BRIDGE_ERRORS.INVALID_FASTMCTP_REFERRER_FEE);

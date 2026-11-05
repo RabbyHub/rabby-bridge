@@ -15,13 +15,13 @@ structured exceptions and filtered-quote reporting.
   fee transfers, wrapped-native withdrawal and final token drain. Handler
   `emitData(bytes)` is telemetry and supplies no enforceable receive minimum.
   An embedded SpokePool must match the source chain's configured pool. A nonzero
-  handler fallback recipient and asset must match the final payout recipient
-  and asset. The deposit's `depositor` must match the expected user, independently
+  handler fallback recipient must match the final payout recipient; differing
+  fallback assets remain explicitly unverified. The deposit's `depositor` must match the expected user, independently
   of the final destination receiver.
 - LI.FI: Celer Circle/Fast, Polymer/Standard, IntentEscrowV2, Mayan Swift/MCTP,
   Paxos, LayerSwap, Polygon, Gnosis, Superset, Frax, MegaETH, Centrifuge and M0.
-  AllBridge and Garden expose partial constraints and remain rejected by high-level
-  validation. M0 has structural assertions but no complete live quote. Source swap deposits are
+  AllBridge can retain its verified receiver while skipping an unavailable output
+  minimum. Garden still lacks a verified receiver and is reported as unverified. M0 has structural assertions but no complete live quote. Source swap deposits are
   kept separate from the bridge's intermediate asset and minimum amount.
 - Socket OpenRouter: direct/source-swap routes through RFQ vault, Eco,
   CCTP V2/Fast/Slow, CCIP, OFT V1/V2, Stargate Pool/OFT through the OFT interface,
@@ -58,18 +58,26 @@ they are not resolved from backend quote values. Inspect:
   `bridgeOutputAmount`: intermediate bridge conditions, separate from final delivery.
 
 `buildTx` / `getQuoteListWithTx` temporarily allow an unresolved output token or
-minimum amount only when the parser supplies its corresponding protocol reference.
-These fields remain marked unverified. A successful build does not verify these
+minimum amount whenever it cannot be verified locally, with or without a protocol reference.
+These fields remain marked unverified without generating a report for the known
+local limitation. A successful build does not verify these
 output conditions. Fields available from calldata or local mappings still undergo
 normal comparison, including the minimum amount when it can be calculated locally.
 Source payment may equal the local `fromTokenRawAmount` or exceed it by at most
-0.1%, using integer arithmetic. A smaller payment or any excess above 0.1% rejects.
+0.1%, using integer arithmetic. A smaller payment or any excess above 0.1% fails
+the source comparison and is reported without blocking the first rollout.
 This tolerance does not relax internal transaction/order/approval consistency.
 
-Other unverified fields still reject, including the source token/amount, final
-receiver, unknown destination chain, output conditions without a protocol reference,
-and a missing expected output amount for a locally derived minimum. Unsupported
-destination calls remain rejected. Provider-order requirements are unchanged.
+Unknown source token/amount and arbitrary destination execution are reported
+without blocking. Relay and Socket RFQ/CCTP fields that require external order
+data are skipped without any provider request. A missing expected output amount
+also skips that comparison. All skipped fields remain in `unverifiedFields`.
+Known unresolved output fields and Relay/Socket external receiver/chain fields
+are not reported. Missing source fields, unknown destination execution/receivers
+and a missing expected amount for a locally available minimum are still sent
+through `onError` with `blocking: false`. Business callers should pass the selected
+quote's exact raw output amount as `toTokenRawAmount`.
+Known destination tokens, amounts and receivers still undergo normal comparison.
 
 `buildTx` accepts `toTokenRawAmount` as an exact raw string;
 `getQuoteListWithTx` supplies the quote's hexadecimal raw amount automatically.
@@ -78,39 +86,68 @@ absent. Serialized quote keys are decoded before reading their raw output amount
 
 `ok: true` only means the structural checks and available comparisons passed.
 It does not mean all five fields were verified. `validateBridgeCalldata` itself
-does not check the outer router allowlist; `validateBridgeTx` does that separately.
-With `lite: true`, business entry points report new failures while retaining main's
-original quote/transaction decisions; the low-level check still returns its real
-failure and unverified fields. See [lite rollout](../../README.md#lite-rollout).
-For supported calldata aggregators, `validateBridgeTx` rejects empty or malformed
-calldata. Missing router configuration does not skip the allowlist check. A quote
+does not check the outer router allowlist; `validateBridgeTx` does that separately
+and returns `pass`, `routerPass`, `fromPass`, `toPass`, `receiverPass`, `errors`
+and `unverifiedFields`. In the first rollout `pass === routerPass`; field failures
+and skipped checks remain non-blocking regardless of `lite`. A field flag is false
+when its group failed or was not completely verified. Unknown destination execution
+does not erase an independently verified source. Raw calldata checks retain their
+real failures. See [validation rollout](../../README.md#validation-rollout).
+Empty or malformed calldata is reported. Missing router configuration does not
+skip the allowlist check, including with `lite: true`. A quote
 without an approval address is allowed; an approval address with no configured
 spender is rejected. When a transaction includes `chainId`, it must match the
 requested source chain. Invalid, negative or unsafe numeric `value` inputs are
-rejected without throwing from the public calldata validation function.
+reported without throwing from the public calldata validation function.
 When `from` is supplied, it must match the expected wallet address.
 
 ## Source transaction limits
 
+Local destination decoding now also handles Across fallback-only payouts, direct
+transfers, and drains with a shared receiver. Eco transfer sequences retain a shared
+receiver even when they pay different assets. Different receivers or unrecognized
+calls remain unresolved. If success and fallback pay different assets to the same
+receiver, the receiver is retained while the single output token/minimum is left
+unresolved and reported non-blockingly by the lightweight build.
+
+The recorded Across Base USDC-to-AERO destination swap is decoded through its
+reviewed AllowanceHolder/Settler deployment. The decoder requires an enforced
+transfer back to the known Handler, matching input funding, and a bounded set of
+reviewed actions that cannot bypass the final slippage check. An unknown Settler,
+chain or action is not trusted. Deployment evidence is recorded in
+`tests/fixtures/route-discovery-20261104/evidence/base-settler-verification.json`.
+This is a static deployment entry, not a runtime registry or RPC query.
+
+LI.FI Intents callbacks can also resolve locally for the reviewed Base ReceiverOIF,
+its immutable Executor/output-settler pair, and one supported ERC20 transfer or
+the same reviewed Settler swap. Refund and payout recipients must agree; arbitrary
+approval targets, calls and other deployments stay unresolved. The deployment
+evidence is `evidence/base-lifi-oif-verification.json` in the same fixture directory.
+No unsupported callback is accepted merely because its metadata contains a receiver.
+
+OFT's `0x01` bus command without compose data retains the signed receiver; remote
+asset mappings remain unresolved. FastMCTP type 1 ignores unused custom payload
+bytes, while type 2 stays unresolved even when those bytes are empty. Target token
+information is only populated when derivable locally; no RPC implementation is
+introduced. These additions do not make arbitrary LI.FI hooks, custom Mayan
+actions, CCIP receiver contracts or retryable-ticket calls verifiable.
+
+Contract references: [Across MulticallHandler](https://github.com/across-protocol/contracts/blob/master/contracts/handlers/MulticallHandler.sol),
+[Stargate bus delivery](https://github.com/stargate-protocol/stargate-v2/blob/main/packages/stg-evm-v2/src/StargateBase.sol).
+The captured verified `evidence/mayan-FastMCTP.sol` defines the payload modes.
+
 Relay and Socket RFQ vault source deposits do not expose final delivery conditions.
-The separate [provider client](../providers/README.md) requests Relay protocol.v2
-order data directly and hashes it locally; source-only decoding does not. LI.FI LayerSwap's
-signed `bridgeData.receiver` is returned, while its destination token and amount
-remain in the associated order. Socket CCTP transactions minting to the ClaimExecutor
-return destination USDC as the output token; final receiver and net amount depend
-on destination authorization, including the relay fee, and stay unresolved.
-Arbitrary destination payloads stay unresolved unless their execution semantics
-are explicitly supported. Validation rejects an unsupported destination call
-instead of silently skipping its cleared destination fields. This is separate
-from the partial deposit routes above, whose missing order conditions are still
-reported through `unresolvedFields` and `unverifiedFields`.
-The high-level `buildTx` requires a cached direct-provider quote for Relay and
-Socket RFQ/CCTP ClaimExecutor routes. For LayerSwap it directly queries unfunded
-orders by receiver and matches calldata `requestId` to the provider's sequence
-number, then checks destination token/minimum against local intent. Its separately
-returned provider verification has binding `provider-record`; pure source decoding
-still reports those two fields as unresolved. Missing clients/records or a backend
-mislabeling partial calldata cannot bypass the check. Source calldata parsing remains synchronous and does not perform RPC reads.
+Socket CCTP ClaimExecutor routes expose USDC but not the final receiver or net amount.
+These known missing fields are allowed without generating reports or requesting
+a provider client. LI.FI LayerSwap still compares its signed `bridgeData.receiver` locally; its order is
+not fetched. External destination checks are selected from decoded calldata, not
+just a backend-supplied bridge ID. Source checks always run; their result is
+observed rather than enforced in this rollout.
+
+The SDK has no direct-provider transport, provider cache, HTTP adapter or RPC
+resolver. [Saved provider data](../providers/README.md) is used only for offline
+fixture regressions. A successful lightweight build does not verify skipped
+delivery conditions, and cannot be counted as a successful Relay order-hash check.
 
 ## Samples
 
@@ -124,7 +161,8 @@ Captured contract-state JSON and prior replay reports are historical evidence fo
 the follow-up PR. The active tests no longer replay RPC responses. In particular,
 the Arbitrum ETH/WETH mismatch fixture now records an unverified output token;
 that mismatch cannot be rejected until token mapping checks are restored.
-Unknown destination calls and different-token Across fallback remain rejected.
+Unknown destination calls remain unverified and are reported without blocking. Across fallback to
+a different token may retain a proven receiver while skipping output comparisons.
 Historical Relay/Socket replay is distinct from signing-time transaction verification;
 Relay multicall history coverage does not expand the direct depository verifier.
 

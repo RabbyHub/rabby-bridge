@@ -504,11 +504,11 @@
       "slippage": "0.05",
       "minimumThreshold": "147485492688338570698"
     },
-    "expectedValidationError": "unsupported destination call",
+    "historicalValidationError": "unsupported destination call",
+    "expectedReceiverVerified": true,
     "expectedUnresolvedFields": [
       "outputToken",
-      "minOutputAmount",
-      "receiver"
+      "minOutputAmount"
     ],
     "conditionalOutcomes": [
       {

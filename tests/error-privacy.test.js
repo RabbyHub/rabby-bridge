@@ -1,7 +1,7 @@
-import { describe, expect, jest, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import {
   BRIDGE_ERRORS, BridgeError, decodeBridgeCalldataResult, validateBridgeCalldata,
-  getQuote, createBridgeProviderClient, toBridgeErrorReport,
+  getQuote, toBridgeErrorReport,
 } from '../dist/index.js';
 import { loadTransactions } from './calldata/load-transactions.js';
 
@@ -21,6 +21,17 @@ describe('privacy-safe bridge diagnostics', () => {
       aggregatorId: 'across', selector: '0xdeadbeef', calldataBytes: 36, calldataFormat: 'valid' });
     for (const value of [wallet, body, '123456789']) expect(JSON.stringify(report)).not.toContain(value);
     expect(toBridgeErrorReport({ ok: true, parsed: { receiver: wallet } })).toBeUndefined();
+    expect(toBridgeErrorReport({ pass: true, routerPass: true, errors: [] })).toBeUndefined();
+  });
+
+  test('retains only boolean validation flags in observations that still pass the router', () => {
+    const report = toBridgeErrorReport({ pass: true, errors: [{ ...BRIDGE_ERRORS.RECEIVER_MISMATCH,
+      pass: true, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: false,
+      receiver: wallet, amount: '123456789' }] });
+    expect(report.errors[0]).toEqual({ ...BRIDGE_ERRORS.RECEIVER_MISMATCH,
+      pass: true, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: false });
+    const invalid = new BridgeError(BRIDGE_ERRORS.UNKNOWN, { pass: wallet, fromPass: secret, receiverPass: false }).toJSON();
+    expect(invalid.errors[0]).toEqual({ ...BRIDGE_ERRORS.UNKNOWN, receiverPass: false });
   });
 
   test('retains a usable prefix for malformed calldata and gives ABI failure positions', () => {
@@ -74,15 +85,12 @@ describe('privacy-safe bridge diagnostics', () => {
     expect(toBridgeErrorReport(new Error(secret)).error_code).toBe(BRIDGE_ERRORS.UNKNOWN.error_code);
   });
 
-  test('filters context added by the quote callback and reports only a static request category', async () => {
-    const client = createBridgeProviderClient({ request: async () => { throw new Error(secret); } });
-    const onError = jest.fn();
-    await expect(getQuote('socket', { userAddress: wallet, fromChainId: 'arb', fromTokenId: 'arb',
-      fromTokenRawAmount: '1000000', toChainId: 'base', toTokenId: 'base', slippage: '0.01', feeRate: 0,
-      providerClient: client, onError }, { getBridgeQuoteListV2: async () => [] })).resolves.toEqual([]);
-    expect(onError).toHaveBeenCalledTimes(1);
-    const report = onError.mock.calls[0][0];
-    expect(report.errors[0]).toMatchObject({ requestKind: 'socket_quote', provider: 'socket', chainId: 'arb', toChainId: 'base' });
+  test('backend error reporting retains only static request context', async () => {
+    const error = await getQuote('socket', { userAddress: wallet, fromChainId: 'arb', fromTokenId: 'arb',
+      fromTokenRawAmount: '1000000', toChainId: 'base', toTokenId: 'base', slippage: '0.01', feeRate: 0 },
+      { getBridgeQuoteListV2: async () => { throw new Error(secret); } }).catch((error) => error);
+    const report = toBridgeErrorReport(error);
+    expect(report.errors[0]).toMatchObject({ requestKind: 'backend_quote', chainId: 'arb', toChainId: 'base' });
     expect(JSON.stringify(report)).not.toContain(wallet);
     expect(JSON.stringify(report)).not.toContain(secret);
   });

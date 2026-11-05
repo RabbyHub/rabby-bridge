@@ -7,11 +7,10 @@ Minimal bridge SDK for Rabby:
 - validates backend bridge quotes before returning them
 - decodes source transactions for Across, LI.FI, Relay, Socket and Mayan
 - keeps chain-state-dependent output fields explicitly unverified, without RPC requests
-- validates Relay orders, three Socket routes and LI.FI LayerSwap through direct provider requests
+- performs local validation only; no direct-provider HTTP requests or RPC reads
 
 See [calldata parsing](src/calldata/README.md) for supported paths, integration and verification boundaries.
-See [direct provider integration](src/providers/README.md) for the shared extension/mobile
-transport interface, quote binding, application-fee constraints and signing checks.
+See [offline provider evidence](src/providers/README.md) for retained historical fixtures and verification limits.
 
 ## Test
 
@@ -19,50 +18,71 @@ Run `yarn test` to build the package and execute the Jest suite.
 
 See [reachable route discovery](tests/fixtures/route-discovery-20261104/README.md) for the latest parsing changes, fixture coverage and remaining verification limits.
 
-## Lite rollout
+## Validation rollout
 
-Pass `lite: true` to `getQuote`, `buildTx` or `getQuoteListWithTx` to observe new
-validation without letting it change the business decisions from `main`.
-The default is `false`, retaining strict behavior.
+The first rollout enforces Router/Spender allowlists and observes local calldata
+validation. No provider API or RPC requests are made. `buildTx` and
+`getQuoteListWithTx` keep the original backend transaction when source, destination
+or receiver checks fail or cannot be completed; `onError` receives those observations.
 
 ```ts
 const quotes = await getQuoteListWithTx(aggregatorId, {
   ...params,
-  lite: true,
   onError: (report) => reportToBusiness(report),
 }, api);
 ```
 
 - Quotes and transactions come from the existing backend flow, including Relay
-  and Socket. Provider quotes never replace the selected backend quote in lite mode.
-- Configured Router/Spender mismatches, unsupported source chains/aggregators,
+  and Socket, in both modes. The SDK no longer accepts `providerClient` or exposes
+  a direct-provider client/fetch adapter.
+- Router/Spender mismatches, unsupported source chains/aggregators,
   missing required slippage, missing backend results and backend request failures
   keep their original blocking behavior.
-- Calldata parsing, intent comparison, missing-field checks, stricter missing
-  contract configuration and provider verification still run against the returned
-  transaction. Their failures are reported without discarding that quote/transaction.
-- No parser is reported as unsupported, including aggregators that strict mode
-  does not currently parse. It is never reported as a successful parse.
-- Relay/Socket verification uses available proof/cache for the selected transaction.
-  If that proof or client is missing, the original missing-proof error is reported;
-  dependent hash/order checks cannot complete. An unrelated fresh provider quote
-  is not fetched or used as evidence for the backend transaction.
-- LayerSwap lookup runs in the background in lite mode. Its result is reported
-  through `onError` and does not delay returning the backend transaction.
+- Source token, source amount, supplied sender/chain and protocol structure are
+  checked locally. Missing source fields and mismatches are reported.
+- Known destination tokens, minimum amounts and chains are compared. Unknown
+  destination paths remain unverified and are reported with available method,
+  selector and nested-call diagnostics.
+- Locally derivable final receivers are compared. External order data is skipped
+  without a provider request; a skipped receiver is never counted as verified.
+- Parse failures, known mismatches and unexpected missing fields are reported with
+  `blocking: false`, including when `lite` is omitted or false.
+- Relay and Socket RFQ/CCTP external destination fields are skipped rather than
+  fetched. LayerSwap uses its local receiver; no background order lookup runs.
+  Skipping an external receiver does not claim order-hash or provider verification.
+- Known unresolved output token/minimum fields and Relay/Socket external
+  receiver/chain fields stay in `unverifiedFields` without producing reports.
+  Missing source fields, unknown receivers/paths and a missing expected amount
+  for a locally available minimum use `BRIDGE_UNVERIFIED_BRIDGE_FIELDS`.
+  Actual mismatches retain their existing error codes. Repeated failures are not
+  deduplicated, sampled or rate-limited by the SDK.
 
 `validateBridgeQuote` also accepts `{ lite, onError }` as its fourth argument;
 `validateBridgeTx` accepts it after the optional expectation as its sixth argument.
-Raw decode/calldata-check results remain truthful (`ok: false` on failure).
-Direct provider-client methods remain strict; use the high-level entry points for
-lite rollout decisions.
+`lite` retains its legacy missing-spender behavior; it no longer selects strict
+calldata enforcement and never skips a missing Router allowlist.
 
-Error codes and details are preserved. Lite observations carry `lite: true` and
-`blocking: false`; legacy failures carry `blocking: true` when reported by the
-high-level flow. Keep the callback installed while background checks are pending.
-Dependent checks still stop at their first unusable prerequisite, and independent
-stages may emit multiple reports. These are failure-event/path counts, not distinct
-user counts or a denominator for all successful transactions. No user identifiers
-are added. See error reporting below for catching failures that still throw.
+`validateBridgeTx` now returns `BridgeValidationResult` instead of `true`:
+
+```ts
+const result = validateBridgeTx(aggregatorId, chainId, bridgeId, tx, expectation);
+// result.pass === result.routerPass
+// result.fromPass / result.toPass / result.receiverPass
+// result.unverifiedFields / result.errors
+```
+
+The three field flags are true only when all required local comparisons for that
+group succeeded. False means a failure or an incomplete check; `errors` and
+`unverifiedFields` distinguish them. Known skipped fields can leave `errors` empty
+while a field flag is false. Without an expectation, field flags are false.
+They do not contribute to `pass` in this rollout. Router rejection still throws
+`InvalidBridgeContractError`; its sanitized detail carries `pass: false`,
+`routerPass: false` and `blocking: true`.
+
+Raw decode/calldata-check results retain `ok: false` on failure. Observation
+details include all five pass flags, path diagnostics, `lite` and `blocking: false`.
+These are failure-event/path counts, not distinct user counts or a denominator for
+all successful transactions. See error reporting below for failures that still throw.
 
 ## Error reporting
 
@@ -77,7 +97,8 @@ legacy `reason` fields remain available.
   Independent intent mismatches are collected together; decoding or dependent
   protocol operations stop at their first failure.
 - Thrown SDK errors extend `BridgeError`. Use `error.toJSON()` for a report.
-- `onError` receives failures filtered from `getQuote` / `getQuoteListWithTx`.
+- `onError` receives failures filtered from `getQuote` / `getQuoteListWithTx`,
+  plus local validation failures and unexpected missing fields from transaction checks.
   Directly thrown errors are handled by the caller, avoiding duplicate reporting.
   Reporting callback failures do not affect validation or quote filtering.
 
@@ -106,19 +127,22 @@ retained for compatibility; prefer `toJSON()` for reporting.
 Stages distinguish input checks, contract allowlists, ABI decoding, protocol
 structure, intent comparison, provider requests, provider responses, transaction
 binding and completeness. Unexpected uncategorized failures use `BRIDGE_UNKNOWN`.
-Deferred chain-state output fields remain in `unverifiedFields`; they do not
-become errors merely because RPC validation is postponed.
+Deferred chain-state output fields remain in `unverifiedFields` without producing
+reports merely because a known local limitation prevents verification.
 
 ### Privacy-safe diagnostics
 
-Use `toBridgeErrorReport(resultOrError)` to convert a failed calldata check,
-detailed decode result or exception into a report. Passing a successful result
-returns `undefined`. The `onError` callback and `BridgeError.toJSON()` use the same
+Use `toBridgeErrorReport(resultOrError)` to convert a calldata check,
+transaction validation result, detailed decode result or exception into a report.
+A transaction with `pass: true` can still produce an observation report when its
+`errors` are nonempty. Results without reportable failures return `undefined`,
+including known skipped destination fields.
+The `onError` callback and `BridgeError.toJSON()` use the same
 runtime allowlist. Do not upload the entire check, exception, parsed transaction,
 request parameters or quote response.
 
 ```ts
-const check = validateBridgeCalldata(aggregatorId, chainId, tx, expectation);
+const check = validateBridgeTx(aggregatorId, chainId, bridgeId, tx, expectation);
 const report = toBridgeErrorReport(check);
 if (report) reportToBusiness(report);
 ```

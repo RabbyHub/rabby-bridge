@@ -14,6 +14,7 @@ import { permitTransferAndMulticall } from './permitTransferAndMulticall.js';
 import { permitTransferAndMulticallLegacy } from './permitTransferAndMulticallLegacy.js';
 import { transferAndMulticall } from './transferAndMulticall.js';
 import { relayFailure } from './validate.js';
+import { BRIDGE_ERRORS } from '../../errors/index.js';
 
 const METHODS: CalldataMethod[] = [
   depositErc20,
@@ -52,7 +53,8 @@ export const validateRelay = (
   return finishCheck(
     'relay',
     hit.parsed,
-    relayFailure(hit.parsed),
+    expectation && hit.parsed.depositor !== undefined && hit.parsed.depositor !== expectation.userAddress.toLowerCase()
+      ? BRIDGE_ERRORS.DEPOSITOR_MISMATCH : relayFailure(hit.parsed),
     expectation,
     chainId,
     relayCompareMask(hit.parsed)

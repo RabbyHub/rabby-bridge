@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { _TypedDataEncoder } from '@ethersproject/hash';
-import { createBridgeProviderClient, decodeBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
+import { decodeBridgeCalldata, validateBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
+import { verifyLayerSwapRecord } from './provider-offline.js';
 import { relayChains, relayOrder } from '../../dist/providers/relay.js';
 import { tokenAddress } from '../../dist/providers/data.js';
 import { evmChainId } from '../../dist/calldata/chains.js';
@@ -16,9 +17,9 @@ export const replayProviderHistory = async (item, raw = providerHistoryResponse(
   const parsed = decodeBridgeCalldata(item.aggregatorId, item.tx);
   assert.ok(parsed, 'unsupported source calldata');
   validateBridgeTx(item.aggregatorId, item.chainKey, item.bridgeId, item.tx);
+  assert.equal(validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx).ok, true, 'invalid local source calldata');
   const provider = item.providerHistory.provider;
   if (provider === 'layerswap') {
-    const client = createBridgeProviderClient({ request: async () => structuredClone(raw) });
     const row = raw.data.find((row) => BigInt(row.swap.metadata.sequence_number) === BigInt(parsed.orderId));
     assert.ok(row, 'missing matching LayerSwap order');
     const params = {
@@ -29,7 +30,7 @@ export const replayProviderHistory = async (item, raw = providerHistoryResponse(
       toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.expectedOutputAmount,
       slippage: String(row.quote.slippage), feeRate: 0.25,
     };
-    const checked = await client.verifyLayerSwapTx(params, item.tx);
+    const checked = verifyLayerSwapRecord(params, item.tx, raw);
     assert.equal(checked.binding, 'provider-record');
     return checked.parsed;
   }

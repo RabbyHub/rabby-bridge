@@ -69,7 +69,7 @@ const parseAmount = (amount: string): bigint | undefined => {
   }
 };
 
-/** Actual source payment may exceed local intent by at most 0.1%; lower payments still reject. */
+/** Actual source payment may exceed local intent by at most 0.1%; lower payments fail comparison. */
 export const sourceAmountMatches = (actual: bigint | undefined, expected: bigint): boolean =>
   actual !== undefined && expected >= 0n && actual >= expected && (actual - expected) * 1000n <= expected;
 
@@ -147,16 +147,19 @@ export const finishCheck = (
 ): BridgeCheck => {
   mask = {
     ...mask,
-    toToken: mask.toToken && !(parsed.outputToken === undefined && parsed.outputTokenReference),
-    toAmount: mask.toAmount && !(parsed.minOutputAmount === undefined && parsed.outputAmountReference),
+    fromToken: mask.fromToken && parsed.sourceToken !== undefined,
+    fromAmount: mask.fromAmount && parsed.sourceAmount !== undefined,
+    toToken: mask.toToken && parsed.outputToken !== undefined,
+    toAmount: mask.toAmount && parsed.minOutputAmount !== undefined,
+    receiver: mask.receiver && parsed.receiver !== undefined,
   };
   const expected = expectation
     ? expectationFailures(parsed, expectation, chainId, mask)
     : [];
+  // A locally proven receiver is still useful when destination assets/amounts
+  // cannot be reduced to one outcome. Unknown execution/receivers remain check failures.
   const unsupportedCall = (parsed.hasDestinationCall || parsed.destinationCallData !== undefined) &&
-    (parsed.receiver === undefined ||
-      (parsed.outputToken === undefined && !parsed.outputTokenReference) ||
-      (parsed.minOutputAmount === undefined && !parsed.outputAmountReference));
+    parsed.receiver === undefined;
   const errors = [
     ...(structural ? [structural] : []),
     ...(unsupportedCall ? [BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL] : []),
