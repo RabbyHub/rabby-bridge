@@ -11,6 +11,9 @@ export const socketFailure = (parsed: ParsedBridgeCall, expectedUser?: string): 
   if (!parsed.quoteId || isZeroWord(parsed.quoteId)) {
     return BRIDGE_ERRORS.MISSING_QUOTE_ID;
   }
+  if (['receiveERC20', 'receiveNative'].includes(parsed.protocolMethod ?? '') && parsed.orderId !== parsed.quoteId) {
+    return BRIDGE_ERRORS.SOCKET_RFQ_QUOTE_ID_MISMATCH;
+  }
   if (!parsed.protocolMethod) return BRIDGE_ERRORS.UNRECOGNIZED_SOCKET_BRIDGE_CALLDATA;
   if (parsed.sourceToken === undefined) {
     return BRIDGE_ERRORS.MISSING_SOURCE_TOKEN;

@@ -15,6 +15,8 @@ export type BridgeCallExpectation = {
   /** 目标链 id。目标币是原生币时，用它识别 `hood` 这类链 id，而不是源链 id。 */
   toChainId?: string;
   toTokenRawAmount?: string;
+  /** Selected backend quote key; only protocol identifiers with known semantics are compared. */
+  quoteKey?: string | Record<string, unknown>;
   /** 小数滑点。0.01 表示 1%。 */
   slippage?: string | number;
 };
@@ -69,6 +71,18 @@ const parseAmount = (amount: string): bigint | undefined => {
   }
 };
 
+const selectedQuoteIdentifier = (quoteKey: BridgeCallExpectation['quoteKey']): string | undefined => {
+  let key = quoteKey;
+  if (typeof key === 'string') {
+    try { key = JSON.parse(key); }
+    catch { return undefined; }
+  }
+  if (!key || typeof key !== 'object' || Array.isArray(key) || typeof key.quote_id !== 'string') return undefined;
+  // Socket/Relay cache keys preserve the provider ID before a cache UUID suffix.
+  const match = /^(0x[0-9a-f]{64})(?::[^:]+)?$/i.exec(key.quote_id);
+  return match?.[1].toLowerCase();
+};
+
 /** Actual source payment may exceed local intent by at most 0.1%; lower payments fail comparison. */
 export const sourceAmountMatches = (actual: bigint | undefined, expected: bigint): boolean =>
   actual !== undefined && expected >= 0n && actual >= expected && (actual - expected) * 1000n <= expected;
@@ -97,6 +111,16 @@ export const expectationFailures = (
   mask: CompareMask
 ): BridgeErrorDefinition[] => {
   const reasons: BridgeErrorDefinition[] = [];
+  const quoteIdentifier = selectedQuoteIdentifier(expectation.quoteKey);
+  if (quoteIdentifier && parsed.aggregatorId === 'socket' && parsed.quoteId !== quoteIdentifier) {
+    reasons.push(BRIDGE_ERRORS.QUOTE_ID_MISMATCH);
+  }
+  // Relay direct deposits sign an order hash, distinct from the cache key's requestId.
+  if (quoteIdentifier && parsed.aggregatorId === 'relay' &&
+      !['depositNative', 'depositErc20', 'depositErc20Allowance'].includes(parsed.method) &&
+      parsed.requestId !== quoteIdentifier) {
+    reasons.push(BRIDGE_ERRORS.REQUEST_ID_MISMATCH);
+  }
   if (expectation.toChainId && parsed.destinationChainRef && parsed.destinationChainId === undefined) {
     reasons.push(BRIDGE_ERRORS.TO_CHAIN_MISMATCH);
   }

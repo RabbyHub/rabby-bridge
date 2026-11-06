@@ -84,6 +84,25 @@ Known destination tokens, amounts and receivers still undergo normal comparison.
 It also accepts an exact safe integer quote amount when the hexadecimal field is
 absent. Serialized quote keys are decoded before reading their raw output amount.
 
+`buildTx` also snapshots the selected `quoteKey` before awaiting the build response.
+Socket compares its original provider `quoteId` against the decoded outer ID on
+every supported route, including CCTP; RFQ additionally requires the vault's
+`receiveERC20` / `receiveNative` ID to match the outer ID even without a quote key.
+Relay multicall/permit routes compare the key's `requestId` with decoded metadata.
+Socket/Relay backend cache keys use `providerId:cacheUUID`; only the bytes32
+provider prefix is compared. Direct callers can supply the same `quoteKey` in the
+expectation passed to `validateBridgeCalldata` / `validateBridgeTx`.
+
+Relay direct-deposit `orderId` is an order hash, not this `requestId`, and is not
+compared with the cache prefix. Across/Mayan cache UUIDs, LI.FI's requoted routes,
+absent/unrecognized quote keys and the legacy quote+tx API have no equivalent
+binding here and are skipped without missing-ID reports. No extra API requests
+are made. Actual ID mismatches use `BRIDGE_QUOTE_ID_MISMATCH`,
+`BRIDGE_REQUEST_ID_MISMATCH` or `BRIDGE_SOCKET_RFQ_QUOTE_ID_MISMATCH`; these remain
+observation-only, do not change the three field flags, and do not expose raw IDs
+in reports. Matching IDs alone do not verify the quote's authenticity, full
+transaction contents or final delivery conditions.
+
 `ok: true` only means the structural checks and available comparisons passed.
 It does not mean all five fields were verified. `validateBridgeCalldata` itself
 does not check the outer router allowlist; `validateBridgeTx` does that separately
@@ -108,7 +127,7 @@ transfers, and drains with a shared receiver. Eco transfer sequences retain a sh
 receiver even when they pay different assets. Different receivers or unrecognized
 calls remain unresolved. If success and fallback pay different assets to the same
 receiver, the receiver is retained while the single output token/minimum is left
-unresolved and reported non-blockingly by the lightweight build.
+unresolved without reporting the known local limitation.
 
 The recorded Across Base USDC-to-AERO destination swap is decoded through its
 reviewed AllowanceHolder/Settler deployment. The decoder requires an enforced
@@ -117,6 +136,18 @@ reviewed actions that cannot bypass the final slippage check. An unknown Settler
 chain or action is not trusted. Deployment evidence is recorded in
 `tests/fixtures/route-discovery-20261104/evidence/base-settler-verification.json`.
 This is a static deployment entry, not a runtime registry or RPC query.
+
+The 20261105 history adds canonical inner SpokePools for Ink/zkSync, the Monad
+Handler, Unichain's WETH withdrawal, Socket RFQ `receiveNative(bytes32)`, and two
+reviewed HyperEVM destination swaps. The HyperEVM LI.FI path is restricted to its
+deployed `swapTokensSingleV3ERC20ToERC20`; both the output and possible unused
+input refunds must return through Handler to the same recipient. Its approval
+cannot be substituted with an AllowanceHolder approval. The reviewed HyperEVM
+Settler supports an exact amount or its full-balance `MAX_UINT256` encoding,
+using only locally tracked bridge funds; partial-balance ratio encodings and
+unreviewed deployments/actions remain unresolved. Socket native RFQ validates
+the source value, net deposit, native asset, vault and spender; its external
+delivery conditions remain silently unverified like ERC20 RFQ.
 
 LI.FI Intents callbacks can also resolve locally for the reviewed Base ReceiverOIF,
 its immutable Executor/output-settler pair, and one supported ERC20 transfer or
@@ -149,10 +180,16 @@ resolver. [Saved provider data](../providers/README.md) is used only for offline
 fixture regressions. A successful lightweight build does not verify skipped
 delivery conditions, and cannot be counted as a successful Relay order-hash check.
 
+LI.FI Smart Deposits post-bridge execution is outside this rollout's local
+verification boundary. Current inputs do not expose its execution plan, and this
+release does not require new backend metadata. Existing mismatch observations
+remain non-blocking; intermediate bridge delivery differing from final intent is
+not proof of actual final misdelivery.
+
 ## Samples
 
 The retained fixture collection contains 348 source transactions with explicit
-five-field expectations, spanning 29 bridge types and 53 observed function paths.
+five-field expectations, spanning 29 bridge types and 54 observed function paths.
 These are fixture expectations, not a claim that every field is currently verified.
 Tests compare locally available fields and assert that deferred output fields stay
 unresolved; provider-assisted checks still compare their complete order data.

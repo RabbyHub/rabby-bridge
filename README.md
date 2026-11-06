@@ -40,6 +40,10 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
   keep their original blocking behavior.
 - Source token, source amount, supplied sender/chain and protocol structure are
   checked locally. Missing source fields and mismatches are reported.
+- Socket quote IDs (including CCTP), RFQ outer/vault IDs and Relay multicall
+  request IDs are compared locally when a selected quote provides a matching
+  identifier. Mismatches are reported without blocking or changing field flags;
+  missing/unrecognized keys are skipped. See the [binding limits](src/calldata/README.md).
 - Known destination tokens, minimum amounts and chains are compared. Unknown
   destination paths remain unverified and are reported with available method,
   selector and nested-call diagnostics.

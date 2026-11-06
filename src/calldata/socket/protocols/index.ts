@@ -3,6 +3,7 @@ import { innerCallDiagnostics } from '../../diagnostics.js';
 import { asBigint, asString, decodeCall } from '../../abi.js';
 import { readSelector } from '../../hex.js';
 import type { ParsedBridgeCall } from '../../types.js';
+import { isNative, NATIVE_TOKEN } from '../../protocols.js';
 import { readCcip } from './ccip.js';
 import { readCctp } from './cctp.js';
 import { readEco } from './eco.js';
@@ -26,13 +27,17 @@ const decodeSocketBridge = (data: string, target: string, token: string, value: 
   if (selector === '0xdf00f8fa') return readEco(data);
   if (selector === '0xc7c7f5b3' || selector === '0x2cdf0b95') return readOft(data, target, token);
   if (selector === '0x0c751e0b' || selector === '0x9be111d1') return readSwapsXYZ(data);
-  if (selector === '0x823b01f9') {
-    if (target !== '0x97caca78ac2a94c67643d07843f85afaa44a3ea5' || spender !== target || value !== 0n) {
+  if (selector === '0x823b01f9' || selector === '0x3345e738') {
+    const native = selector === '0x3345e738';
+    if (target !== '0x97caca78ac2a94c67643d07843f85afaa44a3ea5' || spender !== target ||
+        (native ? !isNative(token) : value !== 0n)) {
       throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOCKET_RFQ_TARGET_SPENDER_OR_VALUE);
     }
-    const a = decodeCall([{ name: 'quoteId', kind: 'bytes', size: 32 }, { name: 'token', kind: 'address' }, { name: 'amount', kind: 'uint' }], data);
-    if (asString(a.token) !== token) throw new BridgeError(BRIDGE_ERRORS.SOCKET_RFQ_TOKEN_DOES_NOT_MATCH_BRIDGE_ASSET);
-    return { protocolMethod: 'receiveERC20', orderId: asString(a.quoteId), bridgeToken: asString(a.token), bridgeAmount: asBigint(a.amount) };
+    const a = decodeCall([{ name: 'quoteId', kind: 'bytes', size: 32 },
+      ...(native ? [] : [{ name: 'token', kind: 'address' as const }, { name: 'amount', kind: 'uint' as const }])], data);
+    if (!native && asString(a.token) !== token) throw new BridgeError(BRIDGE_ERRORS.SOCKET_RFQ_TOKEN_DOES_NOT_MATCH_BRIDGE_ASSET);
+    return { protocolMethod: native ? 'receiveNative' : 'receiveERC20', orderId: asString(a.quoteId),
+      bridgeToken: native ? NATIVE_TOKEN : asString(a.token), bridgeAmount: native ? value : asBigint(a.amount) };
   }
   return undefined;
 };

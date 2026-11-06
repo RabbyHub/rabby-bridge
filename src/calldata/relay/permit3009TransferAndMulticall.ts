@@ -24,7 +24,7 @@ const decodePermits = (
   name: string,
   selector: string,
   tail: AbiParam[]
-): import('../abi.js').CalldataMethod => ({
+): CalldataMethod => ({
   name,
   selector,
   decode(data, value) {

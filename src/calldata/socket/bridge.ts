@@ -16,7 +16,7 @@ export const bridge: CalldataMethod = {
     const token = asString(source.inputToken);
     const amount = subtractFees(asBigint(source.inputAmount), asBigint(asRecord(a.fee).amount));
     const protocol = readSocketBridge(asString(a.bridgeCallData), target, token, asBigint(hop.value), asString(hop.approvalSpender));
-    if (['receiveERC20', 'depositForBurn'].includes(protocol?.protocolMethod ?? '') && protocol?.bridgeAmount !== amount) {
+    if (['receiveERC20', 'receiveNative', 'depositForBurn'].includes(protocol?.protocolMethod ?? '') && protocol?.bridgeAmount !== amount) {
       throw new BridgeError(BRIDGE_ERRORS.SOCKET_DEPOSIT_AMOUNT_MISMATCH, protocol?.diagnostics);
     }
     return {

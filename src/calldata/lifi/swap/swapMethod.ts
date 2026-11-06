@@ -1,7 +1,7 @@
 import { asArray, asBigint, asRecord, asString, decodeCall, type AbiParam } from '../../abi.js';
 import type { CalldataMethod } from '../../abi.js';
 import type { ParsedBridgeCall } from '../../types.js';
-import { applyFirstSwap, swapDataArrayParam, swapDataParam } from '../params.js';
+import { applyFirstSwap, swapDataArrayParam, swapDataParam } from '../swapData.js';
 
 const header: AbiParam[] = [
   { name: 'transactionId', kind: 'bytes', size: 32 },

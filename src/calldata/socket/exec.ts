@@ -59,7 +59,7 @@ export const exec: CalldataMethod = {
     if (!isNative(token) && asBigint(args.amount) !== inner.sourceAmount) {
       throw new BridgeError(BRIDGE_ERRORS.SOCKET_ALLOWANCE_AMOUNT_MISMATCH, { ...inner.diagnostics, ...diagnostics });
     }
-    if (['receiveERC20', 'depositForBurn'].includes(inner.protocolMethod ?? '') &&
+    if (['receiveERC20', 'receiveNative', 'depositForBurn'].includes(inner.protocolMethod ?? '') &&
         value !== (isNative(token) ? inner.sourceAmount : 0n)) {
       throw new BridgeError(BRIDGE_ERRORS.SOCKET_NATIVE_VALUE_MISMATCH, { ...inner.diagnostics, ...diagnostics });
     }

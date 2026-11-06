@@ -233,6 +233,10 @@ const fieldErrors: Record<'fromPass' | 'toPass' | 'receiverPass', BridgeErrorDef
     BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL],
 };
 
+const bindingErrors: BridgeErrorDefinition[] = [
+  BRIDGE_ERRORS.QUOTE_ID_MISMATCH, BRIDGE_ERRORS.REQUEST_ID_MISMATCH, BRIDGE_ERRORS.SOCKET_RFQ_QUOTE_ID_MISMATCH,
+];
+
 const checkBridgeTx = (
   aggregatorId: BridgeAggregatorId, fromChainId: string, bridgeId: string, tx: BridgeTx,
   expectation?: BridgeCallExpectation, options: BridgeValidationOptions = {},
@@ -250,7 +254,7 @@ const checkBridgeTx = (
   ];
   const externalDestination = check.parsed && (aggregatorId === BRIDGE_ENUM.RELAY ||
     (aggregatorId === BRIDGE_ENUM.SOCKET &&
-      ['receiveERC20', 'depositForBurn'].includes(check.parsed.protocolMethod ?? '')));
+      ['receiveERC20', 'receiveNative', 'depositForBurn'].includes(check.parsed.protocolMethod ?? '')));
   // Known local limits remain unverified, without repeating an expected gap as an error.
   const reportableFields = unverifiedFields.filter((field) => {
     if (!check.parsed) return true;
@@ -260,6 +264,7 @@ const checkBridgeTx = (
   });
   // Unclassified structure failures invalidate every field; known field failures stay separate.
   const comparable = Boolean(expectation && check.parsed) && check.errors.every((error) =>
+    bindingErrors.some((item) => item.error_code === error.error_code) ||
     Object.values(fieldErrors).some((group) => group.some((item) => item.error_code === error.error_code)));
   const fieldPass = (field: keyof typeof fieldErrors, required: string[]) => comparable &&
     required.every((item) => !unverifiedFields.includes(item)) &&
@@ -348,6 +353,18 @@ export const buildTx = async (
     // Freeze signing intent before awaiting a backend response.
     params = { ...params };
     assertSupported(aggregatorId, params.fromChainId);
+    const quoteKey = stringifyQuoteKey(params.quoteKey);
+    const expectation: BridgeCallExpectation = {
+      userAddress: params.userAddress,
+      fromTokenId: params.fromTokenId,
+      fromTokenRawAmount: params.fromTokenRawAmount,
+      toChainId: params.toChainId,
+      toTokenId: params.toTokenId,
+      toTokenRawAmount: params.toTokenRawAmount ?? quotedToAmount(quoteKey),
+      // The legacy quote+tx API requotes instead of reusing this selection.
+      quoteKey: typeof api.buildBridgeTx === 'function' ? quoteKey : undefined,
+      slippage: params.slippage,
+    };
     const buildParams = {
       aggregator_id: aggregatorId,
       bridge_id: params.bridgeId,
@@ -363,7 +380,7 @@ export const buildTx = async (
     const tx = api.buildBridgeTx
       ? await api.buildBridgeTx({
           ...buildParams,
-          quote_key: stringifyQuoteKey(params.quoteKey),
+          quote_key: quoteKey,
         }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED, { requestKind: 'backend_build' }); })
       : (
           await api.getBridgeQuoteTxV2?.({
@@ -374,15 +391,6 @@ export const buildTx = async (
     if (!tx) {
       throw new BridgeError(BRIDGE_ERRORS.MISSING_BUILD_API);
     }
-    const expectation: BridgeCallExpectation = {
-      userAddress: params.userAddress,
-      fromTokenId: params.fromTokenId,
-      fromTokenRawAmount: params.fromTokenRawAmount,
-      toChainId: params.toChainId,
-      toTokenId: params.toTokenId,
-      toTokenRawAmount: params.toTokenRawAmount ?? quotedToAmount(params.quoteKey),
-      slippage: params.slippage,
-    };
     checkBridgeTx(aggregatorId, params.fromChainId, params.bridgeId, tx, expectation, params, 'buildTx');
 
     return tx;

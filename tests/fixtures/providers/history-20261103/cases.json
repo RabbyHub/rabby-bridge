@@ -10016,7 +10016,7 @@
       "sha256": "a50acfa50d4e64289aed61a7d755470277f3f853cb80c93569aff315f45b8c87",
       "binding": "provider-record"
     },
-    "expectedValidationError": "unrecognized socket bridge calldata"
+    "historicalValidationError": "unrecognized socket bridge calldata"
   },
   {
     "csvRow": 24,

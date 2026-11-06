@@ -4,7 +4,7 @@ import { isZeroWord, readSelector } from './hex.js';
 import { NATIVE_TOKEN, WRAPPED_NATIVE_TOKENS, subtractFees } from './protocols.js';
 import type { ParsedBridgeCall } from './types.js';
 import { calldataDiagnostics } from './diagnostics.js';
-import { ALLOWANCE_HOLDER, readSettlerSwap } from './destinationSwap.js';
+import { ALLOWANCE_HOLDER, HYPEREVM_LIFI_ROUTER, readLifiSwap, readSettlerSwap } from './destinationSwap.js';
 
 export const destinationCall: AbiParam = {
   name: 'call', kind: 'tuple', components: [
@@ -45,6 +45,7 @@ const instructions: AbiParam = {
 };
 
 const ACROSS_MESSAGE_HANDLERS: Record<string, string> = {
+  143: '0xec41f75c686e376ab2a4f18bde263ab5822c4511',
   999: '0x5e7840e06faccb6d1c3b5f5e0d1d3d07f2829bba',
   4663: '0xa8ad2e87e2043711d8bec77e8bc3e2683c0ab6bd',
   43114: '0x9610954acdca5ff7905f051a040ce33fe613c60e',
@@ -85,6 +86,9 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
   const payouts: Partial<ParsedBridgeCall>[] = [];
   const directTransfers: Partial<ParsedBridgeCall>[] = [];
   const approvals = new Map<string, bigint>();
+  const lifiRouter = parsed.destinationChainId === 999n ? HYPEREVM_LIFI_ROUTER : undefined;
+  const possibleRefundTokens = new Set<string>();
+  const refundReceivers: string[] = [];
   for (const raw of calls) {
     const call = asRecord(raw);
     const target = asString(call.target);
@@ -96,18 +100,24 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
     if (selector === '0x095ea7b3' && value === 0n && balances.has(target)) {
       const approval = decodeCall([{ name: 'spender', kind: 'address' }, { name: 'amount', kind: 'uint' }], data);
       const amount = asBigint(approval.amount);
-      if (asString(approval.spender) !== ALLOWANCE_HOLDER ||
+      const spender = asString(approval.spender);
+      if ((spender !== ALLOWANCE_HOLDER && spender !== lifiRouter) ||
           (amount > (balances.get(target) ?? 0n) && amount !== (1n << 256n) - 1n)) return parsed;
-      approvals.set(target, amount);
+      approvals.set(`${target}:${spender}`, amount);
       continue;
     }
-    if (target === ALLOWANCE_HOLDER && value === 0n) {
-      const swap = readSettlerSwap(data, parsed.destinationChainId, handler);
-      if (!swap || (approvals.get(swap.inputToken) ?? 0n) < swap.inputAmount ||
+    if ((target === ALLOWANCE_HOLDER || target === lifiRouter) && value === 0n) {
+      const swap = target === ALLOWANCE_HOLDER
+        ? readSettlerSwap(data, parsed.destinationChainId, handler, balances)
+        : readLifiSwap(data, parsed.destinationChainId, target, handler);
+      const approvalKey = `${swap?.inputToken}:${target}`;
+      if (!swap || (approvals.get(approvalKey) ?? 0n) < swap.inputAmount ||
           (balances.get(swap.inputToken) ?? 0n) < swap.inputAmount) return parsed;
-      approvals.set(swap.inputToken, (approvals.get(swap.inputToken) ?? 0n) - swap.inputAmount);
+      approvals.set(approvalKey, (approvals.get(approvalKey) ?? 0n) - swap.inputAmount);
       balances.set(swap.inputToken, (balances.get(swap.inputToken) ?? 0n) - swap.inputAmount);
       balances.set(swap.outputToken, (balances.get(swap.outputToken) ?? 0n) + swap.minOutputAmount);
+      // GenericSwapFacet returns unused input to Handler; its later payout must agree too.
+      if (target === lifiRouter) possibleRefundTokens.add(swap.inputToken);
       continue;
     }
     if (selector === '0xc41e8295' && target === handler) {
@@ -135,6 +145,7 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
       const drain = decodeCall([{ name: 'token', kind: 'address' }, { name: 'receiver', kind: 'address' }], data);
       const token = asString(drain.token);
       const amount = balances.get(token) ?? 0n;
+      if (possibleRefundTokens.delete(token)) refundReceivers.push(asString(drain.receiver));
       if (amount > 0n) payouts.push({ outputToken: token, minOutputAmount: amount, receiver: asString(drain.receiver) });
       balances.set(token, 0n);
       continue;
@@ -149,6 +160,9 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
   const hasDrain = payouts.length > 0;
   // The Handler drains the original bridge asset to fallback even after successful calls.
   const remaining = balances.get(parsed.bridgeOutputToken as string) ?? 0n;
+  if (!isZeroWord(fallback) && possibleRefundTokens.delete(parsed.bridgeOutputToken as string)) {
+    refundReceivers.push(fallback);
+  }
   if (!isZeroWord(fallback) && remaining > 0n) {
     payouts.push({ receiver: fallback, outputToken: parsed.bridgeOutputToken, minOutputAmount: remaining });
     balances.set(parsed.bridgeOutputToken as string, 0n);
@@ -158,9 +172,10 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
   const delivered = hasDrain
     ? [...payouts, ...directTransfers.filter((transfer) => transfer.receiver === payouts[0].receiver)]
     : [...directTransfers, ...payouts];
-  if (delivered.length && [...balances.values()].every((amount) => amount === 0n)) {
+  if (delivered.length && !possibleRefundTokens.size && [...balances.values()].every((amount) => amount === 0n)) {
     const receiver = delivered[0].receiver;
-    if (!delivered.every((payout) => payout.receiver === receiver)) return parsed;
+    if (!delivered.every((payout) => payout.receiver === receiver) ||
+        !refundReceivers.every((recipient) => recipient === receiver)) return parsed;
     if (!isZeroWord(fallback) && fallback !== receiver) {
       throw new BridgeError(BRIDGE_ERRORS.ACROSS_FALLBACK_RECEIVER_MISMATCH);
     }

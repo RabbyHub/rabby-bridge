@@ -430,6 +430,21 @@ export const BRIDGE_ERRORS = {
     message: 'unsupported swaps-xyz execution',
   },
   // intent — 解析结果与用户意图的字段比对
+  QUOTE_ID_MISMATCH: {
+    error_code: 'BRIDGE_QUOTE_ID_MISMATCH',
+    stage: 'intent',
+    message: 'transaction quote ID does not match the selected quote',
+  },
+  REQUEST_ID_MISMATCH: {
+    error_code: 'BRIDGE_REQUEST_ID_MISMATCH',
+    stage: 'intent',
+    message: 'transaction request ID does not match the selected quote',
+  },
+  SOCKET_RFQ_QUOTE_ID_MISMATCH: {
+    error_code: 'BRIDGE_SOCKET_RFQ_QUOTE_ID_MISMATCH',
+    stage: 'intent',
+    message: 'Socket RFQ outer and vault quote IDs do not match',
+  },
   DEPOSITOR_MISMATCH: {
     error_code: 'BRIDGE_DEPOSITOR_MISMATCH',
     stage: 'intent',

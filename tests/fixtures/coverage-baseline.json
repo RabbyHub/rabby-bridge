@@ -396,8 +396,14 @@
       "method": "swapAndForwardERC20 / bridge",
       "newInThisCsv": true,
       "discoveredFrom": "route-reachability-20261104"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "bridge / receiveNative",
+      "discoveredFrom": "native-rfq-support-20261105"
     }
   ],
-  "functionPaths": 53,
+  "functionPaths": 54,
   "originalBridgeTypes": 27
 }

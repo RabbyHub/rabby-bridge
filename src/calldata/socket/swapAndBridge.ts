@@ -1,4 +1,4 @@
-import { BRIDGE_ERRORS, asBridgeError } from '../../errors/index.js';
+import { BRIDGE_ERRORS, BridgeError, asBridgeError } from '../../errors/index.js';
 import { innerCallDiagnostics } from '../diagnostics.js';
 import { asBigint, asRecord, asString, decodeCall } from '../abi.js';
 import type { CalldataMethod } from '../abi.js';
@@ -24,12 +24,16 @@ export const swapAndBridge: CalldataMethod = {
     let callData: string;
     try { callData = spliceBridgeAmount(bridgeCallData, flags, amount); }
     catch (error) { throw asBridgeError(error, BRIDGE_ERRORS.CALLDATA_DECODE_FAILED, innerCallDiagnostics(bridgeCallData, 'protocol')); }
+    const protocol = readSocketBridge(callData, target, token, value, asString(hop.approvalSpender));
+    if (protocol.protocolMethod === 'receiveNative' && protocol.bridgeAmount !== amount) {
+      throw new BridgeError(BRIDGE_ERRORS.SOCKET_DEPOSIT_AMOUNT_MISMATCH, protocol.diagnostics);
+    }
     return {
       aggregatorId: 'socket', method: 'swapAndBridge', kind: 'bridge', quoteId: asString(a.quoteId),
       sourceToken: asString(source.inputToken), sourceAmount: asBigint(source.inputAmount), depositor: asString(source.user),
       bridgeToken: token, bridgeAmount: amount,
       referrer: asString(asRecord(a.fee).receiver), innerTarget: target,
-      ...readSocketBridge(callData, target, token, value, asString(hop.approvalSpender)),
+      ...protocol,
     };
   },
 };

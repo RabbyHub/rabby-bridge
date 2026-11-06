@@ -170,7 +170,9 @@ describe('complete onchain calldata test units', () => {
       const data = replaceWord(item.tx.data, 4 + bridgeOffset + 5 * 32, 'dead000000000000000000000000000000000000');
       const check = validateBridgeCalldata('lifi', item.chainKey, { ...item.tx, data }, intent(item));
       expect(check.ok).toBe(false);
-      expect(check.reason).toContain('receiver');
+      expect(check.errors).toEqual(expect.arrayContaining([
+        expect.objectContaining({ error_code: 'BRIDGE_LAYERSWAP_REFUND_RECIPIENT_MISMATCH' }),
+      ]));
     }
   );
 
