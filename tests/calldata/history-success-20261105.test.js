@@ -22,19 +22,14 @@ const codesOf = (error) => (error?.errors || []).map((item) => item.error_code);
 
 describe('20261105 successful bridge history', () => {
   test('checks each fetched success record with the current calldata validator', () => {
-    const byBridge = {};
     const codeCounts = {};
     let reported = 0;
     let routerBlocked = 0;
-    let calldataReported = 0;
     let clean = 0;
 
     for (const record of records) {
       const decoded = validateBridgeCalldata(record.aggregatorId, record.chainKey, record.tx);
       const expectation = expectationFor(record, decoded.parsed);
-      const key = `${record.aggregatorId}/${record.bridgeId}`;
-      const bucket = byBridge[key] || (byBridge[key] = { total: 0, reported: 0, routerBlocked: 0, clean: 0 });
-      bucket.total += 1;
 
       let result;
       let thrown;
@@ -51,27 +46,18 @@ describe('20261105 successful bridge history', () => {
       }
 
       const codes = thrown ? codesOf(thrown) : result.errors.map((error) => error.error_code);
-      const routerOnly = Boolean(thrown);
-      const flagged = codes.length > 0;
-      if (routerOnly) routerBlocked += 1;
-      if (flagged) reported += 1;
+      if (thrown) routerBlocked += 1;
+      if (codes.length > 0) reported += 1;
       else clean += 1;
-      if (flagged && !routerOnly) calldataReported += 1;
-      if (routerOnly) bucket.routerBlocked += 1;
-      if (flagged) bucket.reported += 1;
-      else bucket.clean += 1;
       for (const code of codes) codeCounts[code] = (codeCounts[code] || 0) + 1;
     }
 
     console.log(JSON.stringify({
-      successInCsv: 977,
       fetched: records.length,
       reported,
-      calldataReported,
       routerBlocked,
       clean,
       codeCounts,
-      byBridge,
     }, null, 2));
 
     expect(records.length).toBe(977);
