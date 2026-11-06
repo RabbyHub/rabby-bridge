@@ -1,0 +1,409 @@
+{
+  "bridgeTypes": 29,
+  "originalFunctionPaths": 46,
+  "bridges": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset"
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP"
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "centrifuge"
+    }
+  ],
+  "paths": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "swapAndBridge / -"
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "deposit / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "method": "swapAndStartBridgeTokensViaGnosisBridge / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "method": "swapAndStartBridgeTokensViaLayerSwap / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrderWithToken"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / bridgeWithFee"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrder"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "method": "swapAndStartBridgeTokensViaPaxosTransit / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "method": "swapAndStartBridgeTokensViaPolygonBridge / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "method": "swapAndStartBridgeTokensViaSuperset / -"
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "forwardERC20 / createOrder"
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / createOrder"
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / createOrder"
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositNative / -"
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "transferAndMulticall / -"
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositErc20 / -"
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "multicall / -"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / outboundTransfer"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / createRetryableTicket"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "swapAndBridge / outboundTransfer"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "swapAndBridge / ccipSend"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "bridge / ccipSend"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "swapAndBridge / depositForBurn"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "bridge / depositForBurn"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "swapAndBridge / depositForBurn"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "method": "bridge / publishAndFund"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "method": "swapAndBridge / relayTokens"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositERC20To"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositETHTo"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositERC20To"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositETHTo"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "swapAndBridge / send"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / sendFrom"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / send"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "bridge / depositERC20ForUser"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "swapAndBridge / depositERC20ForUser"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "bridge / receiveERC20"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "swapAndBridge / receiveERC20"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "method": "bridge / createRetryableTicket"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "method": "bridge / swaps-xyz/execute/transferRemoteTo"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "bridge / depositForBurn"
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "depositNative / -",
+      "newInThisCsv": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / bridge",
+      "newInThisCsv": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "forwardERC20 / bridge",
+      "newInThisCsv": true,
+      "discoveredFrom": "completed-history-20261103"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "startBridgeTokensViaCelerCircleBridge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth",
+      "method": "swapAndStartBridgeTokensViaMegaETHBridge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104"
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "centrifuge",
+      "method": "swapAndStartBridgeTokensViaCentrifuge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104"
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / bridge",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104"
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "bridge / receiveNative",
+      "discoveredFrom": "native-rfq-support-20261105"
+    }
+  ],
+  "functionPaths": 54,
+  "originalBridgeTypes": 27
+}

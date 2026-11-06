@@ -1,0 +1,155 @@
+[
+  {
+    "id": "completed-lifi-fde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace",
+    "csvRow": 40,
+    "aggregatorId": "lifi",
+    "bridgeId": "lifiIntents",
+    "chainKey": "hyper",
+    "toChainKey": "base",
+    "txHash": "0xfde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace",
+    "selector": "0x6d21c5df",
+    "route": "hyper -> base",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x0a0758d937d1059c356d4714e57f5df0239bce1a",
+      "data": "0x6d21c5df00000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000220000000000000000000000000000000000000000000000000000000000000042098e6f366e205d18b6883bbaaaed85fde0926fbb6017ff85c2e47793accab15c0000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b88339cb7199b77e23db6e890353e22632ba630f000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000000000000185a6000000000000000000000000000000000000000000000000000000000000210500000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b6c696669496e74656e7473000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a72616262796b6d7376320000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000ba072bf218314e51d5c3d254800d799840ae6a25000000000000000000000000ba072bf218314e51d5c3d254800d799840ae6a25000000000000000000000000b88339cb7199b77e23db6e890353e22632ba630f000000000000000000000000b88339cb7199b77e23db6e890353e22632ba630f00000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a4332d746b000000000000000000000000b88339cb7199b77e23db6e890353e22632ba630f000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000009899f62ecf16b70bffc88677023026c47e48c21800000000000000000000000000000000000000000000000000000000000000fa000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000341a1fbd51825e5a107db54ccb3166deba1454790000000000000000000000000000000001a18ac68daf5e09cfd195c5dc85309d000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000000258000000000000000000000000008c3800f3ad9b3b662d002e90cc00000000ee17000000000000000000000000008c3800f3ad9b3b662d002e90cc00000000ee1700000000000000000000000075220b7600c300005038432a0000f308e0000068000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000000000000000000000000000000c13056b9deedf4700000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000025e0000000000000000000000000fc03bb2f5b429a7d1d0ae57e316ba2d34f118a880000005a000000000000000000000000000000000000000000000000000000",
+      "value": "0x0"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "lifi",
+        "name": "LI.FI",
+        "logo_url": "https://static.debank.com/image/project/logo_url/lifiprotocol/22262cb8c3879421c841c1e1e8c468ee.png"
+      },
+      "bridge": {
+        "id": "lifiIntents",
+        "name": "LI.FI Intents",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/3e48b492fb4e41bb7b7f0ae28be59636/3e48b492fb4e41bb7b7f0ae28be59636.png"
+      },
+      "from_token": {
+        "id": "0xb88339cb7199b77e23db6e890353e22632ba630f",
+        "chain": "hyper",
+        "name": "USDC",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/usdc/e87790bfe0b3f2ea855dc29069b38818.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.0011421115836647367",
+        "credit_score": "2404986.8819846543",
+        "total_supply": "6307080841.596335",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1755006480.0"
+      },
+      "to_token": {
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "chain": "base",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.0003004807692307095",
+        "credit_score": "10678211.790545277",
+        "total_supply": "4291577025.774848",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1692383789.0"
+      },
+      "to_actual_token": {
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "chain": "base",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/eth_token/logo_url/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/fffcd27b9efff5a86ab942084c05924d.png",
+        "protocol_id": "",
+        "price": "1.0015022533800702",
+        "price_24h_change": "0.0003004807692307095",
+        "credit_score": "10678211.790545277",
+        "total_supply": "4291577025.774848",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1692383789.0"
+      },
+      "quote": {
+        "pay_token_amount": "0.1",
+        "receive_token_amount": "0.086786"
+      },
+      "actual": {
+        "pay_token_amount": "0.1",
+        "receive_token_amount": "0.086786"
+      },
+      "detail_url": "https://explorer.li.fi/tx/0xfde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace",
+      "status": "completed",
+      "create_at": "1793329642.9580803",
+      "from_gas": {
+        "native_token": {
+          "id": "hyper",
+          "chain": "hyper",
+          "name": "HYPE",
+          "symbol": "HYPE",
+          "display_symbol": null,
+          "optimized_symbol": "HYPE",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/hyper_token/logo_url/hyper/0b3e288cfe418e9ce69eef4c96374583.png",
+          "protocol_id": "",
+          "price": "86.961",
+          "price_24h_change": "0.00981234613776765",
+          "credit_score": "4809973.763969309",
+          "total_supply": "999734657.7256399",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "4.8282904e-05",
+        "gas_price": "0.241",
+        "usd_value": "0.0042"
+      },
+      "from_tx": {
+        "tx_id": "0xfde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace",
+        "chain_id": "hyper",
+        "status": "success",
+        "time_at": "1793329642.0"
+      },
+      "to_tx": {
+        "tx_id": "0x6dae779f559ccc04ebfd89d23344b4549942f23473d977733b68e4f7fa6eb2e9",
+        "chain_id": "base"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0xb88339cb7199b77e23db6e890353e22632ba630f",
+      "sourceAmount": "100000",
+      "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "minOutputAmount": "86786",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "8453"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent LI.FI requiresDeposit source swap amounts; IntentEscrowV2 recipient/outputToken and bridgeData.minAmount * outputAmountMultiplier / 1e18. No destination swap is encoded."
+    }
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "sourceRecords": 114,
+  "retainedCompleteUnits": 35,
+  "discardedRecords": 79,
+  "discardedReasons": {
+    "missingBuiltTx": 24,
+    "missingRecordedRpc": 10,
+    "missingRelayOrderData": 30,
+    "missingLayerSwapOrder": 15
+  },
+  "byBridge": {
+    "mayanMCTP": 13,
+    "lifiIntents": 11,
+    "mayan": 7,
+    "polymerStandard": 4
+  },
+  "amountPolicy": "Use raw strings and quote hex amounts; quote x (1-slippage) is a comparison benchmark, not an exact calldata minimum.",
+  "sources": [
+    {
+      "sourceFile": "bridge-valid-quotes-20261103-214141.json",
+      "sourceSha256": "15ccb55de2629451c7c514ee0e9080f8ca08282715ad3f74a48c9f2d7c2a9440",
+      "sourceRecords": 99,
+      "retainedCompleteUnits": 28,
+      "discardedRecords": 71
+    },
+    {
+      "sourceFile": "bridge-valid-quotes-20261103-214730.json",
+      "sourceSha256": "953a90e75d56b69ec0a927f68d69a206622323eb10516a74d5e6a1765993c75a",
+      "sourceRecords": 15,
+      "retainedCompleteUnits": 7,
+      "discardedRecords": 8,
+      "discardedReasons": {
+        "missingBuiltTx": 4,
+        "missingRelayOrderData": 2,
+        "missingLayerSwapOrder": 2
+      }
+    }
+  ]
+}

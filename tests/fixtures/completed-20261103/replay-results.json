@@ -1,0 +1,54 @@
+{
+  "newImport": {
+    "retained": 48,
+    "fiveFieldValidationPassed": 47,
+    "expectedRejections": 1,
+    "duplicates": 0,
+    "discarded": 0
+  },
+  "allFixtures": {
+    "total": 320,
+    "fiveFieldValidationPassed": 315,
+    "expectedRejections": 5,
+    "unexpectedFailures": 0
+  },
+  "calldataAndQuoteReplay": {
+    "units": 170,
+    "passed": 170
+  },
+  "historicalProviderReplay": {
+    "units": 144,
+    "fiveFieldPassed": 139,
+    "expectedRejections": 5,
+    "failures": []
+  },
+  "originalProviderReplay": {
+    "units": 6,
+    "passed": 6
+  },
+  "integrity": {
+    "uniqueIds": 320,
+    "uniqueSigningPayloads": 320,
+    "existingUnitsPreserved": 272,
+    "providerResponseSha256Checked": 144,
+    "sourceCsvSha256Checked": true,
+    "rpcCalls": 61
+  },
+  "guards": {
+    "avalancheForeignEmitter": true,
+    "avalancheValueBearingEmitter": true,
+    "wrongChainHandler": true,
+    "fakeWrappedNative": true,
+    "stargateUnregisteredAsset": true,
+    "mayanMissingDecimals": true,
+    "relayChangedOrderHash": true,
+    "relayChangedSourceTx": true,
+    "socketChangedSourceTx": true,
+    "missingProviderOrderData": true
+  },
+  "httpInReplay": false,
+  "fullYarnTestRun": false,
+  "typecheckRun": false,
+  "eslintRun": false,
+  "cycleCheckRun": false
+}

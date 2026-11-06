@@ -1,0 +1,190 @@
+{
+  "retrievedAt": "2026-11-03T15:26:36.607Z",
+  "blockTag": "latest",
+  "calls": [
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759e",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x5634c4a5fed09819e3c46d86a965dd9447d86e47",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759e",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000019cfce47ed54a88614648dc3f19a5980097007dd"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xfc0c546a",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x857749b0",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a5300000000000000000000000000000000000000000000000000000000000075e8",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x16909bca",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x2bc5114c",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000da82a31df339bfdf0123661134b4db63cb1706f5000000000000000000000000e37f7c80ced04c4f243c0fd04a5510d663cb88b5000000000000000000000000146c8e409c113ed87c6183f4d25c50251dffbb3a00000000000000000000000019cfce47ed54a88614648dc3f19a5980097007dd000000000000000000000000f1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e60000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xd8e8dbc7000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000000000000000000000000000000000000000000d"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a5300000000000000000000000000000000000000000000000000000000000075e8",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000005634c4a5fed09819e3c46d86a965dd9447d86e47"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "data": "0x313ce567",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000f1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e6"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xf1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e6",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000e8cdf27acd73a434d661c84887215f7598e7d0d3"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xe8cdf27acd73a434d661c84887215f7598e7d0d3",
+      "data": "0xfc0c546a",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xe8cdf27acd73a434d661c84887215f7598e7d0d3",
+      "data": "0x857749b0",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007595",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007595",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000006d6620efa72948c5f68a3c8646d58c00d3f4a980"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x6d6620efa72948c5f68a3c8646d58c00d3f4a980",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000077b2043768d28e9c9ab44e1abfc95944bce57931"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x77b2043768d28e9c9ab44e1abfc95944bce57931",
+      "data": "0xfc0c546a",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x77b2043768d28e9c9ab44e1abfc95944bce57931",
+      "data": "0x857749b0",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    }
+  ]
+}

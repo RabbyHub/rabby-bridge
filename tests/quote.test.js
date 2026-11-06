@@ -7,34 +7,54 @@ import {
   getQuote,
   getQuoteListWithTx,
   validateBridgeQuote,
+  validateBridgeCalldata,
   validateBridgeTx,
 } from '../dist/index.js';
+import { loadProviderTransactions, loadTransactions } from './calldata/load-transactions.js';
+
+// API wiring uses real calldata; parsing expectations are covered in tests/calldata.
+const sample = loadTransactions('lifi')[0];
+const socketSample = loadTransactions('socket')[0];
+const relaySample = loadProviderTransactions().find((item) => item.aggregatorId === 'relay');
+const oftSample = loadTransactions('socket').find((item) => item.bridgeId === 'oft');
+
+const quotedRawAmount = (item) => {
+  const [whole, fraction = ''] = item.quote.quote.receive_token_amount.split('.');
+  return BigInt(whole + fraction.padEnd(item.quote.to_token.decimals, '0'));
+};
 
 const baseParams = {
-  userAddress: '0x1111111111111111111111111111111111111111',
-  fromChainId: 'eth',
-  fromTokenId: 'eth_token',
-  fromTokenRawAmount: '1000000000000000000',
-  toChainId: 'arb',
-  toTokenId: 'arb_token',
-  slippage: '0.5',
+  userAddress: sample.tx.from,
+  fromChainId: sample.chainKey,
+  fromTokenId: sample.quote.from_token.id,
+  fromTokenRawAmount: sample.expected.sourceAmount,
+  toChainId: sample.toChainKey,
+  toTokenId: sample.quote.to_token.id,
+  toTokenRawAmount: quotedRawAmount(sample).toString(),
+  slippage: '0.01',
 };
 
 const makeQuote = (overrides = {}) => ({
   bridge_id: 'bridge-1',
   quote_key: { route: 'default' },
+  to_token_raw_amount_hex_str: `0x${quotedRawAmount(sample).toString(16)}`,
   approve_contract_id: '0x1231DEB6F5749EF6CE6943A275A1D3E7486F4EAE',
   ...overrides,
 });
 
 const makeTx = (overrides = {}) => ({
-  to: '0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae',
-  data: '0x',
-  value: '0x0',
+  ...sample.tx,
   ...overrides,
 });
 
 describe('validateBridgeQuote', () => {
+  test('rejects an approval address when the chain has no spender configuration', () => {
+    expect(() => validateBridgeQuote(BRIDGE_ENUM.LIFI, 'not-configured', makeQuote()))
+      .toThrow(InvalidBridgeContractError);
+    expect(validateBridgeQuote(BRIDGE_ENUM.LIFI, 'not-configured', makeQuote({ approve_contract_id: undefined })))
+      .toBe(true);
+  });
+
   test('accepts case-insensitive spender matches', () => {
     expect(
       validateBridgeQuote(BRIDGE_ENUM.LIFI, 'eth', makeQuote())
@@ -84,10 +104,18 @@ describe('validateBridgeQuote', () => {
 });
 
 describe('validateBridgeTx', () => {
+  test.each(['0x', '0x12', 'not-hex'])('observes missing or malformed calldata: %s', (data) => {
+    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx({ data })))
+      .toMatchObject({ pass: true, routerPass: true, fromPass: false, toPass: false, receiverPass: false });
+  });
+
+  test('rejects an unconfigured router instead of skipping transaction checks', () => {
+    expect(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'not-configured', 'bridge-1', makeTx()))
+      .toThrow(InvalidBridgeContractError);
+  });
+
   test('accepts case-insensitive router matches', () => {
-    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toBe(
-      true
-    );
+    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toMatchObject({ pass: true, routerPass: true });
   });
 
   test('accepts socket v3 allowance holder as router', () => {
@@ -96,9 +124,9 @@ describe('validateBridgeTx', () => {
         BRIDGE_ENUM.SOCKET,
         'hood',
         'bridge-1',
-        makeTx({ to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' })
+        { ...socketSample.tx, to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' }
       )
-    ).toBe(true);
+    ).toMatchObject({ pass: true, routerPass: true });
   });
 
   test('throws when tx router does not match the allowlist', () => {
@@ -112,11 +140,10 @@ describe('validateBridgeTx', () => {
     ).toThrow(InvalidBridgeContractError);
   });
 
-  test('accepts across per-chain SpokePool and global periphery (alt)', () => {
+  test('checks Across pool and periphery router identities before decoding', () => {
     const baseSpokePool = '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64';
     const periphery = '0x10D8b8DaA26d307489803e10477De69C0492B610';
 
-    // direct depositV3 route -> per-chain SpokePool
     expect(
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
@@ -124,17 +151,16 @@ describe('validateBridgeTx', () => {
         'bridge-1',
         makeTx({ to: baseSpokePool })
       )
-    ).toBe(true);
+    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
 
-    // swap+bridge route -> global SpokePoolPeriphery
     expect(
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
-        'base',
+        sample.chainKey,
         'bridge-1',
         makeTx({ to: periphery })
       )
-    ).toBe(true);
+    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
 
     // anything else is still rejected
     expect(() =>
@@ -228,6 +254,68 @@ describe('getQuote', () => {
 });
 
 describe('buildTx', () => {
+  test('reads an exact expected amount from a serialized quote key', async () => {
+    await expect(buildTx(BRIDGE_ENUM.LIFI, {
+      ...baseParams, bridgeId: sample.bridgeId, toTokenRawAmount: undefined,
+      quoteKey: JSON.stringify({ to_token_raw_amount: baseParams.toTokenRawAmount }),
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
+  });
+
+  test('reports a source sender that differs from the local wallet without blocking', async () => {
+    const onError = jest.fn();
+    const sourceTx = makeTx({ from: '0x1111111111111111111111111111111111111111' });
+    await expect(buildTx(BRIDGE_ENUM.LIFI, {
+      ...baseParams, bridgeId: sample.bridgeId, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(sourceTx) })).resolves.toBe(sourceTx);
+    expect(onError.mock.calls[0][0].errors).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: 'BRIDGE_FROM_ADDRESS_MISMATCH', pass: true, fromPass: false, blocking: false }),
+    ]));
+  });
+
+  test('reports a missing expected output amount without blocking the lightweight build', async () => {
+    const onError = jest.fn();
+    await expect(buildTx(BRIDGE_ENUM.LIFI, {
+      ...baseParams, bridgeId: sample.bridgeId, toTokenRawAmount: undefined, quoteKey: {}, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
+    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ unverifiedFields: ['minOutputAmount'], blocking: false });
+  });
+
+  test('builds OFT while reporting its deferred destination token and amount', async () => {
+    const params = {
+      userAddress: oftSample.tx.from, fromChainId: oftSample.chainKey,
+      fromTokenId: oftSample.expected.sourceToken, fromTokenRawAmount: oftSample.expected.sourceAmount,
+      toChainId: oftSample.toChainKey, toTokenId: '0x0000000000000000000000000000000000000001',
+      toTokenRawAmount: '1', bridgeId: 'oft', slippage: '0.01',
+    };
+    const check = validateBridgeCalldata('socket', params.fromChainId, oftSample.tx, params);
+    expect(check.ok).toBe(true);
+    expect(check.unverifiedFields).toEqual(['outputToken', 'minOutputAmount']);
+    expect(check.parsed.outputToken).toBeUndefined();
+    expect(check.parsed.minOutputAmount).toBeUndefined();
+    const api = { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) };
+    await expect(buildTx(BRIDGE_ENUM.SOCKET, params, api)).resolves.toEqual(oftSample.tx);
+    expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
+  });
+
+  test.each([
+    ['fromTokenId', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_TOKEN_MISMATCH'],
+    ['fromTokenRawAmount', '1', 'BRIDGE_FROM_AMOUNT_MISMATCH'],
+    ['userAddress', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_ADDRESS_MISMATCH'],
+    ['toChainId', 'not-a-chain', 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS'],
+  ])('reports OFT %s checks while its output fields are deferred', async (field, value, code) => {
+    const onError = jest.fn();
+    await expect(buildTx(BRIDGE_ENUM.SOCKET, {
+      userAddress: oftSample.tx.from, fromChainId: oftSample.chainKey,
+      fromTokenId: oftSample.expected.sourceToken, fromTokenRawAmount: oftSample.expected.sourceAmount,
+      toChainId: oftSample.toChainKey, toTokenId: oftSample.expected.outputToken,
+      toTokenRawAmount: quotedRawAmount(oftSample).toString(), bridgeId: 'oft', slippage: '0.01',
+      [field]: value, onError,
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) })).resolves.toBe(oftSample.tx);
+    expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ error_code: code, pass: true, blocking: false }),
+    ]));
+  });
+
   test('uses buildBridgeTx and stringifies object quote keys', async () => {
     const api = {
       buildBridgeTx: jest.fn().mockResolvedValue(makeTx()),
@@ -389,30 +477,26 @@ describe('getQuoteListWithTx', () => {
 describe('Arc contract validation', () => {
   const relayRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
 
-  test.each([
-    [BRIDGE_ENUM.ACROSS, '0x9b4A302A548c7e313c2b74C461db7b84d3074A84', '0x9b4A302A548c7e313c2b74C461db7b84d3074A84'],
-    [BRIDGE_ENUM.RELAY, '0x4cd00e387622c35bddb9b4c962c136462338bc31', '0x4cd00e387622c35bddb9b4c962c136462338bc31'],
-    [BRIDGE_ENUM.RELAY, '0xccc88a9d1b4ed6b0eaba998850414b24f1c315be', relayRouter],
-  ])('accepts the configured %s route through quote and tx building', async (aggregator, spender, router) => {
-    const quote = makeQuote({ approve_contract_id: spender });
-    const tx = makeTx({ to: router });
-    const api = {
-      getBridgeQuoteListV2: jest.fn().mockResolvedValue([quote]),
-      buildBridgeTx: jest.fn().mockResolvedValue(tx),
-    };
-    await expect(getQuoteListWithTx(
-      aggregator,
-      { ...baseParams, fromChainId: 'arc' },
-      api
-    )).resolves.toEqual([{ ...quote, tx }]);
+  test('accepts the configured Across contracts before checking calldata', () => {
+    const contract = '0x9b4A302A548c7e313c2b74C461db7b84d3074A84';
+    expect(validateBridgeQuote(BRIDGE_ENUM.ACROSS, 'arc', makeQuote({ approve_contract_id: contract }))).toBe(true);
+    expect(validateBridgeTx(BRIDGE_ENUM.ACROSS, 'arc', 'bridge-1', makeTx({ to: contract })))
+      .toMatchObject({ pass: true, routerPass: true, fromPass: false });
+  });
+
+  test('Relay quote lookup uses the existing backend without a provider client', async () => {
+    const api = { getBridgeQuoteListV2: jest.fn(async () => []), buildBridgeTx: jest.fn() };
+    await expect(getQuoteListWithTx(BRIDGE_ENUM.RELAY, { ...baseParams, fromChainId: 'arc' }, {
+      ...api,
+    })).resolves.toEqual([]);
     expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);
-    expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
+    expect(api.buildBridgeTx).not.toHaveBeenCalled();
   });
 
   test('accepts the global router case-insensitively with a canonical chain enum', () => {
     expect(validateBridgeTx(
-      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', makeTx({ to: relayRouter.toUpperCase() })
-    )).toBe(true);
+      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', { ...relaySample.tx, chainId: 5042, to: relayRouter.toUpperCase() }
+    )).toMatchObject({ pass: true, routerPass: true });
   });
 
   test.each([

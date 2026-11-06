@@ -1,0 +1,281 @@
+{
+  "sourceFile": "direct-provider-route-discovery-20261104",
+  "retainedCompleteUnits": 8,
+  "positiveUnits": 6,
+  "knownRejectedUnits": 2,
+  "realQuotes": true,
+  "broadcastTransactions": false,
+  "mayanBuild": "Locally encoded from a real FAST_MCTP quote and real source-swap calldata using the official SDK algorithm; not a provider HTTP build response.",
+  "rpcResponses": 14,
+  "ethCallResponses": 13,
+  "ethGetCodeResponses": 1,
+  "rpcState": "Captured latest state, not original historical block state.",
+  "cases": [
+    {
+      "id": "discovery-lifi-celer-direct",
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "startBridgeTokensViaCelerCircleBridge / -",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/lifi-celer-direct.json",
+          "sha256": "359e3c89938d596121250ba838b01bd5bba469a7e20f0ae990f399f3eb5c17da",
+          "url": "https://li.quest/v1/quote?fromChain=42161&toChain=8453&fromToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=10000000&integrator=rabbykmsv2&fee=0&allowBridges=celercircle&slippage=0.01",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:49:21Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-lifi-megaeth",
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth",
+      "method": "swapAndStartBridgeTokensViaMegaETHBridge / -",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/lifi-megaeth.json",
+          "sha256": "252293f9c4543ab0921d10df6e050fcceda627e96aae2879d410f69e9a9e656e",
+          "url": "https://li.quest/v1/quote?fromChain=1&toChain=4326&fromToken=0x0000000000000000000000000000000000000000&toToken=0x0000000000000000000000000000000000000000&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=1000000000000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=megaeth&slippage=0.01",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:53:14Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-lifi-centrifuge-supported",
+      "aggregatorId": "lifi",
+      "bridgeId": "centrifuge",
+      "method": "swapAndStartBridgeTokensViaCentrifuge / -",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/lifi-centrifuge-supported.json",
+          "sha256": "608e9910c4cc82c38ce0034dc4072cdab6ed78f029eae50f2392af399bb660df",
+          "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0xaaa0008c8cf3a7dca931adaf04336a5d808c82cc&toToken=0xaaa0008c8cf3a7dca931adaf04336a5d808c82cc&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=1000000000000000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=centrifuge&slippage=0.01",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:57:32Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-across-native-zero-fee",
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "depositNative / -",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/across-native-zero-fee.json",
+          "sha256": "5dae3532ff4d9403a6e67ce9e7d98006ac1ecb3d69c07ddb395a4f0fb42d8c4b",
+          "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=1000000000000000&inputToken=0x0000000000000000000000000000000000000000&outputToken=0x0000000000000000000000000000000000000000&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.01",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:49:17Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-across-destination-swap",
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "swapAndBridge / -",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/across-destination-swap.json",
+          "sha256": "be85dfd021d782c8f43e45d552a39c6f531d83767e549753ef112ebcc7399f27",
+          "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=10000000&inputToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&outputToken=0x4200000000000000000000000000000000000006&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.01&appFee=0.0025&appFeeRecipient=0x9899f62ecf16b70bffc88677023026c47e48c218",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:49:14Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-mayan-source-swap-direct-usdc",
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / bridge",
+      "positive": true,
+      "proofs": [
+        {
+          "file": "responses/mayan-source-swap-direct-usdc.json",
+          "sha256": "91bfcb4d00c58ba0b647e757465f00066c5fd2bd84c7d666445951cb985bc2f2",
+          "url": "https://price-api.mayan.finance/v3/quote?wormhole=false&swift=false&mctp=false&fastMctp=true&shuttle=false&gasless=false&onlyDirect=false&fullList=false&monoChain=false&forwarderAddress=0x337685fdab40d39bd02028545a4ffa7d287cc3e2&amountIn=10&fromToken=0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9&fromChain=arbitrum&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&toChain=base&slippageBps=100&destinationAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&sdkVersion=12_2_4&referrer=0x9899f62ecf16b70bffc88677023026c47e48c218&referrerBps=25",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:49:19Z"
+        },
+        {
+          "file": "responses/mayan-source-swap-data.json",
+          "sha256": "cb3036bd2beba1410cee8f96fedcaa462d3367fb7b2a40f6a4f6010a47941330",
+          "url": "https://price-api.mayan.finance/v3/get-swap/evm?forwarderAddress=0x337685fdab40d39bd02028545a4ffa7d287cc3e2&fromToken=0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9&middleToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&slippageBps=100&referrerAddress=0x9899f62ecf16b70bffc88677023026c47e48c218&amountIn64=10000000&chainName=arbitrum&sdkVersion=12_2_4",
+          "status": 200,
+          "retrievedAt": "2026-11-03T15:57:33Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-socket-arbitrum-native-swap-native-alias",
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "swapAndBridge / outboundTransfer",
+      "positive": false,
+      "expectedValidationError": "to_token",
+      "proofs": [
+        {
+          "file": "responses/socket-arbitrum-native-swap-native-alias.json",
+          "sha256": "7f3fd881bab58674ae68cdff500f967f94ec9e9bfa5e0f66e7295e95e2206d82",
+          "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=42161&inputToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputToken=0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&inputAmount=100000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+          "status": 200,
+          "retrievedAt": "2026-11-03T16:01:32Z"
+        }
+      ]
+    },
+    {
+      "id": "discovery-across-destination-dex-5pct",
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "deposit / -",
+      "positive": false,
+      "expectedValidationError": "unsupported destination call",
+      "conditionalOutcomes": [
+        {
+          "condition": "swap-success",
+          "token": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+          "minimum": "147467013112760530532",
+          "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+        },
+        {
+          "condition": "swap-reverts",
+          "token": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "minimum": "99969945",
+          "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "responses/across-destination-dex-5pct.json",
+          "sha256": "0f17014c73d02159991ffb2915125ecfb4b9dc9702c48e05b1ce5747dcaede0e",
+          "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=100000000&inputToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&outputToken=0x940181a94a35a4569e4529a3cdfb74e38fd98631&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.05&appFee=0.0025&appFeeRecipient=0x9899f62ecf16b70bffc88677023026c47e48c218",
+          "status": 200,
+          "retrievedAt": "2026-11-03T16:19:06Z"
+        }
+      ]
+    }
+  ],
+  "correctedHistoricalMinimums": [
+    {
+      "id": "completed-mayan-e5c711564a4bc18bedff8de7c0f0e9f38be4f460298506125d1481a8224b0f91",
+      "file": "completed-20261103/mayan/FASTMCTP.json",
+      "previousOverstatedMinimum": "95824",
+      "minimum": "94626",
+      "referrerBps": 25
+    },
+    {
+      "id": "mayan-FASTMCTP-dfd0200e3ff8e412ccb416f6f4458f7391bcb15a6271e8ccdea8abb60ad89174",
+      "file": "onchain-20261103/mayan/FASTMCTP.json",
+      "previousOverstatedMinimum": "1022391",
+      "minimum": "1009611",
+      "referrerBps": 25
+    }
+  ],
+  "evidence": [
+    {
+      "file": "evidence/across-SpokePool.sol",
+      "sha256": "a30a02a2fc942e83ed404d96affbf495255f2999e3fbccf48e2a6f214a1de6db",
+      "url": "https://github.com/across-protocol/contracts/blob/master/contracts/SpokePool.sol",
+      "verification": "official-repository-source"
+    },
+    {
+      "file": "evidence/centrifuge-TokenBridge.sol",
+      "sha256": "5fab2b1a0dc9e1d0294fdff5db105b28b77ef810fd6e198ef286150f690cdab2",
+      "url": "https://repo.sourcify.dev/1/0x82a6c7753380f98c093b27c53f86ef6b09c40f49",
+      "verification": "deployed-runtime-match"
+    },
+    {
+      "file": "evidence/mayan-FastMCTP.sol",
+      "sha256": "a0997158dc25dadd954f50a1ec13511b94538a216dedbeebe40978d4912453f5",
+      "url": "https://repo.sourcify.dev/42161/0xC1062b7C5Dc8E4b1Df9F200fe360cDc0eD6e7741",
+      "verification": "deployed-runtime-exact-match"
+    },
+    {
+      "file": "evidence/arbitrum-L2WethGateway.sol",
+      "sha256": "107de2e93bfbd361e0de27e582c597019a3e0f9a511e463734cd66fbba27dde7",
+      "url": "https://github.com/OffchainLabs/token-bridge-contracts/blob/main/contracts/tokenbridge/arbitrum/gateway/L2WethGateway.sol",
+      "verification": "official-repository-source"
+    },
+    {
+      "file": "evidence/M0Facet.sol",
+      "sha256": "cbe9e047c0f1b9de12dd3a5e53d41c0f918e90926b290432b3b312ef468442cd",
+      "url": "https://github.com/lifinance/contracts/blob/main/src/Facets/M0Facet.sol",
+      "verification": "official-repository-source-not-a-deployment-proof"
+    },
+    {
+      "file": "evidence/MegaETHBridgeFacet.sol",
+      "sha256": "f5fb49d82a907f039e169e1acc75a3b9395cb1586b597fae763245852b170727",
+      "url": "https://github.com/lifinance/contracts/blob/main/src/Facets/MegaETHBridgeFacet.sol",
+      "verification": "official-repository-source-not-a-deployment-proof"
+    },
+    {
+      "file": "evidence/AllBridgeFacet.sol",
+      "sha256": "ea033653b69d4e4015ee363f5e6bb4c50e105b65690dbf36253869a8711df75a",
+      "url": "https://github.com/lifinance/contracts/blob/main/src/Facets/AllBridgeFacet.sol",
+      "verification": "official-repository-source-not-a-deployment-proof"
+    },
+    {
+      "file": "evidence/GardenFacet.sol",
+      "sha256": "1e882f94bf6dcc0edc400ce3cc334fa00cdd71a7c6cb93ff8b51d46a01cf27f7",
+      "url": "https://github.com/lifinance/contracts/blob/main/src/Facets/GardenFacet.sol",
+      "verification": "official-repository-source-not-a-deployment-proof"
+    },
+    {
+      "file": "evidence/CentrifugeFacet.sol",
+      "sha256": "d86181ffb9c178615d5a8fbd9a943d041d0b2022370a6d7a9d64f0ffb5bda21e",
+      "url": "https://github.com/lifinance/contracts/blob/main/src/Facets/CentrifugeFacet.sol",
+      "verification": "official-repository-source-not-a-deployment-proof"
+    }
+  ],
+  "deploymentVerification": [
+    {
+      "chainId": "42161",
+      "address": "0xC1062b7C5Dc8E4b1Df9F200fe360cDc0eD6e7741",
+      "runtimeMatch": "exact_match",
+      "creationMatch": "exact_match",
+      "verifiedAt": "2025-05-21T22:23:36Z",
+      "compilation": "src/FastMCTP.sol:FastMCTP",
+      "responseSha256": "343204ff23a010c2e9cd281b6e04d1b64696fb7d9ade7604ceacaafba23345b4"
+    },
+    {
+      "chainId": "1",
+      "address": "0x82a6C7753380f98c093B27c53f86ef6b09C40f49",
+      "runtimeMatch": "match",
+      "creationMatch": "match",
+      "verifiedAt": "2026-07-21T15:26:20Z",
+      "compilation": "src/bridge/TokenBridge.sol:TokenBridge",
+      "responseSha256": "491cea8faf060cbc9ce689baa3a6a31070f39af5e2104dfe823e4d852f05ae6b"
+    }
+  ],
+  "requests": {
+    "serialPerProvider": true,
+    "minimumIntervalMs": 2500,
+    "cached": true,
+    "retriesOn429": "backoff; no parallel per-provider requests"
+  },
+  "checks": {
+    "units": 348,
+    "positiveUnits": 341,
+    "expectedRejections": 7,
+    "unexpectedFailures": [],
+    "discoveryUnits": 8,
+    "discoveryPositive": 6,
+    "discoveryRejected": 2,
+    "observedFunctionPaths": 53,
+    "bridgeTypes": 29,
+    "historical46Covered": 46,
+    "fullYarnTest": false,
+    "typecheck": false,
+    "eslint": false,
+    "cycles": false,
+    "httpInReplay": false
+  }
+}

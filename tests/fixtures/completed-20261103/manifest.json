@@ -1,0 +1,367 @@
+{
+  "sourceFile": "bridge_history_completed_2026_11_03.csv",
+  "sourceSha256": "205bbe797026bf7c4a1473df7a697bc2a9663cc117971331e93a492972613e15",
+  "sourceRecords": 48,
+  "retained": 48,
+  "duplicates": 0,
+  "discarded": 0,
+  "calldataUnits": 28,
+  "providerUnits": 20,
+  "providerRequests": {
+    "relay": 10,
+    "socket": 6,
+    "layerswap": 4
+  },
+  "rpcNewCalls": 21,
+  "paths": 11,
+  "units": [
+    {
+      "id": "completed-socket-f72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+      "csvRow": 3,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "txHash": "0xf72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e"
+    },
+    {
+      "id": "completed-mayan-cd926a2de9361104419958d7b48cf84d7f0e0bdd018f20cf43b3e35c42e650e2",
+      "csvRow": 4,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xcd926a2de9361104419958d7b48cf84d7f0e0bdd018f20cf43b3e35c42e650e2"
+    },
+    {
+      "id": "completed-socket-4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+      "csvRow": 5,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "txHash": "0x4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911"
+    },
+    {
+      "id": "completed-mayan-a46daffd350ca0969b9ee4e9613a89d8674b45f3b3daa1a17abba36fd7659e31",
+      "csvRow": 6,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xa46daffd350ca0969b9ee4e9613a89d8674b45f3b3daa1a17abba36fd7659e31"
+    },
+    {
+      "id": "completed-mayan-e5c711564a4bc18bedff8de7c0f0e9f38be4f460298506125d1481a8224b0f91",
+      "csvRow": 7,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xe5c711564a4bc18bedff8de7c0f0e9f38be4f460298506125d1481a8224b0f91"
+    },
+    {
+      "id": "completed-mayan-76518a7a747188b3b1ba7ac0bba6aca4c020b6aea8e7808f9317bf8e2477acb2",
+      "csvRow": 8,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0x76518a7a747188b3b1ba7ac0bba6aca4c020b6aea8e7808f9317bf8e2477acb2"
+    },
+    {
+      "id": "completed-mayan-e016d8fb756fff4b8224f8961e43a436c095a1fa359a661546ea862f8cf497d1",
+      "csvRow": 9,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xe016d8fb756fff4b8224f8961e43a436c095a1fa359a661546ea862f8cf497d1"
+    },
+    {
+      "id": "completed-mayan-3ab8cb4a49563cabd3170738727622dddcc0e3828d0a336a2ad81a43edbefed4",
+      "csvRow": 11,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0x3ab8cb4a49563cabd3170738727622dddcc0e3828d0a336a2ad81a43edbefed4"
+    },
+    {
+      "id": "completed-across-76d65e9ee6d38c4153cccec5d23efb34838b04b551c2c5588cec646222f7f2c3",
+      "csvRow": 15,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x76d65e9ee6d38c4153cccec5d23efb34838b04b551c2c5588cec646222f7f2c3"
+    },
+    {
+      "id": "completed-across-6a1597519f988658271f1f567a2e73f35d15ff988b5be3ac00c5e1f5c0e79dc3",
+      "csvRow": 18,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x6a1597519f988658271f1f567a2e73f35d15ff988b5be3ac00c5e1f5c0e79dc3"
+    },
+    {
+      "id": "completed-mayan-2fcd854ad2d55462f592a359538b2ff70d1a7b6967a899193b9ee86f1b3ba596",
+      "csvRow": 19,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0x2fcd854ad2d55462f592a359538b2ff70d1a7b6967a899193b9ee86f1b3ba596"
+    },
+    {
+      "id": "completed-across-1a8792608b103f683d3e1efb80799f31d572a242db408c35d24e9ea076896bb3",
+      "csvRow": 20,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x1a8792608b103f683d3e1efb80799f31d572a242db408c35d24e9ea076896bb3"
+    },
+    {
+      "id": "completed-mayan-c8438682207c2130caa610739a53981e17a479f8f50bf704f42bb57c8e4ef1f9",
+      "csvRow": 21,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xc8438682207c2130caa610739a53981e17a479f8f50bf704f42bb57c8e4ef1f9"
+    },
+    {
+      "id": "completed-socket-fee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+      "csvRow": 22,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "txHash": "0xfee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d"
+    },
+    {
+      "id": "completed-socket-bf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+      "csvRow": 23,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "txHash": "0xbf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466"
+    },
+    {
+      "id": "completed-socket-4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+      "csvRow": 28,
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "txHash": "0x4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da"
+    },
+    {
+      "id": "completed-mayan-da7d1f2069da4afac0acc5235db9574092e202930c522b00b26da9f834527534",
+      "csvRow": 31,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0xda7d1f2069da4afac0acc5235db9574092e202930c522b00b26da9f834527534"
+    },
+    {
+      "id": "completed-across-5b5d8242a9c3d7db242a5f157e25fd9c3edcf15ca4f2c21f219cbd58356c0a59",
+      "csvRow": 36,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x5b5d8242a9c3d7db242a5f157e25fd9c3edcf15ca4f2c21f219cbd58356c0a59"
+    },
+    {
+      "id": "completed-across-2b1309abafddf965afba4233b8d7a9b54d991d15fbc60722e4d809c9172030c6",
+      "csvRow": 37,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x2b1309abafddf965afba4233b8d7a9b54d991d15fbc60722e4d809c9172030c6"
+    },
+    {
+      "id": "completed-lifi-fde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace",
+      "csvRow": 40,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "txHash": "0xfde52262671a9c4e9fdb797499d60d0907eda2aa8f6ad6f6fee7a2fd08900ace"
+    },
+    {
+      "id": "completed-across-25097292ceb57c7bc60be00a31020df24862b386cb4c63681c1d839850f0a367",
+      "csvRow": 41,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x25097292ceb57c7bc60be00a31020df24862b386cb4c63681c1d839850f0a367"
+    },
+    {
+      "id": "completed-across-4f5fdfeebe1abad91edcdfce0193cb9938ba2dfe637fb2d04542ca50a310ec85",
+      "csvRow": 42,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x4f5fdfeebe1abad91edcdfce0193cb9938ba2dfe637fb2d04542ca50a310ec85"
+    },
+    {
+      "id": "completed-across-c4dab8bbe3b7d23cbb4b6d16ebfb897de8987a4972d366cbdefe65545b35a869",
+      "csvRow": 43,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0xc4dab8bbe3b7d23cbb4b6d16ebfb897de8987a4972d366cbdefe65545b35a869"
+    },
+    {
+      "id": "completed-across-4732e20de0436ca5a0665253627d575910a17e393d2cc50e8aebd75f25042afe",
+      "csvRow": 44,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x4732e20de0436ca5a0665253627d575910a17e393d2cc50e8aebd75f25042afe"
+    },
+    {
+      "id": "completed-across-ef3634d969decc3ed7039eb1cc7e43da7b391c6f48ad7ee7e367c4c76b8636d3",
+      "csvRow": 45,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0xef3634d969decc3ed7039eb1cc7e43da7b391c6f48ad7ee7e367c4c76b8636d3"
+    },
+    {
+      "id": "completed-mayan-280f17269d411143314419739a341d8767a6533270dcfa33521506baeacba8c7",
+      "csvRow": 46,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0x280f17269d411143314419739a341d8767a6533270dcfa33521506baeacba8c7"
+    },
+    {
+      "id": "completed-across-9536751c6f9b0d485a319cc947a28ae700f4a50bf2a3c5ce3bd3c05e7c96fe5f",
+      "csvRow": 47,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x9536751c6f9b0d485a319cc947a28ae700f4a50bf2a3c5ce3bd3c05e7c96fe5f"
+    },
+    {
+      "id": "completed-across-130900a1630ca65c4ee1977dc4d06044244ddf5b7b5ff3482df0a48134d6ab3b",
+      "csvRow": 48,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x130900a1630ca65c4ee1977dc4d06044244ddf5b7b5ff3482df0a48134d6ab3b"
+    },
+    {
+      "id": "completed-relay-93bdd3d2bcda6cfe664db9dd527d313e7f8e87831bd2d33665a09beb387bc523",
+      "csvRow": 10,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x93bdd3d2bcda6cfe664db9dd527d313e7f8e87831bd2d33665a09beb387bc523"
+    },
+    {
+      "id": "completed-relay-31436d8d805547c986fb81312da984f9293d460d2ac14eb04c952c72a8294c8e",
+      "csvRow": 12,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x31436d8d805547c986fb81312da984f9293d460d2ac14eb04c952c72a8294c8e"
+    },
+    {
+      "id": "completed-relay-19956524b3ecca5258eb2f10934931ebc2a791c6882386ce9711dcdb6d638cff",
+      "csvRow": 13,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x19956524b3ecca5258eb2f10934931ebc2a791c6882386ce9711dcdb6d638cff"
+    },
+    {
+      "id": "completed-socket-818d6b3649697026f3718731e5dfe9104d6f5a81e2242dfa9ffbb18418d2f69c",
+      "csvRow": 14,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0x818d6b3649697026f3718731e5dfe9104d6f5a81e2242dfa9ffbb18418d2f69c"
+    },
+    {
+      "id": "completed-relay-3ecbbfa2c0bb7d1088e2df9ed879f5e3eff4533404a30efee7712086ab7f83dc",
+      "csvRow": 16,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x3ecbbfa2c0bb7d1088e2df9ed879f5e3eff4533404a30efee7712086ab7f83dc"
+    },
+    {
+      "id": "completed-layerswap-6b8775805c05e9dd8b4230984b33c3a79500d66e49eebc3ffaee4e0fd92c3164",
+      "csvRow": 17,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "txHash": "0x6b8775805c05e9dd8b4230984b33c3a79500d66e49eebc3ffaee4e0fd92c3164"
+    },
+    {
+      "id": "completed-socket-dbfe2d25d79952cdd8a0839666dec568c645e7b40727339fcfb1e387afa7dfe8",
+      "csvRow": 2,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0xdbfe2d25d79952cdd8a0839666dec568c645e7b40727339fcfb1e387afa7dfe8"
+    },
+    {
+      "id": "completed-socket-67e5c5cbaad8e529504ece992e84fa837176f1d145ebe8bce51261d8edbaa492",
+      "csvRow": 24,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0x67e5c5cbaad8e529504ece992e84fa837176f1d145ebe8bce51261d8edbaa492"
+    },
+    {
+      "id": "completed-socket-666e61a8c24268789ffa1fa5d895eace1dd24a305bbaab368585fd15c08f0583",
+      "csvRow": 25,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0x666e61a8c24268789ffa1fa5d895eace1dd24a305bbaab368585fd15c08f0583"
+    },
+    {
+      "id": "completed-relay-336a716154fea7ae0c7da24edb34aab12de3b711d005541fa0a32822cc16bbba",
+      "csvRow": 26,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x336a716154fea7ae0c7da24edb34aab12de3b711d005541fa0a32822cc16bbba"
+    },
+    {
+      "id": "completed-socket-4c9f39ee6805e467362cd7625634fbf1b71e6b67fcf72789b63c5e837df0ffdf",
+      "csvRow": 27,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0x4c9f39ee6805e467362cd7625634fbf1b71e6b67fcf72789b63c5e837df0ffdf"
+    },
+    {
+      "id": "completed-layerswap-d590a6cfada5fa34f290eca5a91d1a3ee68c6c6558d71b7e3a70d5ecb6bb3afc",
+      "csvRow": 29,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "txHash": "0xd590a6cfada5fa34f290eca5a91d1a3ee68c6c6558d71b7e3a70d5ecb6bb3afc"
+    },
+    {
+      "id": "completed-layerswap-5b942fad621c099a054467907fcda13aa820634e8b1aa53ec6650a01c333882b",
+      "csvRow": 30,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "txHash": "0x5b942fad621c099a054467907fcda13aa820634e8b1aa53ec6650a01c333882b"
+    },
+    {
+      "id": "completed-relay-405627825457004dd60b30ead87430edbaaf24eb6baa53acd98f63f3cb0c379a",
+      "csvRow": 32,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x405627825457004dd60b30ead87430edbaaf24eb6baa53acd98f63f3cb0c379a"
+    },
+    {
+      "id": "completed-relay-2345509de9d9c28818dc22206721d7616686c71c90639d46075b15224cc8a7c6",
+      "csvRow": 33,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x2345509de9d9c28818dc22206721d7616686c71c90639d46075b15224cc8a7c6"
+    },
+    {
+      "id": "completed-layerswap-3835dee70f6e903b80614b21a913a773ab140f571b09bc281f6040df2c8428b3",
+      "csvRow": 34,
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "txHash": "0x3835dee70f6e903b80614b21a913a773ab140f571b09bc281f6040df2c8428b3"
+    },
+    {
+      "id": "completed-relay-459def284f14bde4fe7e41de166b52acc5e3421a4710433a12274af615284052",
+      "csvRow": 35,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x459def284f14bde4fe7e41de166b52acc5e3421a4710433a12274af615284052"
+    },
+    {
+      "id": "completed-socket-07247be11eaf3355625ffea2a446246adb429949865df7f312c567a1d860fbca",
+      "csvRow": 38,
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "txHash": "0x07247be11eaf3355625ffea2a446246adb429949865df7f312c567a1d860fbca"
+    },
+    {
+      "id": "completed-relay-4f0209df3a1e18fdeeb8bd5646977627ddb22c818d3ccd302010f590eda72c87",
+      "csvRow": 39,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x4f0209df3a1e18fdeeb8bd5646977627ddb22c818d3ccd302010f590eda72c87"
+    },
+    {
+      "id": "completed-relay-53645a9bc18ccda2b8fde239211bd1bd029c95bab5705ca986e31efaec3c351e",
+      "csvRow": 49,
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "txHash": "0x53645a9bc18ccda2b8fde239211bd1bd029c95bab5705ca986e31efaec3c351e"
+    }
+  ],
+  "fiveFieldReplayPassed": 47,
+  "expectedRejections": [
+    {
+      "csvRow": 30,
+      "provider": "layerswap",
+      "reason": "min_receive",
+      "requiredMinimum": "212110000000000",
+      "providerMinimum": "212080000000000"
+    }
+  ],
+  "httpInTests": false,
+  "jestRun": false
+}

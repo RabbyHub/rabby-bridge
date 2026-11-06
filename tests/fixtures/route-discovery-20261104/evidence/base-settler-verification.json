@@ -1,0 +1,19 @@
+{
+  "chainId": "8453",
+  "address": "0x7d6839415693801E94cDC4A7d732C9a3FDBbd1D7",
+  "matchId": "55837950",
+  "runtimeMatch": "match",
+  "creationMatch": "match",
+  "verifiedAt": "2026-10-23T15:44:08Z",
+  "sourceUrl": "https://sourcify.dev/server/v2/contract/8453/0x7d6839415693801E94cDC4A7d732C9a3FDBbd1D7?fields=compilation,sources",
+  "contract": "src/flat/BaseTakerSubmittedFlat.sol:BaseSettler",
+  "sourceSha256": "cf3079a41dd100938326d5c6e898d852db46492de5b4091adc5ece4602ee7852",
+  "reviewedAt": "2026-11-05",
+  "reviewedSemantics": [
+    "execute performs _checkSlippageAndTransfer after all actions",
+    "recipient must be the configured Across Handler; nonzero buyToken and positive minAmountOut enforce payout",
+    "TRANSFER_FROM funding must match the exact AllowanceHolder token and amount; empty signature",
+    "BASIC, UNISWAPV3 and POSITIVE_SLIPPAGE do not modify slippage; all other subsequent actions remain unsupported"
+  ],
+  "limit": "Only this Base deployment is recognized; new Settler addresses require separate source review. No runtime network or RPC lookups."
+}

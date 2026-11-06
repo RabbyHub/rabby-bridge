@@ -1,0 +1,73 @@
+[
+  {
+    "path": "socket:oft:bridge / send",
+    "units": 5,
+    "fiveFieldValidationPassed": 5,
+    "expectedRejections": []
+  },
+  {
+    "path": "mayan:FASTMCTP:swapAndForwardEth / createOrder",
+    "units": 7,
+    "fiveFieldValidationPassed": 7,
+    "expectedRejections": []
+  },
+  {
+    "path": "mayan:FASTMCTP:forwardERC20 / bridge",
+    "units": 1,
+    "fiveFieldValidationPassed": 1,
+    "expectedRejections": []
+  },
+  {
+    "path": "mayan:FASTMCTP:forwardERC20 / createOrder",
+    "units": 2,
+    "fiveFieldValidationPassed": 2,
+    "expectedRejections": []
+  },
+  {
+    "path": "across:across:deposit / -",
+    "units": 8,
+    "fiveFieldValidationPassed": 8,
+    "expectedRejections": []
+  },
+  {
+    "path": "across:across:swapAndBridge / -",
+    "units": 4,
+    "fiveFieldValidationPassed": 4,
+    "expectedRejections": []
+  },
+  {
+    "path": "lifi:lifiIntents:swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -",
+    "units": 1,
+    "fiveFieldValidationPassed": 1,
+    "expectedRejections": []
+  },
+  {
+    "path": "relay:relay:depositErc20 / -",
+    "units": 6,
+    "fiveFieldValidationPassed": 6,
+    "expectedRejections": []
+  },
+  {
+    "path": "socket:rfq-vault-executor:swapAndBridge / receiveERC20",
+    "units": 6,
+    "fiveFieldValidationPassed": 6,
+    "expectedRejections": []
+  },
+  {
+    "path": "relay:relay:depositNative / -",
+    "units": 4,
+    "fiveFieldValidationPassed": 4,
+    "expectedRejections": []
+  },
+  {
+    "path": "lifi:layerswap:swapAndStartBridgeTokensViaLayerSwap / -",
+    "units": 4,
+    "fiveFieldValidationPassed": 3,
+    "expectedRejections": [
+      {
+        "csvRow": 30,
+        "reason": "min_receive"
+      }
+    ]
+  }
+]
