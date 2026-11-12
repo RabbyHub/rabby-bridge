@@ -438,3 +438,40 @@ describe('Arc contract validation', () => {
     )).toThrow(InvalidBridgeContractError);
   });
 });
+
+describe('Elysium routes', () => {
+  const depository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
+  const nativeRouter = '0x0729e2a4716d9f7dd17858d5d504426d228697f7';
+
+  test.each([
+    ['elysium', 'hyper', depository, depository, '0x0'],
+    ['ELYSIUM', 'hyper', undefined, nativeRouter.toUpperCase(), '0x1'],
+    ['elysium', 'hyper', nativeRouter, nativeRouter, '0x1'],
+    ['hyper', 'Elysium', depository, depository, '0x0'],
+  ])('accepts Relay %s → %s via %s / %s', async (fromChainId, toChainId, spender, router, value) => {
+    const quote = makeQuote({ approve_contract_id: spender });
+    const tx = makeTx({ to: router, value });
+    const api = {
+      getBridgeQuoteListV2: jest.fn().mockResolvedValue([quote]),
+      buildBridgeTx: jest.fn().mockResolvedValue(tx),
+    };
+
+    await expect(getQuoteListWithTx(
+      BRIDGE_ENUM.RELAY,
+      { ...baseParams, fromChainId, toChainId },
+      api
+    )).resolves.toEqual([{ ...quote, tx }]);
+    expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);
+    expect(api.buildBridgeTx).toHaveBeenCalledTimes(1);
+  });
+
+  test('rejects unknown Relay spender and router contracts', () => {
+    expect(() => validateBridgeQuote(
+      BRIDGE_ENUM.RELAY, 'elysium', makeQuote({ approve_contract_id: '0xdeadbeef' })
+    )).toThrow(InvalidBridgeContractError);
+    expect(() => validateBridgeTx(
+      BRIDGE_ENUM.RELAY, 'elysium', 'bridge-1', makeTx({ to: '0xdeadbeef' })
+    )).toThrow(InvalidBridgeContractError);
+  });
+
+});

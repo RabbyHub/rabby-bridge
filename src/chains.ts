@@ -37,6 +37,7 @@ export const EXTRA_CHAINS = [
   'ZIRCUIT',
   'HOOD',
   'ARC',
+  'ELYSIUM',
 ] as const;
 
 export type ExtraChainEnum = (typeof EXTRA_CHAINS)[number];
@@ -102,6 +103,7 @@ export const SERVER_ID_TO_CHAIN_ENUM = {
   zircuit: 'ZIRCUIT' as ChainEnum,
   hood: 'HOOD' as ChainEnum,
   arc: 'ARC' as ChainEnum,
+  elysium: 'ELYSIUM' as ChainEnum,
   zora: CHAINS_ENUM.ZORA,
 } as const satisfies Record<string, ChainEnum>;
 
