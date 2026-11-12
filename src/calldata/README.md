@@ -100,8 +100,7 @@ every supported route, including CCTP; RFQ additionally requires the vault's
 `receiveERC20` / `receiveNative` ID to match the outer ID even without a quote key.
 Relay multicall/permit routes compare the key's `requestId` with decoded metadata.
 When `build_tx` returns `order_data` alongside the transaction, Relay additionally
-checks its order hash, payment recipients and refund recipients. Once the order
-and funding are verified, its destination chain, currency and `minimumAmount`
+checks its order hash, payment recipients and refund recipients. Once the order hash and addresses are verified, its destination chain, currency and `minimumAmount`
 are compared with the local intent using the same 95% receive floor described
 above; a higher minimum is allowed. The expected destination chain and selected
 raw quote amount are required for these checks. An unrecognized expected chain ID
@@ -114,12 +113,13 @@ allowlisted depository, never from metadata or signature bytes. Missing, ambiguo
 or unsupported deposits report `BRIDGE_MISSING_RELAY_ORDER_ID` when order data is
 supplied. Missing order data is rejected by default. Historical replay tests can
 opt out with `allowMissingRelayOrder`; production callers must leave it unset.
-Receiver verification also requires funding the order's single source payment
-with the matching chain, token and amount. Explicit direct deposits and simple
-v3.2 Multicalls with at most one deposit approval are supported. Swap/permit flows,
-unknown preceding calls and allowance-only direct deposits remain unverified and
-report `BRIDGE_UNVERIFIED_RELAY_FUNDING` when order data is supplied. A correct hash
-in a zero-balance cleanup is not evidence that the order received funds.
+Relay order verification checks the calldata order hash, payment/refund addresses,
+and known depository/cleanup router addresses. It does not compare the order's
+source payment chain, token or amount with the deposit, or prove that intermediate
+swaps funded the order. Source-swap routes may therefore pass without a verified
+`bridgeAmount`. `receiverPass: true` verifies the order's committed recipient,
+not actual funding or delivery. The ordinary source payment checks against local
+intent and destination chain/token/minimum comparisons remain in force.
 Socket/Relay backend cache keys use `providerId:cacheUUID`; only the bytes32
 provider prefix is compared. Direct callers can supply the same `quoteKey` in the
 expectation passed to `validateBridgeCalldata` / `validateBridgeTx`.

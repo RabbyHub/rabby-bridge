@@ -70,41 +70,38 @@ describe('receiver check policy', () => {
     expect(changed.errors[0].pass).toBe(false);
   });
 
-  test.each(['zero', 'one'])('does not verify an order after the input was drained, leaving %s unit', (left) => {
+  test.each(['zero', 'one'])('verifies order addresses without claiming funding after input was drained to %s unit', (left) => {
     const remaining = left === 'zero' ? 0n : 1n;
     const amount = BigInt(relay.params.fromTokenRawAmount);
     const drain = '0xa9059cbb' + word(`0x${other}`) + word(amount - remaining);
     const inner = '0xe8017952' + word(relay.params.userAddress) + word(relay.params.fromTokenId) +
       word(remaining || amount) + goodOrderId.slice(2);
     const tx = multicallTx([call(drain, relay.params.fromTokenId), call(cleanupErc20(inner), router)]);
-    const checked = expectCalldataError(() => validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, relayIntent));
-    expect(codes(checked)).toContain('BRIDGE_UNVERIFIED_RELAY_FUNDING');
-    expect(checked.errors[0]).toMatchObject({ pass: false, fromPass: true, receiverPass: false });
-    expect(checked.errors.every((error) => error.blocking === true)).toBe(true);
+    const checked = validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, relayIntent);
+    expect(checked).toMatchObject({ pass: true, fromPass: true, receiverPass: true, errors: [] });
+    expect(decodeBridgeCalldata('relay', tx).bridgeAmount).toBeUndefined();
   });
 
-  test.each(['amount', 'currency', 'chainId'])('binds direct deposit to order input %s even when the hash matches', (field) => {
+  test.each(['amount', 'currency', 'chainId'])('does not compare order input %s when checking order addresses', (field) => {
     const order = structuredClone(orderData);
     order.inputs[0].payment[field] = { amount: '1', currency: `0x${other}`, chainId: 'bnb' }[field];
     const tx = { ...relay.tx, data: deposit(hashOrder(order)) };
-    const checked = expectCalldataError(() => validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, { ...relayIntent, orderData: order }));
-    expect(codes(checked)).not.toContain('BRIDGE_RELAY_ORDER_HASH_MISMATCH');
-    expect(codes(checked)).toContain('BRIDGE_RELAY_SOURCE_PAYMENT_MISMATCH');
-    expect(checked.errors[0].receiverPass).toBe(false);
+    expect(validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, { ...relayIntent, orderData: order }))
+      .toMatchObject({ pass: true, receiverPass: true, errors: [] });
   });
 
   test('does not infer a direct allowance-based deposit amount from order data', () => {
     const tx = { ...relay.tx, data: '0x5a1ee3ac' + word(relay.params.userAddress) +
       word(relay.params.fromTokenId) + goodOrderId.slice(2) };
     const checked = expectCalldataError(() => validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, relayIntent));
-    expect(codes(checked)).toContain('BRIDGE_UNVERIFIED_RELAY_FUNDING');
-    expect(checked.errors[0].receiverPass).toBe(false);
+    expect(codes(checked)).toContain('BRIDGE_UNVERIFIED_BRIDGE_FIELDS');
+    expect(checked.errors[0].receiverPass).toBe(true);
   });
 
   test('requires cleanup to run on the Router actually funded by the ApprovalProxy', () => {
     const tx = multicallTx([call(cleanupErc20(deposit(goodOrderId)), '0x6328ea02d28131e58b28e55c6258258a30d90e05')]);
     const checked = expectCalldataError(() => validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, relayIntent));
-    expect(codes(checked)).toContain('BRIDGE_UNVERIFIED_RELAY_FUNDING');
+    expect(codes(checked)).toContain('BRIDGE_RELAY_CANONICAL_DEPOSITORY_MISMATCH');
     expect(checked.errors[0].receiverPass).toBe(false);
   });
 

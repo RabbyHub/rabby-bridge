@@ -140,26 +140,19 @@ describe('Relay destination terms are bound to local intent', () => {
     expect(onError.mock.calls[0][0].errors[0].error_code).toBe('BRIDGE_MIN_RECEIVE_MISMATCH');
   });
 
-  test('captured orders keep their existing funding failures and verify supported destinations', () => {
+  test('captured orders verify bound destination terms without requiring funding analysis', () => {
     const cases = read('providers/history-20261103/cases.json').filter((item) => item.aggregatorId === 'relay');
-    let verified = 0, fundingFailures = 0;
+    let verified = 0;
     for (const item of cases) {
       const response = read('providers/history-20261103/' + item.providerHistory.responseFile);
       const order = response.requests.find((row) => row.data.inTxs.some((tx) => tx.hash.toLowerCase() === item.txHash.toLowerCase())).orderData;
       const expected = { userAddress: item.tx.from, fromTokenId: item.expected.sourceToken,
         fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey, toTokenId: item.expected.outputToken,
         toTokenRawAmount: item.expected.expectedOutputAmount ?? item.expected.minOutputAmount, slippage: '0.01', orderData: order };
-      let check, failure;
-      try { check = validateBridgeTx('relay', item.chainKey, 'relay', item.tx, expected); }
-      catch (error) { failure = error; }
-      if (failure) {
-        expect(failure.errors.map((error) => error.error_code)).toEqual(['BRIDGE_UNVERIFIED_RELAY_FUNDING']);
-        fundingFailures++;
-      } else {
-        expect(check).toMatchObject({ pass: true, toPass: true, receiverPass: true, unverifiedFields: [] });
-        verified++;
-      }
+      const check = validateBridgeTx('relay', item.chainKey, 'relay', item.tx, expected);
+      expect(check).toMatchObject({ pass: true, toPass: true, receiverPass: true, unverifiedFields: [] });
+      verified++;
     }
-    expect({ verified, fundingFailures }).toEqual({ verified: 50, fundingFailures: 10 });
+    expect(verified).toBe(60);
   });
 });

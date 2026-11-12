@@ -66,7 +66,7 @@ export const nestedRelayOrder = (
     if (!method || (nativeCleanup && method !== depositNative) || (token && method === depositNative)) return undefined;
     const parsed = method.decode(data, value);
     if (isZeroWord(parsed.orderId) || (token && token !== parsed.sourceToken)) return undefined;
-    const result = { orderId: parsed.orderId, depositor: parsed.depositor, innerTarget: target };
+    const result = { orderId: parsed.orderId, depositor: parsed.depositor, innerTarget: target, bridgeReceiver: wrapper };
     if (!funding || funding.amount <= 0n || funding.token !== parsed.sourceToken) return result;
     // shortcut: only one approval before deposit; add funding analysis before supporting swaps/other calls.
     const prefix = calls.slice(0, -1);

@@ -2,7 +2,6 @@ import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import type { BridgeErrorDefinition } from '../errors/index.js';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { getBridgeRouter } from '../list.js';
-import { evmChainId } from '../calldata/chains.js';
 import { decodeBridgeCalldataResult } from '../calldata/index.js';
 import { asBigint, asString, decodeCall } from '../calldata/abi.js';
 import type { ParsedBridgeCall } from '../calldata/types.js';
@@ -129,7 +128,7 @@ const relayOrderMetadata = (): RelayChain[] => Object.entries(RELAY_EVM_CHAIN_ID
   protocolId, evmId, depository: '0x0000000000000000000000000000000000000000',
 }));
 
-/** Verify the order and its funding before exposing its committed destination fields. */
+/** Bind destination addresses and terms to the calldata order hash, without proving funding. */
 export const verifyRelayOrder = (
   orderData: unknown, parsed: ParsedBridgeCall, fromChainId: string, userAddress: string, target: string
 ): BridgeErrorDefinition[] => {
@@ -150,18 +149,10 @@ export const verifyRelayOrder = (
     errors.push(BRIDGE_ERRORS.UNSUPPORTED_RELAY_ORDER_SHAPE);
   }
   const direct = ['depositNative', 'depositErc20'].includes(parsed.method);
-  const token = direct ? parsed.sourceToken : parsed.bridgeToken;
-  const amount = direct ? parsed.sourceAmount : parsed.bridgeAmount;
-  const fundingRouter = relayFundingRouter(parsed.method, target.toLowerCase());
-  if (!token || amount === undefined || amount <= 0n ||
-      (direct && target.toLowerCase() !== getBridgeRouter('relay', fromChainId)) || (!direct &&
-      (!fundingRouter || (parsed.bridgeReceiver !== undefined && parsed.bridgeReceiver !== fundingRouter)))) {
-    errors.push(BRIDGE_ERRORS.UNVERIFIED_RELAY_FUNDING);
-  } else if (order.inputs.length !== 1 ||
-      (evmChainId(fromChainId) !== undefined &&
-        RELAY_EVM_CHAIN_IDS[order.inputs[0].payment.chainId] !== evmChainId(fromChainId)) ||
-      order.inputs[0].payment.currency !== token || BigInt(order.inputs[0].payment.amount) !== amount) {
-    errors.push(BRIDGE_ERRORS.RELAY_SOURCE_PAYMENT_MISMATCH);
+  if ((direct && target.toLowerCase() !== getBridgeRouter('relay', fromChainId)) ||
+      (parsed.bridgeReceiver !== undefined &&
+        parsed.bridgeReceiver !== relayFundingRouter(parsed.method, target.toLowerCase()))) {
+    errors.push(BRIDGE_ERRORS.RELAY_CANONICAL_DEPOSITORY_MISMATCH);
   }
   if (errors.length === 0) {
     const output = order.output.payments[0];
