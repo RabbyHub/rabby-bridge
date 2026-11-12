@@ -11,8 +11,8 @@ import {
   validateBridgeCalldata,
   validateBridgeTx,
 } from '../dist/index.js';
-import { loadProviderTransactions, loadTransactions } from './calldata/load-transactions.js';
-import { expectCalldataError } from './assert-validation-error.js';
+import { loadProviderTransactions, loadTransactions } from './helpers/fixtures.js';
+import { expectCalldataError } from './helpers/assert-validation-error.js';
 
 // API wiring uses real calldata; parsing expectations are covered in tests/calldata.
 const sample = loadTransactions('lifi')[0];

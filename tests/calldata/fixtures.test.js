@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { readFileSync } from 'node:fs';
 import { decodeBridgeCalldata } from '../../dist/index.js';
-import { loadBridgeCases, loadQuoteTransactions, loadTransactions, manifest } from './load-transactions.js';
+import { loadBridgeCases, loadQuoteTransactions, loadTransactions, manifest } from '../helpers/fixtures.js';
 
 const transactions = loadTransactions();
 const completeCases = loadBridgeCases();
@@ -13,7 +13,7 @@ const TAGS = {
   socket: 'Socket',
 };
 
-describe('20261102 onchain bridge fixture integrity', () => {
+describe('onchain bridge fixture integrity', () => {
   test('retains only complete transactions with five explicit expected fields', () => {
     expect(transactions).toHaveLength(154);
     expect(manifest.sampleCount).toBe(154);
@@ -32,7 +32,7 @@ describe('20261102 onchain bridge fixture integrity', () => {
   });
 
   test('tracks every positive fixture function instead of silently counting only the old baseline', () => {
-    const baseline = JSON.parse(readFileSync(new URL('../fixtures/coverage-baseline.json', import.meta.url)));
+    const baseline = JSON.parse(readFileSync(new URL('../fixtures/coverage/baseline.json', import.meta.url)));
     const known = new Set(baseline.paths.map((item) => `${item.aggregatorId}:${item.bridgeId}:${item.method}`));
     const observed = new Set(completeCases.filter((item) => !item.expectedValidationError).map((item) => {
       const parsed = decodeBridgeCalldata(item.aggregatorId, item.tx);

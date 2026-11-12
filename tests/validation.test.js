@@ -4,7 +4,7 @@ import {
   BRIDGE_ERRORS, InvalidBridgeContractError, InvalidBridgeCalldataError, toBridgeErrorReport,
   buildTx, getQuote, getQuoteListWithTx, getBridgeRouter, validateBridgeCalldata, validateBridgeQuote, validateBridgeTx,
 } from '../dist/index.js';
-import { expectCalldataError } from './assert-validation-error.js';
+import { expectCalldataError } from './helpers/assert-validation-error.js';
 
 const user = '0x1111111111111111111111111111111111111111';
 const input = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
@@ -16,7 +16,7 @@ const params = { userAddress: user, fromChainId: 'eth', fromTokenId: input,
 const tx = { from: user, to: getBridgeRouter('across', 'eth'), value: '0x0', chainId: 1,
   data: '0xea86bd46' + [user, user, input, output, 10000000, 9900000, 8453, 0, 1800, 0, 352, 0]
     .map((value) => BigInt(value).toString(16).padStart(64, '0')).join('') };
-const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}-20261103.json`, import.meta.url)));
+const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}.json`, import.meta.url)));
 const failures = (onError) => onError.mock.calls.flatMap(([report]) => report.errors);
 
 describe('transaction validation always enforces required checks', () => {
@@ -44,8 +44,8 @@ describe('transaction validation always enforces required checks', () => {
 
   test('accepts the Mayan eight-decimal source truncation', () => {
     const item = JSON.parse(readFileSync(new URL(
-      './fixtures/coverage-completion-20261103/mayan/FASTMCTP.json', import.meta.url
-    )))[0];
+      './fixtures/onchain/mayan/FASTMCTP.json', import.meta.url
+    ))).find((item) => item.id === 'coverage-mayan-2cef5bff8159af71cdea8812706eda55ebf57cd57f98f6ebb190bd816783e386');
     expect(validateBridgeTx('mayan', item.chainKey, item.bridgeId, item.tx, {
       userAddress: item.tx.from, fromTokenId: item.quote.from_token.id,
       fromTokenRawAmount: '23974181697083003', toChainId: item.toChainKey,
@@ -207,7 +207,7 @@ describe('transaction validation always enforces required checks', () => {
   });
 
   test('reports an unknown destination path without losing its verified source', () => {
-    const data = JSON.parse(readFileSync(new URL('./fixtures/route-discovery-20261104/cases.json', import.meta.url)))
+    const data = JSON.parse(readFileSync(new URL('./fixtures/quotes/routes/cases.json', import.meta.url)))
       .find((item) => item.id === 'discovery-across-destination-dex-5pct');
     const sourceTx = { ...data.tx, data: data.tx.data.replace('38c9c147', 'deadbeef') };
     const onError = jest.fn();
@@ -234,7 +234,7 @@ describe('transaction validation always enforces required checks', () => {
   });
 
   test.each(['relay', 'socket'])('%s uses backend results without touching a legacy provider client', async (provider) => {
-    const data = fixture(provider === 'relay' ? 'relay-v2' : 'socket-v3');
+    const data = fixture(provider === 'relay' ? 'relay/quote-v2' : 'socket/quote-v3');
     const sourceTx = provider === 'relay' ? data.tx : data.cases[0].tx;
     const bridgeId = provider === 'relay' ? 'relay' : data.cases[0].bridgeId;
     const quote = { bridge_id: bridgeId, quote_key: { quote_id: 'backend-selection' }, to_token_raw_amount_hex_str: '0x100' };
@@ -253,7 +253,7 @@ describe('transaction validation always enforces required checks', () => {
   });
 
   test('LayerSwap performs no external lookup', async () => {
-    const data = fixture('layerswap-pending');
+    const data = fixture('layerswap/pending');
     const providerClient = { captureContext: jest.fn(), verifyLayerSwapTx: jest.fn() };
     const onError = jest.fn();
     const intent = { userAddress: data.tx.from, fromChainId: 'eth', fromTokenId: data.expected.sourceToken,
@@ -269,7 +269,7 @@ describe('transaction validation always enforces required checks', () => {
   });
 
   test('throwing reporters cannot veto skipped checks', async () => {
-    const data = fixture('relay-v2');
+    const data = fixture('relay/quote-v2');
     const onError = () => { throw new Error('reporter'); };
     await expect(buildTx('relay', { ...data.params, bridgeId: 'relay', onError, allowMissingRelayOrder: true }, { buildBridgeTx: async () => data.tx }))
       .resolves.toBe(data.tx);

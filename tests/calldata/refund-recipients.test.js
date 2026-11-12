@@ -60,7 +60,7 @@ describe('refund beneficiaries are checked independently of the final receiver',
     }
   );
 
-  const intents = read('onchain-20261103/lifi/lifiIntents.json');
+  const intents = read('onchain/lifi/lifiIntents.json');
   test.each(['0x7dbcf1d9', '0x6d21c5df'])('LI.FI Intent %s checks its deposit/refund owner', async (selector) => {
     let item = intents.find((row) => !decodeBridgeCalldata('lifi', row.tx).hasDestinationCall);
     expect(item).toBeDefined();
@@ -85,7 +85,7 @@ describe('refund beneficiaries are checked independently of the final receiver',
   });
 
   describe.each(['arbitrum-native', 'robinhood-native'])('Socket %s', (bridgeId) => {
-    const native = read(`coverage-completion-20261103/socket/${bridgeId}.json`)
+    const native = read(`onchain/socket/${bridgeId}.json`)
       .find((item) => item.tx.data.includes('679b6ded'));
     const nativeIntent = expectationFor(native);
     const refundAt = (tx, slot, recipient) => {

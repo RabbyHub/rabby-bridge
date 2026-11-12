@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { buildTx, decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
-import { loadQuoteTransactions } from './load-transactions.js';
+import { loadQuoteTransactions } from '../helpers/fixtures.js';
 const cases = loadQuoteTransactions().filter((item) => item.regressionGroup === 'route-reachability-20261104');
 const native = cases.find((item) => item.id === 'discovery-across-native-zero-fee');
 const input = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
@@ -18,7 +18,7 @@ const direct = (selector, extra, sending = input, destination = 8453) => ({
 describe('reachable route modes beyond the historical function list', () => {
   test.each(cases)('$id preserves captured provider quote bytes and checks the final transaction', async (item) => {
     for (const proof of item.providerQuote.proofs) {
-      const body = readFileSync(new URL(`../fixtures/route-discovery-20261104/${proof.file}`, import.meta.url));
+      const body = readFileSync(new URL(`../fixtures/quotes/routes/${proof.file}`, import.meta.url));
       expect(createHash('sha256').update(body).digest('hex')).toBe(proof.sha256);
     }
     const check = validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx, {

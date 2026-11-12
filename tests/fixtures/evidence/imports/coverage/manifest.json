@@ -1,0 +1,222 @@
+{
+  "sourceFile": "New_Query_2026_11_03 (1).csv",
+  "sourceSha256": "07bb0b3eb3f2fe8db8eac4841f5e66c0b99a11c3fdbb56199775bf399e7bdd09",
+  "sourceSampleCount": 200,
+  "retainedCompleteUnits": 191,
+  "duplicateUnits": 0,
+  "excludedUnits": 9,
+  "coverage": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../../../onchain/across/across.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 45,
+      "selectors": [
+        "0x110560ad",
+        "0x609ea081",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "arb -> base",
+        "arb -> eth",
+        "arb -> ink",
+        "base -> arb",
+        "base -> eth",
+        "bsc -> base",
+        "bsc -> eth",
+        "eth -> arb",
+        "eth -> base",
+        "eth -> bsc",
+        "eth -> ink",
+        "eth -> matic",
+        "hood -> base",
+        "hood -> ink",
+        "hyper -> arb",
+        "hyper -> base",
+        "linea -> arb",
+        "matic -> eth",
+        "megaeth -> ink",
+        "op -> eth",
+        "soneium -> base",
+        "uni -> op"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "file": "../../../onchain/lifi/lifiIntents.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 7,
+      "selectors": [
+        "0x6d21c5df"
+      ],
+      "routes": [
+        "arb -> bsc",
+        "arb -> eth",
+        "base -> bsc",
+        "bsc -> hyper",
+        "hyper -> bsc",
+        "ink -> bsc",
+        "matic -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "file": "../../../onchain/lifi/mayan.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 2,
+      "selectors": [
+        "0x80c65808"
+      ],
+      "routes": [
+        "arb -> bsc",
+        "base -> bsc"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../../../onchain/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 2,
+      "selectors": [
+        "0xe4269fc4",
+        "0xfa74fd43"
+      ],
+      "routes": [
+        "arb -> base",
+        "eth -> monad"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "file": "../../../onchain/socket/eco.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> eth"
+      ]
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "file": "../../../onchain/across/across.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 8,
+      "selectors": [
+        "0x110560ad",
+        "0x609ea081",
+        "0xad5425c6"
+      ],
+      "routes": [
+        "arb -> hood",
+        "eth -> hood",
+        "eth -> hyper",
+        "hood -> hyper",
+        "hyper -> hood"
+      ]
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "file": "../../../onchain/mayan/FASTMCTP.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0xe4269fc4"
+      ],
+      "routes": [
+        "base -> arb"
+      ]
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "file": "../../../onchain/socket/oft.json",
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "count": 1,
+      "selectors": [
+        "0x2213bc0b"
+      ],
+      "routes": [
+        "base -> soneium"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "csvRow": 11,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0xb6b89c8274600894f0ba1af235b7c29272bef02fcd5046b7a56395d06ddd82fc",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 99,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "txHash": "0x36cc80dad6c754019d098c9f66a05a83b39170efca305afc521064c967919665",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 103,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "txHash": "0x894052f04945a5b403352739d1fbdea9f15c7d57428f4c2c3b880981579573e9",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 151,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "txHash": "0x670614067274e70ae1dd81d2eee1c59de602af7533c5dd75e27c0d09c31e89e2",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 163,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "txHash": "0x2eebf4cad80c84abefc4cc0acf65811cf5ef24f203221a58905215930233679f",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 179,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x5181a0538df785a80e557261433128ac81cc15e66e1e6fb04ebde2c7e3d9f02a",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 184,
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "txHash": "0x0de6cdec56d0da478813ac17df748e55b908521faf2e82105bbaa65b5b688cce",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 189,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0x13ca2ff9bccf011d927368f81bfce87abcb1628610613b3ebc27bc3b7767a22f",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    },
+    {
+      "csvRow": 196,
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "txHash": "0xfd6821908a616e35e36c02cdb207414ff811092bbf47ab1173bcc2c51f601d0e",
+      "reason": "reference_not_proven_or_source_amount_precision_mismatch"
+    }
+  ],
+  "retainedHistoricalUnits": 67,
+  "retainedProviderHistoryUnits": 124,
+  "providerHistoryFixtures": "../../../providers/history/cases.json",
+  "resolvedParserGapUnits": 10,
+  "parserGapFixtures": "../../../onchain/"
+}

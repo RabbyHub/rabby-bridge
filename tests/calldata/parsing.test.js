@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { id } from '@ethersproject/hash';
 import { decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
-import { loadProviderTransactions, loadQuoteTransactions, loadTransactions } from './load-transactions.js';
+import { loadProviderTransactions, loadQuoteTransactions, loadTransactions } from '../helpers/fixtures.js';
 
 const transactions = [...loadTransactions(), ...loadQuoteTransactions()].filter((item) => !item.expectedValidationError);
 const providers = loadProviderTransactions();

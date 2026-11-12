@@ -1,0 +1,1401 @@
+[
+  {
+    "id": "socket-oft-plume-bsc-8eba145f087dd3e723b497fd59e6ae9bf4618b0ee7d7f5f1df7ac50a58e56071",
+    "csvRow": 80,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "plume",
+    "toChainKey": "bsc",
+    "route": "plume -> bsc",
+    "txHash": "0x8eba145f087dd3e723b497fd59e6ae9bf4618b0ee7d7f5f1df7ac50a58e56071",
+    "selector": "0x2213bc0b",
+    "tx": {
+      "from": "0x79a9cb304fbfbe5de6e01a6bfdc3a40d535fe206",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000078add880a697070c1e765ac44d65323a0dcce913000000000000000000000000000000000000000000000000000000000065145000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d501227c95b079ae67f5314cf0df38c88d097d837deeaaca3ecaee364d2905112c00000000000000000000000079a9cb304fbfbe5de6e01a6bfdc3a40d535fe20600000000000000000000000078add880a697070c1e765ac44d65323a0dcce91300000000000000000000000000000000000000000000000000000000006514500000000000000000000000009899f62ecf16b70bffc88677023026c47e48c21800000000000000000000000000000000000000000000000000000000000040b00000000000000000000000009909fa99b7f7ee7f1c0cbf133f411d43083631e600000000000000000000000078add880a697070c1e765ac44d65323a0dcce913000000000000000000000000000000000000000000000004882433a07e8078f5000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b30000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000004882433a07e8078f5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000759600000000000000000000000079a9cb304fbfbe5de6e01a6bfdc3a40d535fe206000000000000000000000000000000000000000000000000000000000064d3a0000000000000000000000000000000000000000000000000000000000064908c00000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x4882433a07e8078f5"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "0x78add880a697070c1e765ac44d65323a0dcce913",
+        "chain": "plume",
+        "name": "Bridged USDC (Stargate)",
+        "symbol": "USDC.e",
+        "display_symbol": null,
+        "optimized_symbol": "USDC.e",
+        "decimals": 6,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/usdc/e87790bfe0b3f2ea855dc29069b38818.png",
+        "protocol_id": "plume_stargate",
+        "price": 1.0011012113324658,
+        "price_24h_change": 0.00010004001600640258,
+        "credit_score": 19590.261736839817,
+        "total_supply": 685967.569002,
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": 1743091242.0
+      },
+      "to_token": {
+        "id": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+        "chain": "bsc",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/bsc_token/logo_url/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d/511c3401e4cf1db72608249c7d5a01e6.png",
+        "protocol_id": "",
+        "price": 1.0011012113324658,
+        "price_24h_change": 0.0,
+        "credit_score": 5975147.319524269,
+        "total_supply": 1588993870.377278,
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": 1603104249.0
+      },
+      "to_actual_token": {
+        "id": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+        "chain": "bsc",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "display_symbol": null,
+        "optimized_symbol": "USDC",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/bsc_token/logo_url/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d/511c3401e4cf1db72608249c7d5a01e6.png",
+        "protocol_id": "",
+        "price": 1.0011012113324658,
+        "price_24h_change": 0.0,
+        "credit_score": 5975147.319524269,
+        "total_supply": 1588993870.377278,
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": 1603104249.0
+      },
+      "quote": {
+        "pay_token_amount": "6.624336",
+        "receive_token_amount": "6.603811"
+      },
+      "actual": {
+        "pay_token_amount": "6.624336",
+        "receive_token_amount": "6.603811"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x8eba145f087dd3e723b497fd59e6ae9bf4618b0ee7d7f5f1df7ac50a58e56071",
+      "status": "completed",
+      "create_at": 1793514448.1188557,
+      "from_gas": {
+        "native_token": {
+          "id": "plume",
+          "chain": "plume",
+          "name": "PLUME",
+          "symbol": "PLUME",
+          "display_symbol": null,
+          "optimized_symbol": "PLUME",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/plume_token/logo_url/plume/20ecb01558edaac59ad4cd20b9ccc51d.png",
+          "protocol_id": "",
+          "price": 0.01474,
+          "price_24h_change": -0.05330764290301868,
+          "credit_score": 124688.69317517852,
+          "total_supply": 4482080843.295493,
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": 0.417421,
+        "gas_price": 1000.0,
+        "usd_value": 0.00615
+      },
+      "from_tx": {
+        "tx_id": "0x8eba145f087dd3e723b497fd59e6ae9bf4618b0ee7d7f5f1df7ac50a58e56071",
+        "chain_id": "plume",
+        "status": "success",
+        "time_at": 1793514446.0
+      },
+      "to_tx": {
+        "tx_id": "0x0b569daf4c33f4b0f0f0260bfd17d50de3058e55fcfe15d05f695f2395bb9c69",
+        "chain_id": "bsc"
+      }
+    },
+    "expected": {
+      "sourceToken": "0x78add880a697070c1e765ac44d65323a0dcce913",
+      "sourceAmount": "6624336",
+      "outputToken": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "minOutputAmount": "6590604000000000000",
+      "receiver": "0x79a9cb304fbfbe5de6e01a6bfdc3a40d535fe206",
+      "destinationChainId": "56"
+    },
+    "expectedEvidence": {
+      "sourceToken": "CSV quote.from_token.id",
+      "sourceAmount": "Exact decimal pay_token_amount with token decimals <= 8",
+      "outputToken": "CSV quote.to_token.id; native chain ID normalized to zero address",
+      "minOutputAmount": "Pre-existing mapping.test.js protocol lower-bound golden, or parsing.test.js Mayan normalized-amount golden; not the quote receive amount",
+      "receiver": "Rabby same-address local-intent invariant, fixed explicitly to this user address; not a general bridge rule"
+    }
+  },
+  {
+    "csvRow": 92,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "base",
+    "toChainKey": "soneium",
+    "txHash": "0xb828200c03c5a2432169dbd8ee939b205290c1cec0a09fb93fa274483f83a7d5",
+    "tx": {
+      "from": "0x5873861bc27cb0b5e0ccd7b6ddd05b4813239ba1",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d54ad0f919b0bd294cdccaff9cd544a605889ac1d5cde782914e72a3c68fd196950000000000000000000000005873861bc27cb0b5e0ccd7b6ddd05b4813239ba1000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a40000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000003a35294400000000000000000000000000dc181bd607330aeebef6ea62e03e5e1fb4b6f7c7000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000024b60095c1e63000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000001f0a72e0b2263000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000076840000000000000000000000005873861bc27cb0b5e0ccd7b6ddd05b4813239ba100000000000000000000000000000000000000000000000000005a0a3bd530000000000000000000000000000000000000000000000000000000583d3aa2d80000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x24b9a3e856263"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "base",
+        "chain": "base",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2296.09",
+        "price_24h_change": "-0.0018781220518484128",
+        "credit_score": "21356423.581090555",
+        "total_supply": "828261.0149327732",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_token": {
+        "id": "soneium",
+        "chain": "soneium",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/soneium_token/logo_url/soneium/48bfb74adddd170e936578aec422836d.png",
+        "protocol_id": "",
+        "price": "2296.22",
+        "price_24h_change": "-0.001830299499602219",
+        "credit_score": "513642.3479428863",
+        "total_supply": "20255.278710115468",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "soneium",
+        "chain": "soneium",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/soneium_token/logo_url/soneium/48bfb74adddd170e936578aec422836d.png",
+        "protocol_id": "",
+        "price": "2296.22",
+        "price_24h_change": "-0.001830299499602219",
+        "credit_score": "513642.3479428863",
+        "total_supply": "20255.278710115468",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "actual": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xb828200c03c5a2432169dbd8ee939b205290c1cec0a09fb93fa274483f83a7d5",
+      "status": "completed",
+      "create_at": "1793712024.7223024",
+      "from_gas": {
+        "native_token": {
+          "id": "base",
+          "chain": "base",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2296.09",
+          "price_24h_change": "-0.0018781220518484128",
+          "credit_score": "21356423.581090555",
+          "total_supply": "828261.0149327732",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "2.9619365118e-06",
+        "gas_price": "0.00781122",
+        "usd_value": "0.0068"
+      },
+      "from_tx": {
+        "tx_id": "0xb828200c03c5a2432169dbd8ee939b205290c1cec0a09fb93fa274483f83a7d5",
+        "chain_id": "base",
+        "status": "success",
+        "time_at": "1793712025.0"
+      },
+      "to_tx": {
+        "tx_id": "0xd582ee7593389e9562cc78ba04da70dc872867a619b30d70e0beb7725107a7df",
+        "chain_id": "soneium"
+      }
+    },
+    "id": "gap-socket-b828200c03c5a2432169dbd8ee939b205290c1cec0a09fb93fa274483f83a7d5",
+    "selector": "0x2213bc0b",
+    "route": "base -> soneium",
+    "regressionGroup": "ten-missing-paths-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "100000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "97000000000000",
+      "receiver": "0x5873861bc27cb0b5e0ccd7b6ddd05b4813239ba1",
+      "destinationChainId": "1868"
+    },
+    "expectedEvidence": {
+      "source": "Exact independently read ABI/raw value, checked against source token identity; display amounts are not used to recover missing raw precision.",
+      "destination": "Independent OpenRouter input and IOFT SendParam ABI reads. Trusted RPC records resolve Stargate TokenMessaging asset 13 to native ETH on Soneium. minAmountLD is floored to the verified shared-decimals quantum (1e12); no history actual amount is used."
+    }
+  },
+  {
+    "id": "completed-socket-f72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+    "csvRow": 3,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "base",
+    "toChainKey": "arb",
+    "txHash": "0xf72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+    "selector": "0x2213bc0b",
+    "route": "base -> arb",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d5538a181086da4bf84ef7dc8a461e665e1562d039814c1e1a1857cf9efdabce4c000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a40000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000003a35294400000000000000000000000000dc181bd607330aeebef6ea62e03e5e1fb4b6f7c700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002538f8d2ec673000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000001f8d6b1ddca73000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000759e000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000005a0a3bd530000000000000000000000000000000000000000000000000000000583d3aa2d80000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x253c9c2580a73"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "base",
+        "chain": "base",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "21356423.581090555",
+        "total_supply": "828261.0149327732",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "to_actual_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "quote": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "actual": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xf72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+      "status": "completed",
+      "create_at": "1793710097.7642589",
+      "from_gas": {
+        "native_token": {
+          "id": "base",
+          "chain": "base",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2290.0",
+          "price_24h_change": "0.0021478753094952073",
+          "credit_score": "21356423.581090555",
+          "total_supply": "828261.0149327732",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "2.65983403489e-06",
+        "gas_price": "0.006786295",
+        "usd_value": "0.00609"
+      },
+      "from_tx": {
+        "tx_id": "0xf72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+        "chain_id": "base",
+        "status": "success",
+        "time_at": "1793710099.0"
+      },
+      "to_tx": {
+        "tx_id": "0x1c2b37301e28cb47f6a328fec1d725b5c7f0f27a10d82415287300adbf511954",
+        "chain_id": "arb"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "100000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "97000000000000",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "42161"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent OpenRouter input and IOFT send SendParam ABI reads. Stored RPC verifies source registration, TokenMessaging remote asset mapping, native token() and shared decimals. minAmountLD is floored to the 1e12 raw-unit shared-decimal quantum.",
+      "mapping": [
+        "Stargate asset 13; source 0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7; destination 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f; sharedDecimals 6"
+      ]
+    }
+  },
+  {
+    "id": "completed-socket-4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+    "csvRow": 5,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "arb",
+    "toChainKey": "base",
+    "txHash": "0x4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+    "selector": "0x2213bc0b",
+    "route": "arb -> base",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d5f3fb37f4d47940093ff592a7b1834c5d45301d3545bc4d96c8bfed2db01f7282000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a40000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000003a35294400000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000248054de34263000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000001ed4c72924663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000075e8000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000005a0a3bd530000000000000000000000000000000000000000000000000000000583d3aa2d80000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x2483f830c8663"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "to_token": {
+        "id": "base",
+        "chain": "base",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "21356423.581090555",
+        "total_supply": "828261.0149327732",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "base",
+        "chain": "base",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.0",
+        "price_24h_change": "0.0021478753094952073",
+        "credit_score": "21356423.581090555",
+        "total_supply": "828261.0149327732",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "actual": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+      "status": "completed",
+      "create_at": "1793709778.1037478",
+      "from_gas": {
+        "native_token": {
+          "id": "arb",
+          "chain": "arb",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2290.0",
+          "price_24h_change": "0.0021478753094952073",
+          "credit_score": "15761811.15252961",
+          "total_supply": "742171.255650764",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1622131200.0"
+        },
+        "gas_amount": "7.63488e-06",
+        "gas_price": "0.02",
+        "usd_value": "0.01748"
+      },
+      "from_tx": {
+        "tx_id": "0x4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+        "chain_id": "arb",
+        "status": "success",
+        "time_at": "1793709777.0"
+      },
+      "to_tx": {
+        "tx_id": "0xa313b41a0be3b471b6e3a85df0a1f3bc7a97d0f4c9b8218b5cd72474466f6f28",
+        "chain_id": "base"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "100000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "97000000000000",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "8453"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent OpenRouter input and IOFT send SendParam ABI reads. Stored RPC verifies source registration, TokenMessaging remote asset mapping, native token() and shared decimals. minAmountLD is floored to the 1e12 raw-unit shared-decimal quantum.",
+      "mapping": [
+        "Stargate asset 13; source 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f; destination 0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7; sharedDecimals 6"
+      ]
+    }
+  },
+  {
+    "id": "completed-socket-fee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+    "csvRow": 22,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "arb",
+    "toChainKey": "op",
+    "txHash": "0xfee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+    "selector": "0x2213bc0b",
+    "route": "arb -> op",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000000012309ce5400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d545876ba2c5d1067b6d3a1f49f2bf91bda4faa21d4546931cd12ce51e89913dfb000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000000012309ce540000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000000ba43b7400000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001fcda84c4c6e3000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000001eab58c1afae3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000759f000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000001147c8403000000000000000000000000000000000000000000000000000000010350ac5180000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x1fce629003ae3"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2292.41",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "to_token": {
+        "id": "op",
+        "chain": "op",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.69",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "2948259.4176230663",
+        "total_supply": "275947.62938446266",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "op",
+        "chain": "op",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.69",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "2948259.4176230663",
+        "total_supply": "275947.62938446266",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.00002",
+        "receive_token_amount": "0.000018"
+      },
+      "actual": {
+        "pay_token_amount": "0.00002",
+        "receive_token_amount": "0.000018"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xfee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+      "status": "completed",
+      "create_at": "1793687002.7673864",
+      "from_gas": {
+        "native_token": {
+          "id": "arb",
+          "chain": "arb",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2292.41",
+          "price_24h_change": "0.000978785693998288",
+          "credit_score": "15761811.15252961",
+          "total_supply": "742171.255650764",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1622131200.0"
+        },
+        "gas_amount": "7.871240664e-06",
+        "gas_price": "0.020006",
+        "usd_value": "0.01804"
+      },
+      "from_tx": {
+        "tx_id": "0xfee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+        "chain_id": "arb",
+        "status": "success",
+        "time_at": "1793687001.0"
+      },
+      "to_tx": {
+        "tx_id": "0x1599d7632813f38a69589c210e2f032cc576f9f4dcdc214d7dffea30111cb841",
+        "chain_id": "op"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "20000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "17000000000000",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "10"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent OpenRouter input and IOFT send SendParam ABI reads. Stored RPC verifies source registration, TokenMessaging remote asset mapping, native token() and shared decimals. minAmountLD is floored to the 1e12 raw-unit shared-decimal quantum.",
+      "mapping": [
+        "Stargate asset 13; source 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f; destination 0xe8cdf27acd73a434d661c84887215f7598e7d0d3; sharedDecimals 6"
+      ]
+    }
+  },
+  {
+    "id": "completed-socket-bf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+    "csvRow": 23,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "arb",
+    "toChainKey": "op",
+    "txHash": "0xbf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+    "selector": "0x2213bc0b",
+    "route": "arb -> op",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000b5e620f4800000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d50395cfa48499547e717e15f504ab9c2f68413196aab2602a6d5e4207a33ffb3e000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000b5e620f480000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c218000000000000000000000000000000000000000000000000000000746a528800000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a02742bcf2e3000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000001eab58c1afae3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000759f000000000000000000000000341a1fbd51825e5a107db54ccb3166deba1454790000000000000000000000000000000000000000000000000000b4fd4c4f70000000000000000000000000000000000000000000000000000000b2477678080000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x2a09bad0f7ae3"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2292.41",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "to_token": {
+        "id": "op",
+        "chain": "op",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.69",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "2948259.4176230663",
+        "total_supply": "275947.62938446266",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "op",
+        "chain": "op",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2290.69",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "2948259.4176230663",
+        "total_supply": "275947.62938446266",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.0002",
+        "receive_token_amount": "0.000198"
+      },
+      "actual": {
+        "pay_token_amount": "0.0002",
+        "receive_token_amount": "0.000198"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xbf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+      "status": "completed",
+      "create_at": "1793686574.5294182",
+      "from_gas": {
+        "native_token": {
+          "id": "arb",
+          "chain": "arb",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2292.41",
+          "price_24h_change": "0.000978785693998288",
+          "credit_score": "15761811.15252961",
+          "total_supply": "742171.255650764",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1622131200.0"
+        },
+        "gas_amount": "7.885404648e-06",
+        "gas_price": "0.020042",
+        "usd_value": "0.01808"
+      },
+      "from_tx": {
+        "tx_id": "0xbf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+        "chain_id": "arb",
+        "status": "success",
+        "time_at": "1793686573.0"
+      },
+      "to_tx": {
+        "tx_id": "0x7e2afa141035bdd13d241ada2118a9900b4175aee58b12222df55c808a8fe55b",
+        "chain_id": "op"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "200000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "196000000000000",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "10"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent OpenRouter input and IOFT send SendParam ABI reads. Stored RPC verifies source registration, TokenMessaging remote asset mapping, native token() and shared decimals. minAmountLD is floored to the 1e12 raw-unit shared-decimal quantum.",
+      "mapping": [
+        "Stargate asset 13; source 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f; destination 0xe8cdf27acd73a434d661c84887215f7598e7d0d3; sharedDecimals 6"
+      ]
+    }
+  },
+  {
+    "id": "completed-socket-4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+    "csvRow": 28,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "arb",
+    "toChainKey": "eth",
+    "txHash": "0x4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+    "selector": "0x2213bc0b",
+    "route": "arb -> eth",
+    "tx": {
+      "from": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a400000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000364b18248d5b6fd9d7e080d1bdff7ec1972ebe35f3a0f6013f02f34daa569697c4bcedd6208000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000005af3107a40000000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000003a35294400000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a1cca0b3c61000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b300000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000003ef63eeba4061000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a0000000000000000000000000000000000000000000000000000000000007595000000000000000000000000341a1fbd51825e5a107db54ccb3166deba14547900000000000000000000000000000000000000000000000000005a0a3bd530000000000000000000000000000000000000000000000000000000583d3aa2d80000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x44a56ff348061"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "arb",
+        "chain": "arb",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2292.41",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "15761811.15252961",
+        "total_supply": "742171.255650764",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1622131200.0"
+      },
+      "to_token": {
+        "id": "eth",
+        "chain": "eth",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2292.41",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "38023301.24379298",
+        "total_supply": "122186161.8655614",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1483200000.0"
+      },
+      "to_actual_token": {
+        "id": "eth",
+        "chain": "eth",
+        "name": "ETH",
+        "symbol": "ETH",
+        "display_symbol": null,
+        "optimized_symbol": "ETH",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+        "protocol_id": "",
+        "price": "2292.41",
+        "price_24h_change": "0.000978785693998288",
+        "credit_score": "38023301.24379298",
+        "total_supply": "122186161.8655614",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1483200000.0"
+      },
+      "quote": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "actual": {
+        "pay_token_amount": "0.0001",
+        "receive_token_amount": "0.000098"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+      "status": "completed",
+      "create_at": "1793618645.8528876",
+      "from_gas": {
+        "native_token": {
+          "id": "arb",
+          "chain": "arb",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2292.41",
+          "price_24h_change": "0.000978785693998288",
+          "credit_score": "15761811.15252961",
+          "total_supply": "742171.255650764",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1622131200.0"
+        },
+        "gas_amount": "7.655494176e-06",
+        "gas_price": "0.020054",
+        "usd_value": "0.01755"
+      },
+      "from_tx": {
+        "tx_id": "0x4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+        "chain_id": "arb",
+        "status": "success",
+        "time_at": "1793618645.0"
+      },
+      "to_tx": {
+        "tx_id": "0x3d92dd5ab4598f21e6b2eaf4c30a7d052705342173967c9190faac691c26d508",
+        "chain_id": "eth"
+      }
+    },
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "regressionGroup": "completed-history-20261103",
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "100000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "97000000000000",
+      "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "destinationChainId": "1"
+    },
+    "expectedEvidence": {
+      "source": "Exact independent ABI/value raw reads; display decimals are not used to recover lost precision.",
+      "destination": "Independent OpenRouter input and IOFT send SendParam ABI reads. Stored RPC verifies source registration, TokenMessaging remote asset mapping, native token() and shared decimals. minAmountLD is floored to the 1e12 raw-unit shared-decimal quantum.",
+      "mapping": [
+        "Stargate asset 13; source 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f; destination 0x77b2043768d28e9c9ab44e1abfc95944bce57931; sharedDecimals 6"
+      ]
+    }
+  },
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 76,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "hood",
+    "toChainKey": "hyper",
+    "route": "hood -> hyper",
+    "txHash": "0x226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+    "tx": {
+      "from": "0xb1dfa167e6a18dc3d529a1e47181052ec92361e5",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000ff080c8ce2e5feadaca0da81314ae59d232d4afd0000000000000000000000000000000000000000000000000004b690b70af18500000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000031e4324012e26849e6e4db30307c9ffe87c40ce6797992b1fb2df0b3f1c2e753e5eb421157e30000000000000000000000000000000000000000000000000000000000c4000a000000000000000000000000b1dfa167e6a18dc3d529a1e47181052ec92361e5000000000000000000000000ff080c8ce2e5feadaca0da81314ae59d232d4afd0000000000000000000000000000000000000000000000000004b690b70af1850000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000000000030433a858ec0000000000000000000000006352a56caadc4f1e25cd6c75970fa768a3304e640000000000000000000000006352a56caadc4f1e25cd6c75970fa768a3304e64000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f48560000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003089ec47308bb200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000240000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f4856000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f4856000000000000000000000000000000000000000000000000000068e1bef808fd0000000000000000000000000000000000000000000000000000000000002fc00000000000000000000000000000000000000000000000000000000000002d4490411a320000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b6000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001c0000000000000000000000000ff080c8ce2e5feadaca0da81314ae59d232d4afd000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f48560000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a0000000000000000000000000000000000000000000000000004b38c83629899000000000000000000000000000000000000000000000000003089ec47308bb20000000000000000000000000000000000000000000000000031076ff529474a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000038c7720238a2c123814aaf1a3d0e31e0093af04600000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000008a000000000000000000000000000000000000000000000000000000000000009c00000000000000000000000000000000000000000000000000000000000000c200000000000000000000000000000000000000000000000000000000000000d2000000000000000000000000000000000000000000000000000000000000010200000000000000000000000000000000000000000000000000000000000001a8000000000000000000000000000000000000000000000000000000000000024e000000000000000000000000000000000000000000000000000000000000027e0000000000000000000000000000000000000000000000000000000000000290000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000104e5b07cdb00000000000000000000000026b26ed7ccfe274700e8c12cc585e86da86bdd4500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004b38c836298990000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000002eff080c8ce2e5feadaca0da81314ae59d232d4afd0000000bd7d308f8e1639fab988df18a8011f41eacad7300004500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000002449f8654220000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000008000000000000000000000000000000320000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000104e5b07cdb000000000000000000000000536a7b19abb933bf6319e0b8817e733bba166674000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000002e0bd7d308f8e1639fab988df18a8011f41eacad730000005fc5360d0400a0fd4f2af552add042d716f1d16800006b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000001a49f8654220000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73000000000000000000000000000000050000000000000000000000000000002a0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064d1660f990000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73000000000000000000000000b535c95b61440eeb62a8a83a333a983fa712bc860000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064cac460ee00000000000000003b74a460b535c95b61440eeb62a8a83a333a983fa712bc860000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000001a49f8654220000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000001000000000000000000000000000000250000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064d1660f990000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73000000000000000000000000cc8e5adab080104b8ca801ee1fb2b1c3a876fd7d00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000cc8e5adab080104b8ca801ee1fb2b1c3a876fd7d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004453c059a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000002449f8654220000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000000000001d000000000000000000000000000000240000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000104e5b07cdb000000000000000000000000fb5637e6163279cb22fdf15b0fe5239b79e7e025000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000002e0bd7d308f8e1639fab988df18a8011f41eacad7300003c5fc5360d0400a0fd4f2af552add042d716f1d1680000680000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000009a451a743160000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000002000000000000000000000000000000070000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000092000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000002c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064eb5625d90000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba3000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000008487517c450000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000008876789976decbfcbbbe364623c63652db8c090400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008876789976decbfcbbbe364623c63652db8c0904000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000050424856bc30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000003070b0e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002800000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d16800000000000000000000000000000000000000000000000000000000000001900000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000600000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d1680000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000440000000000000000000000000000000000000000000000000000000000000044000000000000000000000000000000000000000000000000000000000000028400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000009a451a743160000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000092000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000002c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064eb5625d90000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba3000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000008487517c450000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000008876789976decbfcbbbe364623c63652db8c090400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008876789976decbfcbbbe364623c63652db8c0904000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000050424856bc30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000003070b0e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002800000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad7300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d168000000000000000000000000000000000000000000000000000000000000012c0000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000600000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d1680000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000440000000000000000000000000000000000000000000000000000000000000044000000000000000000000000000000000000000000000000000000000000028400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000002449f8654220000000000000000000000005fc5360d0400a0fd4f2af552add042d716f1d16800000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000104e5b07cdb000000000000000000000000b6d668bfb731c47c1c693070b8adefc610ca722f000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000002b5f704ab7061fb4dbfc5876b024f4bdb2f5e8b600000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000002e5fc5360d0400a0fd4f2af552add042d716f1d168000000d6adce5eac5f40d29e2101436c38cf1cee8f48560000450000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000648a6a1e85000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f48560000000000000000000000003692dea4346c95eb3957d8022c40373ab2a213690000000000000000000000000000000000000000000000000031076ff529474a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000001a49f865422000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f485600000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000064d1660f99000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f485600000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e4c7c7f5b30000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000068e1bef808fd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000769f000000000000000000000000b1dfa167e6a18dc3d529a1e47181052ec92361e50000000000000000000000000000000000000000000000000030898440ebe00000000000000000000000000000000000000000000000000000300d42ee5a280000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000020003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x68e1bef808fd"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "0xff080c8ce2e5feadaca0da81314ae59d232d4afd",
+        "chain": "hood",
+        "name": "Micron Technology • Robinhood Token",
+        "symbol": "MU",
+        "display_symbol": null,
+        "optimized_symbol": "MU",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hood_token/logo_url/0xff080c8ce2e5feadaca0da81314ae59d232d4afd/1d18af447af411bdbc17b3e9d92636ed.png",
+        "protocol_id": "",
+        "price": "909.8168813716424",
+        "price_24h_change": "0.006765383098919541",
+        "credit_score": "410657.96621434967",
+        "total_supply": "4927.484846905445",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1781105219.0"
+      },
+      "to_token": {
+        "id": "hyper",
+        "chain": "hyper",
+        "name": "HYPE",
+        "symbol": "HYPE",
+        "display_symbol": null,
+        "optimized_symbol": "HYPE",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hyper_token/logo_url/hyper/0b3e288cfe418e9ce69eef4c96374583.png",
+        "protocol_id": "",
+        "price": "86.615",
+        "price_24h_change": "-0.012945721416280268",
+        "credit_score": "4832390.230354809",
+        "total_supply": "999735390.4540282",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "to_actual_token": {
+        "id": "hyper",
+        "chain": "hyper",
+        "name": "HYPE",
+        "symbol": "HYPE",
+        "display_symbol": null,
+        "optimized_symbol": "HYPE",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/hyper_token/logo_url/hyper/0b3e288cfe418e9ce69eef4c96374583.png",
+        "protocol_id": "",
+        "price": "86.615",
+        "price_24h_change": "-0.012945721416280268",
+        "credit_score": "4832390.230354809",
+        "total_supply": "999735390.4540282",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": null
+      },
+      "quote": {
+        "pay_token_amount": "0.001326632569336197",
+        "receive_token_amount": "0.013662"
+      },
+      "actual": {
+        "pay_token_amount": "0.001326632569336197",
+        "receive_token_amount": "0.0138"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0x226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+      "status": "completed",
+      "create_at": "1793601962.1574023",
+      "from_gas": {
+        "native_token": {
+          "id": "hood",
+          "chain": "hood",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/hood_token/logo_url/hood/80dd95753396b5619cf84b0df135eae5.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "13908083.370277507",
+          "total_supply": "257185.2165059136",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "3.26815489e-05",
+        "gas_price": "0.02002",
+        "usd_value": "0.07508"
+      },
+      "from_tx": {
+        "tx_id": "0x226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+        "chain_id": "hood",
+        "status": "success",
+        "time_at": "1793601959.0"
+      },
+      "to_tx": {
+        "tx_id": "0xcfff9e226a257ab0d042d4c5b38032286c3d3842fab2c6ea7773d43ffed78e52",
+        "chain_id": "hyper"
+      }
+    },
+    "id": "coverage-socket-226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+    "path": "swapAndBridge / send",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0xff080c8ce2e5feadaca0da81314ae59d232d4afd",
+      "sourceAmount": "1326632569336197",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "13525380000000000",
+      "receiver": "0xb1dfa167e6a18dc3d529a1e47181052ec92361e5",
+      "destinationChainId": "999"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. OFT v2 peers or v1 trustedRemoteLookup; remote token() and recorded decimals supply destination token and exact minAmountLD conversion."
+      ]
+    }
+  },
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 77,
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "chainKey": "avax",
+    "toChainKey": "arb",
+    "route": "avax -> arb",
+    "txHash": "0xcd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+    "tx": {
+      "from": "0x48d6c789fd93eba9d0aa3a47fb1db0f056a4a1a5",
+      "to": "0x50c4e75a512f2a14a7b304787adf79c4531a5909",
+      "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a0000000000000000000000006e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd00000000000000000000000000000000000000000000000a2698f011af0ac4e900000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000304b18248d5f7d03a6b8600f311ed18fe197d9e0dec59fdbfa5d00dd684d5fc796190002bae00000000000000000000000048d6c789fd93eba9d0aa3a47fb1db0f056a4a1a50000000000000000000000006e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd00000000000000000000000000000000000000000000000a2698f011af0ac4e90000000000000000000000009899f62ecf16b70bffc88677023026c47e48c218000000000000000000000000000000000000000000000000067f1a333e8481c5000000000000000000000000371c7ec6d8039ff7933a2aa28eb827ffe1f52f07000000000000000000000000371c7ec6d8039ff7933a2aa28eb827ffe1f52f07000000000000000000000000000000000000000000000000004afa325519811d000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001842cdf0b9500000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000006e00000000000000000000000048d6c789fd93eba9d0aa3a47fb1db0f056a4a1a500000000000000000000000000000000000000000000000a2019d5ddf4e3440000000000000000000000000000000000000000000000000a062e0e9bbcadcb0000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000022000100000000000000000000000000000000000000000000000000000000001e84800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value": "0x4afa325519811d"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "socket",
+        "name": "Socket",
+        "logo_url": "https://static.debank.com/image/project/logo_url/op_bungee/0f25166d72b1c552f6acc16b90345464.png"
+      },
+      "bridge": {
+        "id": "oft",
+        "name": "OFT",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/4d3783a271e5b93fc2a0f6145aed3b36/4d3783a271e5b93fc2a0f6145aed3b36.png"
+      },
+      "from_token": {
+        "id": "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd",
+        "chain": "avax",
+        "name": "JoeToken",
+        "symbol": "JOE",
+        "display_symbol": null,
+        "optimized_symbol": "JOE",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/avax_token/logo_url/0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd/fe7142f3c74a8df4106bf2a68fac01d1.png",
+        "protocol_id": "avax_traderjoexyz",
+        "price": "0.0279",
+        "price_24h_change": "-0.025393164658589887",
+        "credit_score": "150099.72033841215",
+        "total_supply": "499707918.0060483",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1624780261.0"
+      },
+      "to_token": {
+        "id": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+        "chain": "arb",
+        "name": "JoeToken",
+        "symbol": "JOE",
+        "display_symbol": null,
+        "optimized_symbol": "JOE",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/avax_token/logo_url/0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd/fe7142f3c74a8df4106bf2a68fac01d1.png",
+        "protocol_id": "arb_traderjoexyz",
+        "price": "0.0279",
+        "price_24h_change": "-0.039583083052801935",
+        "credit_score": "25913.424084416714",
+        "total_supply": "11936141.068502352",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1674495392.0"
+      },
+      "to_actual_token": {
+        "id": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+        "chain": "arb",
+        "name": "JoeToken",
+        "symbol": "JOE",
+        "display_symbol": null,
+        "optimized_symbol": "JOE",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/avax_token/logo_url/0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd/fe7142f3c74a8df4106bf2a68fac01d1.png",
+        "protocol_id": "arb_traderjoexyz",
+        "price": "0.0279",
+        "price_24h_change": "-0.039583083052801935",
+        "credit_score": "25913.424084416714",
+        "total_supply": "11936141.068502352",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1674495392.0"
+      },
+      "quote": {
+        "pay_token_amount": "187.24867746573864",
+        "receive_token_amount": "186.78055577"
+      },
+      "actual": {
+        "pay_token_amount": "187.24867746573864",
+        "receive_token_amount": "186.78055577"
+      },
+      "detail_url": "https://www.socketscan.io/tx/0xcd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+      "status": "completed",
+      "create_at": "1793559757.6776097",
+      "from_gas": {
+        "native_token": {
+          "id": "avax",
+          "chain": "avax",
+          "name": "AVAX",
+          "symbol": "AVAX",
+          "display_symbol": null,
+          "optimized_symbol": "AVAX",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/project/logo_url/avax_wavax/e195cdd89f44bf3d0c65d38ce2c6c662.png",
+          "protocol_id": "",
+          "price": "8.607",
+          "price_24h_change": "-0.02137578169414447",
+          "credit_score": "3054566.901734043",
+          "total_supply": "234420335.52838394",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": null
+        },
+        "gas_amount": "0.0017350515",
+        "gas_price": "3.5",
+        "usd_value": "0.01493"
+      },
+      "from_tx": {
+        "tx_id": "0xcd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+        "chain_id": "avax",
+        "status": "success",
+        "time_at": "1793559757.0"
+      },
+      "to_tx": {
+        "tx_id": "0xa5ff637d191af23c7ff770684dadbd54754e98da6f00b9e2f67b87bac691977e",
+        "chain_id": "arb"
+      }
+    },
+    "id": "coverage-socket-cd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+    "path": "bridge / sendFrom",
+    "selector": "0x2213bc0b",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd",
+      "sourceAmount": "187248677465738626281",
+      "outputToken": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "minOutputAmount": "184912750212300000000",
+      "receiver": "0x48d6c789fd93eba9d0aa3a47fb1db0f056a4a1a5",
+      "destinationChainId": "42161"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Independent AllowanceHolder/OpenRouter input ABI; flagged bridge amount replacement uses swap.minOutput after explicit post-swap fee. OFT v2 peers or v1 trustedRemoteLookup; remote token() and recorded decimals supply destination token and exact minAmountLD conversion."
+      ],
+      "displayAmountMismatch": "The historical decimal display differs from exact signed ABI amount. Fixed expected preserves the exact independent ABI read without tolerance."
+    }
+  }
+]

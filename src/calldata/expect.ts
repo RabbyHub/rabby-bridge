@@ -80,7 +80,7 @@ const selectedQuoteIdentifier = (quoteKey: BridgeCallExpectation['quoteKey']): s
     catch { return undefined; }
   }
   if (!key || typeof key !== 'object' || Array.isArray(key) || typeof key.quote_id !== 'string') return undefined;
-  // Socket/Relay cache keys preserve the provider ID before a cache UUID suffix.
+  // Socket cache keys preserve the provider quote ID before a cache UUID suffix.
   const match = /^(0x[0-9a-f]{64})(?::[^:]+)?$/i.exec(key.quote_id);
   return match?.[1].toLowerCase();
 };
@@ -113,12 +113,7 @@ export const expectationFailures = (
   if (quoteIdentifier && parsed.aggregatorId === 'socket' && parsed.quoteId !== quoteIdentifier) {
     reasons.push(BRIDGE_ERRORS.QUOTE_ID_MISMATCH);
   }
-  // Relay direct deposits sign an order hash, distinct from the cache key's requestId.
-  if (quoteIdentifier && parsed.aggregatorId === 'relay' &&
-      !['depositNative', 'depositErc20', 'depositErc20Allowance'].includes(parsed.method) &&
-      parsed.requestId !== quoteIdentifier) {
-    reasons.push(BRIDGE_ERRORS.REQUEST_ID_MISMATCH);
-  }
+  // Relay metadata need not match its API requestId; checkBridgeTx binds the actual deposit order instead.
   if (expectation.toChainId && parsed.destinationChainRef && parsed.destinationChainId === undefined) {
     reasons.push(BRIDGE_ERRORS.TO_CHAIN_MISMATCH);
   }

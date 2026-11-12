@@ -16,7 +16,7 @@ See [offline provider evidence](src/providers/README.md) for retained historical
 
 Run `yarn test` to build the package and execute the Jest suite.
 
-See [reachable route discovery](tests/fixtures/route-discovery-20261104/README.md) for the latest parsing changes, fixture coverage and remaining verification limits.
+See [test organization](tests/README.md) for fixture locations and focused test commands, and [captured route evidence](tests/fixtures/quotes/routes/README.md) for route coverage and verification limits.
 
 ## Validation rollout
 

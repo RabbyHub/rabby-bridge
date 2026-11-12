@@ -3,10 +3,10 @@ import { describe, expect, jest, test } from '@jest/globals';
 import * as sdk from '../dist/index.js';
 import { readRelayQuote, relayChains } from '../dist/providers/relay.js';
 import { readSocketQuote, socketBridgeId } from '../dist/providers/socket.js';
-import { verifyLayerSwapRecord } from './calldata/provider-offline.js';
+import { verifyLayerSwapRecord } from './helpers/provider-offline.js';
 
-const load = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}-20261103.json`, import.meta.url)));
-const relay = load('relay-v2'), socket = load('socket-v3'), layer = load('layerswap-pending');
+const load = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}.json`, import.meta.url)));
+const relay = load('relay/quote-v2'), socket = load('socket/quote-v3'), layer = load('layerswap/pending');
 const other = '0x1111111111111111111111111111111111111111';
 const layerParams = { userAddress: layer.tx.from, fromChainId: 'eth', fromTokenId: layer.expected.sourceToken,
   fromTokenRawAmount: layer.expected.sourceAmount, toChainId: 'arb', toTokenId: layer.expected.outputToken,

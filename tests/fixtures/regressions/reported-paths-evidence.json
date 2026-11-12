@@ -1,0 +1,93 @@
+{
+  "reviewedAt": "2026-11-11",
+  "sample": "reported-paths.json",
+  "contracts": [
+    {
+      "chainId": "1",
+      "address": "0xaddC26a3854feaBFd20d6BF658254088D83a425A",
+      "matchId": "57663872",
+      "runtimeMatch": "match",
+      "creationMatch": "match",
+      "verifiedAt": "2026-10-30T10:13:34Z",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/1/0xaddC26a3854feaBFd20d6BF658254088D83a425A?fields=compilation,sources",
+      "contract": "src/flat/MainnetTakerSubmittedFlat.sol:MainnetSettler",
+      "sourceSha256": {
+        "src/flat/MainnetTakerSubmittedFlat.sol": "4442f30d7b93c1bda85e54d284412faf6e80b99eb47f366480826de8e9199e2c"
+      },
+      "reviewedSemantics": [
+        "MainnetSettler execute always ends with _checkSlippageAndTransfer; the permitted EKUBOV3 action does not modify the slippage struct. CHECK_SLIPPAGE and SELECT remain unsupported.",
+        "TRANSFER_FROM under Permit2PaymentTakerSubmitted interprets MAX_UINT256 as the full forwarded sender balance. Only this encoding, with tracked bridge funds, is supported; partial ratios remain unresolved.",
+        "EKUBOV3 is enabled only for this Ethereum deployment, while the existing funding, target/operator, recipient and positive slippage minimum checks remain required."
+      ]
+    },
+    {
+      "chainId": "43114",
+      "address": "0x661E93cca42AfacB172121EF892830cA3b70F08d",
+      "matchId": "51203329",
+      "runtimeMatch": "match",
+      "creationMatch": "match",
+      "verifiedAt": "2026-09-17T21:48:52Z",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/43114/0x661E93cca42AfacB172121EF892830cA3b70F08d?fields=compilation,sources",
+      "contract": "contracts/UniversalRouter.sol:UniversalRouter",
+      "sourceSha256": {
+        "contracts/UniversalRouter.sol": "a5cb4897d7d7218c70ac8bc3f2bfbc88a863914ef98e5311389b0de85ed47441",
+        "contracts/base/Dispatcher.sol": "5f40089555d35d6ece37d61476c48280a8029062eb1dda17855eb7fe517a9882",
+        "lib/v4-periphery/src/V4Router.sol": "fb02f27ececb6884c0f40ea31056965f600b4ccc063b5cba3fd77c2b770db389",
+        "lib/v4-periphery/src/interfaces/IV4Router.sol": "a577e593bd1948ffcf9ce26964ae1e47bafcf6dffcd40baeb700bcb902367a53",
+        "lib/v4-periphery/src/base/DeltaResolver.sol": "a8577bd2bdf3be8ec950edd137bcc55887b75cc220f6d9a2860c96ae037b127b",
+        "lib/v4-periphery/src/base/BaseActionsRouter.sol": "e3ceda8c5bb24d3e439aef94d004fdce7956439bc74c5c5bcd86e2cb9455e813",
+        "lib/v4-periphery/src/libraries/CalldataDecoder.sol": "93ee8bc3b166407c3f66227713849ba6560297a0ba4abed8ad6235ec02fc2ed3"
+      },
+      "deploymentUrl": "https://github.com/Uniswap/universal-router/blob/main/deploy-addresses/avalanche.json",
+      "reviewedSemantics": [
+        "Only execute(bytes,bytes[]) with one required V4_SWAP command (0x10) and exactly SWAP_EXACT_IN, SETTLE, TAKE (0x070b0e) is supported.",
+        "The verified v2.1.2 ExactInputParams includes minHopPriceX36 between path and amountIn; older layouts are not assumed.",
+        "One ERC20 hop without hooks, positive uint128 input/output minimum, SETTLE from Router for full debt and TAKE of full output credit to Handler are required.",
+        "Across must immediately prefund this Router via drainLeftoverTokens with the same token and tracked amount. Different success/fallback assets leave output token and amount unresolved."
+      ]
+    },
+    {
+      "chainId": "999",
+      "address": "0xec000769a73b70e16f361a442292500b3bcf4a85",
+      "sourceUrl": "https://hyperevmscan.io/address/0xec000769a73b70e16f361a442292500b3bcf4a85#code",
+      "contract": "Portal",
+      "compilerVersion": "v0.8.27+commit.40a35a09",
+      "sourceSha256": {
+        "contracts/Portal.sol": "8fdf37e681f462641d2628b6e322f12a45bce66866014c07e5daf026d77718e5",
+        "contracts/IntentSource.sol": "cf940b111739d80303873ac12c3b91af46a9017226862db8739c7ab8e465d7de",
+        "contracts/Inbox.sol": "d7942cf5ed3ae5db652c5e8b321c3daf62e5a2cdd4242390cc54ae7a8f4564d0",
+        "contracts/Executor.sol": "186f3a29c1ccd103691dea2f0fc60b2dd3b6848548c7056fe05ac59f3e060303"
+      },
+      "reviewedSemantics": [
+        "publishAndFund binds the destination chain and encoded route in the intent hash. Inbox validates its own portal and the route hash before funding Executor.",
+        "Executor executes the route calls in order and reverts on any failure.",
+        "Only the HyperEVM Portal with one canonical USDC route asset and an exact zero-value approve + Circle TokenMessengerV2 depositForBurn pair is recognized. Burn amount must equal route funding and approval.",
+        "The final destination chain, direct mint recipient, USDC and amount less maxFee come from CCTP. Fixed ClaimExecutor recipients and arbitrary compositions remain unresolved."
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "name": "Ink CCTP",
+      "domain": 21,
+      "chainId": 57073,
+      "usdc": "0x2d270e6886d130d724215a266106e6832161eaed",
+      "sources": [
+        "https://developers.circle.com/cctp/concepts/supported-chains-and-domains",
+        "https://developers.circle.com/stablecoins/usdc-contract-addresses"
+      ]
+    },
+    {
+      "name": "Plasma Across MulticallHandler",
+      "chainId": 9745,
+      "address": "0x5e7840e06faccb6d1c3b5f5e0d1d3d07f2829bba",
+      "source": "https://docs.across.to/chains-and-contracts"
+    },
+    {
+      "name": "HyperEVM Circle TokenMessengerV2",
+      "chainId": 999,
+      "address": "0x28b5a0e9c621a5badaa536219b3a228c8168cf5d",
+      "source": "https://developers.circle.com/cctp/references/contract-addresses"
+    }
+  ]
+}

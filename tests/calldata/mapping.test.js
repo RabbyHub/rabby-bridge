@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
-import { loadTransactions } from './load-transactions.js';
+import { loadTransactions } from '../helpers/fixtures.js';
 
 const transactions = loadTransactions();
 const deferred = [

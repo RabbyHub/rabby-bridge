@@ -3,7 +3,7 @@ import {
   BRIDGE_ERRORS, BridgeError, decodeBridgeCalldataResult, validateBridgeCalldata,
   getQuote, toBridgeErrorReport,
 } from '../dist/index.js';
-import { loadTransactions } from './calldata/load-transactions.js';
+import { loadTransactions } from './helpers/fixtures.js';
 
 const wallet = '0x1234567890123456789012345678901234567890';
 const hash = '0x' + 'ab'.repeat(32);

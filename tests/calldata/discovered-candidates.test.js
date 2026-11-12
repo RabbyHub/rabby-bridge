@@ -4,10 +4,10 @@ import {
   validateBridgeCalldata,
   validateBridgeTx,
 } from '../../dist/index.js';
-import { verifyLayerSwapRecord } from './provider-offline.js';
+import { verifyLayerSwapRecord } from '../helpers/provider-offline.js';
 
 const { cases } = JSON.parse(readFileSync(
-  new URL('../fixtures/candidate-search-20261104/cases.json', import.meta.url), 'utf8'
+  new URL('../fixtures/regressions/discovered-candidates.json', import.meta.url), 'utf8'
 ));
 const tags = { across: 'Across', lifi: 'LiFi', socket: 'Socket' };
 

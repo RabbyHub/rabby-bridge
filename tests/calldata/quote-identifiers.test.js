@@ -1,11 +1,13 @@
 import { describe, expect, jest, test } from '@jest/globals';
 import { readFileSync } from 'node:fs';
 import { buildTx, decodeBridgeCalldata, getQuoteListWithTx, validateBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
-import { expectCalldataError } from '../assert-validation-error.js';
+import { expectCalldataError } from '../helpers/assert-validation-error.js';
 
 const read = (file) => JSON.parse(readFileSync(new URL(`../fixtures/${file}`, import.meta.url)));
-const socket = read('providers/socket-v3-20261103.json');
-const relay = read('providers/relay-v2-20261103.json');
+const socket = read('providers/socket/quote-v3.json');
+const relay = read('providers/relay/quote-v2.json');
+const relayMulticalls = read('providers/history/cases.json').filter((item) =>
+  item.aggregatorId === 'relay' && item.tx.data.startsWith('0xcd6e13f7'));
 const otherId = '0x' + '12'.repeat(32);
 const key = (id) => ({ quote_id: `${id}:cache-selection` });
 const codes = (result) => result.errors.map((error) => error.error_code);
@@ -55,6 +57,40 @@ describe('local selected-quote identifier binding', () => {
     expect(relay.response.requestId).not.toBe(relay.expected.orderId);
     expect(validateBridgeCalldata('relay', relay.params.fromChainId, relay.tx,
       { ...relay.params, quoteKey: key(relay.response.requestId) }).errors).toEqual([]);
+  });
+
+  test.each(relayMulticalls)('binds Relay $id to its deposit order instead of outer metadata', async (item) => {
+    const response = read(`providers/${item.providerHistory.responseFile}`);
+    const request = response.requests.find((row) => row.data.inTxs.some((tx) =>
+      tx.hash.toLowerCase() === item.txHash.toLowerCase()));
+    const parsed = decodeBridgeCalldata('relay', item.tx);
+    expect(request.status).toBe('success');
+    expect(parsed.requestId).not.toBe(request.id);
+    expect(parsed.orderId).toBe(request.protocol.orderId);
+    const intent = {
+      userAddress: item.tx.from, fromChainId: item.chainKey, bridgeId: 'relay',
+      fromTokenId: item.expected.sourceToken, fromTokenRawAmount: item.expected.sourceAmount,
+      toChainId: item.toChainKey, toTokenId: item.expected.outputToken,
+      toTokenRawAmount: item.expected.expectedOutputAmount, slippage: '0.01',
+      // Historical request ID in the backend cache-key format; the original quote key was not retained.
+      quoteKey: key(request.id), orderData: request.orderData,
+    };
+    const tx = { ...item.tx, order_data: request.orderData };
+    const onError = jest.fn();
+    await expect(buildTx('relay', { ...intent, onError }, { buildBridgeTx: async () => tx })).resolves.toBe(tx);
+    expect(onError).not.toHaveBeenCalled();
+    expect(validateBridgeTx('relay', item.chainKey, 'relay', tx, intent))
+      .toMatchObject({ pass: true, receiverPass: true });
+
+    const missingData = expectCalldataError(() => validateBridgeTx('relay', item.chainKey, 'relay', tx,
+      { ...intent, orderData: undefined }));
+    expect(codes(missingData)).toContain('BRIDGE_MISSING_RELAY_ORDER_DATA');
+    const wrongHash = expectCalldataError(() => validateBridgeTx('relay', item.chainKey, 'relay', tx,
+      { ...intent, orderData: { ...request.orderData, salt: otherId } }));
+    expect(codes(wrongHash)).toContain('BRIDGE_RELAY_ORDER_HASH_MISMATCH');
+    const missingOrder = expectCalldataError(() => validateBridgeTx('relay', item.chainKey, 'relay',
+      replaceId(tx, parsed.orderId, '0x' + '00'.repeat(32)), intent));
+    expect(codes(missingOrder)).toContain('BRIDGE_MISSING_RELAY_ORDER_ID');
   });
 
   test('snapshots the selected key before the backend await and reports without exposing IDs', async () => {

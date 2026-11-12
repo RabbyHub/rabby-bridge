@@ -248,7 +248,7 @@ const fieldErrors: Record<'fromPass' | 'toPass' | 'receiverPass', BridgeErrorDef
 };
 
 const bindingErrors: BridgeErrorDefinition[] = [
-  BRIDGE_ERRORS.QUOTE_ID_MISMATCH, BRIDGE_ERRORS.REQUEST_ID_MISMATCH, BRIDGE_ERRORS.SOCKET_RFQ_QUOTE_ID_MISMATCH,
+  BRIDGE_ERRORS.QUOTE_ID_MISMATCH, BRIDGE_ERRORS.SOCKET_RFQ_QUOTE_ID_MISMATCH,
 ];
 
 const checkBridgeTx = (

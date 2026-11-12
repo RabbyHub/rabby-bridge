@@ -2,19 +2,23 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, jest, test } from '@jest/globals';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { buildTx, decodeBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
-import { expectCalldataError } from '../assert-validation-error.js';
+import { expectCalldataError } from '../helpers/assert-validation-error.js';
 
 const read = (file) => JSON.parse(readFileSync(new URL(`../fixtures/${file}`, import.meta.url)));
-const socket = read('providers/socket-v3-20261103.json');
-const relay = read('providers/relay-v2-20261103.json');
-const history = read('bridge-history-success-20261105.json');
+const socket = read('providers/socket/quote-v3.json');
+const relay = read('providers/relay/quote-v2.json');
+const history = read('regressions/history-success.json');
+const relayTransactions = [
+  ...read('providers/relay/lab.json').records.flatMap((record) => record.buildResponse ? [record.buildResponse] : []),
+  read('providers/relay/source-swap.json'),
+];
 const cctp = socket.cases.find((item) => item.bridgeId === 'cctp-v2');
 const rfq = socket.cases.find((item) => item.bridgeId === 'rfq-vault-executor');
 const mint = '424a31a57f7c63918ecaa2fac38016a8af5a6ec2';
 const user = '341a1fbd51825e5a107db54ccb3166deba145479';
 const other = '1111111111111111111111111111111111111111';
 const orderData = relay.response.protocol.v2.orderData;
-const orderTypes = read('providers/history-20261103/relay-order-types.json');
+const orderTypes = read('providers/relay/order-types.json');
 const hashOrder = (order) => _TypedDataEncoder.hashStruct('Order', orderTypes, order);
 const codes = (result) => result.errors.map((error) => error.error_code);
 const replace = (tx, before, after) => ({ ...tx, data: tx.data.replaceAll(before, after) });
@@ -184,17 +188,16 @@ describe('receiver check policy', () => {
   test('reads the final order id inside Relay multicalls', () => {
     const methods = new Set();
     let count = 0;
-    for (const record of history) {
-      if (record.aggregatorId !== 'relay') continue;
-      const decoded = decodeBridgeCalldata('relay', record.tx);
+    for (const tx of relayTransactions) {
+      const decoded = decodeBridgeCalldata('relay', tx);
       if (!decoded || !['multicall', 'transferAndMulticall'].includes(decoded.method ?? '')) continue;
       methods.add(decoded.method);
       count++;
-      expect(decoded.orderId).toMatch(/^0x[0-9a-f]{64}$/);
-      expect(record.tx.data.toLowerCase()).toContain(decoded.orderId.slice(2));
+      expect(decoded.orderId).toBe(hashOrder(tx.order_data));
+      expect(tx.data.toLowerCase()).toContain(decoded.orderId.slice(2));
     }
     expect([...methods].sort()).toEqual(['multicall', 'transferAndMulticall']);
-    expect(count).toBe(29);
+    expect(count).toBe(5);
   });
 
   test.each(['direct', 'cleanup'])('ignores a forged metadata deposit after the %s deposit', (shape) => {

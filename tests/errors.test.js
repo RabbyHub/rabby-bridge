@@ -7,7 +7,7 @@ import {
 } from '../dist/index.js';
 import { readRelayQuote, relayChains } from '../dist/providers/relay.js';
 import { readMayanProtocol } from '../dist/calldata/mayan/readProtocol.js';
-import { loadTransactions } from './calldata/load-transactions.js';
+import { loadTransactions } from './helpers/fixtures.js';
 
 const user = '0x1111111111111111111111111111111111111111';
 const sourceToken = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
@@ -22,7 +22,7 @@ const params = {
   userAddress: user, fromChainId: 'eth', fromTokenId: sourceToken, fromTokenRawAmount: '10000000',
   toChainId: 'base', toTokenId: outputToken, toTokenRawAmount: '9900000', slippage: '0', bridgeId: 'across',
 };
-const relay = JSON.parse(readFileSync(new URL('./fixtures/providers/relay-v2-20261103.json', import.meta.url)));
+const relay = JSON.parse(readFileSync(new URL('./fixtures/providers/relay/quote-v2.json', import.meta.url)));
 
 describe('structured bridge failures', () => {
   test('codes are unique and serializable', () => {

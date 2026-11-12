@@ -34,7 +34,7 @@ const across = (calls, fallback = zero, asset = token) => resolveParsed(applyAcr
 }, message(calls, fallback)));
 
 describe('local receiver recovery without chain-state requests', () => {
-  const dex = JSON.parse(readFileSync(new URL('../fixtures/route-discovery-20261104/cases.json', import.meta.url)))
+  const dex = JSON.parse(readFileSync(new URL('../fixtures/quotes/routes/cases.json', import.meta.url)))
     .find((item) => item.id === 'discovery-across-destination-dex-5pct');
 
   test('Across real destination swap proves the same receiver for success and fallback without inventing one output asset', () => {
