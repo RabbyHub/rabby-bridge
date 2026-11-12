@@ -34,7 +34,7 @@ describe('structured bridge failures', () => {
     }
   });
 
-  test('preserves the exact ABI failure through nullable decoding and build observations', async () => {
+  test('preserves the exact ABI failure through nullable decoding and build rejection', async () => {
     const truncated = { ...tx, data: '0xad5425c6' };
     const result = decodeBridgeCalldataResult('across', truncated);
     expect(result).toMatchObject({ ok: false, error_code: BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS.error_code, stage: 'decode',
@@ -43,10 +43,10 @@ describe('structured bridge failures', () => {
     expect(decodeBridgeCalldata('across', truncated)).toBeNull();
     const onError = jest.fn();
     await expect(buildTx('across', { ...params, onError }, { buildBridgeTx: async () => truncated }))
-      .resolves.toBe(truncated);
+      .rejects.toMatchObject({ error_code: BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS.error_code });
     expect(onError.mock.calls[0][0]).toMatchObject({ error_code: BRIDGE_ERRORS.ABI_WORD_OUT_OF_BOUNDS.error_code,
       errors: expect.arrayContaining([expect.objectContaining({ operation: 'buildTx', chainId: 'eth',
-        bridgeId: 'across', pass: true, routerPass: true, fromPass: false, blocking: false })]) });
+        bridgeId: 'across', pass: false, routerPass: true, fromPass: false, blocking: true })]) });
   });
 
   test('keeps nested Mayan decoder details and does not mark deferred RPC checks as errors', () => {

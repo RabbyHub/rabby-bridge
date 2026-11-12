@@ -2,6 +2,7 @@ import { sourceAmountMatches } from '../calldata/expect.js';
 import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import { decodeBridgeCalldataResult } from '../calldata/index.js';
 import type { BridgeQuoteListParams } from '../quote.js';
+import { SOCKET_CCTP_MINT_RECIPIENT } from '../calldata/socket/addresses.js';
 import { address, bytes, chain, object, text, tokenAddress, transaction, uint } from './data.js';
 import type { ProviderQuoteData } from './relay.js';
 
@@ -32,7 +33,7 @@ export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQ
       parsed.sourceAmount !== uint(input.amount)) throw new BridgeError(BRIDGE_ERRORS.SOCKET_SOURCE_QUOTE_MISMATCH);
   if (bridgeId === 'rfq-vault-executor') {
     if (parsed.protocolMethod !== 'receiveERC20' || parsed.orderId !== quoteId) throw new BridgeError(BRIDGE_ERRORS.SOCKET_RFQ_ORDER_MISMATCH);
-  } else if (parsed.protocolMethod !== 'depositForBurn' || parsed.bridgeReceiver !== '0x424a31a57f7c63918ecaa2fac38016a8af5a6ec2') {
+  } else if (parsed.protocolMethod !== 'depositForBurn' || parsed.bridgeReceiver !== SOCKET_CCTP_MINT_RECIPIENT) {
     throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOCKET_CCTP_RECEIVER);
   }
   const destinationToken = tokenAddress(text(outputToken.address), params.toChainId);

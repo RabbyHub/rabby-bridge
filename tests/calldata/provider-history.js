@@ -16,7 +16,11 @@ export const providerHistoryResponse = (item) => load(item.providerHistory.respo
 export const replayProviderHistory = async (item, raw = providerHistoryResponse(item)) => {
   const parsed = decodeBridgeCalldata(item.aggregatorId, item.tx);
   assert.ok(parsed, 'unsupported source calldata');
-  validateBridgeTx(item.aggregatorId, item.chainKey, item.bridgeId, item.tx);
+  validateBridgeTx(item.aggregatorId, item.chainKey, item.bridgeId, item.tx, {
+    userAddress: item.tx.from, fromTokenId: item.expected.sourceToken,
+    fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey,
+    toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.minOutputAmount, slippage: '0',
+  });
   assert.equal(validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx).ok, true, 'invalid local source calldata');
   const provider = item.providerHistory.provider;
   if (provider === 'layerswap') {

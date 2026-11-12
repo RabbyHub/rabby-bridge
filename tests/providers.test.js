@@ -39,12 +39,12 @@ describe('backend-only lightweight entry points', () => {
     if (aggregator !== 'lifi') expect(check.unverifiedFields).toContain('receiver');
   });
 
-  test.each(cases)('%s reports a locally known source token mismatch without blocking', async (aggregator, params, tx) => {
+  test.each(cases)('%s rejects a locally known source token mismatch', async (aggregator, params, tx) => {
     const onError = jest.fn();
     await expect(sdk.buildTx(aggregator, { ...params, fromTokenId: other, onError }, { buildBridgeTx: async () => tx }))
-      .resolves.toBe(tx);
+      .rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_FROM_TOKEN_MISMATCH', pass: true, fromPass: false, blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_FROM_TOKEN_MISMATCH', pass: false, fromPass: false, blocking: true }),
     ]));
   });
 
@@ -52,9 +52,9 @@ describe('backend-only lightweight entry points', () => {
     const item = socket.cases.find((item) => item.bridgeId === 'cctp-v2');
     const onError = jest.fn();
     await expect(sdk.buildTx('socket', { ...socket.params, bridgeId: item.bridgeId, toTokenId: other, onError }, { buildBridgeTx: async () => item.tx }))
-      .resolves.toBe(item.tx);
+      .rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_TO_TOKEN_MISMATCH', pass: true, toPass: false, receiverPass: false, blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_TO_TOKEN_MISMATCH', pass: false, toPass: false, receiverPass: false, blocking: true }),
     ]));
   });
 
@@ -62,9 +62,9 @@ describe('backend-only lightweight entry points', () => {
     const onError = jest.fn();
     const tx = { ...layer.tx, from: other };
     await expect(sdk.buildTx('lifi', { ...layerParams, userAddress: other, onError }, { buildBridgeTx: async () => tx }))
-      .resolves.toBe(tx);
+      .rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_RECEIVER_MISMATCH', pass: true, receiverPass: false, blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_RECEIVER_MISMATCH', pass: false, receiverPass: false, blocking: true }),
     ]));
   });
 
@@ -72,14 +72,14 @@ describe('backend-only lightweight entry points', () => {
     const onError = jest.fn();
     await expect(sdk.buildTx('lifi', { ...layerParams, onError }, {
       buildBridgeTx: async () => ({ ...layer.tx, value: (BigInt(layer.tx.value) + 1n).toString() }),
-    })).resolves.toBeDefined();
+    })).rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     const depositor = other.slice(2).padStart(64, '0');
     const tx = { ...relay.tx, data: relay.tx.data.slice(0, 10) + depositor + relay.tx.data.slice(74) };
     await expect(sdk.buildTx('relay', { ...relay.params, bridgeId: 'relay', onError }, { buildBridgeTx: async () => tx }))
-      .resolves.toBe(tx);
+      .rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_LAYERSWAP_SOURCE_VALUE_MISMATCH', fromPass: false, blocking: false }),
-      expect.objectContaining({ error_code: 'BRIDGE_DEPOSITOR_MISMATCH', fromPass: false, blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_LAYERSWAP_SOURCE_VALUE_MISMATCH', fromPass: false, blocking: true }),
+      expect.objectContaining({ error_code: 'BRIDGE_DEPOSITOR_MISMATCH', fromPass: false, blocking: true }),
     ]));
   });
 
@@ -88,10 +88,10 @@ describe('backend-only lightweight entry points', () => {
     const tx = { ...relay.tx, value: '0x0', data: '0xcd6e13f7' + [128, relay.params.userAddress, 0, 160, 0, 32, 1].map(word).join('') };
     const onError = jest.fn();
     await expect(sdk.buildTx('relay', { ...relay.params, bridgeId: 'relay', onError }, { buildBridgeTx: async () => tx }))
-      .resolves.toBe(tx);
+      .rejects.toBeInstanceOf(sdk.InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS', pass: true, fromPass: false,
-        unverifiedFields: expect.arrayContaining(['sourceToken', 'sourceAmount']), blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS', pass: false, fromPass: false,
+        unverifiedFields: expect.arrayContaining(['sourceToken', 'sourceAmount']), blocking: true }),
     ]));
   });
 });
@@ -112,6 +112,15 @@ describe('captured provider evidence remains verifiable offline', () => {
     expect(() => readSocketQuote({ ...result, receiverAddress: other }, route, socket.params)).toThrow();
   });
 
+  test('Socket accepts spending less than requested but still binds calldata to its quote', () => {
+    const result = socket.response.result;
+    const route = result.routes.find((row) => socketBridgeId(row.routeDetails.bridgeDetails?.protocol.name) === 'rfq-vault-executor');
+    const params = { ...socket.params, fromTokenRawAmount: (BigInt(socket.params.fromTokenRawAmount) * 2n).toString() };
+    expect(readSocketQuote(result, route, params).parsed.sourceAmount).toBe(BigInt(result.input.amount));
+    const changed = { ...result, input: { ...result.input, amount: (BigInt(result.input.amount) - 1n).toString() } };
+    expect(() => readSocketQuote(changed, route, params)).toThrow('Socket source quote mismatch');
+  });
+
   test('LayerSwap captured records retain their fixed destination expectations', () => {
     const checked = verifyLayerSwapRecord(layerParams, layer.tx, layer.providerResponse);
     expect(checked.parsed.receiver).toBe(layer.expected.receiver);
@@ -119,5 +128,11 @@ describe('captured provider evidence remains verifiable offline', () => {
     const bad = structuredClone(layer.providerResponse);
     bad.data[0].swap.destination_address = other;
     expect(() => verifyLayerSwapRecord(layerParams, layer.tx, bad)).toThrow();
+  });
+
+  test('LayerSwap accepts spending less than the local request', () => {
+    const params = { ...layerParams, fromTokenRawAmount: (BigInt(layerParams.fromTokenRawAmount) * 2n).toString() };
+    expect(verifyLayerSwapRecord(params, layer.tx, layer.providerResponse).parsed.sourceAmount)
+      .toBe(BigInt(layerParams.fromTokenRawAmount));
   });
 });

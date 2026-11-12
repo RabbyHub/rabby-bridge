@@ -24,12 +24,12 @@ describe('privacy-safe bridge diagnostics', () => {
     expect(toBridgeErrorReport({ pass: true, routerPass: true, errors: [] })).toBeUndefined();
   });
 
-  test('retains only boolean validation flags in observations that still pass the router', () => {
-    const report = toBridgeErrorReport({ pass: true, errors: [{ ...BRIDGE_ERRORS.RECEIVER_MISMATCH,
-      pass: true, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: false,
+  test('retains only boolean validation flags in failures that passed the router', () => {
+    const report = toBridgeErrorReport({ pass: false, errors: [{ ...BRIDGE_ERRORS.RECEIVER_MISMATCH,
+      pass: false, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: true, lite: true,
       receiver: wallet, amount: '123456789' }] });
     expect(report.errors[0]).toEqual({ ...BRIDGE_ERRORS.RECEIVER_MISMATCH,
-      pass: true, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: false });
+      pass: false, routerPass: true, fromPass: true, toPass: false, receiverPass: false, blocking: true });
     const invalid = new BridgeError(BRIDGE_ERRORS.UNKNOWN, { pass: wallet, fromPass: secret, receiverPass: false }).toJSON();
     expect(invalid.errors[0]).toEqual({ ...BRIDGE_ERRORS.UNKNOWN, receiverPass: false });
   });

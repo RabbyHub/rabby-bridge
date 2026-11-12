@@ -3,6 +3,7 @@ import { describe, expect, jest, test } from '@jest/globals';
 import {
   BRIDGE_ENUM,
   InvalidBridgeContractError,
+  InvalidBridgeCalldataError,
   buildTx,
   getQuote,
   getQuoteListWithTx,
@@ -11,6 +12,7 @@ import {
   validateBridgeTx,
 } from '../dist/index.js';
 import { loadProviderTransactions, loadTransactions } from './calldata/load-transactions.js';
+import { expectCalldataError } from './assert-validation-error.js';
 
 // API wiring uses real calldata; parsing expectations are covered in tests/calldata.
 const sample = loadTransactions('lifi')[0];
@@ -104,29 +106,31 @@ describe('validateBridgeQuote', () => {
 });
 
 describe('validateBridgeTx', () => {
-  test.each(['0x', '0x12', 'not-hex'])('observes missing or malformed calldata: %s', (data) => {
-    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx({ data })))
-      .toMatchObject({ pass: true, routerPass: true, fromPass: false, toPass: false, receiverPass: false });
+  test.each(['0x', '0x12', 'not-hex'])('rejects missing or malformed calldata: %s', (data) => {
+    const error = expectCalldataError(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx({ data })));
+    expect(error.errors[0]).toMatchObject({ pass: false, routerPass: true, fromPass: false, toPass: false, receiverPass: false });
   });
 
   test('rejects an unconfigured router instead of skipping transaction checks', () => {
-    expect(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'not-configured', 'bridge-1', makeTx()))
+    expect(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'not-configured', 'bridge-1', makeTx(), undefined))
       .toThrow(InvalidBridgeContractError);
   });
 
   test('accepts case-insensitive router matches', () => {
-    expect(validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx())).toMatchObject({ pass: true, routerPass: true });
+    const error = expectCalldataError(() => validateBridgeTx(BRIDGE_ENUM.LIFI, 'eth', 'bridge-1', makeTx()));
+    expect(error.errors[0]).toMatchObject({ routerPass: true });
   });
 
   test('accepts socket v3 allowance holder as router', () => {
-    expect(
+    const error = expectCalldataError(() =>
       validateBridgeTx(
         BRIDGE_ENUM.SOCKET,
         'hood',
         'bridge-1',
-        { ...socketSample.tx, to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' }
+        { ...socketSample.tx, to: '0x50c4E75a512F2A14A7b304787Adf79C4531A5909' }, undefined
       )
-    ).toMatchObject({ pass: true, routerPass: true });
+    );
+    expect(error.errors[0]).toMatchObject({ routerPass: true });
   });
 
   test('throws when tx router does not match the allowlist', () => {
@@ -135,7 +139,7 @@ describe('validateBridgeTx', () => {
         BRIDGE_ENUM.LIFI,
         'eth',
         'bridge-1',
-        makeTx({ to: '0xdeadbeef' })
+        makeTx({ to: '0xdeadbeef' }), undefined
       )
     ).toThrow(InvalidBridgeContractError);
   });
@@ -144,23 +148,25 @@ describe('validateBridgeTx', () => {
     const baseSpokePool = '0x09aea4b2242abc8bb4bb78d537a67a245a7bec64';
     const periphery = '0x10D8b8DaA26d307489803e10477De69C0492B610';
 
-    expect(
+    const poolError = expectCalldataError(() =>
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
         'base',
         'bridge-1',
-        makeTx({ to: baseSpokePool })
+        makeTx({ to: baseSpokePool }), undefined
       )
-    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
+    );
+    expect(poolError.errors[0]).toMatchObject({ routerPass: true, fromPass: false });
 
-    expect(
+    const peripheryError = expectCalldataError(() =>
       validateBridgeTx(
         BRIDGE_ENUM.ACROSS,
         sample.chainKey,
         'bridge-1',
-        makeTx({ to: periphery })
+        makeTx({ to: periphery }), undefined
       )
-    ).toMatchObject({ pass: true, routerPass: true, fromPass: false });
+    );
+    expect(peripheryError.errors[0]).toMatchObject({ routerPass: true, fromPass: false });
 
     // anything else is still rejected
     expect(() =>
@@ -168,7 +174,7 @@ describe('validateBridgeTx', () => {
         BRIDGE_ENUM.ACROSS,
         'base',
         'bridge-1',
-        makeTx({ to: '0xdeadbeef' })
+        makeTx({ to: '0xdeadbeef' }), undefined
       )
     ).toThrow(InvalidBridgeContractError);
   });
@@ -261,23 +267,23 @@ describe('buildTx', () => {
     }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
   });
 
-  test('reports a source sender that differs from the local wallet without blocking', async () => {
+  test('rejects a source sender that differs from the local wallet', async () => {
     const onError = jest.fn();
     const sourceTx = makeTx({ from: '0x1111111111111111111111111111111111111111' });
     await expect(buildTx(BRIDGE_ENUM.LIFI, {
       ...baseParams, bridgeId: sample.bridgeId, onError,
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(sourceTx) })).resolves.toBe(sourceTx);
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(sourceTx) })).rejects.toBeInstanceOf(InvalidBridgeCalldataError);
     expect(onError.mock.calls[0][0].errors).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: 'BRIDGE_FROM_ADDRESS_MISMATCH', pass: true, fromPass: false, blocking: false }),
+      expect.objectContaining({ error_code: 'BRIDGE_FROM_ADDRESS_MISMATCH', pass: false, fromPass: false, blocking: true }),
     ]));
   });
 
-  test('reports a missing expected output amount without blocking the lightweight build', async () => {
+  test('rejects a missing expected output amount when calldata exposes a minimum', async () => {
     const onError = jest.fn();
     await expect(buildTx(BRIDGE_ENUM.LIFI, {
       ...baseParams, bridgeId: sample.bridgeId, toTokenRawAmount: undefined, quoteKey: {}, onError,
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).resolves.toEqual(makeTx());
-    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ unverifiedFields: ['minOutputAmount'], blocking: false });
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(makeTx()) })).rejects.toBeInstanceOf(InvalidBridgeCalldataError);
+    expect(onError.mock.calls[0][0].errors[0]).toMatchObject({ unverifiedFields: ['minOutputAmount'], blocking: true });
   });
 
   test('builds OFT while reporting its deferred destination token and amount', async () => {
@@ -310,9 +316,9 @@ describe('buildTx', () => {
       toChainId: oftSample.toChainKey, toTokenId: oftSample.expected.outputToken,
       toTokenRawAmount: quotedRawAmount(oftSample).toString(), bridgeId: 'oft', slippage: '0.01',
       [field]: value, onError,
-    }, { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) })).resolves.toBe(oftSample.tx);
+    }, { buildBridgeTx: jest.fn().mockResolvedValue(oftSample.tx) })).rejects.toBeInstanceOf(InvalidBridgeCalldataError);
     expect(onError.mock.calls.flatMap(([report]) => report.errors)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ error_code: code, pass: true, blocking: false }),
+      expect.objectContaining({ error_code: code, pass: false, blocking: true }),
     ]));
   });
 
@@ -480,8 +486,8 @@ describe('Arc contract validation', () => {
   test('accepts the configured Across contracts before checking calldata', () => {
     const contract = '0x9b4A302A548c7e313c2b74C461db7b84d3074A84';
     expect(validateBridgeQuote(BRIDGE_ENUM.ACROSS, 'arc', makeQuote({ approve_contract_id: contract }))).toBe(true);
-    expect(validateBridgeTx(BRIDGE_ENUM.ACROSS, 'arc', 'bridge-1', makeTx({ to: contract })))
-      .toMatchObject({ pass: true, routerPass: true, fromPass: false });
+    const error = expectCalldataError(() => validateBridgeTx(BRIDGE_ENUM.ACROSS, 'arc', 'bridge-1', makeTx({ to: contract })));
+    expect(error.errors[0]).toMatchObject({ routerPass: true, fromPass: false });
   });
 
   test('Relay quote lookup uses the existing backend without a provider client', async () => {
@@ -494,16 +500,17 @@ describe('Arc contract validation', () => {
   });
 
   test('accepts the global router case-insensitively with a canonical chain enum', () => {
-    expect(validateBridgeTx(
-      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', { ...relaySample.tx, chainId: 5042, to: relayRouter.toUpperCase() }
-    )).toMatchObject({ pass: true, routerPass: true });
+    const error = expectCalldataError(() => validateBridgeTx(
+      BRIDGE_ENUM.RELAY, 'ARC', 'bridge-1', { ...relaySample.tx, chainId: 5042, to: relayRouter.toUpperCase() }, undefined
+    ));
+    expect(error.errors[0]).toMatchObject({ routerPass: true });
   });
 
   test.each([
     [BRIDGE_ENUM.ACROSS, 'arc'],
   ])('rejects the Arc Relay router for %s on %s', (aggregator, chainId) => {
     expect(() => validateBridgeTx(
-      aggregator, chainId, 'bridge-1', makeTx({ to: relayRouter })
+      aggregator, chainId, 'bridge-1', makeTx({ to: relayRouter }), undefined
     )).toThrow(InvalidBridgeContractError);
   });
 
@@ -518,7 +525,7 @@ describe('Arc contract validation', () => {
       aggregator, 'arc', makeQuote({ approve_contract_id: '0xdeadbeef' })
     )).toThrow(InvalidBridgeContractError);
     expect(() => validateBridgeTx(
-      aggregator, 'arc', 'bridge-1', makeTx({ to: '0xdeadbeef' })
+      aggregator, 'arc', 'bridge-1', makeTx({ to: '0xdeadbeef' }), undefined
     )).toThrow(InvalidBridgeContractError);
   });
 });

@@ -5,6 +5,7 @@ import { NATIVE_TOKEN, WRAPPED_NATIVE_TOKENS, subtractFees } from './protocols.j
 import type { ParsedBridgeCall } from './types.js';
 import { calldataDiagnostics } from './diagnostics.js';
 import { ALLOWANCE_HOLDER, HYPEREVM_LIFI_ROUTER, readLifiSwap, readSettlerSwap } from './destinationSwap.js';
+import { AVALANCHE_UNIVERSAL_ROUTER, readUniversalRouterSwap } from './destinationUniswap.js';
 
 export const destinationCall: AbiParam = {
   name: 'call', kind: 'tuple', components: [
@@ -48,6 +49,7 @@ const ACROSS_MESSAGE_HANDLERS: Record<string, string> = {
   143: '0xec41f75c686e376ab2a4f18bde263ab5822c4511',
   999: '0x5e7840e06faccb6d1c3b5f5e0d1d3d07f2829bba',
   4663: '0xa8ad2e87e2043711d8bec77e8bc3e2683c0ab6bd',
+  9745: '0x5e7840e06faccb6d1c3b5f5e0d1d3d07f2829bba',
   43114: '0x9610954acdca5ff7905f051a040ce33fe613c60e',
 };
 
@@ -89,8 +91,8 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
   const lifiRouter = parsed.destinationChainId === 999n ? HYPEREVM_LIFI_ROUTER : undefined;
   const possibleRefundTokens = new Set<string>();
   const refundReceivers: string[] = [];
-  for (const raw of calls) {
-    const call = asRecord(raw);
+  for (let index = 0; index < calls.length; index++) {
+    const call = asRecord(calls[index]);
     const target = asString(call.target);
     const data = asString(call.callData);
     const value = asBigint(call.value);
@@ -145,6 +147,17 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
       const drain = decodeCall([{ name: 'token', kind: 'address' }, { name: 'receiver', kind: 'address' }], data);
       const token = asString(drain.token);
       const amount = balances.get(token) ?? 0n;
+      if (parsed.destinationChainId === 43114n && asString(drain.receiver) === AVALANCHE_UNIVERSAL_ROUTER) {
+        if (index + 1 >= calls.length) return parsed;
+        const next = asRecord(calls[index + 1]);
+        if (asString(next.target) !== AVALANCHE_UNIVERSAL_ROUTER || asBigint(next.value) !== 0n) return parsed;
+        const swap = readUniversalRouterSwap(asString(next.callData), handler);
+        if (!swap || swap.inputToken !== token || swap.inputAmount !== amount) return parsed;
+        balances.set(token, 0n);
+        balances.set(swap.outputToken, (balances.get(swap.outputToken) ?? 0n) + swap.minOutputAmount);
+        index++;
+        continue;
+      }
       if (possibleRefundTokens.delete(token)) refundReceivers.push(asString(drain.receiver));
       if (amount > 0n) payouts.push({ outputToken: token, minOutputAmount: amount, receiver: asString(drain.receiver) });
       balances.set(token, 0n);

@@ -20,7 +20,7 @@ export const isNative = (token: string): boolean =>
 // Circle CCTP domains and Wormhole IDs are different namespaces from EVM chain IDs.
 export const CCTP_CHAINS: Record<string, bigint> = {
   0: 1n, 1: 43114n, 2: 10n, 3: 42161n, 6: 8453n, 7: 137n,
-  10: 130n, 11: 59144n, 13: 146n, 15: 143n, 19: 999n,
+  10: 130n, 11: 59144n, 13: 146n, 15: 143n, 19: 999n, 21: 57073n,
 };
 
 export const WORMHOLE_CHAINS: Record<string, bigint> = {
@@ -56,6 +56,7 @@ export const CCTP_USDC: Record<string, string> = {
   146: '0x29219dd400f2bf60e5a23d13be72b486d4038894',
   999: '0xb88339cb7199b77e23db6e890353e22632ba630f',
   59144: '0x176211869ca2b568f2a7d4ee941e073a821ee1ff',
+  57073: '0x2d270e6886d130d724215a266106e6832161eaed',
 };
 
 export const subtractFees = (amount: bigint, ...fees: bigint[]): bigint => {

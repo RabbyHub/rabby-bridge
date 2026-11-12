@@ -20,10 +20,10 @@ See [reachable route discovery](tests/fixtures/route-discovery-20261104/README.m
 
 ## Validation rollout
 
-The first rollout enforces Router/Spender allowlists and observes local calldata
-validation. No provider API or RPC requests are made. `buildTx` and
-`getQuoteListWithTx` keep the original backend transaction when source, destination
-or receiver checks fail or cannot be completed; `onError` receives those observations.
+Router/Spender allowlists and required calldata checks are always enforced.
+Reported calldata failures block: `validateBridgeTx` and `buildTx` throw
+`InvalidBridgeCalldataError`, and `getQuoteListWithTx` filters the failed quote.
+No provider API or RPC requests are made.
 
 ```ts
 const quotes = await getQuoteListWithTx(aggregatorId, {
@@ -33,7 +33,7 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
 ```
 
 - Quotes and transactions come from the existing backend flow, including Relay
-  and Socket, in both modes. The SDK no longer accepts `providerClient` or exposes
+  and Socket. The SDK no longer accepts `providerClient` or exposes
   a direct-provider client/fetch adapter.
 - Router/Spender mismatches, unsupported source chains/aggregators,
   missing required slippage, missing backend results and backend request failures
@@ -42,7 +42,7 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
   checked locally. Missing source fields and mismatches are reported.
 - Socket quote IDs (including CCTP), RFQ outer/vault IDs and Relay multicall
   request IDs are compared locally when a selected quote provides a matching
-  identifier. Mismatches are reported without blocking or changing field flags;
+  identifier. Mismatches block without changing the three field flags;
   missing/unrecognized keys are skipped. See the [binding limits](src/calldata/README.md).
 - Known destination tokens, minimum amounts and chains are compared. Unknown
   destination paths remain unverified and are reported with available method,
@@ -50,7 +50,7 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
 - Locally derivable final receivers are compared. External order data is skipped
   without a provider request; a skipped receiver is never counted as verified.
 - Parse failures, known mismatches and unexpected missing fields are reported with
-  `blocking: false`, including when `lite` is omitted or false.
+  `pass: false, blocking: true`.
 - Relay and Socket RFQ/CCTP external destination fields are skipped rather than
   fetched. LayerSwap uses its local receiver; no background order lookup runs.
   Skipping an external receiver does not claim order-hash or provider verification.
@@ -61,16 +61,15 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
   Actual mismatches retain their existing error codes. Repeated failures are not
   deduplicated, sampled or rate-limited by the SDK.
 
-`validateBridgeQuote` also accepts `{ lite, onError }` as its fourth argument;
-`validateBridgeTx` accepts it after the optional expectation as its sixth argument.
-`lite` retains its legacy missing-spender behavior; it no longer selects strict
-calldata enforcement and never skips a missing Router allowlist.
+`validateBridgeTx` accepts `{ onError }` after the optional expectation as its sixth
+argument. A missing Router allowlist or an approval address without a configured
+spender is rejected.
 
 `validateBridgeTx` now returns `BridgeValidationResult` instead of `true`:
 
 ```ts
 const result = validateBridgeTx(aggregatorId, chainId, bridgeId, tx, expectation);
-// result.pass === result.routerPass
+// Throws on required-check failures; otherwise result.pass is true.
 // result.fromPass / result.toPass / result.receiverPass
 // result.unverifiedFields / result.errors
 ```
@@ -79,12 +78,13 @@ The three field flags are true only when all required local comparisons for that
 group succeeded. False means a failure or an incomplete check; `errors` and
 `unverifiedFields` distinguish them. Known skipped fields can leave `errors` empty
 while a field flag is false. Without an expectation, field flags are false.
-They do not contribute to `pass` in this rollout. Router rejection still throws
+Validation rejects reportable failures, not every false field flag: known skipped
+fields remain allowed. Router rejection still throws
 `InvalidBridgeContractError`; its sanitized detail carries `pass: false`,
 `routerPass: false` and `blocking: true`.
 
-Raw decode/calldata-check results retain `ok: false` on failure. Observation
-details include all five pass flags, path diagnostics, `lite` and `blocking: false`.
+Raw decode/calldata-check results retain `ok: false` on failure. Failure
+details include all five pass flags, path diagnostics and `blocking`.
 These are failure-event/path counts, not distinct user counts or a denominator for
 all successful transactions. See error reporting below for failures that still throw.
 
@@ -103,7 +103,9 @@ legacy `reason` fields remain available.
 - Thrown SDK errors extend `BridgeError`. Use `error.toJSON()` for a report.
 - `onError` receives failures filtered from `getQuote` / `getQuoteListWithTx`,
   plus local validation failures and unexpected missing fields from transaction checks.
-  Directly thrown errors are handled by the caller, avoiding duplicate reporting.
+  Calldata failures are reported once before throwing; do not report those
+  errors again in a caller's catch when an `onError` reporter is supplied.
+  Other directly thrown errors are handled by the caller.
   Reporting callback failures do not affect validation or quote filtering.
 
 ```ts
@@ -138,17 +140,19 @@ reports merely because a known local limitation prevents verification.
 
 Use `toBridgeErrorReport(resultOrError)` to convert a calldata check,
 transaction validation result, detailed decode result or exception into a report.
-A transaction with `pass: true` can still produce an observation report when its
-`errors` are nonempty. Results without reportable failures return `undefined`,
+Results without reportable failures return `undefined`,
 including known skipped destination fields.
 The `onError` callback and `BridgeError.toJSON()` use the same
 runtime allowlist. Do not upload the entire check, exception, parsed transaction,
 request parameters or quote response.
 
 ```ts
-const check = validateBridgeTx(aggregatorId, chainId, bridgeId, tx, expectation);
-const report = toBridgeErrorReport(check);
-if (report) reportToBusiness(report);
+try {
+  validateBridgeTx(aggregatorId, chainId, bridgeId, tx, expectation);
+} catch (error) {
+  reportToBusiness(toBridgeErrorReport(error));
+  throw error;
+}
 ```
 
 Reports can retain recognized aggregator/bridge/method labels, source/destination

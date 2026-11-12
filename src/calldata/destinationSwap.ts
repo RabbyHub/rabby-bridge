@@ -7,7 +7,9 @@ export const ALLOWANCE_HOLDER = '0x0000000000001ff3684f28c67538d4d072c22734';
 
 // Reviewed deployments, not dynamic registry lookups. Evidence and renewal limits:
 // tests/fixtures/route-discovery-20261104/evidence/base-settler-verification.json
+// tests/fixtures/reported-20261111-evidence.json (Ethereum)
 const SETTLERS: Record<string, string> = {
+  1: '0xaddc26a3854feabfd20d6bf658254088d83a425a',
   8453: '0x7d6839415693801e94cdc4a7d732c9a3fdbbd1d7',
   999: '0xf58d4122251f2ace689f257eaf2688883e30fc6e',
 };
@@ -52,7 +54,8 @@ export const readSettlerSwap = (
   // These reviewed actions cannot mutate/zeroize slippage. CHECK_SLIPPAGE, SELECT
   // and unreviewed actions must not bypass the final enforced transfer to Handler.
   if (!actions.length || readSelector(actions[0]) !== '0xc1fb425e' ||
-      actions.slice(1).some((action) => !['0x38c9c147', '0x8d68a156', '0x5f80abae'].includes(readSelector(action) ?? ''))) return undefined;
+      actions.slice(1).some((action) => !['0x38c9c147', '0x8d68a156', '0x5f80abae'].includes(readSelector(action) ?? '') &&
+        !(chain === 1n && readSelector(action) === '0xf61460f9'))) return undefined;
   const funding = decodeCall([
     { name: 'recipient', kind: 'address' }, { name: 'token', kind: 'address' },
     { name: 'amount', kind: 'uint' }, { name: 'nonce', kind: 'uint' },
@@ -62,8 +65,8 @@ export const readSettlerSwap = (
       asBigint(funding.amount) !== asBigint(args.amount) || asString(funding.signature) !== '0x') return undefined;
   let inputAmount = asBigint(args.amount);
   const maxUint256 = (1n << 256n) - 1n;
-  // shortcut: only HyperEVM's reviewed 100%-balance encoding; review other ratios before support.
-  if (chain === 999n && inputAmount > maxUint256 - 1_000_000n) {
+  // shortcut: only reviewed Ethereum/HyperEVM 100%-balance encoding; review other ratios before support.
+  if ((chain === 1n || chain === 999n) && inputAmount > maxUint256 - 1_000_000n) {
     if (inputAmount !== maxUint256) return undefined;
     inputAmount = balances?.get(asString(args.token)) ?? 0n;
     if (inputAmount <= 0n) return undefined;

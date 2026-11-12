@@ -622,6 +622,11 @@ export const BRIDGE_ERRORS = {
     stage: 'provider_response',
     message: 'Relay source payment mismatch',
   },
+  UNVERIFIED_RELAY_FUNDING: {
+    error_code: 'BRIDGE_UNVERIFIED_RELAY_FUNDING',
+    stage: 'intent',
+    message: 'Relay deposit funding could not be verified',
+  },
   RELAY_SOURCE_VALUE_MISMATCH: {
     error_code: 'BRIDGE_RELAY_SOURCE_VALUE_MISMATCH',
     stage: 'provider_response',

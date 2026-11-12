@@ -29,6 +29,8 @@ export type ParsedBridgeCall = {
   destinationChainId?: bigint;
   destinationChainRef?: string;
   receiver?: string;
+  /** Set when a fixed allowlisted contract satisfies the receiver check. */
+  fixedReceiver?: boolean;
   outputToken?: string;
   minOutputAmount?: bigint;
   orderId?: string;

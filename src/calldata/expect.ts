@@ -17,6 +17,8 @@ export type BridgeCallExpectation = {
   toTokenRawAmount?: string;
   /** Selected backend quote key; only protocol identifiers with known semantics are compared. */
   quoteKey?: string | Record<string, unknown>;
+  /** Relay `protocol.v2.orderData` captured with the transaction being signed. */
+  orderData?: unknown;
   /** 小数滑点。0.01 表示 1%。 */
   slippage?: string | number;
 };
@@ -83,9 +85,9 @@ const selectedQuoteIdentifier = (quoteKey: BridgeCallExpectation['quoteKey']): s
   return match?.[1].toLowerCase();
 };
 
-/** Actual source payment may exceed local intent by at most 0.1%; lower payments fail comparison. */
+/** Source payment is capped at 100.1% of local intent; smaller payments are allowed. */
 export const sourceAmountMatches = (actual: bigint | undefined, expected: bigint): boolean =>
-  actual !== undefined && expected >= 0n && actual >= expected && (actual - expected) * 1000n <= expected;
+  actual !== undefined && actual >= 0n && expected >= 0n && actual * 1000n <= expected * 1001n;
 
 /** Allow a 5% relative difference from the quote's slippage-adjusted minimum. */
 const minReceiveMatches = (minReceive: bigint, quoted: bigint, slippage: number) => {
@@ -155,7 +157,7 @@ export const expectationFailures = (
       reasons.push(BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH);
     }
   }
-  if (mask.receiver && !sameToken(parsed.receiver, expectation.userAddress, chainId)) {
+  if (mask.receiver && !parsed.fixedReceiver && !sameToken(parsed.receiver, expectation.userAddress, chainId)) {
     reasons.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);
   }
   return reasons;

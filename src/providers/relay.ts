@@ -1,9 +1,11 @@
 import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
+import type { BridgeErrorDefinition } from '../errors/index.js';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { getBridgeRouter } from '../list.js';
 import { decodeBridgeCalldataResult } from '../calldata/index.js';
 import { asBigint, asString, decodeCall } from '../calldata/abi.js';
 import type { ParsedBridgeCall } from '../calldata/types.js';
+import { relayFundingRouter } from '../calldata/relay/nestedDeposit.js';
 import type { BridgeQuoteListParams, BridgeTx } from '../quote.js';
 import { address, array, bytes, chain, object, text, tokenAddress, transaction, uint } from './data.js';
 
@@ -120,6 +122,43 @@ export type ProviderQuoteData = {
   orderId: string;
   requestId: string;
   minimumQuantum?: bigint;
+};
+
+const relayOrderMetadata = (): RelayChain[] => Object.entries(RELAY_EVM_CHAIN_IDS).map(([protocolId, evmId]) => ({
+  protocolId, evmId, depository: '0x0000000000000000000000000000000000000000',
+}));
+
+/** Recompute a deposit order id and require its recipient and refund addresses to be the signer. */
+export const verifyRelayOrder = (
+  orderData: unknown, parsed: ParsedBridgeCall, fromChainId: string, userAddress: string, target: string
+): BridgeErrorDefinition[] => {
+  let order: ReturnType<typeof relayOrder>;
+  try { order = relayOrder(orderData, relayOrderMetadata()); }
+  catch { return [BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH]; }
+  const hash = _TypedDataEncoder.hashStruct('Order', ORDER_TYPES, order).toLowerCase();
+  const user = userAddress.toLowerCase();
+  const errors: BridgeErrorDefinition[] = [];
+  if (hash !== parsed.orderId?.toLowerCase()) errors.push(BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH);
+  if (order.output.payments.length === 0 || order.output.payments.some((payment) => payment.recipient !== user)) {
+    errors.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);
+  }
+  if (order.inputs.some((input) => input.refunds.some((refund) => refund.recipient !== user))) {
+    errors.push(BRIDGE_ERRORS.RELAY_REFUND_RECIPIENT_MISMATCH);
+  }
+  const direct = ['depositNative', 'depositErc20'].includes(parsed.method);
+  const token = direct ? parsed.sourceToken : parsed.bridgeToken;
+  const amount = direct ? parsed.sourceAmount : parsed.bridgeAmount;
+  const fundingRouter = relayFundingRouter(parsed.method, target.toLowerCase());
+  if (!token || amount === undefined || amount <= 0n ||
+      (direct && target.toLowerCase() !== getBridgeRouter('relay', fromChainId)) || (!direct &&
+      (!fundingRouter || (parsed.bridgeReceiver !== undefined && parsed.bridgeReceiver !== fundingRouter)))) {
+    errors.push(BRIDGE_ERRORS.UNVERIFIED_RELAY_FUNDING);
+  } else if (order.inputs.length !== 1 ||
+      RELAY_EVM_CHAIN_IDS[order.inputs[0].payment.chainId] !== chain(fromChainId) ||
+      order.inputs[0].payment.currency !== token || BigInt(order.inputs[0].payment.amount) !== amount) {
+    errors.push(BRIDGE_ERRORS.RELAY_SOURCE_PAYMENT_MISMATCH);
+  }
+  return errors;
 };
 
 export const readRelayQuote = (raw: unknown, params: BridgeQuoteListParams, metadata: RelayChain[]): ProviderQuoteData => {

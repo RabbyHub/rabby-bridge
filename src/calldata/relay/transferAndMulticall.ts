@@ -23,7 +23,7 @@ export const transferAndMulticall: CalldataMethod = {
     if (tokens.length !== amounts.length || new Set(tokens).size > 1) {
       throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_RELAY_SOURCE_ASSET_LIST);
     }
-    return relayCall('transferAndMulticall', asString(args.metadata), value, {
+    return relayCall('transferAndMulticall', asString(args.metadata), value, args.calls, {
       token: tokens[0],
       amount: amounts.reduce((sum, amount) => sum + amount, 0n),
     });

@@ -13,6 +13,7 @@ import { permit3009TransferAndMulticallSigned } from './permit3009TransferAndMul
 import { permitTransferAndMulticall } from './permitTransferAndMulticall.js';
 import { permitTransferAndMulticallLegacy } from './permitTransferAndMulticallLegacy.js';
 import { transferAndMulticall } from './transferAndMulticall.js';
+import { getBridgeRouter } from '../../list.js';
 import { relayFailure } from './validate.js';
 import { BRIDGE_ERRORS } from '../../errors/index.js';
 
@@ -53,7 +54,9 @@ export const validateRelay = (
   return finishCheck(
     'relay',
     hit.parsed,
-    expectation && hit.parsed.depositor !== undefined && hit.parsed.depositor !== expectation.userAddress.toLowerCase()
+    hit.parsed.innerTarget && chainId && hit.parsed.innerTarget !== getBridgeRouter('relay', chainId)
+      ? BRIDGE_ERRORS.RELAY_CANONICAL_DEPOSITORY_MISMATCH
+      : expectation && hit.parsed.depositor !== undefined && hit.parsed.depositor !== expectation.userAddress.toLowerCase()
       ? BRIDGE_ERRORS.DEPOSITOR_MISMATCH : relayFailure(hit.parsed),
     expectation,
     chainId,

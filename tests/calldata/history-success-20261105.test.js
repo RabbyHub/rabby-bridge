@@ -24,7 +24,7 @@ describe('20261105 successful bridge history', () => {
   test('checks each fetched success record with the current calldata validator', () => {
     const codeCounts = {};
     let reported = 0;
-    let routerBlocked = 0;
+    let blocked = 0;
     let clean = 0;
 
     for (const record of records) {
@@ -46,7 +46,7 @@ describe('20261105 successful bridge history', () => {
       }
 
       const codes = thrown ? codesOf(thrown) : result.errors.map((error) => error.error_code);
-      if (thrown) routerBlocked += 1;
+      if (thrown) blocked += 1;
       if (codes.length > 0) reported += 1;
       else clean += 1;
       for (const code of codes) codeCounts[code] = (codeCounts[code] || 0) + 1;
@@ -55,12 +55,13 @@ describe('20261105 successful bridge history', () => {
     console.log(JSON.stringify({
       fetched: records.length,
       reported,
-      routerBlocked,
+      blocked,
       clean,
       codeCounts,
     }, null, 2));
 
     expect(records.length).toBe(977);
+    expect(blocked).toBe(reported);
     expect(reported + clean).toBe(records.length);
   });
 });

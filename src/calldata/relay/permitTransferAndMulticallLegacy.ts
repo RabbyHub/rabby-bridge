@@ -36,6 +36,6 @@ export const permitTransferAndMulticallLegacy: CalldataMethod = {
       data
     );
     const source = firstPositive(asArray(args.permits));
-    return relayCall('permitTransferAndMulticallLegacy', asString(args.metadata), value, source);
+    return relayCall('permitTransferAndMulticallLegacy', asString(args.metadata), value, args.calls, source);
   },
 };

@@ -35,6 +35,6 @@ export const permitTransferAndMulticall: CalldataMethod = {
       data
     );
     const source = firstPositive(asArray(args.permits));
-    return relayCall('permitTransferAndMulticall', asString(args.metadata), value, source);
+    return relayCall('permitTransferAndMulticall', asString(args.metadata), value, args.calls, source);
   },
 };

@@ -15,6 +15,6 @@ export const multicall: CalldataMethod = {
       ],
       data
     );
-    return relayCall('multicall', asString(args.metadata), value);
+    return relayCall('multicall', asString(args.metadata), value, args.calls);
   },
 };

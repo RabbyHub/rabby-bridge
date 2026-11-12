@@ -60,7 +60,7 @@ export const sanitizeBridgeError = (value: unknown): BridgeErrorDetail => {
   }
   if (typeof raw.commandByte === 'number' && Number.isInteger(raw.commandByte) && raw.commandByte >= 0 && raw.commandByte <= 255) result.commandByte = raw.commandByte;
   if (typeof raw.httpStatus === 'number' && Number.isInteger(raw.httpStatus) && raw.httpStatus >= 100 && raw.httpStatus <= 599) result.httpStatus = raw.httpStatus;
-  for (const key of ['hasDestinationCall', 'lite', 'blocking', 'pass', 'routerPass', 'fromPass', 'toPass', 'receiverPass'] as const) {
+  for (const key of ['hasDestinationCall', 'blocking', 'pass', 'routerPass', 'fromPass', 'toPass', 'receiverPass'] as const) {
     const item = raw[key];
     if (typeof item === 'boolean') result[key] = item;
   }

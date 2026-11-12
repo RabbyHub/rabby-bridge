@@ -42,7 +42,7 @@ const decodePermits = (
     );
     const source = firstPositive(asArray(args.permits));
     const tokens = asArray(args.tokens).map((token) => asString(token));
-    return relayCall(name, asString(args.metadata), value, {
+    return relayCall(name, asString(args.metadata), value, args.calls, {
       token: tokens[0] ?? source.token,
       amount: source.amount,
     });

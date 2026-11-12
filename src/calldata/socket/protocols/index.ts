@@ -4,6 +4,7 @@ import { asBigint, asString, decodeCall } from '../../abi.js';
 import { readSelector } from '../../hex.js';
 import type { ParsedBridgeCall } from '../../types.js';
 import { isNative, NATIVE_TOKEN } from '../../protocols.js';
+import { SOCKET_CCTP_MESSENGER, SOCKET_RFQ_VAULT } from '../addresses.js';
 import { readCcip } from './ccip.js';
 import { readCctp } from './cctp.js';
 import { readEco } from './eco.js';
@@ -17,19 +18,19 @@ const decodeSocketBridge = (data: string, target: string, token: string, value: 
   if (native) return native;
   if (selector === '0x96f4e9f9') return readCcip(data, target);
   if (selector === '0x8e0250ee') {
-    if (target !== '0x28b5a0e9c621a5badaa536219b3a228c8168cf5d' || spender !== target || value !== 0n) {
+    if (target !== SOCKET_CCTP_MESSENGER || spender !== target || value !== 0n) {
       throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOCKET_CCTP_TARGET_SPENDER_OR_VALUE);
     }
     const parsed = readCctp(data);
     if (parsed.bridgeToken !== token) throw new BridgeError(BRIDGE_ERRORS.SOCKET_CCTP_TOKEN_DOES_NOT_MATCH_BRIDGE_ASSET);
     return parsed;
   }
-  if (selector === '0xdf00f8fa') return readEco(data);
+  if (selector === '0xdf00f8fa') return readEco(data, target, spender, value);
   if (selector === '0xc7c7f5b3' || selector === '0x2cdf0b95') return readOft(data, target, token);
   if (selector === '0x0c751e0b' || selector === '0x9be111d1') return readSwapsXYZ(data);
   if (selector === '0x823b01f9' || selector === '0x3345e738') {
     const native = selector === '0x3345e738';
-    if (target !== '0x97caca78ac2a94c67643d07843f85afaa44a3ea5' || spender !== target ||
+    if (target !== SOCKET_RFQ_VAULT || spender !== target ||
         (native ? !isNative(token) : value !== 0n)) {
       throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOCKET_RFQ_TARGET_SPENDER_OR_VALUE);
     }

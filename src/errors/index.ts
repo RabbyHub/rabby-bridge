@@ -12,7 +12,6 @@ export type BridgeErrorContext = {
   fromPass?: boolean;
   toPass?: boolean;
   receiverPass?: boolean;
-  lite?: boolean;
   blocking?: boolean;
   aggregatorId?: string;
   chainId?: string;
@@ -93,7 +92,7 @@ export const toBridgeErrorReport = (value: unknown): BridgeErrorReport | undefin
   return new BridgeError(BRIDGE_ERRORS.UNKNOWN, {}, errors).toJSON();
 };
 
-/** Only used when an invalid quote is filtered; directly thrown failures stay with the caller. */
+/** Report validation or quote-filtering failures without letting the reporter affect validation. */
 export const reportBridgeError = (report: BridgeErrorReporter | undefined, error: BridgeError, context: BridgeErrorContext) => {
   if (!report) return;
   try {

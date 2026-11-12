@@ -49,9 +49,10 @@ describe('reachable route modes beyond the historical function list', () => {
       expect(check.ok).toBe(false);
       expect(check.reason).toContain(item.expectedValidationError);
       const reports = [];
-      await expect(buildTx(item.aggregatorId, { ...params, onError: (report) => reports.push(report) }, api)).resolves.toBeDefined();
+      await expect(buildTx(item.aggregatorId, { ...params, onError: (report) => reports.push(report) }, api))
+        .rejects.toMatchObject({ error_code: check.error_code });
       expect(reports.flatMap((report) => report.errors)).toEqual(expect.arrayContaining([
-        expect.objectContaining({ error_code: check.error_code, pass: true, blocking: false }),
+        expect.objectContaining({ error_code: check.error_code, pass: false, blocking: true }),
       ]));
     } else {
       expect(check.ok).toBe(true);
@@ -94,12 +95,16 @@ describe('reachable route modes beyond the historical function list', () => {
       const params = { userAddress: user, fromChainId: 'eth', toChainId: 'base', fromTokenId: input,
         fromTokenRawAmount: '10000000', toTokenId: output, toTokenRawAmount: '9900000', slippage: '0.01', bridgeId };
       const reports = [];
-      await expect(buildTx('lifi', { ...params, onError: (report) => reports.push(report) },
-        { buildBridgeTx: async () => tx })).resolves.toBe(tx);
-      if (bridgeId === 'allbridge') expect(reports).toEqual([]);
-      else expect(reports.flatMap((report) => report.errors)).toEqual(expect.arrayContaining([
-        expect.objectContaining({ error_code: 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS', toPass: false, blocking: false }),
-      ]));
+      const built = buildTx('lifi', { ...params, onError: (report) => reports.push(report) }, { buildBridgeTx: async () => tx });
+      if (bridgeId === 'allbridge') {
+        await expect(built).resolves.toBe(tx);
+        expect(reports).toEqual([]);
+      } else {
+        await expect(built).rejects.toMatchObject({ errors: expect.arrayContaining([
+          expect.objectContaining({ error_code: 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS', toPass: false, blocking: true }),
+        ]) });
+        expect(reports).toHaveLength(1);
+      }
     }
   });
 

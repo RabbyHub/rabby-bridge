@@ -3,6 +3,7 @@ import { asBigint, asRecord, asString, type AbiParam, type AbiValue } from '../a
 import { isZeroWord } from '../hex.js';
 import type { ParsedBridgeCall } from '../types.js';
 import { NATIVE_TOKEN } from '../protocols.js';
+import { nestedRelayOrder } from './nestedDeposit.js';
 
 export const callTuple: AbiParam = {
   name: 'call',
@@ -34,6 +35,7 @@ export const relayCall = (
   method: string,
   metadata: string,
   value: bigint,
+  calls: AbiValue,
   source?: { token?: string; amount?: bigint }
 ): ParsedBridgeCall => ({
   aggregatorId: 'relay',
@@ -42,6 +44,10 @@ export const relayCall = (
   requestId: requestIdFromMetadata(metadata),
   sourceToken: source?.token ?? (value > 0n ? NATIVE_TOKEN : undefined),
   sourceAmount: source?.amount && source.amount > 0n ? source.amount : value,
+  ...nestedRelayOrder(calls,
+    method === 'transferAndMulticall' && value === 0n && source?.token && source.amount !== undefined
+      ? { token: source.token, amount: source.amount }
+      : method === 'multicall' && value > 0n ? { token: NATIVE_TOKEN, amount: value } : undefined),
 });
 
 const amountOf = (record: { [key: string]: AbiValue }): bigint => {

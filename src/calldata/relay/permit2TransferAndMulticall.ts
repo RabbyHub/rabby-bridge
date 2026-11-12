@@ -41,7 +41,7 @@ export const permit2TransferAndMulticall: CalldataMethod = {
     );
     const source = firstPositive(asArray(asRecord(args.permit).permitted));
     return {
-      ...relayCall('permit2TransferAndMulticall', asString(args.metadata), value, source),
+      ...relayCall('permit2TransferAndMulticall', asString(args.metadata), value, args.calls, source),
       depositor: asString(args.user),
     };
   },
