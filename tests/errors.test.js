@@ -73,7 +73,7 @@ describe('structured bridge failures', () => {
 
   test('collects every independent intent mismatch instead of only the first one', () => {
     const check = validateBridgeCalldata('across', 'eth', tx, {
-      ...params, fromTokenId: other, fromTokenRawAmount: '1', toTokenId: other, toTokenRawAmount: '1',
+      ...params, fromTokenId: other, fromTokenRawAmount: '1', toTokenId: other, toTokenRawAmount: '100000000',
     });
     expect(check.ok).toBe(false);
     expect(check.errors.map((error) => error.error_code)).toEqual([

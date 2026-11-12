@@ -15,6 +15,7 @@ export const readNativeBridge = (data: string, target: string, value: bigint): P
       : target === '0x1a07cc4bd17e0118bdb54d70990d2158abad7a2d' ? 4663n : undefined;
     const callData = asString(a.data);
     return { protocolMethod: 'createRetryableTicket', destinationChainId,
+      refundRecipients: [asString(a.callValueRefundAddress), asString(a.excessFeeRefundAddress)],
       receiver: callData === '0x' ? asString(a.to) : undefined, bridgeReceiver: asString(a.to),
       outputToken: callData === '0x' ? NATIVE_TOKEN : undefined,
       minOutputAmount: callData === '0x' ? asBigint(a.l2CallValue) : undefined,

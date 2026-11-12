@@ -28,10 +28,11 @@ export const evmChainId = (chain: string): bigint | undefined => {
 export const sourceChainMismatch = (
   expected: string, actual?: string | number | bigint
 ): boolean => {
-  if (actual === undefined) return false;
+  const expectedId = evmChainId(expected);
+  if (actual === undefined || expectedId === undefined) return false;
   try {
     return (typeof actual === 'number' && !Number.isSafeInteger(actual)) ||
-      evmChainId(expected) === undefined || BigInt(actual) !== evmChainId(expected);
+      BigInt(actual) !== expectedId;
   } catch {
     return true;
   }

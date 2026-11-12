@@ -29,6 +29,8 @@ export type ParsedBridgeCall = {
   destinationChainId?: bigint;
   destinationChainRef?: string;
   receiver?: string;
+  /** Refund beneficiaries encoded in this transaction, independent of final delivery. */
+  refundRecipients?: string[];
   /** Set when a fixed allowlisted contract satisfies the receiver check. */
   fixedReceiver?: boolean;
   outputToken?: string;

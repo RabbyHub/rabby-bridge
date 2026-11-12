@@ -54,6 +54,27 @@ describe('transaction validation always enforces required checks', () => {
   });
 
   test.each([
+    [94049999, false], [94050000, true], [99000000, true],
+    [103950000, true], [103950001, true], [200000000, true],
+  ])('receive minimum %s keeps the 5%% floor without an upper cap', async (minimum, accepted) => {
+    const sourceTx = { ...tx, data: tx.data.slice(0, 330) +
+      BigInt(minimum).toString(16).padStart(64, '0') + tx.data.slice(394) };
+    const onError = jest.fn();
+    const expected = { ...params, toTokenRawAmount: '100000000', slippage: '0.01', onError };
+    const built = buildTx('across', expected, { buildBridgeTx: async () => sourceTx });
+    if (accepted) {
+      await expect(built).resolves.toBe(sourceTx);
+      expect(validateBridgeTx('across', 'eth', 'across', sourceTx, expected).toPass).toBe(true);
+      expect(onError).not.toHaveBeenCalled();
+    } else {
+      await expect(built).rejects.toMatchObject({ error_code: 'BRIDGE_MIN_RECEIVE_MISMATCH' });
+      expect(failures(onError)).toEqual(expect.arrayContaining([
+        expect.objectContaining({ error_code: 'BRIDGE_MIN_RECEIVE_MISMATCH', toPass: false, blocking: true }),
+      ]));
+    }
+  });
+
+  test.each([
     [{ ...tx, data: '0xdeadbeef' }, params, BRIDGE_ERRORS.UNSUPPORTED_METHOD.error_code],
     [tx, { ...params, fromTokenRawAmount: '1' }, BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH.error_code],
     [{ ...tx, from: other }, params, BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH.error_code],
@@ -162,7 +183,7 @@ describe('transaction validation always enforces required checks', () => {
     [{ fromTokenId: other }, {}, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_TOKEN_MISMATCH.error_code],
     [{ fromTokenRawAmount: '1' }, {}, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH.error_code],
     [{ toTokenId: other }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.TO_TOKEN_MISMATCH.error_code],
-    [{ toTokenRawAmount: '1' }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH.error_code],
+    [{ toTokenRawAmount: '100000000' }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH.error_code],
     [{ toChainId: 'arb' }, {}, { fromPass: true, toPass: false, receiverPass: true }, BRIDGE_ERRORS.TO_CHAIN_MISMATCH.error_code],
     [{}, { from: other }, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH.error_code],
     [{}, { chainId: 10 }, { fromPass: false, toPass: true, receiverPass: true }, BRIDGE_ERRORS.FROM_CHAIN_MISMATCH.error_code],
@@ -220,11 +241,11 @@ describe('transaction validation always enforces required checks', () => {
     const providerClient = { captureContext: jest.fn(), getQuotes: jest.fn(), buildTx: jest.fn(), verifyTx: jest.fn() };
     const onError = jest.fn();
     const api = { getBridgeQuoteListV2: jest.fn(async () => [quote]), buildBridgeTx: jest.fn(async () => sourceTx) };
-    await expect(getQuoteListWithTx(provider, { ...data.params, providerClient, onError }, api))
+    await expect(getQuoteListWithTx(provider, { ...data.params, providerClient, onError, allowMissingRelayOrder: true }, api))
       .resolves.toEqual([{ ...quote, tx: sourceTx }]);
     for (const fn of Object.values(providerClient)) expect(fn).not.toHaveBeenCalled();
     expect(onError).not.toHaveBeenCalled();
-    const check = validateBridgeTx(provider, data.params.fromChainId, bridgeId, sourceTx, data.params, { onError });
+    const check = validateBridgeTx(provider, data.params.fromChainId, bridgeId, sourceTx, data.params, { onError, allowMissingRelayOrder: true });
     expect(check).toMatchObject({ pass: true, fromPass: true, toPass: false, receiverPass: false, errors: [] });
     expect(check.unverifiedFields).toContain('receiver');
     expect(toBridgeErrorReport(check)).toBeUndefined();
@@ -250,7 +271,7 @@ describe('transaction validation always enforces required checks', () => {
   test('throwing reporters cannot veto skipped checks', async () => {
     const data = fixture('relay-v2');
     const onError = () => { throw new Error('reporter'); };
-    await expect(buildTx('relay', { ...data.params, bridgeId: 'relay', onError }, { buildBridgeTx: async () => data.tx }))
+    await expect(buildTx('relay', { ...data.params, bridgeId: 'relay', onError, allowMissingRelayOrder: true }, { buildBridgeTx: async () => data.tx }))
       .resolves.toBe(data.tx);
   });
 });

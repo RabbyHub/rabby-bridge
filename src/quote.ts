@@ -6,6 +6,7 @@ import {
   validateBridgeCalldata,
 } from './calldata/index.js';
 import type { BridgeCallExpectation } from './calldata/expect.js';
+import { finishCheck, knownCompare } from './calldata/expect.js';
 import type { BridgeCheck } from './calldata/types.js';
 import { calldataDiagnostics } from './calldata/diagnostics.js';
 import { sanitizeBridgeError } from './errors/sanitize.js';
@@ -23,6 +24,11 @@ import { verifyRelayOrder } from './providers/relay.js';
 export interface BridgeValidationOptions {
   /** Receives filtered quote failures and calldata failures. */
   onError?: BridgeErrorReporter;
+  /**
+   * Test-only. Production callers must leave this unset: a missing Relay
+   * orderData then fails validation.
+   */
+  allowMissingRelayOrder?: boolean;
 }
 
 export type BridgeValidationResult = {
@@ -231,10 +237,13 @@ const fieldErrors: Record<'fromPass' | 'toPass' | 'receiverPass', BridgeErrorDef
   toPass: [BRIDGE_ERRORS.TO_CHAIN_MISMATCH, BRIDGE_ERRORS.TO_TOKEN_MISMATCH,
     BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH, BRIDGE_ERRORS.MISSING_DESTINATION,
     BRIDGE_ERRORS.MISSING_DESTINATION_CHAIN, BRIDGE_ERRORS.MISSING_OUTPUT_TOKEN,
-    BRIDGE_ERRORS.MISSING_MIN_OUTPUT, BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL],
+    BRIDGE_ERRORS.MISSING_MIN_OUTPUT, BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL,
+    BRIDGE_ERRORS.UNSUPPORTED_RELAY_ORDER_SHAPE],
   receiverPass: [BRIDGE_ERRORS.RECEIVER_MISMATCH, BRIDGE_ERRORS.MISSING_RECEIVER,
+    BRIDGE_ERRORS.REFUND_RECIPIENT_MISMATCH,
     BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL,
     BRIDGE_ERRORS.RELAY_REFUND_RECIPIENT_MISMATCH, BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH,
+    BRIDGE_ERRORS.MISSING_RELAY_ORDER_DATA,
     BRIDGE_ERRORS.UNVERIFIED_RELAY_FUNDING, BRIDGE_ERRORS.RELAY_SOURCE_PAYMENT_MISMATCH],
 };
 
@@ -253,13 +262,23 @@ const checkBridgeTx = (
   catch (error) {
     check = { ok: false, aggregatorId, errors: asBridgeError(error, BRIDGE_ERRORS.INVALID_CALLDATA).errors };
   }
-  if (expectation?.orderData !== undefined && aggregatorId === BRIDGE_ENUM.RELAY) {
-    const orderErrors = check.parsed?.orderId
-      ? verifyRelayOrder(expectation.orderData, check.parsed, fromChainId, expectation.userAddress, tx.to)
-      : [BRIDGE_ERRORS.MISSING_RELAY_ORDER_ID];
+  const enforceRelayOrder = aggregatorId === BRIDGE_ENUM.RELAY &&
+    (options.allowMissingRelayOrder !== true || expectation?.orderData !== undefined);
+  if (enforceRelayOrder) {
+    const orderErrors = expectation?.orderData === undefined
+      ? [BRIDGE_ERRORS.MISSING_RELAY_ORDER_DATA]
+      : check.parsed?.orderId
+        ? verifyRelayOrder(expectation.orderData, check.parsed, fromChainId, expectation.userAddress, tx.to)
+        : [BRIDGE_ERRORS.MISSING_RELAY_ORDER_ID];
+    if (orderErrors.length === 0 && check.parsed) {
+      const verified = finishCheck('relay', check.parsed,
+        expectation?.toChainId ? undefined : BRIDGE_ERRORS.MISSING_DESTINATION_CHAIN,
+        expectation, fromChainId, knownCompare(check.parsed));
+      check = { ...check, ok: check.ok && verified.ok, unverifiedFields: verified.unverifiedFields,
+        errors: [...check.errors, ...verified.errors.filter((error) =>
+          !check.errors.some((existing) => existing.error_code === error.error_code))] };
+    }
     check = { ...check, ok: check.ok && orderErrors.length === 0,
-      unverifiedFields: orderErrors.length === 0
-        ? check.unverifiedFields?.filter((field) => field !== 'receiver') : check.unverifiedFields,
       errors: [...check.errors,
       ...orderErrors.filter((error) => !check.errors.some((existing) => existing.error_code === error.error_code))] };
   }
@@ -267,7 +286,7 @@ const checkBridgeTx = (
     'sourceToken', 'sourceAmount', 'outputToken', 'minOutputAmount', 'receiver',
     ...(expectation?.toChainId ? ['destinationChainId'] : []),
   ];
-  const externalDestination = check.parsed && (aggregatorId === BRIDGE_ENUM.RELAY ||
+  const externalDestination = check.parsed && ((aggregatorId === BRIDGE_ENUM.RELAY && check.parsed.destinationChainId === undefined) ||
     (aggregatorId === BRIDGE_ENUM.SOCKET &&
       ['receiveERC20', 'receiveNative', 'depositForBurn'].includes(check.parsed.protocolMethod ?? '')));
   // Known local limits remain unverified, without repeating an expected gap as an error.

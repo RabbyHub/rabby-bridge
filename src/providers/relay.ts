@@ -2,6 +2,7 @@ import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
 import type { BridgeErrorDefinition } from '../errors/index.js';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { getBridgeRouter } from '../list.js';
+import { evmChainId } from '../calldata/chains.js';
 import { decodeBridgeCalldataResult } from '../calldata/index.js';
 import { asBigint, asString, decodeCall } from '../calldata/abi.js';
 import type { ParsedBridgeCall } from '../calldata/types.js';
@@ -128,7 +129,7 @@ const relayOrderMetadata = (): RelayChain[] => Object.entries(RELAY_EVM_CHAIN_ID
   protocolId, evmId, depository: '0x0000000000000000000000000000000000000000',
 }));
 
-/** Recompute a deposit order id and require its recipient and refund addresses to be the signer. */
+/** Verify the order and its funding before exposing its committed destination fields. */
 export const verifyRelayOrder = (
   orderData: unknown, parsed: ParsedBridgeCall, fromChainId: string, userAddress: string, target: string
 ): BridgeErrorDefinition[] => {
@@ -145,6 +146,9 @@ export const verifyRelayOrder = (
   if (order.inputs.some((input) => input.refunds.some((refund) => refund.recipient !== user))) {
     errors.push(BRIDGE_ERRORS.RELAY_REFUND_RECIPIENT_MISMATCH);
   }
+  if (order.output.payments.length !== 1 || order.output.calls.length !== 0) {
+    errors.push(BRIDGE_ERRORS.UNSUPPORTED_RELAY_ORDER_SHAPE);
+  }
   const direct = ['depositNative', 'depositErc20'].includes(parsed.method);
   const token = direct ? parsed.sourceToken : parsed.bridgeToken;
   const amount = direct ? parsed.sourceAmount : parsed.bridgeAmount;
@@ -154,9 +158,17 @@ export const verifyRelayOrder = (
       (!fundingRouter || (parsed.bridgeReceiver !== undefined && parsed.bridgeReceiver !== fundingRouter)))) {
     errors.push(BRIDGE_ERRORS.UNVERIFIED_RELAY_FUNDING);
   } else if (order.inputs.length !== 1 ||
-      RELAY_EVM_CHAIN_IDS[order.inputs[0].payment.chainId] !== chain(fromChainId) ||
+      (evmChainId(fromChainId) !== undefined &&
+        RELAY_EVM_CHAIN_IDS[order.inputs[0].payment.chainId] !== evmChainId(fromChainId)) ||
       order.inputs[0].payment.currency !== token || BigInt(order.inputs[0].payment.amount) !== amount) {
     errors.push(BRIDGE_ERRORS.RELAY_SOURCE_PAYMENT_MISMATCH);
+  }
+  if (errors.length === 0) {
+    const output = order.output.payments[0];
+    Object.assign(parsed, {
+      destinationChainId: RELAY_EVM_CHAIN_IDS[order.output.chainId],
+      outputToken: output.currency, minOutputAmount: BigInt(output.minimumAmount), receiver: output.recipient,
+    });
   }
   return errors;
 };

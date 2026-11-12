@@ -19,7 +19,7 @@ const hashOrder = (order) => _TypedDataEncoder.hashStruct('Order', orderTypes, o
 const codes = (result) => result.errors.map((error) => error.error_code);
 const replace = (tx, before, after) => ({ ...tx, data: tx.data.replaceAll(before, after) });
 
-const relayIntent = { ...relay.params, orderData };
+const relayIntent = { ...relay.params, toTokenRawAmount: orderData.output.payments[0].expectedAmount, orderData };
 const socketIntent = { ...socket.params };
 const word = (value) => BigInt(value).toString(16).padStart(64, '0');
 const bytes = (value) => word((value.length - 2) / 2) + value.slice(2).padEnd(Math.ceil((value.length - 2) / 64) * 64, '0');
@@ -146,8 +146,8 @@ describe('receiver check policy', () => {
     const checked = validateBridgeTx('relay', relay.params.fromChainId, 'relay', relay.tx, relayIntent);
     expect(checked.receiverPass).toBe(true);
     expect(checked.unverifiedFields).not.toContain('receiver');
-    expect(checked.toPass).toBe(false);
-    expect(checked.unverifiedFields).toEqual(expect.arrayContaining(['outputToken', 'minOutputAmount', 'destinationChainId']));
+    expect(checked.toPass).toBe(true);
+    expect(checked.unverifiedFields).toEqual([]);
     expect(codes(checked)).not.toEqual(expect.arrayContaining([
       'BRIDGE_RELAY_ORDER_HASH_MISMATCH', 'BRIDGE_RECEIVER_MISMATCH', 'BRIDGE_RELAY_REFUND_RECIPIENT_MISMATCH',
     ]));
@@ -233,13 +233,11 @@ describe('receiver check policy', () => {
     expect(checked.errors.every((error) => error.blocking === true)).toBe(true);
   });
 
-  test('preserves missing-order-data rollout behavior', () => {
-    const tx = multicallTx([]);
-    expect(codes(validateBridgeTx('relay', relay.params.fromChainId, 'relay', tx, relay.params)))
-      .not.toContain('BRIDGE_MISSING_RELAY_ORDER_ID');
-    const direct = validateBridgeTx('relay', relay.params.fromChainId, 'relay', relay.tx, relay.params);
-    expect(direct.receiverPass).toBe(false);
-    expect(direct.unverifiedFields).toContain('receiver');
+  test('rejects Relay validation when orderData is missing', () => {
+    const missing = expectCalldataError(() => validateBridgeTx('relay', relay.params.fromChainId, 'relay', relay.tx, relay.params));
+    expect(codes(missing)).toContain('BRIDGE_MISSING_RELAY_ORDER_DATA');
+    expect(missing.errors[0].blocking).toBe(true);
+    expect(missing.errors[0].pass).toBe(false);
   });
 
   test('reports supplied order data even if calldata itself cannot be decoded', () => {
@@ -287,12 +285,12 @@ describe('receiver check policy', () => {
     const apiFor = (order) => shape === 'flat'
       ? { buildBridgeTx: async () => ({ ...relay.tx, order_data: order }) }
       : { getBridgeQuoteTxV2: async () => ({ tx: relay.tx, order_data: order }) };
-    await expect(buildTx('relay', { ...relay.params, bridgeId: 'relay', onError }, apiFor(orderData))).resolves.toMatchObject(relay.tx);
+    await expect(buildTx('relay', { ...relayIntent, bridgeId: 'relay', onError }, apiFor(orderData))).resolves.toMatchObject(relay.tx);
     expect(onError).not.toHaveBeenCalled();
 
     const changed = structuredClone(orderData);
     changed.salt = `0x${'ab'.repeat(32)}`;
-    await expect(buildTx('relay', { ...relay.params, bridgeId: 'relay', onError }, apiFor(changed)))
+    await expect(buildTx('relay', { ...relayIntent, bridgeId: 'relay', onError }, apiFor(changed)))
       .rejects.toMatchObject({ errors: expect.arrayContaining([
         expect.objectContaining({ error_code: 'BRIDGE_RELAY_ORDER_HASH_MISMATCH', pass: false, blocking: true }),
       ]) });

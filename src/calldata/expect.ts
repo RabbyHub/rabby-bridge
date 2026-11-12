@@ -89,7 +89,7 @@ const selectedQuoteIdentifier = (quoteKey: BridgeCallExpectation['quoteKey']): s
 export const sourceAmountMatches = (actual: bigint | undefined, expected: bigint): boolean =>
   actual !== undefined && actual >= 0n && expected >= 0n && actual * 1000n <= expected * 1001n;
 
-/** Allow a 5% relative difference from the quote's slippage-adjusted minimum. */
+/** Allow up to 5% below the slippage-adjusted minimum; higher guarantees always pass. */
 const minReceiveMatches = (minReceive: bigint, quoted: bigint, slippage: number) => {
   if (minReceive <= 0n || quoted <= 0n || slippage < 0 || slippage >= 1) {
     return false;
@@ -99,11 +99,7 @@ const minReceiveMatches = (minReceive: bigint, quoted: bigint, slippage: number)
   if (minimum <= 0n) {
     return false;
   }
-  if (minReceive === minimum) {
-    return true;
-  }
-  const difference = minReceive > minimum ? minReceive - minimum : minimum - minReceive;
-  return difference * 20n <= minimum;
+  return minReceive * 20n >= minimum * 19n;
 };
 
 export const expectationFailures = (
@@ -160,6 +156,9 @@ export const expectationFailures = (
   if (mask.receiver && !parsed.fixedReceiver && !sameToken(parsed.receiver, expectation.userAddress, chainId)) {
     reasons.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);
   }
+  if (parsed.refundRecipients?.some((recipient) => recipient.toLowerCase() !== expectation.userAddress.toLowerCase())) {
+    reasons.push(BRIDGE_ERRORS.REFUND_RECIPIENT_MISMATCH);
+  }
   return reasons;
 };
 
@@ -197,7 +196,7 @@ export const finishCheck = (
     minOutputAmount: mask.toAmount && expectation?.toTokenRawAmount !== undefined,
     receiver: mask.receiver,
   }).filter(([, checked]) => !expectation || !checked).map(([field]) => field);
-  if (expectation?.toChainId && (parsed.destinationChainId === undefined || evmChainId(expectation.toChainId) === undefined)) {
+  if (expectation?.toChainId && parsed.destinationChainId === undefined) {
     unverifiedFields.push('destinationChainId');
   }
   if (errors.length) {

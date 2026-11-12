@@ -20,7 +20,7 @@ describe('backend-only lightweight entry points', () => {
   });
 
   const cases = [
-    ['relay', { ...relay.params, bridgeId: 'relay' }, relay.tx],
+    ['relay', { ...relay.params, bridgeId: 'relay', allowMissingRelayOrder: true }, relay.tx],
     ...socket.cases.map((item) => ['socket', { ...socket.params, bridgeId: item.bridgeId }, item.tx]),
     ['lifi', layerParams, layer.tx],
   ];

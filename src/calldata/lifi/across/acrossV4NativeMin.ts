@@ -17,6 +17,7 @@ export const startBridgeTokensViaAcrossV4NativeMin: CalldataMethod = {
       sourceAmount: value,
       destinationChainId: asBigint(parameters.destinationChainId),
       receiver: accountFromBytes32(asString(parameters.receiver)),
+      refundRecipients: [accountFromBytes32(asString(parameters.depositor))],
       outputToken: accountFromBytes32(asString(parameters.receivingAssetId)),
       minOutputAmount: asBigint(parameters.outputAmount),
     };

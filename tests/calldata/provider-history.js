@@ -20,7 +20,7 @@ export const replayProviderHistory = async (item, raw = providerHistoryResponse(
     userAddress: item.tx.from, fromTokenId: item.expected.sourceToken,
     fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey,
     toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.minOutputAmount, slippage: '0',
-  });
+  }, { allowMissingRelayOrder: true });
   assert.equal(validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx).ok, true, 'invalid local source calldata');
   const provider = item.providerHistory.provider;
   if (provider === 'layerswap') {

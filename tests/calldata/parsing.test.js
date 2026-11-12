@@ -107,7 +107,13 @@ describe('complete onchain calldata test units', () => {
   test.each(transactions.map((item) => [tags[item.aggregatorId], item.id, item]))(
     '[%s] %s compares local fields and reports deferred output checks', async (tag, id, item) => {
       const check = validateBridgeCalldata(item.aggregatorId, item.chainKey, item.tx, intent(item));
-      expect(check.ok).toBe(true);
+      // These historical successes encode third-party retryable refund beneficiaries.
+      const expectedErrors = [
+        'coverage-socket-b69fe78f2aa0157f13085d0f17dc0bbad92407116f50d7a713aee8cefada1183',
+        'coverage-socket-7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3',
+      ].includes(item.id) ? ['BRIDGE_REFUND_RECIPIENT_MISMATCH'] : [];
+      expect(check.ok).toBe(expectedErrors.length === 0);
+      expect(check.errors.map((error) => error.error_code)).toEqual(expectedErrors);
       expect(check.unverifiedFields).toEqual(check.parsed.unresolvedFields);
       const parsed = check.parsed;
       expect(parsed.sourceToken).toBe(item.expected.sourceToken);

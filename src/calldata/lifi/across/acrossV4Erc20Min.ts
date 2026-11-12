@@ -24,6 +24,7 @@ export const startBridgeTokensViaAcrossV4ERC20Min: CalldataMethod = {
       sourceAmount: asBigint(args.inputAmount),
       destinationChainId: asBigint(parameters.destinationChainId),
       receiver: accountFromBytes32(asString(parameters.receiver)),
+      refundRecipients: [accountFromBytes32(asString(parameters.depositor))],
       outputToken: accountFromBytes32(asString(parameters.receivingAssetId)),
       minOutputAmount: asBigint(parameters.outputAmount),
     };

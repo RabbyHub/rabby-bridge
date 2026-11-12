@@ -39,7 +39,8 @@ describe('20261105 successful bridge history', () => {
           record.chainKey,
           record.bridgeId,
           record.tx,
-          expectation
+          expectation,
+          { allowMissingRelayOrder: true }
         );
       } catch (error) {
         thrown = error;

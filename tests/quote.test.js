@@ -307,7 +307,6 @@ describe('buildTx', () => {
     ['fromTokenId', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_TOKEN_MISMATCH'],
     ['fromTokenRawAmount', '1', 'BRIDGE_FROM_AMOUNT_MISMATCH'],
     ['userAddress', '0x0000000000000000000000000000000000000001', 'BRIDGE_FROM_ADDRESS_MISMATCH'],
-    ['toChainId', 'not-a-chain', 'BRIDGE_UNVERIFIED_BRIDGE_FIELDS'],
   ])('reports OFT %s checks while its output fields are deferred', async (field, value, code) => {
     const onError = jest.fn();
     await expect(buildTx(BRIDGE_ENUM.SOCKET, {
@@ -541,7 +540,8 @@ describe('Elysium routes', () => {
     ['hyper', 'Elysium', depository, depository, '0x0'],
   ])('accepts Relay %s → %s via %s / %s', async (fromChainId, toChainId, spender, router, value) => {
     const quote = makeQuote({ approve_contract_id: spender });
-    const tx = makeTx({ to: router, value });
+    const { chainId: _ignoredChainId, ...sourceTx } = relaySample.tx;
+    const tx = { ...sourceTx, to: router, value };
     const api = {
       getBridgeQuoteListV2: jest.fn().mockResolvedValue([quote]),
       buildBridgeTx: jest.fn().mockResolvedValue(tx),
@@ -549,7 +549,17 @@ describe('Elysium routes', () => {
 
     await expect(getQuoteListWithTx(
       BRIDGE_ENUM.RELAY,
-      { ...baseParams, fromChainId, toChainId },
+      {
+        userAddress: relaySample.tx.from,
+        fromChainId,
+        fromTokenId: relaySample.expected.sourceToken,
+        fromTokenRawAmount: relaySample.expected.sourceAmount,
+        toChainId,
+        toTokenId: relaySample.expected.outputToken,
+        toTokenRawAmount: relaySample.expected.minOutputAmount,
+        slippage: '0.01',
+        allowMissingRelayOrder: true,
+      },
       api
     )).resolves.toEqual([{ ...quote, tx }]);
     expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);

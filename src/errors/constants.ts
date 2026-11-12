@@ -369,6 +369,11 @@ export const BRIDGE_ERRORS = {
     stage: 'structure',
     message: 'missing relay order id',
   },
+  MISSING_RELAY_ORDER_DATA: {
+    error_code: 'BRIDGE_MISSING_RELAY_ORDER_DATA',
+    stage: 'intent',
+    message: 'missing relay order data',
+  },
   MISSING_SOURCE_AMOUNT: {
     error_code: 'BRIDGE_MISSING_SOURCE_AMOUNT',
     stage: 'structure',
@@ -449,6 +454,11 @@ export const BRIDGE_ERRORS = {
     error_code: 'BRIDGE_DEPOSITOR_MISMATCH',
     stage: 'intent',
     message: 'depositor',
+  },
+  REFUND_RECIPIENT_MISMATCH: {
+    error_code: 'BRIDGE_REFUND_RECIPIENT_MISMATCH',
+    stage: 'intent',
+    message: 'refund recipient does not match the user',
   },
   FROM_AMOUNT_MISMATCH: {
     error_code: 'BRIDGE_FROM_AMOUNT_MISMATCH',

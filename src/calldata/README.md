@@ -23,6 +23,8 @@ structured exceptions and filtered-quote reporting.
   AllBridge can retain its verified receiver while skipping an unavailable output
   minimum. Garden still lacks a verified receiver and is reported as unverified. M0 has structural assertions but no complete live quote. Source swap deposits are
   kept separate from the bridge's intermediate asset and minimum amount.
+  Across refund/depositor fields and IntentEscrowV2 deposit/refund owners must
+  match the expected user, independently of the final receiver.
 - Socket OpenRouter: direct/source-swap routes through RFQ vault, Eco,
   CCTP V2/Fast/Slow, CCIP, OFT V1/V2, Stargate Pool/OFT through the OFT interface,
   Hyperlane via swaps-xyz, and native
@@ -40,6 +42,9 @@ structured exceptions and filtered-quote reporting.
 - Relay: depository and multicall inputs; depositor/refund address is not reported
   as the final destination receiver. Multicall metadata is a `requestId`, not a
   verified order hash.
+
+Socket `createRetryableTicket` requires both its call-value refund beneficiary
+and excess-fee refund recipient to match the expected user.
 
 ## Deferred chain-state checks
 
@@ -68,6 +73,10 @@ exceed it by at most 0.1%, using integer arithmetic. There is no lower tolerance
 bound relative to local intent; an excess above 0.1% blocks the transaction.
 Missing or negative amounts remain invalid.
 This tolerance does not relax internal transaction/order/approval consistency.
+For a locally known receive minimum, the safety floor remains 95% of the
+slippage-adjusted quoted amount. Higher receive minima have no upper cap.
+Encoded refund beneficiaries are exposed as `parsed.refundRecipients`; a
+mismatch blocks with `BRIDGE_REFUND_RECIPIENT_MISMATCH` and `receiverPass: false`.
 
 Unknown source token/amount and arbitrary destination execution are reported
 and block the transaction. Relay and Socket RFQ/CCTP fields that require external order
@@ -91,12 +100,20 @@ every supported route, including CCTP; RFQ additionally requires the vault's
 `receiveERC20` / `receiveNative` ID to match the outer ID even without a quote key.
 Relay multicall/permit routes compare the key's `requestId` with decoded metadata.
 When `build_tx` returns `order_data` alongside the transaction, Relay additionally
-checks its order hash, payment recipients and refund recipients. The nested order
+checks its order hash, payment recipients and refund recipients. Once the order
+and funding are verified, its destination chain, currency and `minimumAmount`
+are compared with the local intent using the same 95% receive floor described
+above; a higher minimum is allowed. The expected destination chain and selected
+raw quote amount are required for these checks. An unrecognized expected chain ID
+keeps the existing chain-comparison skip policy; currency and amount checks still
+run. Destination failures set `toPass: false` without discarding an independently
+verified receiver. Multiple output payments or non-empty
+destination calls are rejected as unsupported order shapes. The nested order
 is read only from a final deposit call or a reviewed v3.2 cleanup wrapper to an
 allowlisted depository, never from metadata or signature bytes. Missing, ambiguous
 or unsupported deposits report `BRIDGE_MISSING_RELAY_ORDER_ID` when order data is
-supplied. These failures block; without order data the existing
-skipped-field behavior is retained.
+supplied. Missing order data is rejected by default. Historical replay tests can
+opt out with `allowMissingRelayOrder`; production callers must leave it unset.
 Receiver verification also requires funding the order's single source payment
 with the matching chain, token and amount. Explicit direct deposits and simple
 v3.2 Multicalls with at most one deposit approval are supported. Swap/permit flows,

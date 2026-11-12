@@ -182,6 +182,7 @@ export const applyBridgeData = (method: string, raw: AbiValue): ParsedBridgeCall
 
 export const applyAcrossData = (parsed: ParsedBridgeCall, raw: AbiValue): void => {
   const data = asRecord(raw);
+  parsed.refundRecipients = [accountFromBytes32(asString(data.refundAddress))];
   parsed.receiver = accountFromBytes32(asString(data.receiverAddress));
   parsed.outputToken = accountFromBytes32(asString(data.receivingAssetId));
   parsed.minOutputAmount = asBigint(data.outputAmount);
@@ -286,6 +287,7 @@ export const applyPolymerData = (parsed: ParsedBridgeCall, raw: AbiValue): void 
 
 export const applyLifiIntentData = (parsed: ParsedBridgeCall, raw: AbiValue): void => {
   const data = asRecord(raw);
+  parsed.refundRecipients = [asString(data.depositAndRefundAddress)];
   parsed.receiver = accountFromBytes32(asString(data.recipient));
   parsed.outputToken = accountFromBytes32(asString(data.outputToken));
   parsed.minOutputAmount = (parsed.bridgeAmount ?? 0n) * asBigint(data.outputAmountMultiplier) / 10n ** 18n;
