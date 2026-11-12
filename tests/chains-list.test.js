@@ -170,3 +170,27 @@ describe('Arc bridge allowlists', () => {
   });
 
 });
+
+describe('Elysium bridge allowlists', () => {
+  test.each(['elysium', 'ELYSIUM', 'Elysium'])('normalizes %s and exposes Relay contracts', (chainId) => {
+    const depository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
+
+    expect(normalizeChainEnum(chainId)).toBe('ELYSIUM');
+    expect(SERVER_ID_TO_CHAIN_ENUM.elysium).toBe('ELYSIUM');
+    expect(CHAIN_ENUM_TO_SERVER_ID.ELYSIUM).toBe('elysium');
+    expect(isSupportedBridgeChain(BRIDGE_ENUM.RELAY, chainId)).toBe(true);
+    expect(BRIDGE_SUPPORT_CHAINS[BRIDGE_ENUM.RELAY]).toContain('ELYSIUM');
+    expect(ALL_SUPPORTED_BRIDGE_CHAINS).toContain('ELYSIUM');
+    expect(getBridgeSpender(BRIDGE_ENUM.RELAY, chainId)).toBe(depository);
+    expect(getBridgeRouter(BRIDGE_ENUM.RELAY, chainId)).toBe(depository);
+  });
+
+  test.each(Object.values(BRIDGE_ENUM).filter((id) => id !== BRIDGE_ENUM.RELAY))(
+    'does not enable Elysium for %s',
+    (aggregator) => {
+      expect(isSupportedBridgeChain(aggregator, 'elysium')).toBe(false);
+      expect(getBridgeSpender(aggregator, 'elysium')).toBeUndefined();
+      expect(getBridgeRouter(aggregator, 'elysium')).toBeUndefined();
+    }
+  );
+});
