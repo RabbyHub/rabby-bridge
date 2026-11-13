@@ -22,6 +22,7 @@ export const callsParam: AbiParam = {
   item: callTuple,
 };
 
+// Legacy field name: this is only a metadata prefix, not a verified API requestId/order hash.
 export const requestIdFromMetadata = (metadata: string): string | undefined => {
   const body = metadata.toLowerCase().replace(/^0x/, '');
   if (body.length < 64) {

@@ -12,6 +12,20 @@ Minimal bridge SDK for Rabby:
 See [calldata parsing](src/calldata/README.md) for supported paths, integration and verification boundaries.
 See [offline provider evidence](src/providers/README.md) for retained historical fixtures and verification limits.
 
+## Reading the validation code
+
+1. `src/quote.ts`: `buildTx` receives the backend transaction; `checkBridgeTx`
+   combines router checks, calldata checks, Relay order verification and the final decision.
+2. `src/calldata/<aggregator>/`: decode protocol calls. `receiver` is the final
+   recipient; `innerTarget` and `bridgeReceiver` may be intermediate contracts.
+3. `src/calldata/expect.ts`: compare decoded fields with local intent and record
+   what remains unverified. It does not decide which missing fields may be skipped.
+4. `src/providers/relay.ts`: `verifyRelayOrder` binds backend `order_data` to the
+   deposit hash. The other provider readers support offline evidence tests.
+
+For the policy boundaries, start with `tests/calldata/receiver-policy.test.js`,
+`tests/calldata/quote-identifiers.test.js` and `tests/validation.test.js`.
+
 ## Test
 
 Run `yarn test` to build the package and execute the Jest suite.
@@ -40,22 +54,26 @@ const quotes = await getQuoteListWithTx(aggregatorId, {
   keep their original blocking behavior.
 - Source token, source amount, supplied sender/chain and protocol structure are
   checked locally. Missing source fields and mismatches are reported.
-- Socket quote IDs (including CCTP), RFQ outer/vault IDs and Relay multicall
-  request IDs are compared locally when a selected quote provides a matching
-  identifier. Mismatches block without changing the three field flags;
-  missing/unrecognized keys are skipped. See the [binding limits](src/calldata/README.md).
+- Socket compares the selected quote's provider ID with the outer calldata ID;
+  RFQ also compares the outer ID with the vault deposit ID. Relay API request IDs
+  are not compared with multicall metadata. Relay instead binds `order_data` to
+  the actual deposit order hash. See the [binding limits](src/calldata/README.md).
 - Known destination tokens, minimum amounts and chains are compared. Unknown
   destination paths remain unverified and are reported with available method,
   selector and nested-call diagnostics.
-- Locally derivable final receivers are compared. External order data is skipped
-  without a provider request; a skipped receiver is never counted as verified.
+- Locally derivable final receivers are compared. Relay requires `order_data`
+  from the matching build, verifies its hash and recipients, then compares its
+  destination terms. No provider request is needed. Missing Relay order data blocks
+  unless a historical test explicitly uses `allowMissingRelayOrder`.
 - Parse failures, known mismatches and unexpected missing fields are reported with
   `pass: false, blocking: true`.
-- Relay and Socket RFQ/CCTP external destination fields are skipped rather than
-  fetched. LayerSwap uses its local receiver; no background order lookup runs.
-  Skipping an external receiver does not claim order-hash or provider verification.
-- Known unresolved output token/minimum fields and Relay/Socket external
-  receiver/chain fields stay in `unverifiedFields` without producing reports.
+- Socket RFQ deposits into the fixed vault and CCTP mints to the allowlisted
+  ClaimExecutor may omit the final receiver. Once their required checks pass,
+  they are allowed without a receiver report; `receiverPass` remains false.
+  Arbitrary contract recipients do not receive this exception. LayerSwap compares
+  its locally encoded receiver; no background order lookup runs.
+- Known unresolved output token/minimum fields and permitted external delivery
+  fields stay in `unverifiedFields` without producing reports.
   Missing source fields, unknown receivers/paths and a missing expected amount
   for a locally available minimum use `BRIDGE_UNVERIFIED_BRIDGE_FIELDS`.
   Actual mismatches retain their existing error codes. Repeated failures are not
@@ -79,7 +97,11 @@ group succeeded. False means a failure or an incomplete check; `errors` and
 `unverifiedFields` distinguish them. Known skipped fields can leave `errors` empty
 while a field flag is false. Without an expectation, field flags are false.
 Validation rejects reportable failures, not every false field flag: known skipped
-fields remain allowed. Router rejection still throws
+fields remain allowed. For example, a valid Socket RFQ deposit can return
+`pass: true, receiverPass: false, errors: []` with `receiver` in `unverifiedFields`.
+This is an intentional policy outcome, not a receiver mismatch or a verified payout.
+There is no `lite` switch; the required checks and these exceptions always apply.
+Router rejection still throws
 `InvalidBridgeContractError`; its sanitized detail carries `pass: false`,
 `routerPass: false` and `blocking: true`.
 

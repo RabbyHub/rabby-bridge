@@ -40,6 +40,9 @@ tests/
   rejection tests.
 - Import notes and old review reports explain where data came from; they are
   not current SDK pass/fail results.
+- LI.FI destination mismatches belong in `fixtures/providers/lifi/destination-mismatches.json`
+  and `calldata/lifi-destination.test.js`. Keep the original build request and
+  complete response; an unexpected recipient alone does not identify Smart Deposits.
 
 ## Running relevant tests
 

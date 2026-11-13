@@ -28,10 +28,11 @@ export type ParsedBridgeCall = {
   sourceAmount?: bigint;
   destinationChainId?: bigint;
   destinationChainRef?: string;
+  /** Final recipient derived from calldata or a hash-verified Relay order. */
   receiver?: string;
   /** Refund beneficiaries encoded in this transaction, independent of final delivery. */
   refundRecipients?: string[];
-  /** Set when a fixed allowlisted contract satisfies the receiver check. */
+  /** Recognized intermediate recipient; does not prove the final user's address. */
   fixedReceiver?: boolean;
   outputToken?: string;
   minOutputAmount?: bigint;
@@ -40,13 +41,16 @@ export type ParsedBridgeCall = {
   referrer?: string;
   protocolMethod?: string;
   spokePool?: string;
+  /** Inner contract being called, such as a vault or depository; not a user receiver. */
   innerTarget?: string;
   depositor?: string;
   bridgeToken?: string;
   bridgeAmount?: bigint;
+  /** Intermediate recipient/wrapper, kept separate from the final receiver. */
   bridgeReceiver?: string;
   bridgeOutputToken?: string;
   bridgeOutputAmount?: bigint;
+  /** Relay metadata prefix retained for decoding; not bound to the API requestId. */
   requestId?: string;
   outputTokenReference?: BridgeTokenReference;
   outputAmountReference?: BridgeAmountReference;

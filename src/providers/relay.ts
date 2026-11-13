@@ -128,7 +128,11 @@ const relayOrderMetadata = (): RelayChain[] => Object.entries(RELAY_EVM_CHAIN_ID
   protocolId, evmId, depository: '0x0000000000000000000000000000000000000000',
 }));
 
-/** Bind destination addresses and terms to the calldata order hash, without proving funding. */
+/**
+ * Runtime verification of backend order_data, with no provider request.
+ * On success, populate parsed destination fields for the shared intent comparison.
+ * This binds the order's terms and recipients, not intermediate funding or final delivery.
+ */
 export const verifyRelayOrder = (
   orderData: unknown, parsed: ParsedBridgeCall, fromChainId: string, userAddress: string, target: string
 ): BridgeErrorDefinition[] => {
@@ -164,6 +168,7 @@ export const verifyRelayOrder = (
   return errors;
 };
 
+/** Offline fixture reader; its direct-deposit/payment checks are not the runtime buildTx policy. */
 export const readRelayQuote = (raw: unknown, params: BridgeQuoteListParams, metadata: RelayChain[]): ProviderQuoteData => {
   const q = object(raw);
   const protocol = object(object(q.protocol).v2);

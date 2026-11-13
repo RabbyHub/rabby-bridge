@@ -20,7 +20,7 @@ export const relayFundingRouter = (method: string, target: string): string | und
 const CLEANUP_NATIVE = '0x5d1fe6a2';
 const CLEANUP_ERC20 = '0x73b7bb2f';
 
-/** Read one final deposit from actual calls, never from metadata or signatures. */
+/** Read the final deposit's orderId; bridgeAmount is optional evidence, not a condition for returning the ID. */
 export const nestedRelayOrder = (
   rawCalls: AbiValue, funding?: { token: string; amount: bigint }
 ): Pick<ParsedBridgeCall, 'orderId' | 'depositor' | 'innerTarget' | 'bridgeToken' | 'bridgeAmount' | 'bridgeReceiver'> | undefined => {
@@ -68,7 +68,8 @@ export const nestedRelayOrder = (
     if (isZeroWord(parsed.orderId) || (token && token !== parsed.sourceToken)) return undefined;
     const result = { orderId: parsed.orderId, depositor: parsed.depositor, innerTarget: target, bridgeReceiver: wrapper };
     if (!funding || funding.amount <= 0n || funding.token !== parsed.sourceToken) return result;
-    // shortcut: only one approval before deposit; add funding analysis before supporting swaps/other calls.
+    // shortcut: infer bridgeAmount only for a direct deposit or one preceding approve.
+    // Swaps/other prefixes retain the orderId above; they are not rejected for missing funding analysis.
     const prefix = calls.slice(0, -1);
     if (prefix.length > 1) return result;
     let approved: bigint | undefined;

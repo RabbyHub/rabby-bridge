@@ -15,6 +15,8 @@ export const readCctp = (data: string): Partial<ParsedBridgeCall> => {
   const destinationChainId = CCTP_CHAINS[id.toString()];
   const receiver = accountFromBytes32(asString(a.mintRecipient));
   const allowlisted = receiver === SOCKET_CCTP_MINT_RECIPIENT;
+  // The fixed ClaimExecutor receives the mint before user delivery. Other recipients
+  // remain exposed as receiver so they must match local intent; this is not a blanket skip.
   return { protocolMethod: 'depositForBurn', destinationChainId, destinationChainRef: `cctp:${id}`,
     bridgeReceiver: receiver, receiver: allowlisted ? undefined : receiver, fixedReceiver: allowlisted,
     bridgeToken: asString(a.burnToken), bridgeAmount: asBigint(a.amount),

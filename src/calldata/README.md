@@ -40,8 +40,8 @@ structured exceptions and filtered-quote reporting.
   separate namespaces; native output order amounts are converted locally, while
   ERC20 output amounts requiring token decimals remain unresolved.
 - Relay: depository and multicall inputs; depositor/refund address is not reported
-  as the final destination receiver. Multicall metadata is a `requestId`, not a
-  verified order hash.
+  as the final destination receiver. The final deposit supplies the order hash;
+  multicall metadata is not used to bind the API request ID.
 
 Socket `createRetryableTicket` requires both its call-value refund beneficiary
 and excess-fee refund recipient to match the expected user.
@@ -50,7 +50,7 @@ and excess-fee refund recipient to match the expected user.
 
 The SDK does not request RPC state or accept a state resolver. Token mappings,
 recipient-code-dependent Across delivery, Celer fees and ERC20 amount conversions
-that need chain state are deferred to a follow-up PR. Protocol-defined CCTP USDC
+that need chain state remain unresolved locally. Protocol-defined CCTP USDC
 addresses, supported network IDs and native-token amount conversions remain local.
 
 `outputTokenReference` and `outputAmountReference` describe the unresolved fields;
@@ -62,7 +62,7 @@ they are not resolved from backend quote values. Inspect:
 - `bridgeToken`, `bridgeAmount`, `bridgeReceiver`, `bridgeOutputToken` and
   `bridgeOutputAmount`: intermediate bridge conditions, separate from final delivery.
 
-`buildTx` / `getQuoteListWithTx` temporarily allow an unresolved output token or
+`buildTx` / `getQuoteListWithTx` allow an unresolved output token or
 minimum amount whenever it cannot be verified locally, with or without a protocol reference.
 These fields remain marked unverified without generating a report for the known
 local limitation. A successful build does not verify these
@@ -79,14 +79,16 @@ Encoded refund beneficiaries are exposed as `parsed.refundRecipients`; a
 mismatch blocks with `BRIDGE_REFUND_RECIPIENT_MISMATCH` and `receiverPass: false`.
 
 Unknown source token/amount and arbitrary destination execution are reported
-and block the transaction. Relay and Socket RFQ/CCTP fields that require external order
-data are skipped without any provider request. A missing expected output amount
-also skips that comparison. All skipped fields remain in `unverifiedFields`.
-Known unresolved output fields and Relay/Socket external receiver/chain fields
-are not reported. Missing source fields, unknown destination execution/receivers
-and a missing expected amount for a locally available minimum are still sent
-through `onError` with `blocking: true`. Business callers should pass the selected
-quote's exact raw output amount as `toTokenRawAmount`.
+and block the transaction. Socket RFQ and allowlisted CCTP ClaimExecutor delivery
+fields are permitted to remain unverified after their fixed-contract and source
+checks pass. A missing receiver on an arbitrary route is not covered by this policy.
+Relay normally obtains destination fields from hash-verified backend `order_data`;
+missing order data is rejected, not silently skipped. Historical tests can opt out.
+
+Unresolved output token/minimum fields do not generate reports when they cannot
+be derived locally. If a minimum is locally available but the expected quote amount
+is missing, the comparison remains unverified and blocks. Business callers should
+pass the selected quote's exact raw output amount as `toTokenRawAmount`.
 Known destination tokens, amounts and receivers still undergo normal comparison.
 
 `buildTx` accepts `toTokenRawAmount` as an exact raw string;
@@ -98,9 +100,10 @@ absent. Serialized quote keys are decoded before reading their raw output amount
 Socket compares its original provider `quoteId` against the decoded outer ID on
 every supported route, including CCTP; RFQ additionally requires the vault's
 `receiveERC20` / `receiveNative` ID to match the outer ID even without a quote key.
-Relay multicall/permit routes compare the key's `requestId` with decoded metadata.
-When `build_tx` returns `order_data` alongside the transaction, Relay additionally
-checks its order hash, payment recipients and refund recipients. Once the order hash and addresses are verified, its destination chain, currency and `minimumAmount`
+Relay does not compare the API `requestId` with multicall/permit metadata: they
+need not identify the same thing. `build_tx` must return `order_data` alongside the
+transaction; Relay checks its hash against the actual deposit's `orderId`, then
+checks payment recipients and refund recipients. Once the order hash and addresses are verified, its destination chain, currency and `minimumAmount`
 are compared with the local intent using the same 95% receive floor described
 above; a higher minimum is allowed. The expected destination chain and selected
 raw quote amount are required for these checks. An unrecognized expected chain ID
@@ -120,19 +123,17 @@ swaps funded the order. Source-swap routes may therefore pass without a verified
 `bridgeAmount`. `receiverPass: true` verifies the order's committed recipient,
 not actual funding or delivery. The ordinary source payment checks against local
 intent and destination chain/token/minimum comparisons remain in force.
-Socket/Relay backend cache keys use `providerId:cacheUUID`; only the bytes32
-provider prefix is compared. Direct callers can supply the same `quoteKey` in the
-expectation passed to `validateBridgeCalldata` / `validateBridgeTx`.
+Socket backend cache keys use `providerId:cacheUUID`; only the bytes32 provider
+prefix is compared. Direct callers can supply the same `quoteKey` in the expectation
+passed to `validateBridgeCalldata` / `validateBridgeTx`. Relay's cache prefix and
+metadata are not compared; the deposit order hash is a separate identifier.
 
-Relay direct-deposit `orderId` is an order hash, not this `requestId`, and is not
-compared with the cache prefix. Across/Mayan cache UUIDs, LI.FI's requoted routes,
-absent/unrecognized quote keys and the legacy quote+tx API have no equivalent
-binding here and are skipped without missing-ID reports. No extra API requests
-are made. Actual ID mismatches use `BRIDGE_QUOTE_ID_MISMATCH`,
-`BRIDGE_REQUEST_ID_MISMATCH` or `BRIDGE_SOCKET_RFQ_QUOTE_ID_MISMATCH`; these block,
-do not change the three field flags, and do not expose raw IDs
-in reports. Matching IDs alone do not verify the quote's authenticity, full
-transaction contents or final delivery conditions.
+Across/Mayan cache UUIDs, LI.FI's requoted routes, absent/unrecognized quote keys
+and the legacy quote+tx API have no equivalent selected-ID binding here and are
+skipped without missing-ID reports. No extra API requests are made. Socket ID
+mismatches use `BRIDGE_QUOTE_ID_MISMATCH` or `BRIDGE_SOCKET_RFQ_QUOTE_ID_MISMATCH`;
+these block without changing the three field flags or exposing raw IDs in reports.
+Matching IDs alone do not verify full transaction contents or final delivery.
 
 `ok: true` only means the structural checks and available comparisons passed.
 It does not mean all five fields were verified. `validateBridgeCalldata` itself
@@ -165,7 +166,7 @@ reviewed AllowanceHolder/Settler deployment. The decoder requires an enforced
 transfer back to the known Handler, matching input funding, and a bounded set of
 reviewed actions that cannot bypass the final slippage check. An unknown Settler,
 chain or action is not trusted. Deployment evidence is recorded in
-`tests/fixtures/route-discovery-20261104/evidence/base-settler-verification.json`.
+`tests/fixtures/quotes/routes/evidence/base-settler-verification.json`.
 This is a static deployment entry, not a runtime registry or RPC query.
 
 The 20261105 history adds canonical inner SpokePools for Ink/zkSync, the Monad
@@ -188,13 +189,13 @@ full settlement and payout back to Handler; differing fallback assets stay
 unverified. The reviewed Ethereum Settler additionally supports EKUBOV3 and its
 full-balance funding encoding. Unknown deployments, commands, actions and partial
 balance ratios remain unresolved. Deployment/source hashes and execution
-constraints are recorded in `tests/fixtures/reported-20261111-evidence.json`.
+constraints are recorded in `tests/fixtures/regressions/reported-paths-evidence.json`.
 
 LI.FI Intents callbacks can also resolve locally for the reviewed Base ReceiverOIF,
 its immutable Executor/output-settler pair, and one supported ERC20 transfer or
 the same reviewed Settler swap. Refund and payout recipients must agree; arbitrary
 approval targets, calls and other deployments stay unresolved. The deployment
-evidence is `evidence/base-lifi-oif-verification.json` in the same fixture directory.
+evidence is `tests/fixtures/quotes/routes/evidence/base-lifi-oif-verification.json`.
 No unsupported callback is accepted merely because its metadata contains a receiver.
 
 OFT's `0x01` bus command without compose data retains the signed receiver; remote
@@ -208,17 +209,17 @@ Contract references: [Across MulticallHandler](https://github.com/across-protoco
 [Stargate bus delivery](https://github.com/stargate-protocol/stargate-v2/blob/main/packages/stg-evm-v2/src/StargateBase.sol).
 The captured verified `evidence/mayan-FastMCTP.sol` defines the payload modes.
 
-Relay and Socket RFQ vault source deposits do not expose final delivery conditions.
-Socket CCTP ClaimExecutor routes expose USDC but not the final receiver or net amount.
-These known missing fields are allowed without generating reports or requesting
-a provider client. LI.FI LayerSwap still compares its signed `bridgeData.receiver` locally; its order is
-not fetched. External destination checks are selected from decoded calldata, not
-just a backend-supplied bridge ID. Source checks always run; their failures block.
+Socket RFQ vault deposits do not expose final delivery conditions. Socket CCTP
+ClaimExecutor routes expose USDC but not the final receiver or net amount. These
+known missing fields are allowed without reports or a provider request. This
+permission is selected from decoded protocol calls, not a backend-supplied bridge ID.
+LI.FI LayerSwap still compares its encoded `bridgeData.receiver` locally.
 
-The SDK has no direct-provider transport, provider cache, HTTP adapter or RPC
-resolver. [Saved provider data](../providers/README.md) is used only for offline
-fixture regressions. A successful lightweight build does not verify skipped
-delivery conditions, and cannot be counted as a successful Relay order-hash check.
+Relay source deposits also lack destination terms, but the runtime requires the
+matching backend `order_data` to verify them. The SDK has no direct-provider
+transport, provider cache, HTTP adapter or RPC resolver. See the distinction between
+[runtime Relay verification and offline provider readers](../providers/README.md).
+A successful build does not verify any fields still listed in `unverifiedFields`.
 
 LI.FI Smart Deposits routes must be filtered by the backend at quote and build
 time. The SDK does not accept a Smart Deposits flag to relax receiver comparison.
@@ -233,14 +234,14 @@ These are fixture expectations, not a claim that every field is currently verifi
 Tests compare locally available fields and assert that deferred output fields stay
 unresolved; provider-assisted checks still compare their complete order data.
 
-Captured contract-state JSON and prior replay reports are historical evidence for
-the follow-up PR. The active tests no longer replay RPC responses. In particular,
+Captured contract-state JSON and prior replay reports are historical evidence,
+not current validation results. The active tests no longer replay RPC responses. In particular,
 the Arbitrum ETH/WETH mismatch fixture now records an unverified output token;
 that mismatch cannot be rejected until token mapping checks are restored.
 Unknown destination calls remain unverified and block. Across fallback to
 a different token may retain a proven receiver while skipping output comparisons.
 Historical Relay/Socket replay is distinct from signing-time transaction verification;
-Relay multicall history coverage does not expand the direct depository verifier.
+Historical captures do not expand the set of accepted depositories or cleanup wrappers.
 
 FastMCTP direct bridge minimums include redeem/Circle fees, the signed referrer
 fee and the destination protocol fee cap of 100 bps. This is a conservative bound;

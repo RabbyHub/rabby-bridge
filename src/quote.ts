@@ -32,12 +32,15 @@ export interface BridgeValidationOptions {
 }
 
 export type BridgeValidationResult = {
-  /** Whether the transaction passes all required checks. */
+  /** Overall decision. Allowed unverified fields do not make this false. */
   pass: boolean;
   routerPass: boolean;
+  /** Field flags require a completed check; false can mean failed or unverified. */
   fromPass: boolean;
   toPass: boolean;
+  /** A permitted Socket vault/ClaimExecutor route can pass with this still false. */
   receiverPass: boolean;
+  /** Fields not compared with local intent, including permitted omissions. */
   unverifiedFields: string[];
   errors: BridgeCheck['errors'];
 };
@@ -256,12 +259,14 @@ const checkBridgeTx = (
   expectation?: BridgeCallExpectation, options: BridgeValidationOptions = {},
   operation: 'buildTx' | 'verifyTx' = 'verifyTx'
 ): BridgeValidationResult => {
+  // First check the router, then decode and compare the fields carried by calldata.
   const routerPass = validateBridgeRouter(aggregatorId, fromChainId, bridgeId, tx);
   let check: BridgeCheck;
   try { check = validateBridgeCalldata(aggregatorId, fromChainId, tx, expectation); }
   catch (error) {
     check = { ok: false, aggregatorId, errors: asBridgeError(error, BRIDGE_ERRORS.INVALID_CALLDATA).errors };
   }
+  // Relay delivery terms come from order_data bound to the actual deposit orderId.
   const enforceRelayOrder = aggregatorId === BRIDGE_ENUM.RELAY &&
     (options.allowMissingRelayOrder !== true || expectation?.orderData !== undefined);
   if (enforceRelayOrder) {
@@ -271,6 +276,7 @@ const checkBridgeTx = (
         ? verifyRelayOrder(expectation.orderData, check.parsed, fromChainId, expectation.userAddress, tx.to)
         : [BRIDGE_ERRORS.MISSING_RELAY_ORDER_ID];
     if (orderErrors.length === 0 && check.parsed) {
+      // verifyRelayOrder populated the committed destination fields; compare them with intent.
       const verified = finishCheck('relay', check.parsed,
         expectation?.toChainId ? undefined : BRIDGE_ERRORS.MISSING_DESTINATION_CHAIN,
         expectation, fromChainId, knownCompare(check.parsed));
@@ -286,10 +292,14 @@ const checkBridgeTx = (
     'sourceToken', 'sourceAmount', 'outputToken', 'minOutputAmount', 'receiver',
     ...(expectation?.toChainId ? ['destinationChainId'] : []),
   ];
+  // These decoded paths permit missing final receiver/chain fields. Socket parsers
+  // check the fixed vault/messenger and spender first; this is not a bridge-ID bypass.
+  // Relay still has to pass the order_data checks above unless the test-only opt-out is used.
   const externalDestination = check.parsed && ((aggregatorId === BRIDGE_ENUM.RELAY && check.parsed.destinationChainId === undefined) ||
     (aggregatorId === BRIDGE_ENUM.SOCKET &&
       ['receiveERC20', 'receiveNative', 'depositForBurn'].includes(check.parsed.protocolMethod ?? '')));
-  // Known local limits remain unverified, without repeating an expected gap as an error.
+  // Only unexpected omissions become blocking errors. Permitted omissions stay in
+  // unverifiedFields and keep their field flags false, without reporting an error.
   const reportableFields = unverifiedFields.filter((field) => {
     if (!check.parsed) return true;
     if (field === 'outputToken') return false;
@@ -303,6 +313,8 @@ const checkBridgeTx = (
   const fieldPass = (field: keyof typeof fieldErrors, required: string[]) => comparable &&
     required.every((item) => !unverifiedFields.includes(item)) &&
     !check.errors.some((error) => fieldErrors[field].some((item) => item.error_code === error.error_code));
+  // Overall acceptance and field coverage answer different questions. Do not
+  // derive pass by AND-ing the field flags: known Socket omissions are allowed.
   const flags = {
     pass: routerPass && !check.errors.length && !reportableFields.length, routerPass,
     fromPass: fieldPass('fromPass', ['sourceToken', 'sourceAmount']),

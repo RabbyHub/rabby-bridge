@@ -1,18 +1,22 @@
-# Offline provider evidence
+# Relay runtime verification and offline provider evidence
 
-The lightweight release does not expose `createBridgeProviderClient`,
+The SDK does not expose `createBridgeProviderClient`,
 `createBridgeFetchRequest`, provider transports or the `providerClient` parameter.
 All quotes/builds use the existing backend APIs; SDK validation makes no extra
 Relay, Socket or LayerSwap HTTP requests and no RPC requests.
 
-Relay destination fields and Socket RFQ/ClaimExecutor receivers cannot be proven
-from source calldata alone. They remain in `unverifiedFields` without reports
-for these known local limitations; the SDK never substitutes the user's expected
-receiver or backend display fields for verified fields. LayerSwap's signed receiver stays locally
-checked, while its unavailable destination token/minimum is skipped.
+`relay.ts::verifyRelayOrder` runs during `buildTx` / `validateBridgeTx`. It checks
+backend `order_data` against the deposit order hash, verifies recipients and
+refunds, and populates destination terms for comparison with local intent. Missing
+order data blocks by default. It does not prove intermediate funding or final delivery.
 
-The internal pure data readers in this directory are retained for offline fixture
-regression only. They do not fetch data and are not exported from the package root.
+Socket RFQ/ClaimExecutor final receivers remain unverified under the existing
+fixed-contract policy. LayerSwap's locally encoded receiver is compared while its
+unavailable destination token/minimum is skipped. Expected user addresses and
+backend display fields are never substituted for verified fields.
+
+The other pure data readers, including `readRelayQuote`, support offline fixture
+regressions. They do not fetch data and are not exported from the package root.
 Tests replay captured Relay order hashes, Socket historical transaction links and
-LayerSwap records. This historical evidence is not a guarantee supplied by the
-lightweight runtime. Restoring independent provider verification is a later change.
+LayerSwap records. Their historical provider checks must not be confused with
+the runtime signing checks in `src/quote.ts`.

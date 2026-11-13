@@ -29,6 +29,7 @@ const decodeSocketBridge = (data: string, target: string, token: string, value: 
   if (selector === '0xc7c7f5b3' || selector === '0x2cdf0b95') return readOft(data, target, token);
   if (selector === '0x0c751e0b' || selector === '0x9be111d1') return readSwapsXYZ(data);
   if (selector === '0x823b01f9' || selector === '0x3345e738') {
+    // RFQ calldata commits to a deposit into this fixed vault, not the final payout address.
     const native = selector === '0x3345e738';
     if (target !== SOCKET_RFQ_VAULT || spender !== target ||
         (native ? !isNative(token) : value !== 0n)) {
@@ -37,6 +38,7 @@ const decodeSocketBridge = (data: string, target: string, token: string, value: 
     const a = decodeCall([{ name: 'quoteId', kind: 'bytes', size: 32 },
       ...(native ? [] : [{ name: 'token', kind: 'address' as const }, { name: 'amount', kind: 'uint' as const }])], data);
     if (!native && asString(a.token) !== token) throw new BridgeError(BRIDGE_ERRORS.SOCKET_RFQ_TOKEN_DOES_NOT_MATCH_BRIDGE_ASSET);
+    // Leave receiver unset. checkBridgeTx permits this known gap after the vault checks pass.
     return { protocolMethod: native ? 'receiveNative' : 'receiveERC20', orderId: asString(a.quoteId),
       bridgeToken: native ? NATIVE_TOKEN : asString(a.token), bridgeAmount: native ? value : asBigint(a.amount) };
   }
