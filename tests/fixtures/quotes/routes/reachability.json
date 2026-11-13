@@ -1,0 +1,965 @@
+{
+  "scope": "Current backend/frontend source and advertised pairs between SDK-supported EVM chains. Metadata availability is not proof of a buildable quote.",
+  "sources": [
+    {
+      "file": "/Users/shuang/Desktop/code/Debank/DeBankCore/main/bridge/lifi.py",
+      "facts": [
+        "deny list",
+        "allowDestinationCall=true",
+        "one top-level step only",
+        "unknown tools accepted"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/Debank/DeBankCore/main/bridge/mayan.py",
+      "facts": [
+        "fastMctp only",
+        "gasless=false",
+        "no custom payload"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/Debank/DeBankCore/main/bridge/socket.py",
+      "facts": [
+        "userOps=tx",
+        "excludeProvider list",
+        "sender=receiver=user"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/Debank/DeBankCore/main/bridge/across.py",
+      "facts": [
+        "swap/approval",
+        "exactInput",
+        "arbitrary selected output token",
+        "recipient=user"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/Debank/DeBankCore/main/bridge/relay.py",
+      "facts": [
+        "quote/v2",
+        "useExternalLiquidity=false",
+        "recipient=user"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/RabbyHub/Rabby/src/ui/views/Bridge/hooks/token.tsx",
+      "facts": [
+        "quote metadata filter does not close bridge family set"
+      ]
+    },
+    {
+      "file": "/Users/shuang/Desktop/code/rabby-mobile/apps/mobile/src/screens/Bridge/hooks/token.tsx",
+      "facts": [
+        "same user/chains/tokens/raw amount passed to SDK"
+      ]
+    }
+  ],
+  "lifiTools": {
+    "id": "lifi-tools",
+    "url": "https://li.quest/v1/tools?chainTypes=EVM",
+    "status": 200,
+    "retrievedAt": "2026-11-03T15:49:12Z",
+    "responseSha256": "58b5fd9bea088be7a86195ba4cf8457f01e6d23fd2ce542e7eec376f54f2a7ac"
+  },
+  "lifiFamilies": [
+    {
+      "bridgeId": "arbitrum",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 1,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "across",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 294,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "gnosis",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 1,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "omni",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 1,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "celercircle",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 42,
+      "pairExamples": [
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 98866
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "celercirclefast",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 42,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "allbridge",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 90,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "squid",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 132,
+      "pairExamples": [
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "mayan",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 90,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 130
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "mayanWH",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "mayanMCTP",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 110,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 130
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "stargateV2",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 520,
+      "pairExamples": [
+        {
+          "fromChainId": 42161,
+          "toChainId": 43111
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "stargateV2Bus",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 520,
+      "pairExamples": [
+        {
+          "fromChainId": 2741,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1868
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "symbiosis",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 644,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5042
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "polygon",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 1,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "glacis",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 636,
+      "pairExamples": [
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 57073
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "chainflip",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "gasZipBridge",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 1764,
+      "pairExamples": [
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 122,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 534352
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "relaydepository",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 1122,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 9745
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 80094
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "mayanFastMCTP",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 110,
+      "pairExamples": [
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "unit",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "polymer",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 306,
+      "pairExamples": [
+        {
+          "fromChainId": 57073,
+          "toChainId": 999
+        },
+        {
+          "fromChainId": 57073,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 98866,
+          "toChainId": 480
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "polymerStandard",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 306,
+      "pairExamples": [
+        {
+          "fromChainId": 57073,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 480,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "cctp",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "eco",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 156,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 57073
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 999
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "near",
+      "deniedByCurrentBackend": true,
+      "sdkEvmPairCount": 100,
+      "pairExamples": [
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "hyperliquidSA",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "lifiIntents",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 420,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 130
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5042
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "garden",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 6,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "megaeth",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 1,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 4326
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "hyperliquidNative",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 0,
+      "pairExamples": [],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "superset",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 6,
+      "pairExamples": [
+        {
+          "fromChainId": 130,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "paxos",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 2,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "smartDeposits",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 110,
+      "pairExamples": [
+        {
+          "fromChainId": 4217,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 4217,
+          "toChainId": 999
+        },
+        {
+          "fromChainId": 5042,
+          "toChainId": 137
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "layerswap",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 1122,
+      "pairExamples": [
+        {
+          "fromChainId": 2741,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 2741,
+          "toChainId": 1135
+        },
+        {
+          "fromChainId": 2741,
+          "toChainId": 34443
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "frax",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 400,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 999
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 57073
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    },
+    {
+      "bridgeId": "centrifuge",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 2,
+      "pairExamples": [
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        }
+      ],
+      "hasPositiveCompleteFixture": true
+    },
+    {
+      "bridgeId": "m0",
+      "deniedByCurrentBackend": false,
+      "sdkEvmPairCount": 6,
+      "pairExamples": [
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        }
+      ],
+      "hasPositiveCompleteFixture": false
+    }
+  ],
+  "candidatesWithoutPositiveFixtures": [
+    {
+      "bridgeId": "allbridge",
+      "state": "partial-parser",
+      "missing": [
+        "minOutputAmount"
+      ],
+      "reason": "Destination pool state determines redemption amount; source calldata has no guaranteed destination minimum. Quote API minimum is probabilistic."
+    },
+    {
+      "bridgeId": "garden",
+      "state": "partial-parser",
+      "missing": [
+        "outputToken",
+        "minOutputAmount",
+        "receiver",
+        "destinationChainId"
+      ],
+      "reason": "Source HTLC binds redeemer/refund/timelock/secretHash, not the full destination order. A verified provider order association is still needed."
+    },
+    {
+      "bridgeId": "smartDeposits",
+      "state": "candidate-not-verified",
+      "reason": "Metadata advertises SDK EVM corridors, but no complete current quote/deposit transaction was obtained. Need deposit factory/config/order proof."
+    },
+    {
+      "bridgeId": "frax",
+      "state": "existing-parser-no-complete-live-fixture",
+      "reason": "Existing OFT hub/peer resolver supports structure; this probe produced no usable quote. Original dataset lacks a quote."
+    },
+    {
+      "bridgeId": "m0",
+      "state": "new-structural-parser-no-complete-live-fixture",
+      "reason": "Five fields are present in the official ABI and structural assertions pass, but current probes returned no usable quote. Deployment identity and real transaction coverage remain unverified."
+    }
+  ],
+  "probes": [
+    {
+      "id": "across-destination-dex-5pct",
+      "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=100000000&inputToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&outputToken=0x940181a94a35a4569e4529a3cdfb74e38fd98631&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.05&appFee=0.0025&appFeeRecipient=0x9899f62ecf16b70bffc88677023026c47e48c218",
+      "status": 200,
+      "retrievedAt": "2026-11-03T16:19:06Z",
+      "responseSha256": "0f17014c73d02159991ffb2915125ecfb4b9dc9702c48e05b1ce5747dcaede0e",
+      "retainedResponse": "responses/across-destination-dex-5pct.json"
+    },
+    {
+      "id": "across-destination-dex",
+      "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=100000000&inputToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&outputToken=0x940181a94a35a4569e4529a3cdfb74e38fd98631&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.01&appFee=0.0025&appFeeRecipient=0x9899f62ecf16b70bffc88677023026c47e48c218",
+      "status": 400,
+      "retrievedAt": "2026-11-03T16:18:22Z",
+      "responseSha256": "74f80923f857c24201ec29d60f0300ca2cd00a940f2501472bf97b9dcd33200c"
+    },
+    {
+      "id": "across-destination-swap",
+      "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=10000000&inputToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&outputToken=0x4200000000000000000000000000000000000006&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.01&appFee=0.0025&appFeeRecipient=0x9899f62ecf16b70bffc88677023026c47e48c218",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:14Z",
+      "responseSha256": "be85dfd021d782c8f43e45d552a39c6f531d83767e549753ef112ebcc7399f27",
+      "retainedResponse": "responses/across-destination-swap.json"
+    },
+    {
+      "id": "across-native-zero-fee",
+      "url": "https://app.across.to/api/swap/approval?tradeType=exactInput&amount=1000000000000000&inputToken=0x0000000000000000000000000000000000000000&outputToken=0x0000000000000000000000000000000000000000&originChainId=42161&destinationChainId=8453&depositor=0x341a1fbd51825e5a107db54ccb3166deba145479&recipient=0x341a1fbd51825e5a107db54ccb3166deba145479&slippage=0.01",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:17Z",
+      "responseSha256": "5dae3532ff4d9403a6e67ce9e7d98006ac1ecb3d69c07ddb395a4f0fb42d8c4b",
+      "retainedResponse": "responses/across-native-zero-fee.json"
+    },
+    {
+      "id": "connections-allbridge",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=8453&allowBridges=allbridge&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:32Z",
+      "responseSha256": "cda0cd965f25eb162fd806b705ee82e5f31214b4c674666f7f97c47f68a658d6"
+    },
+    {
+      "id": "connections-centrifuge",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=8453&allowBridges=centrifuge&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:28Z",
+      "responseSha256": "8d2611c7d385788f1fc91fc6583117ee2eb07ab6df3bcd9bcdebcaf9e0d92373"
+    },
+    {
+      "id": "connections-frax",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=42161&allowBridges=frax&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:24Z",
+      "responseSha256": "13a2b7d731e217bd0b2c8c6fa2edec59eb28d16b75b06f3e945e0cb45b5b2207"
+    },
+    {
+      "id": "connections-garden",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=42161&allowBridges=garden&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:36Z",
+      "responseSha256": "9a94143449f570b2c7be4ca26a4d67151a913c5d404cc26c3d4c468ea71909ef"
+    },
+    {
+      "id": "connections-m0",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=8453&allowBridges=m0&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:20Z",
+      "responseSha256": "a7f15e93be4599c3dbdae68d50ea92d51f46dbd3ec02702724890a57ea3df111"
+    },
+    {
+      "id": "connections-smartDeposits",
+      "url": "https://li.quest/v1/connections?fromChain=1&toChain=8453&allowBridges=smartDeposits&allowExchanges=%5B%5D",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:54:40Z",
+      "responseSha256": "895a54bc188d3b29e3574eaba94cca0789a10557234937bd2c61d259d6aef2ea"
+    },
+    {
+      "id": "lifi-allbridge-supported",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0xdac17f958d2ee523a2206206994597c13d831ec7&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=allbridge&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:57:27Z",
+      "responseSha256": "4c2dc09e4e001844f517fa78049cdff2018abdfda6d0ce1362bb7339da73af21"
+    },
+    {
+      "id": "lifi-allbridge",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0xdac17f958d2ee523a2206206994597c13d831ec7&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bdA02913&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=allbridge&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:53:20Z",
+      "responseSha256": "4fef13e368c822e7f97bb2ed663338b5eab987e6d10d28c56bd0212af967dd2b"
+    },
+    {
+      "id": "lifi-celer-direct",
+      "url": "https://li.quest/v1/quote?fromChain=42161&toChain=8453&fromToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=10000000&integrator=rabbykmsv2&fee=0&allowBridges=celercircle&slippage=0.01",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:21Z",
+      "responseSha256": "359e3c89938d596121250ba838b01bd5bba469a7e20f0ae990f399f3eb5c17da",
+      "retainedResponse": "responses/lifi-celer-direct.json"
+    },
+    {
+      "id": "lifi-centrifuge-supported",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0xaaa0008c8cf3a7dca931adaf04336a5d808c82cc&toToken=0xaaa0008c8cf3a7dca931adaf04336a5d808c82cc&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=1000000000000000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=centrifuge&slippage=0.01",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:57:32Z",
+      "responseSha256": "608e9910c4cc82c38ce0034dc4072cdab6ed78f029eae50f2392af399bb660df",
+      "retainedResponse": "responses/lifi-centrifuge-supported.json"
+    },
+    {
+      "id": "lifi-evm-chains",
+      "url": "https://li.quest/v1/chains?chainTypes=EVM",
+      "status": 200,
+      "retrievedAt": "2026-11-03T16:13:46Z",
+      "responseSha256": "20c16ee564d32496335c39d457d8de7fe879dd4e1284b5cdb3e73d152c490741"
+    },
+    {
+      "id": "lifi-frax",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=42161&fromToken=0x853d955acef822db058eb8505911ed77f175b99e&toToken=0x17fc002b466eec40dae837fc4be5c67993ddbd6f&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000000000000000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=frax&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:53:27Z",
+      "responseSha256": "42d1e8453965d76dd5101f12a94886098f6a8779e56b0648d38f1032c0940892"
+    },
+    {
+      "id": "lifi-garden",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=42161&fromToken=0x2260fac5e5542a773aa44fbcfedf7c193bc2c599&toToken=0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000&integrator=rabbykmsv2&fee=0.0025&allowBridges=garden&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:53:23Z",
+      "responseSha256": "2f7bc56262af91fba78366d9fe42de682d4e57a7ba7d91d8cf3ec2b4765b9202"
+    },
+    {
+      "id": "lifi-intent-destination-swap",
+      "url": "https://li.quest/v1/quote?fromChain=42161&toChain=8453&fromToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&toToken=0x4200000000000000000000000000000000000006&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=10000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=lifiIntents&slippage=0.01",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:26Z",
+      "responseSha256": "0c25e4a264ff7ec40a64df58649117dba34e01b1dd40426ce1d8f6cbf3564e09"
+    },
+    {
+      "id": "lifi-m0-supported",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=m0&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:57:24Z",
+      "responseSha256": "9c438d79c36b651b7eb1defec2341a48e2d291a99c58ceebec32700486d82d18"
+    },
+    {
+      "id": "lifi-m0",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=8453&fromToken=0x866a2bf4e572cbcf37d5071a7a58503bfb36be1b&toToken=0x866a2bf4e572cbcf37d5071a7a58503bfb36be1b&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=100000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=m0&slippage=0.01",
+      "status": 404,
+      "retrievedAt": "2026-11-03T15:53:17Z",
+      "responseSha256": "0f5737a9f93bf3b64583c1ea0aa731b047509721b9a6e7e9982bdd30a61c067e"
+    },
+    {
+      "id": "lifi-megaeth",
+      "url": "https://li.quest/v1/quote?fromChain=1&toChain=4326&fromToken=0x0000000000000000000000000000000000000000&toToken=0x0000000000000000000000000000000000000000&fromAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&toAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&fromAmount=1000000000000000&integrator=rabbykmsv2&fee=0.0025&allowBridges=megaeth&slippage=0.01",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:53:14Z",
+      "responseSha256": "252293f9c4543ab0921d10df6e050fcceda627e96aae2879d410f69e9a9e656e",
+      "retainedResponse": "responses/lifi-megaeth.json"
+    },
+    {
+      "id": "lifi-tools",
+      "url": "https://li.quest/v1/tools?chainTypes=EVM",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:12Z",
+      "responseSha256": "58b5fd9bea088be7a86195ba4cf8457f01e6d23fd2ce542e7eec376f54f2a7ac"
+    },
+    {
+      "id": "mayan-source-swap-data",
+      "url": "https://price-api.mayan.finance/v3/get-swap/evm?forwarderAddress=0x337685fdab40d39bd02028545a4ffa7d287cc3e2&fromToken=0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9&middleToken=0xaf88d065e77c8cc2239327c5edb3a432268e5831&slippageBps=100&referrerAddress=0x9899f62ecf16b70bffc88677023026c47e48c218&amountIn64=10000000&chainName=arbitrum&sdkVersion=12_2_4",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:57:33Z",
+      "responseSha256": "cb3036bd2beba1410cee8f96fedcaa462d3367fb7b2a40f6a4f6010a47941330",
+      "retainedResponse": "responses/mayan-source-swap-data.json"
+    },
+    {
+      "id": "mayan-source-swap-direct-usdc",
+      "url": "https://price-api.mayan.finance/v3/quote?wormhole=false&swift=false&mctp=false&fastMctp=true&shuttle=false&gasless=false&onlyDirect=false&fullList=false&monoChain=false&forwarderAddress=0x337685fdab40d39bd02028545a4ffa7d287cc3e2&amountIn=10&fromToken=0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9&fromChain=arbitrum&toToken=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&toChain=base&slippageBps=100&destinationAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&sdkVersion=12_2_4&referrer=0x9899f62ecf16b70bffc88677023026c47e48c218&referrerBps=25",
+      "status": 200,
+      "retrievedAt": "2026-11-03T15:49:19Z",
+      "responseSha256": "91bfcb4d00c58ba0b647e757465f00066c5fd2bd84c7d666445951cb985bc2f2",
+      "retainedResponse": "responses/mayan-source-swap-direct-usdc.json"
+    },
+    {
+      "id": "socket-arbitrum-native-swap-native-alias",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=42161&inputToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputToken=0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&inputAmount=100000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 200,
+      "retrievedAt": "2026-11-03T16:01:32Z",
+      "responseSha256": "7f3fd881bab58674ae68cdff500f967f94ec9e9bfa5e0f66e7295e95e2206d82",
+      "retainedResponse": "responses/socket-arbitrum-native-swap-native-alias.json"
+    },
+    {
+      "id": "socket-arbitrum-native-swap",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=42161&inputToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputToken=0x0000000000000000000000000000000000000000&inputAmount=100000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 400,
+      "retrievedAt": "2026-11-03T15:58:24Z",
+      "responseSha256": "19e533b09af6cf68ae48aa17f58e28579d73620addedc9516ba58c7766d713d4"
+    },
+    {
+      "id": "socket-gnosis-direct-native-alias",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=100&inputToken=0x6b175474e89094c44da98b954eedeac495271d0f&outputToken=0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&inputAmount=100000000000000000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 200,
+      "retrievedAt": "2026-11-03T16:01:48Z",
+      "responseSha256": "8690e5376fa74ba42870531b6727f5de6853f21878e303c393065450e2892083"
+    },
+    {
+      "id": "socket-gnosis-direct",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=100&inputToken=0x6b175474e89094c44da98b954eedeac495271d0f&outputToken=0x0000000000000000000000000000000000000000&inputAmount=100000000000000000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 400,
+      "retrievedAt": "2026-11-03T15:58:32Z",
+      "responseSha256": "4d3040f0d64825dd8c0f93783db0d05a7406a062e85632f386d12f2addeb4cdf"
+    },
+    {
+      "id": "socket-robinhood-native-swap-native-alias",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=4663&inputToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputToken=0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&inputAmount=100000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 200,
+      "retrievedAt": "2026-11-03T16:01:39Z",
+      "responseSha256": "f96b7d1544a2af820c2d626bbf3e7bd363fa4efd04fba76d50da500d8531e0c4"
+    },
+    {
+      "id": "socket-robinhood-native-swap",
+      "url": "https://public-backend.socket.tech/v3/swap/quote?userOps=tx&userAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&receiverAddress=0x341a1fbd51825e5a107db54ccb3166deba145479&originChainId=1&destinationChainId=4663&inputToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputToken=0x0000000000000000000000000000000000000000&inputAmount=100000000&slippage=1&excludeProvider=symbiosis%2Csymbiosis-btc-citrea%2Csynapse%2Cceler%2Cstargate%2Cstargate-v2%2Carbitrum-bridge%2Cmayan%2Cacross%2Crelay%2Cnear-intents%2Csquid&simulatedQuotesRequired=true",
+      "status": 400,
+      "retrievedAt": "2026-11-03T15:58:28Z",
+      "responseSha256": "b4db97a167bfb591c8c383996d985c9f002eea34bbe9650d2816f9b9b18f7062"
+    }
+  ],
+  "limits": [
+    "A failed probe is not proof of an unreachable route.",
+    "A historical function name does not enumerate destination callback or fallback modes.",
+    "Non-EVM/HyperCore-specific flows are outside ordinary current SDK EVM corridor scope.",
+    "Mayan Swift/MCTP direct aggregators and permit/gasless modes are not generated by the current application flow."
+  ]
+}

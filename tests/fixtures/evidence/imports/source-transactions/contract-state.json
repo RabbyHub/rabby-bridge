@@ -1,0 +1,802 @@
+{
+  "retrievedAt": "2026-11-02T12:23:18.263Z",
+  "blockTag": "latest",
+  "cases": [
+    "lifi-superset-base-arb-83298aef366e2c41d9231ba92f44f30bfd3d94d6a39815a69e68424ff04c0cd7",
+    "socket-gnosis-native-eth-xdai-69337170dbccd7505887f7960cd4c7425d62bd789aca035f7c87d22c2d87d42d",
+    "socket-ccip-bsc-eth-ec8c8309036edf72d0385c3a4d91ba8ee33c01a27cc8fb23ebd539c4291ac4b0",
+    "socket-swaps-xyz-base-eth-d7d494c99e0a70db3ca3b530bcf5697b358e5567dc744960271f6b4aa7d50aad",
+    "socket-oft-plume-bsc-8eba145f087dd3e723b497fd59e6ae9bf4618b0ee7d7f5f1df7ac50a58e56071",
+    "gap-socket-b828200c03c5a2432169dbd8ee939b205290c1cec0a09fb93fa274483f83a7d5",
+    "gap-mayan-9eb0918f56c5ea7e042a58124904ed542811727c9c58e0ee6606c156e914ba1f",
+    "completed-socket-f72185b2b589c9371fa067040d8e776a465166865d1b4e3bcab5a8312c24684e",
+    "completed-socket-4dc35b86a5b50b2c0a31663066ba31397adf0188b182acd9c3075086d0e46911",
+    "completed-mayan-a46daffd350ca0969b9ee4e9613a89d8674b45f3b3daa1a17abba36fd7659e31",
+    "completed-socket-fee814a1ac9ed6641165ffd8cc17c6460067c82c3c16eb4df663ca7f3362669d",
+    "completed-socket-bf38e6e24f1e3c836cdd67d3ca3182295e05fc0b60f8fed6bbac32ab388b8466",
+    "completed-socket-4c68c05f0dbd964a0dfad0675fb318b90ca15e3de54c473950ac9774ff2676da",
+    "completed-mayan-280f17269d411143314419739a341d8767a6533270dcfa33521506baeacba8c7",
+    "coverage-lifi-1406f7d0b75fd79526f7e9c62c1c0b442d061096adf62b8bf21fa418d2973089",
+    "coverage-lifi-f02bf99302598393441fe46452e790640cccc14fb88fa45a6e02a2d5c3574c11",
+    "coverage-lifi-650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+    "coverage-socket-3512d7913822761f88c98b8c671ce534cbe8964926c862f02b1ad25f6149a6bf",
+    "coverage-socket-13bc1c9bab51c7e8e416a8c9317cd2702387e769220be0d8184a2d91b6110c9d",
+    "coverage-socket-50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+    "coverage-socket-226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+    "coverage-socket-cd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387"
+  ],
+  "calls": [
+    {
+      "chainId": "42161",
+      "contract": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+      "data": "0xcdffacc6f26e657f00000000000000000000000000000000000000000000000000000000",
+      "result": "0x0000000000000000000000003556edecdd99d567641f796cb2ac648006f4e257"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x3556edecdd99d567641f796cb2ac648006f4e257",
+      "data": "0x62308e85",
+      "result": "0x000000000000000000000000cc687ed9155f5e49719d5f3147f79fd5f177961c"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xcc687ed9155f5e49719d5f3147f79fd5f177961c",
+      "data": "0x8a670baa",
+      "result": "0x00000000000000000000000064c2abe02311b2f1eb932b86ac49a67992f611c5"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x64c2abe02311b2f1eb932b86ac49a67992f611c5",
+      "data": "0x96497efb0000000000000000000000000000000000000000000000000000000000000002",
+      "result": "0x000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831"
+    },
+    {
+      "chainId": "100",
+      "contract": "0xf6a78083ca3e2a662d6dd1703c939c8ace2e268d",
+      "data": "0x2d70061f0000000000000000000000006810e776880c02933d47db1b9fc05908e5386b96",
+      "result": "0x0000000000000000000000009c58bacc331c9aa871afd802db6379a98e80cedb"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x34b03cb9086d7d758ac55af71584f81a598759fe",
+      "data": "0xa8d87a3b00000000000000000000000000000000000000000000000045849994fc9c7b15",
+      "result": "0x00000000000000000000000084a0797b31ac0d3e1d06157663dd4b18cffda188"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x84a0797b31ac0d3e1d06157663dd4b18cffda188",
+      "data": "0x48a98aa400000000000000000000000000000000000000000000000045849994fc9c7b15000000000000000000000000ea37a8de1de2d9d10772eeb569e28bfa5cb17707",
+      "result": "0x000000000000000000000000da1b1b3d3c97974b272e28f70f25ab7c290e8357"
+    },
+    {
+      "chainId": "56",
+      "contract": "0xda1b1b3d3c97974b272e28f70f25ab7c290e8357",
+      "data": "0xb794658000000000000000000000000000000000000000000000000045849994fc9c7b15",
+      "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000c477b6dfd26ec2460b3b92de18837fd476ea7549"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xc477b6dfd26ec2460b3b92de18837fd476ea7549",
+      "data": "0x313ce567",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "56",
+      "contract": "0xea37a8de1de2d9d10772eeb569e28bfa5cb17707",
+      "data": "0x313ce567",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xeb1b48b238e15a62e1858a601b6bffdf41163ae3",
+      "data": "0x9f0b7659",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xeb1b48b238e15a62e1858a601b6bffdf41163ae3",
+      "data": "0xfc0c546a",
+      "result": "0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xeb1b48b238e15a62e1858a601b6bffdf41163ae3",
+      "data": "0x1c2eaac0",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x253821543c24623ecd3cebced704359af16cf38f",
+      "data": "0x9f0b7659",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x253821543c24623ecd3cebced704359af16cf38f",
+      "data": "0x1c2eaac0",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x9909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "data": "0x16909bca",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x9909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "data": "0x2bc5114c",
+      "result": "0x000000000000000000000000abd218304aad937eea0822c598ffce59f4409e61000000000000000000000000e37f7c80ced04c4f243c0fd04a5510d663cb88b5000000000000000000000000bbfab55b6c2ee954610cf92a750db332ba97dd60000000000000000000000000f26d57bbe1d99561b13003783b5e040b71adcb140000000000000000000000005e3291174f9c07a9a73debe08954617a4d95e2530000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0xf26d57bbe1d99561b13003783b5e040b71adcb14",
+      "data": "0xd8e8dbc70000000000000000000000009909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0xf26d57bbe1d99561b13003783b5e040b71adcb14",
+      "data": "0x5f6d9ae40000000000000000000000000000000000000000000000000000000000000001",
+      "result": "0x0000000000000000000000009909fa99b7f7ee7f1c0cbf133f411d43083631e6"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0xf26d57bbe1d99561b13003783b5e040b71adcb14",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007596",
+      "result": "0x0000000000000000000000006e3d884c96d640526f273c61dfcf08915ebd7e2b"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x6e3d884c96d640526f273c61dfcf08915ebd7e2b",
+      "data": "0x5f6d9ae40000000000000000000000000000000000000000000000000000000000000001",
+      "result": "0x000000000000000000000000962bd449e630b0d928f308ce63f1a21f02576057"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x9909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "data": "0xfc0c546a",
+      "result": "0x00000000000000000000000078add880a697070c1e765ac44d65323a0dcce913"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x9909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "data": "0x857749b0",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x962bd449e630b0d928f308ce63f1a21f02576057",
+      "data": "0xfc0c546a",
+      "result": "0x0000000000000000000000008ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x962bd449e630b0d928f308ce63f1a21f02576057",
+      "data": "0x857749b0",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "56",
+      "contract": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "data": "0x313ce567",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x78add880a697070c1e765ac44d65323a0dcce913",
+      "data": "0x313ce567",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "98866",
+      "contract": "0x9909fa99b7f7ee7f1c0cbf133f411d43083631e6",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007596",
+      "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x"
+      }
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007684",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0x16909bca",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0x2bc5114c",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x00000000000000000000000017e450be3ba9557f2378e20d64ad417e59ef9a34000000000000000000000000e37f7c80ced04c4f243c0fd04a5510d663cb88b5000000000000000000000000d47b03ee6d86cf251ee7860fb2acf9f91b9fd4d70000000000000000000000005634c4a5fed09819e3c46d86a965dd9447d86e4700000000000000000000000012dc9256acc9895b076f6638d628382881e62cee0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x5634c4a5fed09819e3c46d86a965dd9447d86e47",
+      "data": "0xd8e8dbc7000000000000000000000000dc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x000000000000000000000000000000000000000000000000000000000000000d"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x5634c4a5fed09819e3c46d86a965dd9447d86e47",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x000000000000000000000000dc181bd607330aeebef6ea62e03e5e1fb4b6f7c7"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x5634c4a5fed09819e3c46d86a965dd9447d86e47",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007684",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x000000000000000000000000af54be5b6eec24d6bfacf1cce4eaf680a8239398"
+    },
+    {
+      "chainId": "1868",
+      "contract": "0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "blockTag": "0x1ce3642",
+      "url": "https://soneium.gateway.tenderly.co",
+      "result": "0x0000000000000000000000002f6f07cdcf3588944bf4c42ac74ff24bf56e7590"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0xfc0c546a",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "1868",
+      "contract": "0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+      "data": "0xfc0c546a",
+      "blockTag": "0x1ce3642",
+      "url": "https://soneium.gateway.tenderly.co",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0x857749b0",
+      "blockTag": "0x32fcca0",
+      "url": "https://base.drpc.org",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "1868",
+      "contract": "0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+      "data": "0x857749b0",
+      "blockTag": "0x1ce3642",
+      "url": "https://soneium.gateway.tenderly.co",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e",
+      "data": "0x313ce567",
+      "blockTag": "latest",
+      "url": "https://arbitrum.drpc.org",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xdc181bd607330aeebef6ea62e03e5e1fb4b6f7c7",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759e",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x5634c4a5fed09819e3c46d86a965dd9447d86e47",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759e",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000019cfce47ed54a88614648dc3f19a5980097007dd"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xfc0c546a",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x857749b0",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a5300000000000000000000000000000000000000000000000000000000000075e8",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x16909bca",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0x2bc5114c",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000da82a31df339bfdf0123661134b4db63cb1706f5000000000000000000000000e37f7c80ced04c4f243c0fd04a5510d663cb88b5000000000000000000000000146c8e409c113ed87c6183f4d25c50251dffbb3a00000000000000000000000019cfce47ed54a88614648dc3f19a5980097007dd000000000000000000000000f1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e60000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xd8e8dbc7000000000000000000000000a45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000000000000000000000000000000000000000000d"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a5300000000000000000000000000000000000000000000000000000000000075e8",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000005634c4a5fed09819e3c46d86a965dd9447d86e47"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "data": "0x313ce567",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000759f",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000f1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e6"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xf1fcb4cbd57b67d683972a59b6a7b1e2e8bf27e6",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000e8cdf27acd73a434d661c84887215f7598e7d0d3"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xe8cdf27acd73a434d661c84887215f7598e7d0d3",
+      "data": "0xfc0c546a",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "10",
+      "contract": "0xe8cdf27acd73a434d661c84887215f7598e7d0d3",
+      "data": "0x857749b0",
+      "url": "https://optimism.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007595",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "error": {
+        "code": 3,
+        "message": "execution reverted: Ownable: caller is not the owner",
+        "data": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000204f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572"
+      }
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x19cfce47ed54a88614648dc3f19a5980097007dd",
+      "data": "0xbb0b6a530000000000000000000000000000000000000000000000000000000000007595",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000006d6620efa72948c5f68a3c8646d58c00d3f4a980"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x6d6620efa72948c5f68a3c8646d58c00d3f4a980",
+      "data": "0x5f6d9ae4000000000000000000000000000000000000000000000000000000000000000d",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000077b2043768d28e9c9ab44e1abfc95944bce57931"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x77b2043768d28e9c9ab44e1abfc95944bce57931",
+      "data": "0xfc0c546a",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x77b2043768d28e9c9ab44e1abfc95944bce57931",
+      "data": "0x857749b0",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+      "data": "0xcdffacc64f3b075900000000000000000000000000000000000000000000000000000000",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000b815b47ad429436892fc3c6ed1d401f515c7f763"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xb815b47ad429436892fc3c6ed1d401f515c7f763",
+      "data": "0xbf69fa61",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000cd086225f47155937cc57b320f8d37933b683197"
+    },
+    {
+      "chainId": "8453",
+      "contract": "0xcd086225f47155937cc57b320f8d37933b683197",
+      "data": "0xee90fc4000000000000000000000000000000000000000000000000000000002948ea75c0000000000000000000000000000000000000000000000000000000000000001",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000000000001e848000000000000000000000000000000000000000000000000000000000001e84800000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+      "data": "0xcdffacc64f3b075900000000000000000000000000000000000000000000000000000000",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000b815b47ad429436892fc3c6ed1d401f515c7f763"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xb815b47ad429436892fc3c6ed1d401f515c7f763",
+      "data": "0xbf69fa61",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000c75fdd24820ddcdadee9bb653ae6cd73ba8f0e80"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xc75fdd24820ddcdadee9bb653ae6cd73ba8f0e80",
+      "data": "0xee90fc40000000000000000000000000000000000000000000000000000000003bb3b552000000000000000000000000000000000000000000000000000000000000a4b1",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xa0c68c638235ee32657e8f720a23cec1bfc77c77",
+      "data": "0xea60c7c400000000000000000000000045804880de22913dafe09f4980848ece6ecbaf78",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000553d3d295e0f695b9228246232edf400ed3560b5"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x72ce9c846789fdb6fc1f34ac4ad25dd9ef7031ef",
+      "data": "0xa7e28d48000000000000000000000000d533a949740bb3306d119cc777fa900ba034cd52",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000011cdb42b0eb46d95f990bedd4695a6e3fa034978"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x72ce9c846789fdb6fc1f34ac4ad25dd9ef7031ef",
+      "data": "0xa7e28d48000000000000000000000000514910771af9ca656af840dff83e8264ecf986ca",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000f97f4df75117a78c1a5a0dbb814af92458539fb4"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x80226fc0ee2b096224eeac085bb9a8cba1146f7d",
+      "data": "0xa8d87a3b0000000000000000000000000000000000000000000000009d70576d8e253bcf",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000c3423f3fb30857d9c14717b119884b1b63d250b7"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xc3423f3fb30857d9c14717b119884b1b63d250b7",
+      "data": "0x48a98aa40000000000000000000000000000000000000000000000009d70576d8e253bcf0000000000000000000000006c76de483f1752ac8473e2b4983a873991e70da7",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000c78210649af8a450c0f6e98107a0b614a3198359"
+    },
+    {
+      "chainId": "1",
+      "contract": "0xc78210649af8a450c0f6e98107a0b614a3198359",
+      "data": "0xb79465800000000000000000000000000000000000000000000000009d70576d8e253bcf",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000fed13d0c40790220fbde712987079eda1ed75c51"
+    },
+    {
+      "chainId": "4663",
+      "contract": "0xd6adce5eac5f40d29e2101436c38cf1cee8f4856",
+      "data": "0xbb0b6a53000000000000000000000000000000000000000000000000000000000000769f",
+      "url": "https://rpc.mainnet.chain.robinhood.com",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000e867974275cd31c25015c2753c9d75f9f355379"
+    },
+    {
+      "chainId": "4663",
+      "contract": "0xd6adce5eac5f40d29e2101436c38cf1cee8f4856",
+      "data": "0xfc0c546a",
+      "url": "https://rpc.mainnet.chain.robinhood.com",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000d6adce5eac5f40d29e2101436c38cf1cee8f4856"
+    },
+    {
+      "chainId": "999",
+      "contract": "0x0e867974275cd31c25015c2753c9d75f9f355379",
+      "data": "0xfc0c546a",
+      "url": "https://rpc.hyperliquid.xyz/evm",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "4663",
+      "contract": "0xd6adce5eac5f40d29e2101436c38cf1cee8f4856",
+      "data": "0x313ce567",
+      "url": "https://rpc.mainnet.chain.robinhood.com",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "43114",
+      "contract": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "data": "0x7533d788000000000000000000000000000000000000000000000000000000000000006e",
+      "url": "https://avalanche.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028371c7ec6d8039ff7933a2aa28eb827ffe1f52f07371c7ec6d8039ff7933a2aa28eb827ffe1f52f07000000000000000000000000000000000000000000000000"
+    },
+    {
+      "chainId": "43114",
+      "contract": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "data": "0xfc0c546a",
+      "url": "https://avalanche.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000006e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "data": "0xfc0c546a",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000371c7ec6d8039ff7933a2aa28eb827ffe1f52f07"
+    },
+    {
+      "chainId": "42161",
+      "contract": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "data": "0x313ce567",
+      "url": "https://arbitrum.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "43114",
+      "contract": "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd",
+      "data": "0x313ce567",
+      "url": "https://avalanche.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "56",
+      "contract": "0xfed13d0c40790220fbde712987079eda1ed75c51",
+      "data": "0x313ce567",
+      "url": "https://bsc-rpc.publicnode.com",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "chainId": "1",
+      "contract": "0x6c76de483f1752ac8473e2b4983a873991e70da7",
+      "data": "0x313ce567",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000012"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "data": "0xcdffacc68fd4d4dd00000000000000000000000000000000000000000000000000000000",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000006275c64c1da8919d1f7f5d558d36a6d750c74838"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0x6275c64c1da8919d1f7f5d558d36a6d750c74838",
+      "data": "0x4b6f556c",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000082a6c7753380f98c093b27c53f86ef6b09c40f49"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0x82a6c7753380f98c093b27c53f86ef6b09c40f49",
+      "data": "0x432ec5fd0000000000000000000000000000000000000000000000000000000000002105",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000002"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "8453",
+      "contract": "0x82a6c7753380f98c093b27c53f86ef6b09c40f49",
+      "data": "0x0a14789a",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000002"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0x82a6c7753380f98c093b27c53f86ef6b09c40f49",
+      "data": "0x47bfbcc6",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000ec3582fcdc34078a4b7a8c75a5a3ae46f48525ab"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0xec3582fcdc34078a4b7a8c75a5a3ae46f48525ab",
+      "data": "0x668b4c1f000000000000000000000000aaa0008c8cf3a7dca931adaf04336a5d808c82cc",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000010000000000030001000000000003000000000000000100000000000000000000000000000000"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0xec3582fcdc34078a4b7a8c75a5a3ae46f48525ab",
+      "data": "0xc05ff15200000000000000000000000000000000000000000000000000010000000000030001000000000003000000000000000100000000000000000000000000000000",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000aaa0008c8cf3a7dca931adaf04336a5d808c82cc"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "8453",
+      "contract": "0x82a6c7753380f98c093b27c53f86ef6b09c40f49",
+      "data": "0x47bfbcc6",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000ec3582fcdc34078a4b7a8c75a5a3ae46f48525ab"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "8453",
+      "contract": "0xec3582fcdc34078a4b7a8c75a5a3ae46f48525ab",
+      "data": "0xc05ff15200000000000000000000000000000000000000000000000000010000000000030001000000000003000000000000000100000000000000000000000000000000",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000aaa0008c8cf3a7dca931adaf04336a5d808c82cc"
+    },
+    {
+      "method": "eth_getCode",
+      "chainId": "8453",
+      "contract": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "data": "0x",
+      "url": "https://base.drpc.org",
+      "blockTag": "latest",
+      "result": "0x"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "42161",
+      "contract": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "data": "0xcdffacc6e0a4201c00000000000000000000000000000000000000000000000000000000",
+      "url": "https://arb1.arbitrum.io/rpc",
+      "blockTag": "latest",
+      "result": "0x000000000000000000000000b815b47ad429436892fc3c6ed1d401f515c7f763"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "42161",
+      "contract": "0xb815b47ad429436892fc3c6ed1d401f515c7f763",
+      "data": "0xbf69fa61",
+      "url": "https://arb1.arbitrum.io/rpc",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000090811d8ea6499d3e5cbfba3b279fb4387ebdfce9"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "42161",
+      "contract": "0x90811d8ea6499d3e5cbfba3b279fb4387ebdfce9",
+      "data": "0xee90fc4000000000000000000000000000000000000000000000000000000000009896800000000000000000000000000000000000000000000000000000000000002105",
+      "url": "https://arb1.arbitrum.io/rpc",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "method": "eth_call",
+      "chainId": "1",
+      "contract": "0x72ce9c846789fdb6fc1f34ac4ad25dd9ef7031ef",
+      "data": "0xa7e28d48000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "url": "https://eth.drpc.org",
+      "blockTag": "latest",
+      "result": "0x00000000000000000000000082af49447d8a07e3bd95bd0d56f35241523fbab1"
+    }
+  ],
+  "additionalSnapshots": [
+    {
+      "source": "../parser-gaps/contract-state.json",
+      "retrievedAt": "2026-11-03T14:57:40.035Z"
+    }
+  ]
+}

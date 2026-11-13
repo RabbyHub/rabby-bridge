@@ -1,0 +1,49 @@
+{
+  "sourceMethod": "deposit",
+  "destinationSequence": [
+    {
+      "target": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "selector": "0x095ea7b3"
+    },
+    {
+      "target": "0x0000000000001fF3684f28c67538d4D072C22734",
+      "selector": "0x2213bc0b"
+    },
+    {
+      "target": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      "selector": "0xa9059cbb"
+    },
+    {
+      "target": "0x0F7Ae28dE1C8532170AD4ee566B5801485c13a0E",
+      "selector": "0xef8738d3"
+    },
+    {
+      "target": "0x0F7Ae28dE1C8532170AD4ee566B5801485c13a0E",
+      "selector": "0xef8738d3"
+    },
+    {
+      "target": "0xBF75133b48b0a42AB9374027902E83C5E2949034",
+      "selector": "0xd836083e"
+    }
+  ],
+  "allowanceHolder": {
+    "operator": "0x7d6839415693801E94cDC4A7d732C9a3FDBbd1D7",
+    "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "amount": "99969945",
+    "target": "0x7d6839415693801E94cDC4A7d732C9a3FDBbd1D7",
+    "selector": "0x1fff991f"
+  },
+  "settler": {
+    "recipient": "0x0F7Ae28dE1C8532170AD4ee566B5801485c13a0E",
+    "buyToken": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+    "minAmountOut": "147836604624321333866",
+    "actionSelectors": [
+      "0xc1fb425e",
+      "0x38c9c147",
+      "0x8d68a156",
+      "0x8d68a156",
+      "0x5f80abae"
+    ]
+  },
+  "fallbackRecipient": "0x341a1fBD51825E5a107DB54cCb3166DeBA145479"
+}

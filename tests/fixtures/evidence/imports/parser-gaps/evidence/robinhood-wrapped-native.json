@@ -1,0 +1,12 @@
+{
+  "chainId": "4663",
+  "contract": "0xd29c85f15df544ba632c9e25829fd29d767d7978",
+  "data": "0x17fcb39b",
+  "url": "https://rpc.mainnet.chain.robinhood.com",
+  "blockTag": "latest",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0x0000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73"
+  }
+}

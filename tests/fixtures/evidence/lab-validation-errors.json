@@ -1,0 +1,1341 @@
+{
+  "sourceFile": "bridge-lab-1794499227110.json",
+  "exportedAt": "2026-11-12T16:12:09.362Z",
+  "status": "awaiting-full-calldata",
+  "replayable": false,
+  "reason": "The export retained selector/length only for LI.FI. These are original SDK error reports, not executable parser fixtures. Do not reconstruct calldata or assert that rejection was correct from these reports alone.",
+  "categories": [
+    {
+      "id": "token-and-receiver-mismatch",
+      "recordIds": [
+        "1794499227110-711",
+        "1794499227110-716",
+        "1794499227110-717",
+        "1794499227110-718",
+        "1794499227110-720",
+        "1794499227110-727",
+        "1794499227110-728",
+        "1794499227110-729",
+        "1794499227110-731",
+        "1794499227110-854",
+        "1794499227110-865"
+      ]
+    },
+    {
+      "id": "receiver-mismatch-only",
+      "recordIds": [
+        "1794499227110-715",
+        "1794499227110-726"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "1794499227110-711",
+      "runId": "1794499227110",
+      "createdAt": 1794499672456,
+      "updatedAt": 1794499675478,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "0.5",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x80c65808",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1732,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x80c65808",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1732,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 18.357625,
+        "toTokenRawAmountHex": "0x1181d79",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 900,
+        "bridgeName": "CCTP + Mayan",
+        "quoteKey": {
+          "to_token_raw_amount": 18357625,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0x80c65808",
+        "dataLength": 1732
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-715",
+      "runId": "1794499227110",
+      "createdAt": 1794499676525,
+      "updatedAt": 1794499678670,
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_RECEIVER_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "polygon",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaPolygonBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xaf62c7d6",
+              "calldataBytes": 484,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.975835,
+        "toTokenRawAmountHex": "0x130ce9b",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 1159,
+        "bridgeName": "Polygon Bridge (PoS)",
+        "quoteKey": {
+          "to_token_raw_amount": 19975835,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xaf62c7d6",
+        "dataLength": 484
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-716",
+      "runId": "1794499227110",
+      "createdAt": 1794499676527,
+      "updatedAt": 1794499678710,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "polymerStandard",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaPolymerCCTP",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xf434d6ca",
+              "calldataBytes": 772,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "polymerStandard",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaPolymerCCTP",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xf434d6ca",
+              "calldataBytes": 772,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.955799,
+        "toTokenRawAmountHex": "0x1308057",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 1080,
+        "bridgeName": "Polymer (Standard)",
+        "quoteKey": {
+          "to_token_raw_amount": 19955799,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xf434d6ca",
+        "dataLength": 772
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-717",
+      "runId": "1794499227110",
+      "createdAt": 1794499676529,
+      "updatedAt": 1794499679673,
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercircle",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xe0a4201c",
+              "calldataBytes": 548,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercircle",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xe0a4201c",
+              "calldataBytes": 548,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.85602,
+        "toTokenRawAmountHex": "0x12efa94",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 985,
+        "bridgeName": "CCTP + Celer (Standard)",
+        "quoteKey": {
+          "to_token_raw_amount": 19856020,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xe0a4201c",
+        "dataLength": 548
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-718",
+      "runId": "1794499227110",
+      "createdAt": 1794499676531,
+      "updatedAt": 1794499679484,
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercirclefast",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xe0a4201c",
+              "calldataBytes": 548,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercirclefast",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xe0a4201c",
+              "calldataBytes": 548,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.854024,
+        "toTokenRawAmountHex": "0x12ef2c8",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 40,
+        "bridgeName": "CCTP + Celer (Fast)",
+        "quoteKey": {
+          "to_token_raw_amount": 19854024,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xe0a4201c",
+        "dataLength": 548
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-720",
+      "runId": "1794499227110",
+      "createdAt": 1794499676532,
+      "updatedAt": 1794499680341,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xb4875292",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1188,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "startBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xb4875292",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1188,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.93408,
+        "toTokenRawAmountHex": "0x1302b80",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 900,
+        "bridgeName": "CCTP + Mayan",
+        "quoteKey": {
+          "to_token_raw_amount": 19934080,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xb4875292",
+        "dataLength": 1188
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-726",
+      "runId": "1794499227110",
+      "createdAt": 1794499682033,
+      "updatedAt": 1794499683660,
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_RECEIVER_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "polygon",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaPolygonBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0xb4f37581",
+              "calldataBytes": 1028,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.925102,
+        "toTokenRawAmountHex": "0x130086e",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 1159,
+        "bridgeName": "Polygon Bridge (PoS)",
+        "quoteKey": {
+          "to_token_raw_amount": 19925102,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0xb4f37581",
+        "dataLength": 1028
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-727",
+      "runId": "1794499227110",
+      "createdAt": 1794499682034,
+      "updatedAt": 1794499684919,
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "polymerStandard",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaPolymerCCTP",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x17917a4e",
+              "calldataBytes": 1316,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "polymerStandard",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaPolymerCCTP",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x17917a4e",
+              "calldataBytes": 1316,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.908393,
+        "toTokenRawAmountHex": "0x12fc729",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 1080,
+        "bridgeName": "Polymer (Standard)",
+        "quoteKey": {
+          "to_token_raw_amount": 19908393,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0x17917a4e",
+        "dataLength": 1316
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-728",
+      "runId": "1794499227110",
+      "createdAt": 1794499682036,
+      "updatedAt": 1794499685142,
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercircle",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x4f3b0759",
+              "calldataBytes": 1092,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercircle",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x4f3b0759",
+              "calldataBytes": 1092,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.808602,
+        "toTokenRawAmountHex": "0x12e415a",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 985,
+        "bridgeName": "CCTP + Celer (Standard)",
+        "quoteKey": {
+          "to_token_raw_amount": 19808602,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0x4f3b0759",
+        "dataLength": 1092
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-729",
+      "runId": "1794499227110",
+      "createdAt": 1794499682037,
+      "updatedAt": 1794499685665,
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercirclefast",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x4f3b0759",
+              "calldataBytes": 1092,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "celercirclefast",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaCelerCircleBridge",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x4f3b0759",
+              "calldataBytes": 1092,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.806611,
+        "toTokenRawAmountHex": "0x12e3993",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 40,
+        "bridgeName": "CCTP + Celer (Fast)",
+        "quoteKey": {
+          "to_token_raw_amount": 19806611,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0x4f3b0759",
+        "dataLength": 1092
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-731",
+      "runId": "1794499227110",
+      "createdAt": 1794499682038,
+      "updatedAt": 1794499686507,
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "USDC",
+      "toToken": "USDT0",
+      "fromTokenId": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "20",
+      "rawAmount": "20000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x80c65808",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1732,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "mayanMCTP",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaMayan",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x80c65808",
+              "protocolSelector": "0x2072197f",
+              "calldataBytes": 1732,
+              "protocolCalldataBytes": 292,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 19.887103,
+        "toTokenRawAmountHex": "0x12f73ff",
+        "approveContractId": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "duration": 900,
+        "bridgeName": "CCTP + Mayan",
+        "quoteKey": {
+          "to_token_raw_amount": 19887103,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x0",
+        "chainId": 1,
+        "selector": "0x80c65808",
+        "dataLength": 1732
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-854",
+      "runId": "1794499227110",
+      "createdAt": 1794499780063,
+      "updatedAt": 1794499782020,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "ETH",
+      "toToken": "USDT0",
+      "fromTokenId": "eth",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "0.2",
+      "rawAmount": "200000000000000000",
+      "slippage": "0.5",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "lifiIntents",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x6d21c5df",
+              "calldataBytes": 1572,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "lifiIntents",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x6d21c5df",
+              "calldataBytes": 1572,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 403.152584,
+        "toTokenRawAmountHex": "0x18079ec8",
+        "approveContractId": null,
+        "duration": 19,
+        "bridgeName": "LI.FI Intents",
+        "quoteKey": {
+          "to_token_raw_amount": 403152584,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x2c68af0bb140000",
+        "chainId": 1,
+        "selector": "0x6d21c5df",
+        "dataLength": 1572
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    },
+    {
+      "id": "1794499227110-865",
+      "runId": "1794499227110",
+      "createdAt": 1794499792392,
+      "updatedAt": 1794499794243,
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "fromChainId": "eth",
+      "toChainId": "matic",
+      "fromToken": "ETH",
+      "toToken": "USDT0",
+      "fromTokenId": "eth",
+      "toTokenId": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "amount": "0.2",
+      "rawAmount": "200000000000000000",
+      "slippage": "1",
+      "feeRate": 0.25,
+      "relay": false,
+      "quoteReturned": true,
+      "validationFailed": true,
+      "reported": true,
+      "buildAttempted": true,
+      "buildSucceeded": false,
+      "orderDataPresent": null,
+      "orderDataSource": null,
+      "orderData": null,
+      "errorCodes": [
+        "BRIDGE_TO_TOKEN_MISMATCH",
+        "BRIDGE_RECEIVER_MISMATCH"
+      ],
+      "reports": [
+        {
+          "name": "InvalidBridgeCalldataError",
+          "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+          "stage": "intent",
+          "errors": [
+            {
+              "error_code": "BRIDGE_TO_TOKEN_MISMATCH",
+              "stage": "intent",
+              "message": "to_token",
+              "aggregatorId": "lifi",
+              "bridgeId": "lifiIntents",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x6d21c5df",
+              "calldataBytes": 1572,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            },
+            {
+              "error_code": "BRIDGE_RECEIVER_MISMATCH",
+              "stage": "intent",
+              "message": "receiver",
+              "aggregatorId": "lifi",
+              "bridgeId": "lifiIntents",
+              "chainId": "eth",
+              "toChainId": "matic",
+              "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2",
+              "operation": "buildTx",
+              "calldataFormat": "valid",
+              "selector": "0x6d21c5df",
+              "calldataBytes": 1572,
+              "hasDestinationCall": false,
+              "blocking": true,
+              "pass": false,
+              "routerPass": true,
+              "fromPass": true,
+              "toPass": false,
+              "receiverPass": false
+            }
+          ]
+        }
+      ],
+      "quote": {
+        "toTokenAmount": 404.128881,
+        "toTokenRawAmountHex": "0x18168471",
+        "approveContractId": null,
+        "duration": 19,
+        "bridgeName": "LI.FI Intents",
+        "quoteKey": {
+          "to_token_raw_amount": 404128881,
+          "approve_contract_id": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+          "fee_rate": 0.25
+        }
+      },
+      "tx": {
+        "to": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+        "value": "0x2c68af0bb140000",
+        "chainId": 1,
+        "selector": "0x6d21c5df",
+        "dataLength": 1572
+      },
+      "errorMessage": "Invalid bridge calldata for lifi on eth: to_token,receiver",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+    }
+  ]
+}

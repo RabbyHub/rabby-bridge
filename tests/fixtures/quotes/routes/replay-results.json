@@ -1,0 +1,17 @@
+{
+  "units": 348,
+  "positiveUnits": 341,
+  "expectedRejections": 7,
+  "unexpectedFailures": [],
+  "discoveryUnits": 8,
+  "discoveryPositive": 6,
+  "discoveryRejected": 2,
+  "observedFunctionPaths": 53,
+  "bridgeTypes": 29,
+  "historical46Covered": 46,
+  "fullYarnTest": false,
+  "typecheck": false,
+  "eslint": false,
+  "cycles": false,
+  "httpInReplay": false
+}

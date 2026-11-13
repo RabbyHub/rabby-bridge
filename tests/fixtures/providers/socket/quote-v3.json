@@ -1,0 +1,400 @@
+{
+  "capturedAt": 1793686786861,
+  "provenance": "Direct Socket public /v3/swap/quote response; retain only three routes with complete transaction and five-field expected values.",
+  "params": {
+    "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+    "fromChainId": "arb",
+    "fromTokenId": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    "fromTokenRawAmount": "4000000",
+    "toChainId": "base",
+    "toTokenId": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    "slippage": "0.01",
+    "feeRate": 0
+  },
+  "response": {
+    "success": true,
+    "statusCode": 200,
+    "result": {
+      "originChainId": 42161,
+      "destinationChainId": 8453,
+      "quoteType": "EXACT_INPUT",
+      "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "receiverAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+      "input": {
+        "token": {
+          "chainId": 42161,
+          "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+          "name": "USDC",
+          "symbol": "USDC",
+          "decimals": 6,
+          "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+          "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+        },
+        "amount": "4000000",
+        "priceInUsd": 1,
+        "valueInUsd": 4
+      },
+      "routes": [
+        {
+          "userOp": "tx",
+          "quoteId": "0xaf4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d",
+          "expiresAt": 1793686846,
+          "output": {
+            "token": {
+              "chainId": 8453,
+              "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "name": "USDC",
+              "symbol": "USDC",
+              "decimals": 6,
+              "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+              "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+            },
+            "amount": "3990207",
+            "minAmountOut": "3950304",
+            "priceInUsd": 1,
+            "valueInUsd": 3.990207
+          },
+          "estimatedTime": 3,
+          "slippage": 1,
+          "suggestedSlippage": 1,
+          "routeTags": [
+            "FASTEST",
+            "MAX_OUTPUT",
+            "SUGGESTED"
+          ],
+          "routeDetails": {
+            "dexDetails": null,
+            "bridgeDetails": {
+              "protocol": {
+                "name": "rfq-vault-executor",
+                "displayName": "Socket Intents",
+                "icon": "https://media.socket.tech/bridges/socket-icon.png"
+              },
+              "inputTokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+              "outputTokenAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "amountIn": "4000000",
+              "amountOut": "3990207",
+              "minAmountOut": "3950304",
+              "slippage": 1
+            },
+            "feeDetails": {
+              "feeTakerAddress": "0xe3d091bcb9406ddb9a121e37f4eb1345336afbbf",
+              "feeBps": 20,
+              "feeAmount": "8000",
+              "isFeeInInputToken": true,
+              "feeToken": {
+                "chainId": 42161,
+                "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                "name": "USDC",
+                "symbol": "USDC",
+                "decimals": 6,
+                "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+                "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+              }
+            }
+          },
+          "approval": {
+            "spenderAddress": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+            "amount": "4000000",
+            "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+            "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+          },
+          "txData": {
+            "kind": "evm_tx",
+            "object": {
+              "chainId": 42161,
+              "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+              "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001e4b18248d5af4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000097caca78ac2a94c67643d07843f85afaa44a3ea500000000000000000000000097caca78ac2a94c67643d07843f85afaa44a3ea5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000064823b01f9af4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "value": "0"
+            }
+          },
+          "gasFee": {
+            "gasToken": {
+              "chainId": 42161,
+              "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "name": "Arbitrum Ether",
+              "symbol": "ETH",
+              "decimals": 18,
+              "logoURI": "https://media.socket.tech/networks/ethereum.svg",
+              "icon": "https://media.socket.tech/networks/ethereum.svg"
+            },
+            "gasLimit": "500000",
+            "gasPrice": "20000000",
+            "estimatedFee": "10000000000000",
+            "feeInUsd": 0.003
+          },
+          "statusCheck": {
+            "endpoint": "https://public-backend.socket.tech/v3/swap/status?quoteId=0xaf4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d",
+            "method": "GET",
+            "intervalSec": 5,
+            "maxDurationSec": 600
+          }
+        },
+        {
+          "userOp": "tx",
+          "quoteId": "0x7689ff1bc82abfa9efe9056094d6945d85b9b07f68e42c8df479ab1d4369abac",
+          "expiresAt": 1793686846,
+          "output": {
+            "token": {
+              "chainId": 8453,
+              "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "name": "USDC",
+              "symbol": "USDC",
+              "decimals": 6,
+              "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+              "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+            },
+            "amount": "3985970",
+            "minAmountOut": "3985970",
+            "priceInUsd": 1,
+            "valueInUsd": 3.98597
+          },
+          "estimatedTime": 1145,
+          "slippage": 1,
+          "suggestedSlippage": 1,
+          "routeTags": [],
+          "routeDetails": {
+            "dexDetails": null,
+            "bridgeDetails": {
+              "protocol": {
+                "name": "cctp-v2-slow",
+                "displayName": "CCTP V2 Slow",
+                "icon": "https://media.socket.tech/bridges/cctp.svg"
+              },
+              "inputTokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+              "outputTokenAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "amountIn": "4000000",
+              "amountOut": "3985970",
+              "minAmountOut": "3985970",
+              "slippage": 1
+            },
+            "feeDetails": {
+              "feeTakerAddress": "0xe3d091bcb9406ddb9a121e37f4eb1345336afbbf",
+              "feeBps": 20,
+              "feeAmount": "8000",
+              "isFeeInInputToken": true,
+              "feeToken": {
+                "chainId": 42161,
+                "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                "name": "USDC",
+                "symbol": "USDC",
+                "decimals": 6,
+                "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+                "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+              }
+            }
+          },
+          "approval": {
+            "spenderAddress": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+            "amount": "4000000",
+            "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+            "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+          },
+          "txData": {
+            "kind": "evm_tx",
+            "object": {
+              "chainId": 42161,
+              "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+              "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000264b18248d57689ff1bc82abfa9efe9056094d6945d85b9b07f68e42c8df479ab1d4369abac000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d00000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000e48e0250ee00000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000006000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "value": "0"
+            }
+          },
+          "gasFee": {
+            "gasToken": {
+              "chainId": 42161,
+              "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "name": "Arbitrum Ether",
+              "symbol": "ETH",
+              "decimals": 18,
+              "logoURI": "https://media.socket.tech/networks/ethereum.svg",
+              "icon": "https://media.socket.tech/networks/ethereum.svg"
+            },
+            "gasLimit": "400000",
+            "gasPrice": "20000000",
+            "estimatedFee": "8000000000000",
+            "feeInUsd": 0.01794592
+          },
+          "statusCheck": {
+            "endpoint": "https://public-backend.socket.tech/v3/swap/status?quoteId=0x7689ff1bc82abfa9efe9056094d6945d85b9b07f68e42c8df479ab1d4369abac",
+            "method": "GET",
+            "intervalSec": 5,
+            "maxDurationSec": 1718
+          }
+        },
+        {
+          "userOp": "tx",
+          "quoteId": "0xf3b8f3a8338b2e5f9c4fbdb328c238f24d439f11793043ff8e1d0a3074feda4e",
+          "expiresAt": 1793686846,
+          "output": {
+            "token": {
+              "chainId": 8453,
+              "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "name": "USDC",
+              "symbol": "USDC",
+              "decimals": 6,
+              "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+              "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+            },
+            "amount": "3985098",
+            "minAmountOut": "3985098",
+            "priceInUsd": 1,
+            "valueInUsd": 3.985098
+          },
+          "estimatedTime": 15,
+          "slippage": 1,
+          "suggestedSlippage": 1,
+          "routeTags": [],
+          "routeDetails": {
+            "dexDetails": null,
+            "bridgeDetails": {
+              "protocol": {
+                "name": "cctp-v2",
+                "displayName": "CCTP V2",
+                "icon": "https://media.socket.tech/bridges/cctp.svg"
+              },
+              "inputTokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+              "outputTokenAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+              "amountIn": "4000000",
+              "amountOut": "3985098",
+              "minAmountOut": "3985098",
+              "slippage": 1
+            },
+            "feeDetails": {
+              "feeTakerAddress": "0xe3d091bcb9406ddb9a121e37f4eb1345336afbbf",
+              "feeBps": 20,
+              "feeAmount": "8000",
+              "isFeeInInputToken": true,
+              "feeToken": {
+                "chainId": 42161,
+                "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                "name": "USDC",
+                "symbol": "USDC",
+                "decimals": 6,
+                "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+                "icon": "https://assets.coingecko.com/coins/images/6319/large/USDC.png?1769615602"
+              }
+            }
+          },
+          "approval": {
+            "spenderAddress": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+            "amount": "4000000",
+            "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+            "userAddress": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+          },
+          "txData": {
+            "kind": "evm_tx",
+            "object": {
+              "chainId": 42161,
+              "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+              "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000264b18248d5f3b8f3a8338b2e5f9c4fbdb328c238f24d439f11793043ff8e1d0a3074feda4e000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d00000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000e48e0250ee00000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000006000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000000000000000000000000000000000000000023a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "value": "0"
+            }
+          },
+          "gasFee": {
+            "gasToken": {
+              "chainId": 42161,
+              "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "name": "Arbitrum Ether",
+              "symbol": "ETH",
+              "decimals": 18,
+              "logoURI": "https://media.socket.tech/networks/ethereum.svg",
+              "icon": "https://media.socket.tech/networks/ethereum.svg"
+            },
+            "gasLimit": "400000",
+            "gasPrice": "20000000",
+            "estimatedFee": "8000000000000",
+            "feeInUsd": 0.01794592
+          },
+          "statusCheck": {
+            "endpoint": "https://public-backend.socket.tech/v3/swap/status?quoteId=0xf3b8f3a8338b2e5f9c4fbdb328c238f24d439f11793043ff8e1d0a3074feda4e",
+            "method": "GET",
+            "intervalSec": 5,
+            "maxDurationSec": 600
+          }
+        }
+      ],
+      "quoteRejections": [
+        {
+          "providerId": "gaszip",
+          "reason": "disabled by admin rule router:staked-gaszip: temporarily disabled"
+        },
+        {
+          "providerId": "swaps-xyz",
+          "reason": "disabled by admin rule router:swaps-xyz: MoonPay transfers temporarily disabled"
+        }
+      ]
+    },
+    "message": null
+  },
+  "cases": [
+    {
+      "id": "socket-provider-rfq-vault-executor",
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "chainKey": "arb",
+      "toChainKey": "base",
+      "tx": {
+        "chainId": 42161,
+        "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+        "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001e4b18248d5af4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000097caca78ac2a94c67643d07843f85afaa44a3ea500000000000000000000000097caca78ac2a94c67643d07843f85afaa44a3ea5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000064823b01f9af4578e198d835c137e958460a2c6312db6905d254f8949c15104385c9144a0d000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0",
+        "from": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+      },
+      "expected": {
+        "sourceToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "sourceAmount": "4000000",
+        "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "minOutputAmount": "3950304",
+        "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+        "destinationChainId": "8453"
+      },
+      "expectedEvidence": "Input/receiver from the captured local request; output token/minimum from the same direct provider response, kept with its exact source transaction; not parser output. The signing tx.from is supplied by the local request, matching SDK transaction preparation; the raw provider response is unchanged."
+    },
+    {
+      "id": "socket-provider-cctp-v2-slow",
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "chainKey": "arb",
+      "toChainKey": "base",
+      "tx": {
+        "chainId": 42161,
+        "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+        "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000264b18248d57689ff1bc82abfa9efe9056094d6945d85b9b07f68e42c8df479ab1d4369abac000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d00000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000e48e0250ee00000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000006000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0",
+        "from": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+      },
+      "expected": {
+        "sourceToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "sourceAmount": "4000000",
+        "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "minOutputAmount": "3985970",
+        "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+        "destinationChainId": "8453"
+      },
+      "expectedEvidence": "Input/receiver from the captured local request; output token/minimum from the same direct provider response, kept with its exact source transaction; not parser output. The signing tx.from is supplied by the local request, matching SDK transaction preparation; the raw provider response is unchanged."
+    },
+    {
+      "id": "socket-provider-cctp-v2",
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "chainKey": "arb",
+      "toChainKey": "base",
+      "tx": {
+        "chainId": 42161,
+        "to": "0x50c4E75a512F2A14A7b304787Adf79C4531A5909",
+        "data": "0x2213bc0b00000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d090000000000000000000000000050cfe7c1938db66a1a6d2e86d36f39fbef3d5c4a00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000264b18248d5f3b8f3a8338b2e5f9c4fbdb328c238f24d439f11793043ff8e1d0a3074feda4e000000000000000000000000341a1fbd51825e5a107db54ccb3166deba145479000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000003d0900000000000000000000000000e3d091bcb9406ddb9a121e37f4eb1345336afbbf0000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d00000000000000000000000028b5a0e9c621a5badaa536219b3a228c8168cf5d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000000e48e0250ee00000000000000000000000000000000000000000000000000000000003ce9c00000000000000000000000000000000000000000000000000000000000000006000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e5831000000000000000000000000424a31a57f7c63918ecaa2fac38016a8af5a6ec2000000000000000000000000000000000000000000000000000000000000023a00000000000000000000000000000000000000000000000000000000000003e80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "value": "0",
+        "from": "0x341a1fbd51825e5a107db54ccb3166deba145479"
+      },
+      "expected": {
+        "sourceToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "sourceAmount": "4000000",
+        "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "minOutputAmount": "3985098",
+        "receiver": "0x341a1fbd51825e5a107db54ccb3166deba145479",
+        "destinationChainId": "8453"
+      },
+      "expectedEvidence": "Input/receiver from the captured local request; output token/minimum from the same direct provider response, kept with its exact source transaction; not parser output. The signing tx.from is supplied by the local request, matching SDK transaction preparation; the raw provider response is unchanged."
+    }
+  ]
+}

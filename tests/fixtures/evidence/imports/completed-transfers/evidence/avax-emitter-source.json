@@ -1,0 +1,23 @@
+{
+  "url": "https://api.routescan.io/v2/network/mainnet/evm/43114/etherscan/api?module=contract&action=getsourcecode&address=0x25b15fc38d6a2c13feddd9cb51f184f7cf0d4c11",
+  "response": {
+    "status": "1",
+    "message": "OK",
+    "result": [
+      {
+        "SourceCode": "{{\"language\":\"Solidity\",\"sources\":{\"contracts/periphery/AcrossEventEmitter.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title AcrossEventEmitter\\n * @notice A simple contract that emits events with bytes encoded metadata\\n */\\ncontract AcrossEventEmitter {\\n    /**\\n     * @notice Emitted when metadata is stored\\n     * @param data The metadata bytes emitted\\n     */\\n    event MetadataEmitted(bytes data);\\n\\n    /**\\n     * @notice Emits metadata as an event\\n     * @param data The bytes data to emit\\n     */\\n    function emitData(bytes calldata data) external {\\n        require(data.length > 0, \\\"Data cannot be empty\\\");\\n        emit MetadataEmitted(data);\\n    }\\n}\\n\"}},\"settings\":{\"remappings\":[\"@across-protocol/=node_modules/@across-protocol/\",\"@ensdomains/=node_modules/@ensdomains/\",\"@eth-optimism/=node_modules/@eth-optimism/\",\"@gnosis.pm/=node_modules/@gnosis.pm/\",\"@maticnetwork/=node_modules/@maticnetwork/\",\"@matterlabs/=node_modules/@matterlabs/\",\"@openzeppelin/=node_modules/@openzeppelin/\",\"@scroll-tech/=node_modules/@scroll-tech/\",\"@uniswap/=node_modules/@uniswap/\",\"arb-bridge-eth/=node_modules/arb-bridge-eth/\",\"arb-bridge-peripherals/=node_modules/arb-bridge-peripherals/\",\"arbos-precompiles/=node_modules/arbos-precompiles/\",\"base64-sol/=node_modules/base64-sol/\",\"eth-gas-reporter/=node_modules/eth-gas-reporter/\",\"hardhat-deploy/=node_modules/hardhat-deploy/\",\"hardhat/=node_modules/hardhat/\",\"forge-std/=lib/forge-std/src/\",\"@sp1-contracts/=lib/sp1-contracts/contracts/\",\"murky/=lib/murky/src/\",\"ds-test/=lib/murky/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/\",\"erc4626-tests/=lib/murky/lib/openzeppelin-contracts/lib/erc4626-tests/\",\"openzeppelin-contracts/=lib/murky/lib/openzeppelin-contracts/\",\"sp1-contracts/=lib/sp1-contracts/contracts/\"],\"optimizer\":{\"enabled\":true,\"runs\":800},\"metadata\":{\"useLiteralContent\":true,\"bytecodeHash\":\"ipfs\",\"appendCBOR\":true},\"outputSelection\":{\"contracts/periphery/AcrossEventEmitter.sol\":{\"AcrossEventEmitter\":[\"*\"]}},\"evmVersion\":\"prague\",\"viaIR\":true,\"debug\":{\"revertStrings\":\"strip\"},\"libraries\":{}}}}",
+        "ABI": "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"MetadataEmitted\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"emitData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+        "ContractName": "AcrossEventEmitter",
+        "CompilerVersion": "v0.8.30+commit.73712a01",
+        "OptimizationUsed": "1",
+        "Runs": "800",
+        "EVMVersion": "prague",
+        "Library": "",
+        "LicenseType": "",
+        "Proxy": "0",
+        "Implementation": "",
+        "SwarmSource": ""
+      }
+    ]
+  }
+}

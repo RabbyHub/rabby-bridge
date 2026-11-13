@@ -1,0 +1,727 @@
+{
+  "completeUnits": 348,
+  "bridgeTypes": {
+    "covered": 29,
+    "total": 29
+  },
+  "originalFunctionPaths": {
+    "covered": 46,
+    "total": 46
+  },
+  "expandedFunctionPaths": {
+    "covered": 53,
+    "total": 53
+  },
+  "newImport": {
+    "sourceFile": "New_Query_2026_11_03 (1).csv",
+    "sourceRecords": 200,
+    "retained": 191,
+    "discarded": 9,
+    "duplicates": 0,
+    "fieldReplayPassed": 187,
+    "jestRun": false,
+    "initialHistoricalRetained": 57,
+    "knownRejectedUnits": 4,
+    "parserGapRetained": 10
+  },
+  "quoteImports": {
+    "retained": 35,
+    "discarded": 79,
+    "fieldReplayPassed": 35,
+    "jestRun": false
+  },
+  "offlineReplay": {
+    "units": 195,
+    "passed": 195,
+    "substitutedBscPoolRejected": true,
+    "jestRun": false
+  },
+  "bridgeCoverage": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "covered": true,
+      "completeUnits": 77,
+      "knownRejectedUnits": 1
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "covered": true,
+      "completeUnits": 2,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "covered": true,
+      "completeUnits": 43,
+      "knownRejectedUnits": 4
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "covered": true,
+      "completeUnits": 29,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "covered": true,
+      "completeUnits": 9,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "covered": true,
+      "completeUnits": 13,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "covered": true,
+      "completeUnits": 12,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "covered": true,
+      "completeUnits": 17,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "covered": true,
+      "completeUnits": 61,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "covered": true,
+      "completeUnits": 4,
+      "knownRejectedUnits": 1
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "covered": true,
+      "completeUnits": 2,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "covered": true,
+      "completeUnits": 2,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "covered": true,
+      "completeUnits": 2,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "covered": true,
+      "completeUnits": 6,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "covered": true,
+      "completeUnits": 4,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "covered": true,
+      "completeUnits": 9,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "covered": true,
+      "completeUnits": 2,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "covered": true,
+      "completeUnits": 43,
+      "knownRejectedUnits": 1
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "centrifuge",
+      "covered": true,
+      "completeUnits": 1,
+      "knownRejectedUnits": 0
+    }
+  ],
+  "pathCoverage": [
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "swapAndBridge / -",
+      "completeUnits": 22,
+      "covered": true
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "deposit / -",
+      "completeUnits": 28,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercirclefast",
+      "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "gnosis",
+      "method": "swapAndStartBridgeTokensViaGnosisBridge / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "layerswap",
+      "method": "swapAndStartBridgeTokensViaLayerSwap / -",
+      "completeUnits": 39,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "lifiIntents",
+      "method": "swapAndStartBridgeTokensViaLiFiIntentEscrowV2 / -",
+      "completeUnits": 29,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayan",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrderWithToken",
+      "completeUnits": 9,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / bridgeWithFee",
+      "completeUnits": 3,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "mayanMCTP",
+      "method": "swapAndStartBridgeTokensViaMayan / createOrder",
+      "completeUnits": 10,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "paxos",
+      "method": "swapAndStartBridgeTokensViaPaxosTransit / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polygon",
+      "method": "swapAndStartBridgeTokensViaPolygonBridge / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymer",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "polymerStandard",
+      "method": "swapAndStartBridgeTokensViaPolymerCCTP / -",
+      "completeUnits": 12,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "superset",
+      "method": "swapAndStartBridgeTokensViaSuperset / -",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "forwardERC20 / createOrder",
+      "completeUnits": 5,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / createOrder",
+      "completeUnits": 8,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / createOrder",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositNative / -",
+      "completeUnits": 34,
+      "covered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "transferAndMulticall / -",
+      "completeUnits": 8,
+      "covered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "depositErc20 / -",
+      "completeUnits": 17,
+      "covered": true
+    },
+    {
+      "aggregatorId": "relay",
+      "bridgeId": "relay",
+      "method": "multicall / -",
+      "completeUnits": 2,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / outboundTransfer",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "bridge / createRetryableTicket",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "arbitrum-native",
+      "method": "swapAndBridge / outboundTransfer",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "swapAndBridge / ccipSend",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "ccip",
+      "method": "bridge / ccipSend",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "swapAndBridge / depositForBurn",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "bridge / depositForBurn",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2-slow",
+      "method": "swapAndBridge / depositForBurn",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "eco",
+      "method": "bridge / publishAndFund",
+      "completeUnits": 6,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "gnosis-native",
+      "method": "swapAndBridge / relayTokens",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositERC20To",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositETHTo",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "swapAndBridge / depositERC20To",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "native-op-stack",
+      "method": "bridge / depositETHTo",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "swapAndBridge / send",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / sendFrom",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "oft",
+      "method": "bridge / send",
+      "completeUnits": 7,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "bridge / depositERC20ForUser",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "polygon-native",
+      "method": "swapAndBridge / depositERC20ForUser",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "bridge / receiveERC20",
+      "completeUnits": 13,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "rfq-vault-executor",
+      "method": "swapAndBridge / receiveERC20",
+      "completeUnits": 29,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "robinhood-native",
+      "method": "bridge / createRetryableTicket",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "swaps-xyz",
+      "method": "bridge / swaps-xyz/execute/transferRemoteTo",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "socket",
+      "bridgeId": "cctp-v2",
+      "method": "bridge / depositForBurn",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "across",
+      "bridgeId": "across",
+      "method": "depositNative / -",
+      "newInThisCsv": true,
+      "completeUnits": 26,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardEth / bridge",
+      "newInThisCsv": true,
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "forwardERC20 / bridge",
+      "newInThisCsv": true,
+      "discoveredFrom": "completed-history-20261103",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "celercircle",
+      "method": "startBridgeTokensViaCelerCircleBridge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "megaeth",
+      "method": "swapAndStartBridgeTokensViaMegaETHBridge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "lifi",
+      "bridgeId": "centrifuge",
+      "method": "swapAndStartBridgeTokensViaCentrifuge / -",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104",
+      "completeUnits": 1,
+      "covered": true
+    },
+    {
+      "aggregatorId": "mayan",
+      "bridgeId": "FASTMCTP",
+      "method": "swapAndForwardERC20 / bridge",
+      "newInThisCsv": true,
+      "discoveredFrom": "route-reachability-20261104",
+      "completeUnits": 1,
+      "covered": true
+    }
+  ],
+  "positiveUnits": 341,
+  "knownRejectedUnits": 7,
+  "providerHistoryBackfill": {
+    "requested": 145,
+    "successfulResponses": 145,
+    "retained": 145,
+    "fiveFieldReplayPassed": 140,
+    "expectedRejections": 5,
+    "unexpectedFailures": 0,
+    "jestRun": false
+  },
+  "completedHistoryImport": {
+    "sourceFile": "bridge_history_completed_2026_11_03.csv",
+    "sourceRecords": 48,
+    "retained": 48,
+    "duplicates": 0,
+    "discarded": 0,
+    "calldataUnits": 28,
+    "providerUnits": 20,
+    "functionPaths": 11,
+    "newBridgeTypes": 0,
+    "newFunctionPaths": 0,
+    "fiveFieldValidationPassed": 47,
+    "expectedRejections": 1,
+    "unexpectedFailures": 0,
+    "jestRun": false
+  },
+  "originalProviderReplay": {
+    "units": 6,
+    "passed": 6,
+    "httpInTests": false,
+    "jestRun": false
+  },
+  "coverageCompletionImport": {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "retained": 20,
+    "calldataUnits": 19,
+    "providerUnits": 1,
+    "newBridgeTypes": 9,
+    "newOriginalFunctionPaths": 20,
+    "fiveFieldReplayPassed": 20,
+    "expectedRejections": 0,
+    "unexpectedFailures": 0,
+    "jestRun": false
+  },
+  "scope": "Observed complete-fixture catalogue; not an exhaustive set of all reachable provider routes or parameter modes.",
+  "originalBridgeTypes": {
+    "covered": 27,
+    "total": 27
+  },
+  "routeDiscoveryImport": {
+    "retained": 8,
+    "fiveFieldReplayPassed": 6,
+    "expectedRejections": 2,
+    "unexpectedFailures": 0,
+    "previouslyUntrackedExistingFunctionPaths": 1,
+    "newQuoteFunctionPaths": 4,
+    "newBridgeTypes": 2,
+    "correctedFastMctpMinimums": 2,
+    "httpInReplay": false,
+    "jestRun": false
+  },
+  "candidatesWithoutPositiveFixtures": [
+    {
+      "bridgeId": "allbridge",
+      "state": "partial-parser",
+      "missing": [
+        "minOutputAmount"
+      ],
+      "reason": "Destination pool state determines redemption amount; source calldata has no guaranteed destination minimum. Quote API minimum is probabilistic."
+    },
+    {
+      "bridgeId": "garden",
+      "state": "partial-parser",
+      "missing": [
+        "outputToken",
+        "minOutputAmount",
+        "receiver",
+        "destinationChainId"
+      ],
+      "reason": "Source HTLC binds redeemer/refund/timelock/secretHash, not the full destination order. A verified provider order association is still needed."
+    },
+    {
+      "bridgeId": "smartDeposits",
+      "state": "candidate-not-verified",
+      "reason": "Metadata advertises SDK EVM corridors, but no complete current quote/deposit transaction was obtained. Need deposit factory/config/order proof."
+    },
+    {
+      "bridgeId": "frax",
+      "state": "existing-parser-no-complete-live-fixture",
+      "reason": "Existing OFT hub/peer resolver supports structure; this probe produced no usable quote. Original dataset lacks a quote."
+    },
+    {
+      "bridgeId": "m0",
+      "state": "new-structural-parser-no-complete-live-fixture",
+      "reason": "Five fields are present in the official ABI and structural assertions pass, but current probes returned no usable quote. Deployment identity and real transaction coverage remain unverified."
+    }
+  ]
+}

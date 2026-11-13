@@ -1,0 +1,159 @@
+[
+  {
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 48,
+    "aggregatorId": "lifi",
+    "bridgeId": "gnosis",
+    "chainKey": "eth",
+    "toChainKey": "xdai",
+    "route": "eth -> xdai",
+    "txHash": "0x99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+    "tx": {
+      "from": "0x3bc3c8af8cfe3dfc9ba1a57c7c3b653e3f6d6951",
+      "to": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+      "data": "0x7bf96e0a000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000002002b5d35434d3c3b49a8554dfdb82c837a2b00f09fe651969cd1596dcf905d3a1f0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b175474e89094c44da98b954eedeac495271d0f0000000000000000000000003bc3c8af8cfe3dfc9ba1a57c7c3b653e3f6d695100000000000000000000000000000000000000000000000642eb4ae32b0ff6ac0000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006676e6f7369730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a72616262796b6d73763200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000200000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd000000000000000000000000ce40449b773a3e6e5e769adb4e567179d4828cbd0000000000000000000000005d8d9f5b96f4438195be9b99eee6118ed43042860000000000000000000000005d8d9f5b96f4438195be9b99eee6118ed430428600000000000000000000000000000000000000000000002a023ac9710762396000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a4332d746b0000000000000000000000005d8d9f5b96f4438195be9b99eee6118ed4304286000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000009899f62ecf16b70bffc88677023026c47e48c2180000000000000000000000000000000000000000000000001ae2b4fbcd755d9500000000000000000000000000000000000000000000000000000000000000000000000000000000a929c559e5e6537359680f39cb4e3708e1a14dd1000000000000000000000000a929c559e5e6537359680f39cb4e3708e1a14dd10000000000000000000000005d8d9f5b96f4438195be9b99eee6118ed43042860000000000000000000000006b175474e89094c44da98b954eedeac495271d0f000000000000000000000000000000000000000000000029e758147539ecdbcb00000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010a3f0bde25ab1de6eeda550918638529c6cf2ea14f9ea0572d6f880000000000000029e758147539ecdbcb000000000000000642eb4ae32b0ff6ac09e6eeda550918638529c6cf2ea14f9ea0572d6f881231deb6f5749ef6ce6943a275a1d3e7486f4eae5d8d9f5b96f4438195be9b99eee6118ed43042866b175474e89094c44da98b954eedeac495271d0fe7689b2c21242e07870aaa0ffee1ec11833d5e24465e22e30ce69ec81c2defa2c71d510875b3189160594a405d53811d3bc4766596efd80fd545a270c02aaa39b223fe8d0a0e5c4f27ead9083c756cc22bfd1fc5e25a8f55c2e849492ad7966ea8a0dd9e730204ebdd0c027102050c02440607f92b94c59cdb0308710301ff00000000000000000000000000000000000000000000",
+      "value": "0x0"
+    },
+    "quote": {
+      "aggregator": {
+        "id": "lifi",
+        "name": "LI.FI",
+        "logo_url": "https://static.debank.com/image/project/logo_url/lifiprotocol/22262cb8c3879421c841c1e1e8c468ee.png"
+      },
+      "bridge": {
+        "id": "gnosis",
+        "name": "Gnosis Bridge",
+        "logo_url": "https://static.debank.com/image/bridge/logo_url/daee6b5dfbe666a3984b18a2cde43c89/daee6b5dfbe666a3984b18a2cde43c89.png"
+      },
+      "from_token": {
+        "id": "0x5d8d9f5b96f4438195be9b99eee6118ed4304286",
+        "chain": "eth",
+        "name": "Cover Protocol",
+        "symbol": "COVER",
+        "display_symbol": "COVER(old)",
+        "optimized_symbol": "COVER(old)",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/token/logo_url/0x5d8d9f5b96f4438195be9b99eee6118ed4304286/33bdcad090d2e70f0f6af9e4d1256e72.png",
+        "protocol_id": "cover",
+        "price": "0.16296702248215206",
+        "price_24h_change": "0.03791593087958353",
+        "credit_score": "2772.776796198384",
+        "total_supply": "158033.18288968093",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1605828402.0"
+      },
+      "to_token": {
+        "id": "xdai",
+        "chain": "xdai",
+        "name": "xDai",
+        "symbol": "xDai",
+        "display_symbol": "",
+        "optimized_symbol": "xDai",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/xdai_token/logo_url/xdai/297890dc063e6dfb6cb4065cdf38382e.png",
+        "protocol_id": "",
+        "price": "0.999903",
+        "price_24h_change": "-9.700000000001374e-05",
+        "credit_score": "344537.9363441837",
+        "total_supply": "51947783.647866964",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1539014400.0"
+      },
+      "to_actual_token": {
+        "id": "xdai",
+        "chain": "xdai",
+        "name": "xDai",
+        "symbol": "xDai",
+        "display_symbol": "",
+        "optimized_symbol": "xDai",
+        "decimals": 18,
+        "logo_url": "https://static.debank.com/image/xdai_token/logo_url/xdai/297890dc063e6dfb6cb4065cdf38382e.png",
+        "protocol_id": "",
+        "price": "0.999903",
+        "price_24h_change": "-9.700000000001374e-05",
+        "credit_score": "344537.9363441837",
+        "total_supply": "51947783.647866964",
+        "is_verified": true,
+        "is_core": true,
+        "is_wallet": true,
+        "is_scam": false,
+        "is_suspicious": false,
+        "time_at": "1539014400.0"
+      },
+      "quote": {
+        "pay_token_amount": "774.9239133198186",
+        "receive_token_amount": "116.66918647255359"
+      },
+      "actual": {
+        "pay_token_amount": "774.9239133198186",
+        "receive_token_amount": "116.66755766627082"
+      },
+      "detail_url": "https://explorer.li.fi/tx/0x99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+      "status": "completed",
+      "create_at": "1792761017.961579",
+      "from_gas": {
+        "native_token": {
+          "id": "eth",
+          "chain": "eth",
+          "name": "ETH",
+          "symbol": "ETH",
+          "display_symbol": null,
+          "optimized_symbol": "ETH",
+          "decimals": 18,
+          "logo_url": "https://static.debank.com/image/coin/logo_url/eth/6443cdccced33e204d90cb723c632917.png",
+          "protocol_id": "",
+          "price": "2297.44",
+          "price_24h_change": "0.010130723265047669",
+          "credit_score": "37364405.57193334",
+          "total_supply": "122180209.38070501",
+          "is_verified": true,
+          "is_core": true,
+          "is_wallet": true,
+          "is_scam": false,
+          "is_suspicious": false,
+          "time_at": "1483200000.0"
+        },
+        "gas_amount": "0.00048378828431636",
+        "gas_price": "0.710836604",
+        "usd_value": "1.11147"
+      },
+      "from_tx": {
+        "tx_id": "0x99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+        "chain_id": "eth",
+        "status": "success",
+        "time_at": "1792761023.0"
+      },
+      "to_tx": {
+        "tx_id": "0x8cd320d820e56adafc351c804646d4bde76c6b66bddcb7a459d9953da120c9ef",
+        "chain_id": "xdai"
+      }
+    },
+    "id": "coverage-lifi-99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+    "path": "swapAndStartBridgeTokensViaGnosisBridge / -",
+    "selector": "0x7bf96e0a",
+    "regressionGroup": "remaining-20-paths-20261103",
+    "expected": {
+      "sourceToken": "0x5d8d9f5b96f4438195be9b99eee6118ed4304286",
+      "sourceAmount": "774923913319818606944",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "115502494607828055724",
+      "receiver": "0x3bc3c8af8cfe3dfc9ba1a57c7c3b653e3f6d6951",
+      "destinationChainId": "100"
+    },
+    "expectedEvidence": {
+      "source": "Independent exact ABI/value fields; history display amount never replaces raw input.",
+      "destination": [
+        "Gnosis DAI/sDAI native xDAI route; final receiver and bridge minimum are explicit BridgeData fields."
+      ],
+      "displayAmountMismatch": "The historical decimal display differs from exact signed ABI amount. Fixed expected preserves the exact independent ABI read without tolerance."
+    }
+  }
+]

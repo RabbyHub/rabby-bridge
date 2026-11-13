@@ -1,0 +1,84 @@
+{
+  "requested": 145,
+  "successfulResponses": 145,
+  "completeUnits": 145,
+  "fiveFieldReplayPassed": 140,
+  "expectedRejections": [
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "csvRow": 160,
+      "provider": "layerswap",
+      "reason": "LayerSwap bridge input mismatch"
+    },
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "csvRow": 23,
+      "provider": "socket",
+      "reason": "unrecognized socket bridge calldata"
+    },
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "csvRow": 64,
+      "provider": "layerswap",
+      "reason": "LayerSwap bridge input mismatch"
+    },
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "csvRow": 75,
+      "provider": "layerswap",
+      "reason": "LayerSwap bridge input mismatch"
+    },
+    {
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "csvRow": 30,
+      "provider": "layerswap",
+      "reason": "min_receive"
+    }
+  ],
+  "byProvider": {
+    "relay": 60,
+    "socket": 44,
+    "layerswap": 41
+  },
+  "notImported": [],
+  "origins": [
+    "https://api.relay.link",
+    "https://api.layerswap.io",
+    "https://public-backend.socket.tech"
+  ],
+  "rateLimit": {
+    "perProviderSerial": true,
+    "relayMinimumIntervalSeconds": 31,
+    "otherMinimumIntervalSeconds": 2.5,
+    "on429": "backoff at least 30 seconds, increasing by attempt"
+  },
+  "relaySchema": {
+    "package": "@relay-protocol/settlement-sdk",
+    "version": "0.0.152",
+    "file": "dist/order/index.js",
+    "source": "https://github.com/relayprotocol/settlement-protocol/tree/main/packages/sdk"
+  },
+  "relayChainsSha256": "04da0f79ae12ae8f94c1d29bbe04d29f2b573ae71ec9bcfc353b70a8cce165d3",
+  "httpInTests": false,
+  "jestRun": false,
+  "sources": [
+    {
+      "sourceFile": "New_Query_2026_11_03 (1).csv",
+      "sourceSha256": "07bb0b3eb3f2fe8db8eac4841f5e66c0b99a11c3fdbb56199775bf399e7bdd09",
+      "requested": 124,
+      "completeUnits": 124
+    },
+    {
+      "sourceFile": "bridge_history_completed_2026_11_03.csv",
+      "sourceSha256": "205bbe797026bf7c4a1473df7a697bc2a9663cc117971331e93a492972613e15",
+      "requested": 20,
+      "completeUnits": 20
+    },
+    {
+      "sourceFile": "New_Query_2026_11_02.csv",
+      "sourceSha256": "7c2c4308e2839e49ee8d5d164f9cce03bdcd878786b3de334512faa028b0c744",
+      "requested": 1,
+      "completeUnits": 1
+    }
+  ]
+}

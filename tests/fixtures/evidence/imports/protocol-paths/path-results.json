@@ -1,0 +1,364 @@
+[
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "celercircle",
+    "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 27,
+    "txHash": "0x1406f7d0b75fd79526f7e9c62c1c0b442d061096adf62b8bf21fa418d2973089",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "5060000000000000000",
+      "outputToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "minOutputAmount": "11080311516",
+      "receiver": "0xd46ca6e4e4d370fb26db08aa8144a991339a416d",
+      "destinationChainId": "1"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "celercirclefast",
+    "method": "swapAndStartBridgeTokensViaCelerCircleBridge / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 32,
+    "txHash": "0xf02bf99302598393441fe46452e790640cccc14fb88fa45a6e02a2d5c3574c11",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "sourceAmount": "1014661461",
+      "outputToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "minOutputAmount": "1001432943",
+      "receiver": "0x00a541c2c01db1985bd95f700619c48e4546924f",
+      "destinationChainId": "42161"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "gnosis",
+    "method": "swapAndStartBridgeTokensViaGnosisBridge / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 48,
+    "txHash": "0x99b784cd83df6b0812b8628750c22139a720968fd080e0ba16c543095385ab2f",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x5d8d9f5b96f4438195be9b99eee6118ed4304286",
+      "sourceAmount": "774923913319818606944",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "115502494607828055724",
+      "receiver": "0x3bc3c8af8cfe3dfc9ba1a57c7c3b653e3f6d6951",
+      "destinationChainId": "100"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "paxos",
+    "method": "swapAndStartBridgeTokensViaPaxosTransit / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 81,
+    "txHash": "0x3afd1523bc187cf74b5b741019015a404a88c2ac162041d44470109a2a3fe135",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "sourceAmount": "7450000000",
+      "outputToken": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+      "minOutputAmount": "7355955460",
+      "receiver": "0x17d56c90ba4359d561d3e6b544fe2f3dc69157aa",
+      "destinationChainId": "4663"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "polygon",
+    "method": "swapAndStartBridgeTokensViaPolygonBridge / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 86,
+    "txHash": "0x650566384d649f6f0e045390b3809b5b988e07778fddedaadd0e867d2b1056ad",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x45804880de22913dafe09f4980848ece6ecbaf78",
+      "sourceAmount": "32390000000000000",
+      "outputToken": "0x553d3d295e0f695b9228246232edf400ed3560b5",
+      "minOutputAmount": "32309025000000000",
+      "receiver": "0x00cbdee334b142be80d3a8f006b74abbcc3c4e69",
+      "destinationChainId": "137"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "lifi",
+    "bridgeId": "polymer",
+    "method": "swapAndStartBridgeTokensViaPolymerCCTP / -",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 93,
+    "txHash": "0x19020e952a1e2f2050c595206cbd1117ac3e2a497013f2136acc3f5fcf070847",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "sourceAmount": "47226686",
+      "outputToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "minOutputAmount": "47097722",
+      "receiver": "0xbeeff88227e1adda43196f63f7bb10bc64100a96",
+      "destinationChainId": "1"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "mayan",
+    "bridgeId": "FASTMCTP",
+    "method": "swapAndForwardERC20 / createOrder",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 44,
+    "txHash": "0x2cef5bff8159af71cdea8812706eda55ebf57cd57f98f6ebb190bd816783e386",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x2416092f143378750bb29b79ed961ab195cceea5",
+      "sourceAmount": "23974180000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "658175414670000000000",
+      "receiver": "0xad3e670855bb02b2de2008b57ce226963641b17d",
+      "destinationChainId": "137"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "arbitrum-native",
+    "method": "bridge / outboundTransfer",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 7,
+    "txHash": "0x3512d7913822761f88c98b8c671ce534cbe8964926c862f02b1ad25f6149a6bf",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xd533a949740bb3306d119cc777fa900ba034cd52",
+      "sourceAmount": "4417697522500167156923",
+      "outputToken": "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978",
+      "minOutputAmount": "4406653278693916739031",
+      "receiver": "0xdff69a3f4d07bfeeb4dc470af2f16bca6216e521",
+      "destinationChainId": "42161"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "arbitrum-native",
+    "method": "bridge / createRetryableTicket",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 10,
+    "txHash": "0xb69fe78f2aa0157f13085d0f17dc0bbad92407116f50d7a713aee8cefada1183",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "19265828000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "19217663430000",
+      "receiver": "0xb64c99b99cffb39a19bccb0e2c8acd5c9e91cd47",
+      "destinationChainId": "42161"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "arbitrum-native",
+    "method": "swapAndBridge / outboundTransfer",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 11,
+    "txHash": "0x13bc1c9bab51c7e8e416a8c9317cd2702387e769220be0d8184a2d91b6110c9d",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "sourceAmount": "1000000000",
+      "outputToken": "0xf97f4df75117a78c1a5a0dbb814af92458539fb4",
+      "minOutputAmount": "87217076721888285832",
+      "receiver": "0xbfa1d87515aef28878e6a4cc713437836502d462",
+      "destinationChainId": "42161"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "ccip",
+    "method": "bridge / ccipSend",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 13,
+    "txHash": "0x50e5139c01098ee50de2e658165f52c517977adaca990ba7d90afc0ff0ee2734",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x6c76de483f1752ac8473e2b4983a873991e70da7",
+      "sourceAmount": "11740000000000000000000",
+      "outputToken": "0xfed13d0c40790220fbde712987079eda1ed75c51",
+      "minOutputAmount": "11710650000000000000000",
+      "receiver": "0xfe20569b7439cac431c416d299c64ed78dee4984",
+      "destinationChainId": "56"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "native-op-stack",
+    "method": "bridge / depositERC20To",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 71,
+    "txHash": "0xc09f1039da6114a14d9b2032ba2be53e015bd4b30d3da973e0236e1d92edab88",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x8947da500eb47f82df21143d0c01a29862a8c3c5",
+      "sourceAmount": "137000000000000000000",
+      "outputToken": "0xf34e0cff046e154cafcae502c7541b9e5fd8c249",
+      "minOutputAmount": "136657500000000000000",
+      "receiver": "0x019ed608dd806b80193942f2a960e7ac8abb2ee3",
+      "destinationChainId": "8453"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "native-op-stack",
+    "method": "swapAndBridge / depositERC20To",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 73,
+    "txHash": "0x9fef7c84258f6684e2844a229d7d7dfd9358b2ccfc2ffc5da38cf6bc62f6cacf",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "sourceAmount": "500000000",
+      "outputToken": "0xc3de830ea07524a0761646a6a4e4be0e114a3c83",
+      "minOutputAmount": "69464450350781884232",
+      "receiver": "0x16e80a318730c4980987fe4b0bd245b844bcec5c",
+      "destinationChainId": "8453"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "native-op-stack",
+    "method": "bridge / depositETHTo",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 75,
+    "txHash": "0x4e2f0e01b15fb1cd00ace4bcb39b66fb1679ae623b11cbf0bf79d3d0681443f1",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "6881500000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "6864296250000000000",
+      "receiver": "0xf56345338cb4cddaf915ebef3bfde63e70fe3053",
+      "destinationChainId": "8453"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "method": "swapAndBridge / send",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 76,
+    "txHash": "0x226a967276ebbf9d52532f4f383b82b4749fc51ede70da4a24ff4251f2496a62",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0xff080c8ce2e5feadaca0da81314ae59d232d4afd",
+      "sourceAmount": "1326632569336197",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "13525380000000000",
+      "receiver": "0xb1dfa167e6a18dc3d529a1e47181052ec92361e5",
+      "destinationChainId": "999"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "oft",
+    "method": "bridge / sendFrom",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 77,
+    "txHash": "0xcd0b73a6ecff96b99f138d1bd4d93ad918b2cdce9ddb0358033b4db594826387",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd",
+      "sourceAmount": "187248677465738626281",
+      "outputToken": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+      "minOutputAmount": "184912750212300000000",
+      "receiver": "0x48d6c789fd93eba9d0aa3a47fb1db0f056a4a1a5",
+      "destinationChainId": "42161"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "polygon-native",
+    "method": "bridge / depositERC20ForUser",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 88,
+    "txHash": "0x50c7a92338ea386724bf10336d103c44e3812c55c104951c8660496569af75ea",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+      "sourceAmount": "10000000000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "9975000000000000000",
+      "receiver": "0x9d0e5739b9adf21e938f48d248fb4bf8f4689796",
+      "destinationChainId": "137"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "polygon-native",
+    "method": "swapAndBridge / depositERC20ForUser",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 90,
+    "txHash": "0xbe425ef62a1ef7f3cb9184efb51685ca590bb2c7984740ab6f0e17fc5d52ca7c",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "4000000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "104246479121190975427",
+      "receiver": "0x04738a5218560e7c8aa8fcef38c2b18dab4a95dd",
+      "destinationChainId": "137"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "robinhood-native",
+    "method": "bridge / createRetryableTicket",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 113,
+    "txHash": "0x7519b6d151f1b8a42fc5e3dcbf03e782629731c71ce2ed7d174d157d6a4aaff3",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x0000000000000000000000000000000000000000",
+      "sourceAmount": "103840000000000000",
+      "outputToken": "0x0000000000000000000000000000000000000000",
+      "minOutputAmount": "103580400000000000",
+      "receiver": "0x8ec5c37eb787a1bc09ee818ce34f59dc9b0d1531",
+      "destinationChainId": "4663"
+    },
+    "binding": "calldata-and-trusted-state"
+  },
+  {
+    "aggregatorId": "socket",
+    "bridgeId": "cctp-v2-slow",
+    "method": "swapAndBridge / depositForBurn",
+    "sourceFile": "New_Query_2026_11_02.csv",
+    "csvRow": 23,
+    "txHash": "0xb508cbf03d3f04b3011d0cbd79bf78baa967d44e68cef94c4dcfb3004dddd7c5",
+    "passed": true,
+    "expected": {
+      "sourceToken": "0x50c42deacd8fc9773493ed674b675be577f2634b",
+      "sourceAmount": "353923699431122",
+      "outputToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "minOutputAmount": "791399",
+      "receiver": "0xe74b555805bed8e2d32e8ba172d41db8ee0c95ec",
+      "destinationChainId": "8453",
+      "expectedOutputAmount": "805602",
+      "orderId": "0xb2ea813d5990e08f8fc4c0a6268cb76949936ed9f05b2b52d96084f75f2ed110"
+    },
+    "binding": "provider-record"
+  }
+]
