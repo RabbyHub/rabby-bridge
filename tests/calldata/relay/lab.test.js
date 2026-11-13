@@ -1,10 +1,10 @@
-import { readFileSync } from 'node:fs';
+import { readFixture } from '../../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
 import { buildTx, decodeBridgeCalldata, validateBridgeTx } from '../../../dist/index.js';
 import { expectCalldataError } from '../../helpers/assert-validation-error.js';
 
 // Only complete SDK validation inputs; recorded outcomes precede the request-ID fix.
-const capture = JSON.parse(readFileSync(new URL('../../fixtures/providers/relay/lab.json', import.meta.url)));
+const capture = readFixture('providers/relay/lab.json');
 const responses = capture.records;
 const previousRejections = responses.filter((record) => record.validationFailed);
 const intentFor = (record) => ({

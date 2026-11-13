@@ -5,7 +5,7 @@ import {
   decodeBridgeCalldata,
   decodeBridgeCalldataResult, getBridgeRouter, getQuote, getQuoteListWithTx, validateBridgeCalldata,
 } from '../dist/index.js';
-import { readRelayQuote, relayChains } from '../dist/providers/relay.js';
+import { readRelayQuote, relayChains } from './helpers/providers/relay.js';
 import { readMayanProtocol } from '../dist/calldata/mayan/readProtocol.js';
 import { loadTransactions } from './helpers/fixtures.js';
 

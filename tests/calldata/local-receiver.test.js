@@ -1,5 +1,6 @@
+import { word, bytes } from '../helpers/calldata.js';
+import { readFixture } from '../helpers/fixtures.js';
 import { describe, expect, test } from '@jest/globals';
-import { readFileSync } from 'node:fs';
 import { buildTx, decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
 import { applyAcrossMessage, readDestinationTransfers } from '../../dist/calldata/destination.js';
 import { decodeFastMctpBridge } from '../../dist/calldata/mayan/fastMctpBridge.js';
@@ -13,8 +14,6 @@ const token = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
 const wrapped = '0x4200000000000000000000000000000000000006';
 const zero = '0x0000000000000000000000000000000000000000';
 const handler = '0x0f7ae28de1c8532170ad4ee566b5801485c13a0e';
-const word = (n) => BigInt(n).toString(16).padStart(64, '0');
-const bytes = (data) => word((data.length - 2) / 2) + data.slice(2).padEnd(Math.ceil((data.length - 2) / 64) * 64, '0');
 const transfer = (asset, receiver, amount) => ({
   target: asset, data: '0xa9059cbb' + word(receiver) + word(amount), value: 0n,
 });
@@ -34,7 +33,7 @@ const across = (calls, fallback = zero, asset = token) => resolveParsed(applyAcr
 }, message(calls, fallback)));
 
 describe('local receiver recovery without chain-state requests', () => {
-  const dex = JSON.parse(readFileSync(new URL('../fixtures/quotes/routes/cases.json', import.meta.url)))
+  const dex = readFixture('quotes/routes/cases.json')
     .find((item) => item.id === 'discovery-across-destination-dex-5pct');
 
   test('Across real destination swap proves the same receiver for success and fallback without inventing one output asset', () => {

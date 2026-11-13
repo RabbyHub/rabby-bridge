@@ -1,16 +1,14 @@
-import { sourceAmountMatches } from '../calldata/expect.js';
-import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
-import { decodeBridgeCalldataResult } from '../calldata/index.js';
-import type { BridgeQuoteListParams } from '../quote.js';
-import { SOCKET_CCTP_MINT_RECIPIENT } from '../calldata/socket/addresses.js';
+import { sourceAmountMatches } from '../../../dist/calldata/expect.js';
+import { BRIDGE_ERRORS, BridgeError } from '../../../dist/errors/index.js';
+import { decodeBridgeCalldataResult } from '../../../dist/calldata/index.js';
+import { SOCKET_CCTP_MINT_RECIPIENT } from '../../../dist/calldata/socket/addresses.js';
 import { address, bytes, chain, object, text, tokenAddress, transaction, uint } from './data.js';
-import type { ProviderQuoteData } from './relay.js';
 
-export const SOCKET_PROVIDER_ROUTES: readonly string[] = Object.freeze(['rfq-vault-executor', 'cctp-v2', 'cctp-v2-slow']);
+export const SOCKET_PROVIDER_ROUTES = Object.freeze(['rfq-vault-executor', 'cctp-v2', 'cctp-v2-slow']);
 
-export const socketBridgeId = (value: unknown): string => text(value).trim().toLowerCase().replace(/ /g, '-').replace(/^circle-cctp/, 'cctp');
+export const socketBridgeId = (value) => text(value).trim().toLowerCase().replace(/ /g, '-').replace(/^circle-cctp/, 'cctp');
 
-export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQuoteListParams): ProviderQuoteData => {
+export const readSocketQuote = (raw, rawRoute, params) => {
   const result = object(raw), route = object(rawRoute);
   const details = object(object(route.routeDetails).bridgeDetails);
   const bridgeId = socketBridgeId(object(details.protocol).name);
@@ -45,7 +43,7 @@ export const readSocketQuote = (raw: unknown, rawRoute: unknown, params: BridgeQ
       address(approval.userAddress) !== address(params.userAddress) || uint(approval.amount) !== uint(input.amount))) throw new BridgeError(BRIDGE_ERRORS.SOCKET_APPROVAL_MISMATCH);
   return {
     tx, orderId: quoteId, requestId: quoteId,
-    approveAddress: native ? '' : address(approval!.spenderAddress),
+    approveAddress: native ? '' : address(approval.spenderAddress),
     expectedAmount: uint(output.amount),
     parsed: { ...parsed, destinationChainId: chain(params.toChainId), outputToken: destinationToken,
       minOutputAmount: uint(output.minAmountOut), receiver: address(result.receiverAddress), unresolvedFields: [] },

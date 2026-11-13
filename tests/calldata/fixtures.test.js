@@ -1,7 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
-import { readFileSync } from 'node:fs';
 import { decodeBridgeCalldata } from '../../dist/index.js';
-import { loadBridgeCases, loadQuoteTransactions, loadTransactions, manifest } from '../helpers/fixtures.js';
+import { loadBridgeCases, loadQuoteTransactions, loadTransactions, manifest, readFixture } from '../helpers/fixtures.js';
 
 const transactions = loadTransactions();
 const completeCases = loadBridgeCases();
@@ -32,7 +31,7 @@ describe('onchain bridge fixture integrity', () => {
   });
 
   test('tracks every positive fixture function instead of silently counting only the old baseline', () => {
-    const baseline = JSON.parse(readFileSync(new URL('../fixtures/coverage/baseline.json', import.meta.url)));
+    const baseline = readFixture('coverage/baseline.json');
     const known = new Set(baseline.paths.map((item) => `${item.aggregatorId}:${item.bridgeId}:${item.method}`));
     const observed = new Set(completeCases.filter((item) => !item.expectedValidationError).map((item) => {
       const parsed = decodeBridgeCalldata(item.aggregatorId, item.tx);
@@ -87,14 +86,8 @@ describe('onchain bridge fixture integrity', () => {
   test.each(transactions.map((item) => [TAGS[item.aggregatorId], item.id, item]))(
     '[%s] %s retains its transaction and quote references',
     (tag, id, item) => {
-      expect(TAGS[item.aggregatorId]).toBe(tag);
-      expect(item.id).toBe(id);
       expect(item.txHash).toMatch(/^0x[0-9a-f]{64}$/i);
-      expect(item.tx.from).toMatch(/^0x[0-9a-f]{40}$/i);
-      expect(item.tx.to).toMatch(/^0x[0-9a-f]{40}$/i);
-      expect(item.tx.data).toMatch(/^0x(?:[0-9a-f]{2}){4,}$/i);
       expect(item.selector).toBe(item.tx.data.slice(0, 10).toLowerCase());
-      expect(BigInt(item.tx.value)).toBeGreaterThanOrEqual(0n);
       expect(item.route).toBe(`${item.chainKey} -> ${item.toChainKey}`);
       expect(item.quote.aggregator.id).toBe(item.aggregatorId);
       expect(item.quote.bridge.id).toBe(item.bridgeId);

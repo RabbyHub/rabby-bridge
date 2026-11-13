@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { id } from '@ethersproject/hash';
 import { decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
-import { loadProviderTransactions, loadQuoteTransactions, loadTransactions } from '../helpers/fixtures.js';
+import { loadProviderTransactions, loadQuoteTransactions, loadTransactions, fixtureIntent as intent } from '../helpers/fixtures.js';
 
 const transactions = [...loadTransactions(), ...loadQuoteTransactions()].filter((item) => !item.expectedValidationError);
 const providers = loadProviderTransactions();
@@ -10,11 +10,6 @@ const tags = { across: 'Across', lifi: 'LiFi', mayan: 'Mayan', relay: 'Relay', s
 const find = (aggregator, bridge) => transactions.find((item) => item.aggregatorId === aggregator && item.bridgeId === bridge);
 const replaceWord = (data, offset, word) => data.slice(0, 2 + offset * 2) + word.replace(/^0x/, '').padStart(64, '0') + data.slice(2 + (offset + 32) * 2);
 const readWord = (data, offset) => Number(BigInt(`0x${data.slice(2 + offset * 2, 2 + (offset + 32) * 2)}`));
-const intent = (item) => ({
-  userAddress: item.expected.receiver, fromTokenId: item.expected.sourceToken,
-  fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey,
-  toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.minOutputAmount, slippage: '0',
-});
 
 describe('complete onchain calldata test units', () => {
   test('[LiFi] decodes strings in runtimes without a global TextDecoder', () => {

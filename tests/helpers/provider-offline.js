@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import { readLayerSwapDeposit, readLayerSwapOrder, layerSwapSequence } from '../../dist/providers/layerswap.js';
-import { assertIntent } from '../../dist/providers/data.js';
+import { readLayerSwapDeposit, readLayerSwapOrder, layerSwapSequence } from './providers/layerswap.js';
+import { assertIntent } from './providers/data.js';
 import { validateBridgeTx } from '../../dist/index.js';
 
 // Captured order evidence is replayed only in tests. The public SDK has no

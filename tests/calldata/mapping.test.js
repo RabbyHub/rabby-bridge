@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { decodeBridgeCalldata, validateBridgeCalldata } from '../../dist/index.js';
-import { loadTransactions } from '../helpers/fixtures.js';
+import { loadTransactions, fixtureIntent as intent } from '../helpers/fixtures.js';
 
 const transactions = loadTransactions();
 const deferred = [
@@ -13,11 +13,6 @@ const deferred = [
 ].map(([aggregator, bridge, fields]) => [aggregator, bridge, fields,
   transactions.find((item) => item.aggregatorId === aggregator && item.bridgeId === bridge)]);
 
-const intent = (item) => ({
-  userAddress: item.expected.receiver, fromTokenId: item.expected.sourceToken,
-  fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey,
-  toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.minOutputAmount, slippage: '0',
-});
 
 describe('deferred chain-state output fields', () => {
   test.each(deferred)('[%s] %s reports unavailable output checks without resolving them', (aggregator, bridge, fields, item) => {

@@ -1,12 +1,10 @@
-import { readFileSync } from 'node:fs';
+import { hashRelayOrder as hash } from '../../helpers/relay.js';
+import { readFixture as read } from '../../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
-import { _TypedDataEncoder } from '@ethersproject/hash';
 import { buildTx, decodeBridgeCalldata, validateBridgeTx } from '../../../dist/index.js';
 import { expectCalldataError } from '../../helpers/assert-validation-error.js';
 
-const read = (name) => JSON.parse(readFileSync(new URL(`../../fixtures/${name}`, import.meta.url)));
 const tx = read('providers/relay/source-swap.json');
-const types = read('providers/relay/order-types.json');
 const params = {
   userAddress: tx.from, fromChainId: 'bsc', bridgeId: 'relay',
   fromTokenId: '0x924fa68a0fc644485b8df8abfa0a41c2e7744444',
@@ -15,7 +13,6 @@ const params = {
   toTokenRawAmount: tx.order_data.output.payments[0].expectedAmount, slippage: '0.01',
   quoteKey: { quote_id: `0x${'12'.repeat(32)}:source-swap-regression` },
 };
-const hash = (order) => _TypedDataEncoder.hashStruct('Order', types, order);
 
 describe('Relay source swap address checks', () => {
   test('accepts the reported transaction without claiming its intermediate funding was verified', async () => {

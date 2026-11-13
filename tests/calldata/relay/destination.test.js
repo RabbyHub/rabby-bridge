@@ -1,16 +1,13 @@
-import { readFileSync } from 'node:fs';
+import { hashRelayOrder as hash } from '../../helpers/relay.js';
+import { readFixture as read } from '../../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
-import { _TypedDataEncoder } from '@ethersproject/hash';
 import { buildTx, decodeBridgeCalldata, getQuoteListWithTx, validateBridgeTx } from '../../../dist/index.js';
 import { expectCalldataError } from '../../helpers/assert-validation-error.js';
 
-const read = (name) => JSON.parse(readFileSync(new URL(`../../fixtures/${name}`, import.meta.url)));
 const fixture = read('providers/relay/quote-v2.json');
-const orderTypes = read('providers/relay/order-types.json');
 const original = fixture.response.protocol.v2.orderData;
 const other = '0x1111111111111111111111111111111111111111';
 const params = { ...fixture.params, bridgeId: 'relay', toTokenRawAmount: original.output.payments[0].expectedAmount };
-const hash = (order) => _TypedDataEncoder.hashStruct('Order', orderTypes, order).toLowerCase();
 const txFor = (order) => ({ ...fixture.tx, data: fixture.tx.data.slice(0, -64) + hash(order).slice(2), order_data: order });
 const verify = (order, expected = params) => validateBridgeTx('relay', expected.fromChainId, 'relay', txFor(order), {
   ...expected, orderData: order,

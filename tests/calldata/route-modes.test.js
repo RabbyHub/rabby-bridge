@@ -1,3 +1,4 @@
+import { word } from '../helpers/calldata.js';
 import { describe, expect, test } from '@jest/globals';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -8,7 +9,6 @@ const native = cases.find((item) => item.id === 'discovery-across-native-zero-fe
 const input = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
 const output = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
 const user = native.tx.from;
-const word = (value) => BigInt(value).toString(16).padStart(64, '0');
 const direct = (selector, extra, sending = input, destination = 8453) => ({
   from: user, to: '0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae', value: '0x0', chainId: 1,
   data: selector + [32 * (1 + extra.length), ...extra, 1, 320, 352, 0, sending, user,

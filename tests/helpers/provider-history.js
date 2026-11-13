@@ -3,8 +3,9 @@ import { readFileSync } from 'node:fs';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { decodeBridgeCalldata, validateBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
 import { verifyLayerSwapRecord } from './provider-offline.js';
-import { relayChains, relayOrder } from '../../dist/providers/relay.js';
-import { tokenAddress } from '../../dist/providers/data.js';
+import { relayChains } from './providers/relay.js';
+import { relayOrder } from '../../dist/providers/relay.js';
+import { tokenAddress } from './providers/data.js';
 import { evmChainId } from '../../dist/calldata/chains.js';
 
 const directory = new URL('../fixtures/providers/', import.meta.url);

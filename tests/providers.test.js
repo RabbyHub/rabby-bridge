@@ -1,12 +1,11 @@
-import { readFileSync } from 'node:fs';
+import { readFixture } from './helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
 import * as sdk from '../dist/index.js';
-import { readRelayQuote, relayChains } from '../dist/providers/relay.js';
-import { readSocketQuote, socketBridgeId } from '../dist/providers/socket.js';
+import { readRelayQuote, relayChains } from './helpers/providers/relay.js';
+import { readSocketQuote, socketBridgeId } from './helpers/providers/socket.js';
 import { verifyLayerSwapRecord } from './helpers/provider-offline.js';
 
-const load = (name) => JSON.parse(readFileSync(new URL(`./fixtures/providers/${name}.json`, import.meta.url)));
-const relay = load('relay/quote-v2'), socket = load('socket/quote-v3'), layer = load('layerswap/pending');
+const relay = readFixture('providers/relay/quote-v2.json'), socket = readFixture('providers/socket/quote-v3.json'), layer = readFixture('providers/layerswap/pending.json');
 const other = '0x1111111111111111111111111111111111111111';
 const layerParams = { userAddress: layer.tx.from, fromChainId: 'eth', fromTokenId: layer.expected.sourceToken,
   fromTokenRawAmount: layer.expected.sourceAmount, toChainId: 'arb', toTokenId: layer.expected.outputToken,

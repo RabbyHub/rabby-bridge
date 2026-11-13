@@ -1,13 +1,13 @@
+import { word } from '../helpers/calldata.js';
+import { readFixture } from '../helpers/fixtures.js';
 import { describe, expect, test } from '@jest/globals';
-import { readFileSync } from 'node:fs';
 import { decodeBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
 import { decodeParameters } from '../../dist/calldata/abi.js';
 import { expectCalldataError } from '../helpers/assert-validation-error.js';
 
-const records = JSON.parse(readFileSync(new URL('../fixtures/regressions/reported-paths.json', import.meta.url)));
+const records = readFixture('regressions/reported-paths.json');
 const other = '0x2222222222222222222222222222222222222222';
 const zero = '0x0000000000000000000000000000000000000000';
-const word = (n) => BigInt(n).toString(16).padStart(64, '0');
 const expected = [
   { chain: 1n, input: '0xb88339cb7199b77e23db6e890353e22632ba630f', amount: '2099994989',
     token: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', minimum: 2094745002n },

@@ -21,7 +21,7 @@ See [offline provider evidence](src/providers/README.md) for retained historical
 3. `src/calldata/expect.ts`: compare decoded fields with local intent and record
    what remains unverified. It does not decide which missing fields may be skipped.
 4. `src/providers/relay.ts`: `verifyRelayOrder` binds backend `order_data` to the
-   deposit hash. The other provider readers support offline evidence tests.
+   deposit hash. Offline provider readers live in `tests/helpers/providers/`.
 
 For the policy boundaries, start with `tests/calldata/receiver-policy.test.js`,
 `tests/calldata/quote-identifiers.test.js` and `tests/validation.test.js`.

@@ -11,6 +11,7 @@ tests/
     *.test.js               Shared decoding, receivers, refunds and regression checks
     relay/                  Relay order destinations, source swaps and Lab replay
   helpers/                  Fixture loaders, assertions and offline provider verification
+    providers/              Captured provider response readers, excluded from the SDK build
   mocks/                    Shared dependency mocks
   fixtures/
     onchain/<protocol>/     Source transactions grouped by bridge, with one manifest
@@ -40,6 +41,12 @@ tests/
   rejection tests.
 - Import notes and old review reports explain where data came from; they are
   not current SDK pass/fail results.
+- Reuse `readFixture` and `fixtureIntent` from `helpers/fixtures.js`, ABI word/bytes
+  encoders from `helpers/calldata.js`, and order hashing from `helpers/relay.js`.
+  Keep protocol-specific call layouts and assertions beside their tests.
+- Historical replay pins each record's acceptance or exact rejection codes. Its
+  capture lacks raw user/quote amounts, so it does not replace independent amount
+  tests. Preserve all records when changing the replay harness.
 - LI.FI destination mismatches belong in `fixtures/providers/lifi/destination-mismatches.json`
   and `calldata/lifi-destination.test.js`. Keep the original build request and
   complete response; an unexpected recipient alone does not identify Smart Deposits.

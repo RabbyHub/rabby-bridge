@@ -1,10 +1,10 @@
-import { readFileSync } from 'node:fs';
+import { hashRelayOrder as hashOrder } from '../helpers/relay.js';
+import { word, bytes } from '../helpers/calldata.js';
+import { readFixture as read } from '../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
-import { _TypedDataEncoder } from '@ethersproject/hash';
 import { buildTx, decodeBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
 import { expectCalldataError } from '../helpers/assert-validation-error.js';
 
-const read = (file) => JSON.parse(readFileSync(new URL(`../fixtures/${file}`, import.meta.url)));
 const socket = read('providers/socket/quote-v3.json');
 const relay = read('providers/relay/quote-v2.json');
 const history = read('regressions/history-success.json');
@@ -18,15 +18,11 @@ const mint = '424a31a57f7c63918ecaa2fac38016a8af5a6ec2';
 const user = '341a1fbd51825e5a107db54ccb3166deba145479';
 const other = '1111111111111111111111111111111111111111';
 const orderData = relay.response.protocol.v2.orderData;
-const orderTypes = read('providers/relay/order-types.json');
-const hashOrder = (order) => _TypedDataEncoder.hashStruct('Order', orderTypes, order);
 const codes = (result) => result.errors.map((error) => error.error_code);
 const replace = (tx, before, after) => ({ ...tx, data: tx.data.replaceAll(before, after) });
 
 const relayIntent = { ...relay.params, toTokenRawAmount: orderData.output.payments[0].expectedAmount, orderData };
 const socketIntent = { ...socket.params };
-const word = (value) => BigInt(value).toString(16).padStart(64, '0');
-const bytes = (value) => word((value.length - 2) / 2) + value.slice(2).padEnd(Math.ceil((value.length - 2) / 64) * 64, '0');
 const badOrderId = `0x${'ab'.repeat(32)}`;
 const goodOrderId = relay.response.protocol.v2.orderId;
 const deposit = (orderId) => relay.tx.data.slice(0, -64) + orderId.slice(2);

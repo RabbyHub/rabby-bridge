@@ -1,9 +1,8 @@
+import { readFixture as read } from '../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
-import { readFileSync } from 'node:fs';
 import { buildTx, decodeBridgeCalldata, getQuoteListWithTx, validateBridgeCalldata, validateBridgeTx } from '../../dist/index.js';
 import { expectCalldataError } from '../helpers/assert-validation-error.js';
 
-const read = (file) => JSON.parse(readFileSync(new URL(`../fixtures/${file}`, import.meta.url)));
 const socket = read('providers/socket/quote-v3.json');
 const relay = read('providers/relay/quote-v2.json');
 const relayMulticalls = read('providers/history/cases.json').filter((item) =>

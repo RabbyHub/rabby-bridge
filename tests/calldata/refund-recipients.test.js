@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { word } from '../helpers/calldata.js';
+import { readFixture as read } from '../helpers/fixtures.js';
 import { describe, expect, jest, test } from '@jest/globals';
 import { buildTx, decodeBridgeCalldata, getBridgeRouter, validateBridgeTx } from '../../dist/index.js';
 
@@ -6,9 +7,7 @@ const user = '0x1111111111111111111111111111111111111111';
 const other = '0x2222222222222222222222222222222222222222';
 const input = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
 const output = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
-const word = (value) => BigInt(value).toString(16).padStart(64, '0');
 const words = (values) => values.map(word).join('');
-const read = (path) => JSON.parse(readFileSync(new URL(`../fixtures/${path}`, import.meta.url)));
 const code = 'BRIDGE_REFUND_RECIPIENT_MISMATCH';
 const intent = { userAddress: user, fromChainId: 'eth', toChainId: 'base', fromTokenId: input,
   fromTokenRawAmount: '10000000', toTokenId: output, toTokenRawAmount: '9900000', slippage: '0' };

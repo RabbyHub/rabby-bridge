@@ -3,15 +3,12 @@ import {
   BRIDGE_ERRORS, BridgeError, decodeBridgeCalldataResult, validateBridgeCalldata,
   getQuote, toBridgeErrorReport,
 } from '../dist/index.js';
-import { loadTransactions } from './helpers/fixtures.js';
+import { loadTransactions, fixtureIntent as intent } from './helpers/fixtures.js';
 
 const wallet = '0x1234567890123456789012345678901234567890';
 const hash = '0x' + 'ab'.repeat(32);
 const secret = 'private@example.com';
 const body = '0xdeadbeef' + wallet.slice(2).padStart(64, '0');
-const intent = (item) => ({ userAddress: item.expected.receiver, fromTokenId: item.expected.sourceToken,
-  fromTokenRawAmount: item.expected.sourceAmount, toChainId: item.toChainKey,
-  toTokenId: item.expected.outputToken, toTokenRawAmount: item.expected.minOutputAmount, slippage: '0' });
 
 describe('privacy-safe bridge diagnostics', () => {
   test('keeps an unknown selector and shape without retaining transaction arguments', () => {

@@ -15,8 +15,10 @@ fixed-contract policy. LayerSwap's locally encoded receiver is compared while it
 unavailable destination token/minimum is skipped. Expected user addresses and
 backend display fields are never substituted for verified fields.
 
-The other pure data readers, including `readRelayQuote`, support offline fixture
-regressions. They do not fetch data and are not exported from the package root.
+The pure data readers in `tests/helpers/providers/`, including `readRelayQuote`,
+support offline fixture regressions. They do not fetch data and are not compiled
+into the published SDK. Shared order types, chain mappings and strict data readers
+remain here because runtime Relay verification uses them.
 Tests replay captured Relay order hashes, Socket historical transaction links and
 LayerSwap records. Their historical provider checks must not be confused with
 the runtime signing checks in `src/quote.ts`.

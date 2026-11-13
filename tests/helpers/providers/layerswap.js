@@ -1,14 +1,11 @@
-import { BRIDGE_ERRORS, BridgeError } from '../errors/index.js';
-import { decodeCall, asRecord, asString } from '../calldata/abi.js';
-import { decodeBridgeCalldataResult } from '../calldata/index.js';
-import { bridgeDataParam, layerSwapDataParam, swapDataArrayParam } from '../calldata/lifi/params.js';
-import type { BridgeBuildTxParams, BridgeTx } from '../quote.js';
-import { address, array, bytes, chain, object, text, tokenAddress, transaction, uint, ZERO_ADDRESS } from './data.js';
-import type { JsonObject } from './data.js';
-import type { ProviderQuoteData } from './relay.js';
+import { BRIDGE_ERRORS, BridgeError } from '../../../dist/errors/index.js';
+import { decodeCall, asRecord, asString } from '../../../dist/calldata/abi.js';
+import { decodeBridgeCalldataResult } from '../../../dist/calldata/index.js';
+import { bridgeDataParam, layerSwapDataParam, swapDataArrayParam } from '../../../dist/calldata/lifi/params.js';
+import { address, bytes, chain, object, text, tokenAddress, transaction, uint, ZERO_ADDRESS } from './data.js';
 
 /** The API uses decimal quantities, sometimes in scientific notation. No float multiplication. */
-const decimalAmount = (value: unknown, decimals: number): bigint => {
+const decimalAmount = (value, decimals) => {
   if (typeof value === 'number' && (!Number.isFinite(value) || value < 0 ||
       (Number.isInteger(value) && !Number.isSafeInteger(value)))) throw new BridgeError(BRIDGE_ERRORS.UNSAFE_LAYERSWAP_AMOUNT);
   if (typeof value !== 'string' && typeof value !== 'number') throw new BridgeError(BRIDGE_ERRORS.MISSING_LAYERSWAP_AMOUNT);
@@ -25,14 +22,14 @@ const decimalAmount = (value: unknown, decimals: number): bigint => {
   return uint(digits / divisor);
 };
 
-const token = (raw: unknown, chainId: string) => {
+const token = (raw, chainId) => {
   const t = object(raw);
   const decimals = Number(uint(t.decimals, 8));
   return { address: t.contract === null ? ZERO_ADDRESS : tokenAddress(text(t.contract), chainId), decimals,
     precision: t.precision === undefined ? decimals : Number(uint(t.precision, 8)) };
 };
 
-export const readLayerSwapDeposit = (tx: BridgeTx, params: BridgeBuildTxParams) => {
+export const readLayerSwapDeposit = (tx, params) => {
   if (params.bridgeId !== 'layerswap') throw new BridgeError(BRIDGE_ERRORS.LAYERSWAP_BRIDGE_ID_MISMATCH);
   const sourceTx = transaction(tx, params);
   const decodedResult = decodeBridgeCalldataResult('lifi', sourceTx);
@@ -49,17 +46,17 @@ export const readLayerSwapDeposit = (tx: BridgeTx, params: BridgeBuildTxParams) 
   return { tx: sourceTx, parsed };
 };
 
-export const layerSwapSequence = (row: unknown): bigint =>
+export const layerSwapSequence = (row) =>
   uint(object(object(object(row).swap).metadata).sequence_number);
 
 export const readLayerSwapOrder = (
-  raw: unknown, params: BridgeBuildTxParams, deposit: ReturnType<typeof readLayerSwapDeposit>
-): ProviderQuoteData => {
+  raw, params, deposit
+) => {
   const row = object(raw), swap = object(row.swap), quote = object(row.quote);
   const { parsed, tx } = deposit;
   if (layerSwapSequence(row) !== uint(parsed.orderId)) throw new BridgeError(BRIDGE_ERRORS.LAYERSWAP_REQUEST_ID_MISMATCH);
   if (typeof swap.id !== 'string' || !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(swap.id)) throw new BridgeError(BRIDGE_ERRORS.INVALID_LAYERSWAP_SWAP_ID);
-  const assertNetworks = (data: JsonObject) => {
+  const assertNetworks = (data) => {
     if (object(data.source_network).type !== 'evm' || object(data.destination_network).type !== 'evm' ||
         uint(object(data.source_network).chain_id) !== chain(params.fromChainId) ||
         uint(object(data.destination_network).chain_id) !== chain(params.toChainId)) throw new BridgeError(BRIDGE_ERRORS.LAYERSWAP_CHAIN_MISMATCH);
@@ -84,5 +81,3 @@ export const readLayerSwapOrder = (
     orderId: bytes(parsed.orderId, 32), requestId: bytes(parsed.orderId, 32), approveAddress: '',
     minimumQuantum: 10n ** BigInt(destination.decimals - destination.precision) };
 };
-
-export const layerSwapOrderRows = (raw: unknown): unknown[] => array(object(raw).data);

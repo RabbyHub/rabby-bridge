@@ -321,22 +321,19 @@ describe('buildTx', () => {
     ]));
   });
 
-  test('uses buildBridgeTx and stringifies object quote keys', async () => {
-    const api = {
-      buildBridgeTx: jest.fn().mockResolvedValue(makeTx()),
-    };
+  test.each([
+    { name: 'uses buildBridgeTx and stringifies object quote keys', method: 'buildBridgeTx',
+      quoteKey: { route: 'default' }, expectedKey: '{"route":"default"}' },
+    { name: 'keeps string quote keys untouched', method: 'buildBridgeTx',
+      quoteKey: 'quote-key', expectedKey: 'quote-key' },
+    { name: 'falls back to getBridgeQuoteTxV2', method: 'getBridgeQuoteTxV2' },
+  ])('$name', async ({ method, quoteKey, expectedKey }) => {
+    const builtTx = makeTx();
+    const api = { [method]: jest.fn().mockResolvedValue(method === 'buildBridgeTx' ? builtTx : { tx: builtTx }) };
+    const tx = await buildTx(BRIDGE_ENUM.LIFI, { ...baseParams, bridgeId: 'bridge-1', quoteKey }, api);
 
-    const tx = await buildTx(
-      BRIDGE_ENUM.LIFI,
-      {
-        ...baseParams,
-        bridgeId: 'bridge-1',
-        quoteKey: { route: 'default' },
-      },
-      api
-    );
-
-    expect(api.buildBridgeTx).toHaveBeenCalledWith({
+    expect(api[method]).toHaveBeenCalledTimes(1);
+    expect(api[method]).toHaveBeenCalledWith({
       aggregator_id: BRIDGE_ENUM.LIFI,
       bridge_id: 'bridge-1',
       user_addr: baseParams.userAddress,
@@ -346,59 +343,9 @@ describe('buildTx', () => {
       to_chain_id: baseParams.toChainId,
       to_token_id: baseParams.toTokenId,
       slippage: baseParams.slippage,
-      quote_key: JSON.stringify({ route: 'default' }),
+      ...(expectedKey === undefined ? {} : { quote_key: expectedKey }),
     });
-    expect(tx).toEqual(makeTx());
-  });
-
-  test('keeps string quote keys untouched', async () => {
-    const api = {
-      buildBridgeTx: jest.fn().mockResolvedValue(makeTx()),
-    };
-
-    await buildTx(
-      BRIDGE_ENUM.LIFI,
-      {
-        ...baseParams,
-        bridgeId: 'bridge-1',
-        quoteKey: 'quote-key',
-      },
-      api
-    );
-
-    expect(api.buildBridgeTx).toHaveBeenCalledWith(
-      expect.objectContaining({
-        quote_key: 'quote-key',
-      })
-    );
-  });
-
-  test('falls back to getBridgeQuoteTxV2', async () => {
-    const api = {
-      getBridgeQuoteTxV2: jest.fn().mockResolvedValue({ tx: makeTx() }),
-    };
-
-    const tx = await buildTx(
-      BRIDGE_ENUM.LIFI,
-      {
-        ...baseParams,
-        bridgeId: 'bridge-1',
-      },
-      api
-    );
-
-    expect(api.getBridgeQuoteTxV2).toHaveBeenCalledWith({
-      aggregator_id: BRIDGE_ENUM.LIFI,
-      bridge_id: 'bridge-1',
-      user_addr: baseParams.userAddress,
-      from_chain_id: baseParams.fromChainId,
-      from_token_id: baseParams.fromTokenId,
-      from_token_raw_amount: baseParams.fromTokenRawAmount,
-      to_chain_id: baseParams.toChainId,
-      to_token_id: baseParams.toTokenId,
-      slippage: baseParams.slippage,
-    });
-    expect(tx).toEqual(makeTx());
+    expect(tx).toEqual(builtTx);
   });
 
   test('requires slippage and validates routers', async () => {
