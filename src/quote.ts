@@ -1,123 +1,48 @@
-import type { BridgeErrorContext, BridgeErrorDefinition, BridgeErrorReporter } from './errors/index.js';
 import { BRIDGE_ERRORS, BridgeError, asBridgeError, reportBridgeError } from './errors/index.js';
-import type { OpenApiService } from '@rabby-wallet/rabby-api';
-import {
-  InvalidBridgeCalldataError,
-  validateBridgeCalldata,
-} from './calldata/index.js';
+import { InvalidBridgeCalldataError } from './calldata/index.js';
 import type { BridgeCallExpectation } from './calldata/expect.js';
-import { finishCheck, knownCompare } from './calldata/expect.js';
-import type { BridgeCheck } from './calldata/types.js';
-import { calldataDiagnostics } from './calldata/diagnostics.js';
-import { sanitizeBridgeError } from './errors/sanitize.js';
-import { BRIDGE_ENUM } from './consts.js';
 import type { BridgeAggregatorId } from './consts.js';
-import {
-  getBridgeAltContracts,
-  getBridgeRouter,
-  getBridgeSpender,
-  isSupportedBridgeAggregator,
-  isSupportedBridgeChain,
-} from './list.js';
-import { verifyRelayOrder } from './calldata/relay/order.js';
+import { isSupportedBridgeAggregator, isSupportedBridgeChain } from './list.js';
+import { checkBridgeTx, InvalidBridgeContractError, validateBridgeQuote } from './validation.js';
+import type {
+  BridgeApi,
+  BridgeBuildTxParams,
+  BridgeQuoteListItem,
+  BridgeQuoteListParams,
+  BridgeTx,
+} from './types.js';
 
-export interface BridgeValidationOptions {
-  /** Receives filtered quote failures and calldata failures. */
-  onError?: BridgeErrorReporter;
-  /**
-   * Test-only. Production callers must leave this unset: a missing Relay
-   * orderData then fails validation.
-   */
-  allowMissingRelayOrder?: boolean;
-}
+export { InvalidBridgeContractError, validateBridgeQuote, validateBridgeTx } from './validation.js';
+export type {
+  BridgeApi,
+  BridgeBuildTxParams,
+  BridgeQuote,
+  BridgeQuoteListItem,
+  BridgeQuoteListParams,
+  BridgeValidationOptions,
+  BridgeValidationResult,
+  BridgeTx,
+} from './types.js';
 
-export type BridgeValidationResult = {
-  /** Overall decision. Allowed unverified fields do not make this false. */
-  pass: boolean;
-  routerPass: boolean;
-  /** Field flags require a completed check; false can mean failed or unverified. */
-  fromPass: boolean;
-  toPass: boolean;
-  /** A permitted Socket vault/ClaimExecutor route can pass with this still false. */
-  receiverPass: boolean;
-  /** Fields not compared with local intent, including permitted omissions. */
-  unverifiedFields: string[];
-  errors: BridgeCheck['errors'];
-};
-
-export interface BridgeQuoteListParams extends BridgeValidationOptions {
-  userAddress: string;
-  fromChainId: string;
-  fromTokenId: string;
-  fromTokenRawAmount: string;
-  toChainId: string;
-  toTokenId: string;
-  slippage?: string;
-  feeRate?: number;
-}
-
-export interface BridgeBuildTxParams extends BridgeQuoteListParams {
-  bridgeId: string;
-  quoteKey?: string | Record<string, unknown>;
-  /** Quoted output in raw units, before applying slippage. */
-  toTokenRawAmount?: string;
-  /** Relay `protocol.v2.orderData` from the build that produced this transaction. */
-  orderData?: unknown;
-}
-
-export type BridgeApi = Pick<
-  OpenApiService,
-  | 'getBridgeQuoteListV2'
-  | 'getBridgeQuoteV2'
-  | 'buildBridgeTx'
-  | 'getBridgeQuoteTxV2'
->;
-
-export type BridgeQuote = Awaited<ReturnType<BridgeApi['getBridgeQuoteTxV2']>>;
-
-export type BridgeTx =
-  | Awaited<ReturnType<BridgeApi['buildBridgeTx']>>
-  | NonNullable<BridgeQuote['tx']>;
-
-export type BridgeQuoteListItem = Awaited<
-  ReturnType<BridgeApi['getBridgeQuoteV2']>
->[number];
-
-export class InvalidBridgeContractError extends BridgeError {
-  constructor(
-    public readonly kind: 'spender' | 'router',
-    public readonly aggregatorId: BridgeAggregatorId,
-    public readonly chainId: string,
-    public readonly expected: string,
-    public readonly received: string,
-    public readonly bridgeId?: string
-  ) {
-    super(kind === 'router' ? BRIDGE_ERRORS.ROUTER_NOT_ALLOWED : BRIDGE_ERRORS.SPENDER_NOT_ALLOWED,
-      { aggregatorId, chainId, bridgeId });
-    this.message =
-      `Invalid bridge ${kind} for ${aggregatorId} on ${chainId}: expected ${expected}, got ${received}`;
-    this.name = 'InvalidBridgeContractError';
-  }
-}
-
-const isSameAddress = (left?: string, right?: string) => {
-  if (!left || !right) {
-    return false;
-  }
-  return left.toLowerCase() === right.toLowerCase();
-};
+// ---- 请求参数 ----
 
 function assertSupported(
   aggregatorId: string,
-  fromChainId: string
+  fromChainId: string,
 ): asserts aggregatorId is BridgeAggregatorId {
   if (!isSupportedBridgeAggregator(aggregatorId)) {
-    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_BRIDGE_AGGREGATOR, { aggregatorId, chainId: fromChainId });
+    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_BRIDGE_AGGREGATOR, {
+      aggregatorId,
+      chainId: fromChainId,
+    });
     error.message = `${aggregatorId} is not supported`;
     throw error;
   }
   if (!isSupportedBridgeChain(aggregatorId, fromChainId)) {
-    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOURCE_CHAIN, { aggregatorId, chainId: fromChainId });
+    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOURCE_CHAIN, {
+      aggregatorId,
+      chainId: fromChainId,
+    });
     error.message = `${aggregatorId} does not support ${fromChainId}`;
     throw error;
   }
@@ -130,12 +55,14 @@ const requireSlippage = (slippage?: string) => {
   return slippage;
 };
 
-const readBuildAttachment = (value: unknown): { tx?: BridgeTx; orderData?: unknown } => {
+const readBuildAttachment = (
+  value: unknown,
+): { tx?: BridgeTx; orderData?: unknown } => {
   if (!value || typeof value !== 'object') return {};
   const record = value as BridgeTx & { tx?: BridgeTx; order_data?: unknown };
   const wrapped = Boolean(record.tx && !record.to && !record.data);
   return {
-    tx: wrapped ? record.tx : record as BridgeTx,
+    tx: wrapped ? record.tx : (record as BridgeTx),
     orderData: record.order_data,
   };
 };
@@ -147,211 +74,32 @@ const stringifyQuoteKey = (quoteKey?: string | Record<string, unknown>) => {
   return JSON.stringify(quoteKey || {});
 };
 
-const shouldValidateBridgeContracts = (aggregatorId: BridgeAggregatorId) =>
-  aggregatorId !== BRIDGE_ENUM.NEAR_INTENTS;
-
-export const validateBridgeQuote = (
-  aggregatorId: BridgeAggregatorId,
-  fromChainId: string,
-  quote: BridgeQuoteListItem
-) => {
-  if (!shouldValidateBridgeContracts(aggregatorId)) {
-    return true;
-  }
-
-  const expectedSpender = getBridgeSpender(aggregatorId, fromChainId);
-  const receivedSpender = quote.approve_contract_id;
-
-  if (!receivedSpender) {
-    return true;
-  }
-  if (!expectedSpender) {
-    throw new InvalidBridgeContractError('spender', aggregatorId, fromChainId,
-      'configured spender', receivedSpender, quote.bridge_id);
-  }
-
-  const allowedSpenders = [
-    expectedSpender,
-    ...getBridgeAltContracts(aggregatorId),
-  ];
-
-  if (!allowedSpenders.some((addr) => isSameAddress(addr, receivedSpender))) {
-    throw new InvalidBridgeContractError(
-      'spender',
-      aggregatorId,
-      fromChainId,
-      expectedSpender,
-      receivedSpender,
-      quote.bridge_id
-    );
-  }
-
-  return true;
-};
-
 const quotedToAmount = (quoteKey?: string | Record<string, unknown>) => {
   let key = quoteKey;
   if (typeof key === 'string') {
-    try { key = JSON.parse(key); }
-    catch { return undefined; }
+    try {
+      key = JSON.parse(key);
+    } catch {
+      return undefined;
+    }
   }
   if (!key || typeof key !== 'object' || Array.isArray(key)) return undefined;
   const amount = key.to_token_raw_amount;
-  if (typeof amount === 'string' || (typeof amount === 'number' && Number.isSafeInteger(amount))) {
+  if (
+    typeof amount === 'string' ||
+    (typeof amount === 'number' && Number.isSafeInteger(amount))
+  ) {
     return String(amount);
   }
   return undefined;
 };
 
-const validateBridgeRouter = (
-  aggregatorId: BridgeAggregatorId,
-  fromChainId: string,
-  bridgeId: string,
-  tx: BridgeTx
-): true => {
-  if (!shouldValidateBridgeContracts(aggregatorId)) {
-    return true;
-  }
-
-  const expectedRouter = getBridgeRouter(aggregatorId, fromChainId);
-  const allowedRouters = [
-    ...(expectedRouter ? [expectedRouter] : []),
-    ...getBridgeAltContracts(aggregatorId),
-  ];
-
-  if (!allowedRouters.some((addr) => isSameAddress(addr, tx.to))) {
-    throw asBridgeError(new InvalidBridgeContractError(
-      'router',
-      aggregatorId,
-      fromChainId,
-      expectedRouter || allowedRouters.join(',') || 'configured router',
-      tx.to,
-      bridgeId
-    ), BRIDGE_ERRORS.ROUTER_NOT_ALLOWED, { ...calldataDiagnostics(tx.data),
-      pass: false, routerPass: false, fromPass: false, toPass: false, receiverPass: false, blocking: true });
-  }
-  return true;
-};
-
-const fieldErrors: Record<'fromPass' | 'toPass' | 'receiverPass', BridgeErrorDefinition[]> = {
-  fromPass: [BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH, BRIDGE_ERRORS.FROM_CHAIN_MISMATCH,
-    BRIDGE_ERRORS.FROM_TOKEN_MISMATCH, BRIDGE_ERRORS.FROM_AMOUNT_MISMATCH,
-    BRIDGE_ERRORS.DEPOSITOR_MISMATCH, BRIDGE_ERRORS.MISSING_SOURCE_TOKEN, BRIDGE_ERRORS.MISSING_SOURCE_AMOUNT],
-  toPass: [BRIDGE_ERRORS.TO_CHAIN_MISMATCH, BRIDGE_ERRORS.TO_TOKEN_MISMATCH,
-    BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH, BRIDGE_ERRORS.MISSING_DESTINATION,
-    BRIDGE_ERRORS.MISSING_DESTINATION_CHAIN, BRIDGE_ERRORS.MISSING_OUTPUT_TOKEN,
-    BRIDGE_ERRORS.MISSING_MIN_OUTPUT, BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL,
-    BRIDGE_ERRORS.UNSUPPORTED_RELAY_ORDER_SHAPE],
-  receiverPass: [BRIDGE_ERRORS.RECEIVER_MISMATCH, BRIDGE_ERRORS.MISSING_RECEIVER,
-    BRIDGE_ERRORS.REFUND_RECIPIENT_MISMATCH,
-    BRIDGE_ERRORS.UNSUPPORTED_DESTINATION_CALL,
-    BRIDGE_ERRORS.RELAY_REFUND_RECIPIENT_MISMATCH, BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH,
-    BRIDGE_ERRORS.MISSING_RELAY_ORDER_DATA],
-};
-
-const bindingErrors: BridgeErrorDefinition[] = [
-  BRIDGE_ERRORS.QUOTE_ID_MISMATCH, BRIDGE_ERRORS.SOCKET_RFQ_QUOTE_ID_MISMATCH,
-];
-
-const checkBridgeTx = (
-  aggregatorId: BridgeAggregatorId, fromChainId: string, bridgeId: string, tx: BridgeTx,
-  expectation?: BridgeCallExpectation, options: BridgeValidationOptions = {},
-  operation: 'buildTx' | 'verifyTx' = 'verifyTx'
-): BridgeValidationResult => {
-  // First check the router, then decode and compare the fields carried by calldata.
-  const routerPass = validateBridgeRouter(aggregatorId, fromChainId, bridgeId, tx);
-  let check: BridgeCheck;
-  try { check = validateBridgeCalldata(aggregatorId, fromChainId, tx, expectation); }
-  catch (error) {
-    check = { ok: false, aggregatorId, errors: asBridgeError(error, BRIDGE_ERRORS.INVALID_CALLDATA).errors };
-  }
-  // Relay delivery terms come from order_data bound to the actual deposit orderId.
-  const enforceRelayOrder = aggregatorId === BRIDGE_ENUM.RELAY &&
-    (options.allowMissingRelayOrder !== true || expectation?.orderData !== undefined);
-  if (enforceRelayOrder) {
-    const orderErrors = expectation?.orderData === undefined
-      ? [BRIDGE_ERRORS.MISSING_RELAY_ORDER_DATA]
-      : check.parsed?.orderId
-        ? verifyRelayOrder(expectation.orderData, check.parsed, fromChainId, expectation.userAddress, tx.to)
-        : [BRIDGE_ERRORS.MISSING_RELAY_ORDER_ID];
-    if (orderErrors.length === 0 && check.parsed) {
-      // verifyRelayOrder populated the committed destination fields; compare them with intent.
-      const verified = finishCheck('relay', check.parsed,
-        expectation?.toChainId ? undefined : BRIDGE_ERRORS.MISSING_DESTINATION_CHAIN,
-        expectation, fromChainId, knownCompare(check.parsed));
-      check = { ...check, ok: check.ok && verified.ok, unverifiedFields: verified.unverifiedFields,
-        errors: [...check.errors, ...verified.errors.filter((error) =>
-          !check.errors.some((existing) => existing.error_code === error.error_code))] };
-    }
-    check = { ...check, ok: check.ok && orderErrors.length === 0,
-      errors: [...check.errors,
-      ...orderErrors.filter((error) => !check.errors.some((existing) => existing.error_code === error.error_code))] };
-  }
-  const unverifiedFields = check.unverifiedFields ?? [
-    'sourceToken', 'sourceAmount', 'outputToken', 'minOutputAmount', 'receiver',
-    ...(expectation?.toChainId ? ['destinationChainId'] : []),
-  ];
-  // These decoded paths permit missing final receiver/chain fields. Socket parsers
-  // check the fixed vault/messenger and spender first; this is not a bridge-ID bypass.
-  // Relay still has to pass the order_data checks above unless the test-only opt-out is used.
-  const externalDestination = check.parsed && ((aggregatorId === BRIDGE_ENUM.RELAY && check.parsed.destinationChainId === undefined) ||
-    (aggregatorId === BRIDGE_ENUM.SOCKET &&
-      ['receiveERC20', 'receiveNative', 'depositForBurn'].includes(check.parsed.protocolMethod ?? '')));
-  // Only unexpected omissions become blocking errors. Permitted omissions stay in
-  // unverifiedFields and keep their field flags false, without reporting an error.
-  const reportableFields = unverifiedFields.filter((field) => {
-    if (!check.parsed) return true;
-    if (field === 'outputToken') return false;
-    if (field === 'minOutputAmount') return check.parsed.minOutputAmount !== undefined;
-    return !(externalDestination && ['receiver', 'destinationChainId'].includes(field));
-  });
-  // Unclassified structure failures invalidate every field; known field failures stay separate.
-  const comparable = Boolean(expectation && check.parsed) && check.errors.every((error) =>
-    bindingErrors.some((item) => item.error_code === error.error_code) ||
-    Object.values(fieldErrors).some((group) => group.some((item) => item.error_code === error.error_code)));
-  const fieldPass = (field: keyof typeof fieldErrors, required: string[]) => comparable &&
-    required.every((item) => !unverifiedFields.includes(item)) &&
-    !check.errors.some((error) => fieldErrors[field].some((item) => item.error_code === error.error_code));
-  // Overall acceptance and field coverage answer different questions. Do not
-  // derive pass by AND-ing the field flags: known Socket omissions are allowed.
-  const flags = {
-    pass: routerPass && !check.errors.length && !reportableFields.length, routerPass,
-    fromPass: fieldPass('fromPass', ['sourceToken', 'sourceAmount']),
-    toPass: fieldPass('toPass', ['outputToken', 'minOutputAmount', ...(expectation?.toChainId ? ['destinationChainId'] : [])]),
-    receiverPass: fieldPass('receiverPass', ['receiver']),
-  };
-  const context: BridgeErrorContext = {
-    ...check.parsed?.diagnostics, ...calldataDiagnostics(tx.data), aggregatorId,
-    chainId: fromChainId, toChainId: expectation?.toChainId, bridgeId, operation, method: check.method,
-    ...(check.parsed ? { hasDestinationCall: Boolean(check.parsed.hasDestinationCall || check.parsed.destinationCallData !== undefined) } : {}),
-    ...flags, blocking: true,
-  };
-  const errors = [
-    ...check.errors,
-    ...(reportableFields.length ? [{ ...BRIDGE_ERRORS.UNVERIFIED_BRIDGE_FIELDS, unverifiedFields: reportableFields }] : []),
-  ].map((error) => sanitizeBridgeError({ ...error, ...context }));
-  if (errors.length) {
-    const error = new InvalidBridgeCalldataError(aggregatorId, fromChainId,
-      check.method, check.reason || errors[0].message, errors);
-    reportBridgeError(options.onError, error, context);
-    throw error;
-  }
-  return { ...flags, unverifiedFields, errors };
-};
-
-export const validateBridgeTx = (
-  aggregatorId: BridgeAggregatorId,
-  fromChainId: string,
-  bridgeId: string,
-  tx: BridgeTx,
-  expectation?: BridgeCallExpectation,
-  options: BridgeValidationOptions = {}
-): BridgeValidationResult => checkBridgeTx(aggregatorId, fromChainId, bridgeId, tx, expectation, options);
+// ---- 报价与交易接口 ----
 
 export const getQuote = async (
   aggregatorId: string,
   params: BridgeQuoteListParams,
-  api: BridgeApi
+  api: BridgeApi,
 ): Promise<BridgeQuoteListItem[]> => {
   try {
     params = { ...params };
@@ -369,8 +117,20 @@ export const getQuote = async (
     };
 
     const quotes = api.getBridgeQuoteListV2
-      ? await api.getBridgeQuoteListV2(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); })
-      : await api.getBridgeQuoteV2?.(baseParams).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED, { requestKind: 'backend_quote' }); });
+      ? await api.getBridgeQuoteListV2(baseParams).catch((error) => {
+          throw asBridgeError(
+            error,
+            BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED,
+            { requestKind: 'backend_quote' },
+          );
+        })
+      : await api.getBridgeQuoteV2?.(baseParams).catch((error) => {
+          throw asBridgeError(
+            error,
+            BRIDGE_ERRORS.BACKEND_QUOTE_REQUEST_FAILED,
+            { requestKind: 'backend_quote' },
+          );
+        });
     if (!quotes) throw new BridgeError(BRIDGE_ERRORS.MISSING_QUOTE_API);
 
     return quotes.filter((quote) => {
@@ -379,24 +139,35 @@ export const getQuote = async (
         return true;
       } catch (error) {
         if (error instanceof InvalidBridgeContractError) {
-          reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'getQuote' });
+          reportBridgeError(params.onError, error, {
+            aggregatorId,
+            chainId: params.fromChainId,
+            toChainId: params.toChainId,
+            bridgeId: quote.bridge_id,
+            operation: 'getQuote',
+          });
           return false;
         }
         throw error;
       }
     });
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'getQuote' });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, {
+      aggregatorId,
+      chainId: params.fromChainId,
+      toChainId: params.toChainId,
+      operation: 'getQuote',
+    });
   }
 };
 
 export const buildTx = async (
   aggregatorId: string,
   params: BridgeBuildTxParams,
-  api: BridgeApi
+  api: BridgeApi,
 ): Promise<BridgeTx> => {
   try {
-    // Freeze signing intent before awaiting a backend response.
+    // 请求前固定用户意图，避免等待期间被修改。
     params = { ...params };
     assertSupported(aggregatorId, params.fromChainId);
     const quoteKey = stringifyQuoteKey(params.quoteKey);
@@ -407,7 +178,7 @@ export const buildTx = async (
       toChainId: params.toChainId,
       toTokenId: params.toTokenId,
       toTokenRawAmount: params.toTokenRawAmount ?? quotedToAmount(quoteKey),
-      // The legacy quote+tx API requotes instead of reusing this selection.
+      // 旧接口会重新询价，不绑定原报价 ID。
       quoteKey: typeof api.buildBridgeTx === 'function' ? quoteKey : undefined,
       slippage: params.slippage,
     };
@@ -424,76 +195,114 @@ export const buildTx = async (
     };
 
     const built = api.buildBridgeTx
-      ? await api.buildBridgeTx({
-          ...buildParams,
-          quote_key: quoteKey,
-        }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED, { requestKind: 'backend_build' }); })
-      : await api.getBridgeQuoteTxV2?.({
-          ...buildParams,
-        }).catch((error) => { throw asBridgeError(error, BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED, { requestKind: 'backend_build' }); });
+      ? await api
+          .buildBridgeTx({
+            ...buildParams,
+            quote_key: quoteKey,
+          })
+          .catch((error) => {
+            throw asBridgeError(
+              error,
+              BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED,
+              { requestKind: 'backend_build' },
+            );
+          })
+      : await api
+          .getBridgeQuoteTxV2?.({
+            ...buildParams,
+          })
+          .catch((error) => {
+            throw asBridgeError(
+              error,
+              BRIDGE_ERRORS.BACKEND_BUILD_REQUEST_FAILED,
+              { requestKind: 'backend_build' },
+            );
+          });
     const attached = readBuildAttachment(built);
     const tx = attached.tx;
 
     if (!tx) {
       throw new BridgeError(BRIDGE_ERRORS.MISSING_BUILD_API);
     }
-    checkBridgeTx(aggregatorId, params.fromChainId, params.bridgeId, tx, {
-      ...expectation,
-      orderData: attached.orderData ?? params.orderData,
-    }, params, 'buildTx');
+    checkBridgeTx(
+      aggregatorId,
+      params.fromChainId,
+      params.bridgeId,
+      tx,
+      {
+        ...expectation,
+        orderData: attached.orderData ?? params.orderData,
+      },
+      params,
+      'buildTx',
+    );
 
     return tx;
   } catch (error) {
-    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, operation: 'buildTx', bridgeId: params.bridgeId });
+    throw asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, {
+      aggregatorId,
+      chainId: params.fromChainId,
+      toChainId: params.toChainId,
+      operation: 'buildTx',
+      bridgeId: params.bridgeId,
+    });
   }
 };
 
 export const getQuoteListWithTx = async (
   aggregatorId: string,
   params: BridgeQuoteListParams,
-  api: BridgeApi
+  api: BridgeApi,
 ): Promise<Array<BridgeQuoteListItem & { tx: BridgeTx }>> => {
   const quotes = await getQuote(aggregatorId, params, api);
 
   const settled: Array<(BridgeQuoteListItem & { tx: BridgeTx }) | null> =
     await Promise.all(
       quotes.map(async (quote) => {
-      try {
-        const tx = await buildTx(
-          aggregatorId,
-          {
-            ...params,
-            bridgeId: quote.bridge_id,
-            quoteKey: quote.quote_key,
-            toTokenRawAmount: quote.to_token_raw_amount_hex_str ??
-              (Number.isSafeInteger(quote.to_token_raw_amount) ? String(quote.to_token_raw_amount) : undefined),
-          },
-          api
-        );
+        try {
+          const tx = await buildTx(
+            aggregatorId,
+            {
+              ...params,
+              bridgeId: quote.bridge_id,
+              quoteKey: quote.quote_key,
+              toTokenRawAmount:
+                quote.to_token_raw_amount_hex_str ??
+                (Number.isSafeInteger(quote.to_token_raw_amount)
+                  ? String(quote.to_token_raw_amount)
+                  : undefined),
+            },
+            api,
+          );
 
-        return {
-          ...quote,
-          tx,
-        };
-      } catch (error) {
-        if (
-          error instanceof InvalidBridgeContractError ||
-          error instanceof InvalidBridgeCalldataError
-        ) {
-          // Calldata failures were already reported by checkBridgeTx.
-          if (error instanceof InvalidBridgeContractError) {
-            reportBridgeError(params.onError, error, { aggregatorId, chainId: params.fromChainId, toChainId: params.toChainId, bridgeId: quote.bridge_id, operation: 'buildTx' });
+          return {
+            ...quote,
+            tx,
+          };
+        } catch (error) {
+          if (
+            error instanceof InvalidBridgeContractError ||
+            error instanceof InvalidBridgeCalldataError
+          ) {
+            // Calldata 校验失败已上报，避免重复。
+            if (error instanceof InvalidBridgeContractError) {
+              reportBridgeError(params.onError, error, {
+                aggregatorId,
+                chainId: params.fromChainId,
+                toChainId: params.toChainId,
+                bridgeId: quote.bridge_id,
+                operation: 'buildTx',
+              });
+            }
+            return null;
           }
-          return null;
+          throw error;
         }
-        throw error;
-      }
-      })
+      }),
     );
 
   return settled.filter(
-    (quote): quote is BridgeQuoteListItem & { tx: BridgeTx } =>
-      quote !== null
+    (quote): quote is BridgeQuoteListItem & { tx: BridgeTx } => quote !== null,
   );
 };
 
