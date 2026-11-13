@@ -5,6 +5,46 @@ import { buildTx, decodeBridgeCalldata, getQuoteListWithTx, validateBridgeTx } f
 import { expectCalldataError } from '../helpers/assert-validation-error.js';
 import { providerHistoryResponse } from '../helpers/history.js';
 
+describe('[Relay] Elysium order regression', () => {
+  const captured = readFixture('providers/relay/elysium.json');
+  // 原业务报价未提供，这里用订单金额构造校验输入。
+  const params = {
+    userAddress: captured.from, fromChainId: 'elysium', bridgeId: 'relay',
+    fromTokenId: '0xb47c4c8f73f009cc0c0d3f92b388d13e293f0b65', fromTokenRawAmount: '439589',
+    toChainId: 'eth', toTokenId: 'eth', toTokenRawAmount: '200508702260110', slippage: '0.01',
+  };
+
+  test('accepts the captured order with Elysium input and refund chains', async () => {
+    const parsed = decodeBridgeCalldata('relay', captured);
+    expect(parsed.orderId).toBe(hash(captured.order_data));
+    expect(parsed.sourceAmount).toBe(439589n);
+    const onError = jest.fn();
+    await expect(buildTx('relay', { ...params, onError }, { buildBridgeTx: async () => captured }))
+      .resolves.toBe(captured);
+    expect(onError).not.toHaveBeenCalled();
+    expect(validateBridgeTx('relay', 'elysium', 'relay', captured, { ...params, orderData: captured.order_data }))
+      .toMatchObject({ pass: true, fromPass: true, toPass: true, receiverPass: true, unverifiedFields: [] });
+  });
+
+  test.each([
+    ['hash', 'BRIDGE_RELAY_ORDER_HASH_MISMATCH'],
+    ['receiver', 'BRIDGE_RECEIVER_MISMATCH'],
+    ['refund', 'BRIDGE_RELAY_REFUND_RECIPIENT_MISMATCH'],
+  ])('still rejects an altered %s', async (field, code) => {
+    const tx = structuredClone(captured);
+    const other = '0x1111111111111111111111111111111111111111';
+    if (field === 'hash') tx.order_data.salt = '1';
+    if (field === 'receiver') tx.order_data.output.payments[0].recipient = other;
+    if (field === 'refund') tx.order_data.inputs[0].refunds[0].recipient = other;
+    if (field !== 'hash') {
+      tx.data = tx.data.replace(hash(captured.order_data).slice(2), hash(tx.order_data).slice(2));
+      expect(decodeBridgeCalldata('relay', tx).orderId).toBe(hash(tx.order_data));
+    }
+    await expect(buildTx('relay', params, { buildBridgeTx: async () => tx }))
+      .rejects.toMatchObject({ error_code: code });
+  });
+});
+
 describe('Relay destination terms are bound to local intent', () => {
   const fixture = readFixture('providers/relay/quote-v2.json');
   const original = fixture.response.protocol.v2.orderData;

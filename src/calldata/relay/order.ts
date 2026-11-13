@@ -49,7 +49,7 @@ export const RELAY_EVM_CHAIN_IDS: Record<string, bigint> = {
   mythos: 42018n, arbitrum: 42161n, celo: 42220n, avalanche: 43114n, zircuit: 48900n,
   ink: 57073n, linea: 59144n, bob: 60808n, berachain: 80094n, doma: 97477n,
   plume: 98866n, scroll: 534352n, gensyn: 685689n, katana: 747474n,
-  ethereal: 5064014n, zora: 7777777n,
+  ethereal: 5064014n, zora: 7777777n, elysium: 99901n,
 };
 
 export const relayOrder = (raw: unknown) => {
