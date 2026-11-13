@@ -723,6 +723,5 @@
       "state": "new-structural-parser-no-complete-live-fixture",
       "reason": "Five fields are present in the official ABI and structural assertions pass, but current probes returned no usable quote. Deployment identity and real transaction coverage remain unverified."
     }
-  ],
-  "latestReport": "quotes/routes/README.md"
+  ]
 }

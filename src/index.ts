@@ -49,7 +49,5 @@ export type {
   BridgeValidationResult,
   BridgeTx,
 } from './quote.js';
-export { InvalidBridgeProviderError } from './providers/errors.js';
-
-export { BRIDGE_ERRORS, BridgeError, toBridgeErrorReport } from './errors/index.js';
+export { BRIDGE_ERRORS, BridgeError, InvalidBridgeProviderError, toBridgeErrorReport } from './errors/index.js';
 export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition, BridgeErrorContext, BridgeErrorDetail, BridgeErrorReport, BridgeErrorReporter } from './errors/index.js';

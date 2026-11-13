@@ -69,6 +69,17 @@ export class BridgeError extends Error {
   }
 }
 
+/** Retained for consumers importing the public error class. */
+export class InvalidBridgeProviderError extends BridgeError {
+  readonly reason: string;
+  constructor(public readonly provider: string, error: BridgeErrorDefinition | BridgeError | string) {
+    super(BRIDGE_ERRORS.INVALID_RESPONSE, { provider }, error instanceof BridgeError ? error.errors : [typeof error === 'string' ? BRIDGE_ERRORS.INVALID_RESPONSE : error]);
+    this.reason = typeof error === 'string' ? error : this.message;
+    this.message = `Bridge provider validation failed for ${provider}: ${this.reason}`;
+    this.name = 'InvalidBridgeProviderError';
+  }
+}
+
 /** Preserve typed SDK failures; never copy an arbitrary transport exception into a report. */
 export const asBridgeError = (
   error: unknown, fallback: BridgeErrorDefinition = BRIDGE_ERRORS.UNKNOWN, context: BridgeErrorContext = {}

@@ -14,7 +14,7 @@ const PROXY_ROUTERS: Record<string, string> = {
   '0xe4dfbd5e6784db1058124e2c87554c0591f0fb7b': '0x6328ea02d28131e58b28e55c6258258a30d90e05',
 };
 const ROUTERS = new Set(Object.values(PROXY_ROUTERS));
-export const relayFundingRouter = (method: string, target: string): string | undefined =>
+export const relayDepositRouter = (method: string, target: string): string | undefined =>
   method === 'transferAndMulticall' ? PROXY_ROUTERS[target]
     : method === 'multicall' && ROUTERS.has(target) ? target : undefined;
 const CLEANUP_NATIVE = '0x5d1fe6a2';

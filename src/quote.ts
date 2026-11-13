@@ -19,7 +19,7 @@ import {
   isSupportedBridgeAggregator,
   isSupportedBridgeChain,
 } from './list.js';
-import { verifyRelayOrder } from './providers/relay.js';
+import { verifyRelayOrder } from './calldata/relay/order.js';
 
 export interface BridgeValidationOptions {
   /** Receives filtered quote failures and calldata failures. */
