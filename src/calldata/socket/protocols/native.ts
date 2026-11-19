@@ -37,8 +37,12 @@ export const readNativeBridge = (data: string, target: string, value: bigint): P
       { name: 'to', kind: 'address' }, ...(erc20 ? [{ name: 'amount', kind: 'uint' as const }] : []),
       { name: 'minGasLimit', kind: 'uint' }, { name: 'extraData', kind: 'bytes' },
     ], data);
+    const opStackChain = ({
+      '0x99c9fc46f92e8a1c0dec1b1747d010903e884be1': 10n,
+      '0x3154cf16ccdb4c6d922629664174b904d80f2c35': 8453n,
+    } as Record<string, bigint>)[target];
     return { protocolMethod: erc20 ? 'depositERC20To' : 'depositETHTo',
-      destinationChainId: target === '0x3154cf16ccdb4c6d922629664174b904d80f2c35' ? 8453n : undefined,
+      destinationChainId: opStackChain,
       receiver: asString(a.to), outputToken: erc20 ? asString(a.remoteToken) : NATIVE_TOKEN,
       minOutputAmount: erc20 ? asBigint(a.amount) : value };
   }

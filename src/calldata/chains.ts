@@ -12,6 +12,9 @@ const CHAIN_IDS: Record<string, bigint> = {
   zircuit: 48900n, sophon: 50104n, ink: 57073n, linea: 59144n, bob: 60808n,
   bera: 80094n, blast: 81457n, plume: 98866n, taiko: 167000n, scrl: 534352n,
   katana: 747474n, zora: 7777777n,
+  b2: 223n, cfx: 1030n, wemix: 1111n, core: 1116n, kava: 2222n, kite: 2366n,
+  citrea: 4114n, merlin: 4200n, zeta: 7000n, itze: 13371n, g0: 16661n,
+  ethlink: 42793n, chiliz: 88888n, elysium: 99901n, btr: 200901n, dbk: 20240603n,
   ethereum: 1n, optimism: 10n, gnosis: 100n, polygon: 137n, mantle: 5000n,
   arbitrum: 42161n, avalanche: 43114n, fraxtal: 252n,
 };

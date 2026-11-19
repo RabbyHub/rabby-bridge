@@ -5,6 +5,7 @@ import type { ParsedBridgeCall } from '../types.js';
 import { mayanDestination } from './destination.js';
 
 export const MCTP_BRIDGE_WITH_FEE = '0x2072197f';
+export const MCTP_BRIDGE_WITH_LOCKED_FEE = '0x9be95bb4';
 export const MCTP_CREATE_ORDER = '0x1c59b7fc';
 
 export const decodeMctpBridge = (data: string, amountFloor?: bigint): Partial<ParsedBridgeCall> => {
@@ -35,6 +36,24 @@ const order: AbiParam = { name: 'params', kind: 'tuple', components: [
   { name: 'redeemFee', kind: 'uint' }, { name: 'referrerAddr', kind: 'bytes', size: 32 },
   { name: 'referrerBps', kind: 'uint' },
 ] };
+
+/** Fee is locked on the source chain. There is no custom payload; destAddr is the final recipient. */
+export const decodeMctpLockedFee = (data: string, amountFloor?: bigint): Partial<ParsedBridgeCall> => {
+  const a = decodeCall([
+    { name: 'tokenIn', kind: 'address' }, { name: 'amountIn', kind: 'uint' },
+    { name: 'gasDrop', kind: 'uint' }, { name: 'redeemFee', kind: 'uint' },
+    { name: 'destDomain', kind: 'uint' }, { name: 'destAddr', kind: 'bytes', size: 32 },
+  ], data);
+  const destination = mayanDestination('cctp', asBigint(a.destDomain));
+  const receiver = accountFromBytes32(asString(a.destAddr));
+  return {
+    protocolMethod: 'bridgeWithLockedFee', ...destination,
+    sourceToken: asString(a.tokenIn), sourceAmount: asBigint(a.amountIn),
+    bridgeReceiver: receiver, receiver,
+    outputTokenReference: { protocol: 'cctp', destinationChainId: destination.destinationChainId },
+    minOutputAmount: subtractFees(amountFloor ?? asBigint(a.amountIn), asBigint(a.redeemFee)),
+  };
+};
 
 export const decodeMctpOrder = (data: string): Partial<ParsedBridgeCall> => {
   const a = asRecord(decodeCall([order], data).params);
