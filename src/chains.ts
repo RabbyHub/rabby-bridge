@@ -1,48 +1,79 @@
-import { CHAINS_ENUM as DBK_CHAINS_ENUM } from '@debank/common';
+/**
+ * Chain enums this package knows about: every chain that appears in the bridge
+ * support lists and router/spender allowlists.
+ *
+ * The string values are persisted by clients (storage, analytics), so they
+ * must never change. Add new chains here (and to `SERVER_ID_TO_CHAIN_ENUM`)
+ * instead of casting string literals.
+ */
+export const CHAINS_ENUM = {
+  ABS: 'ABS',
+  APE: 'APE',
+  ARBITRUM: 'ARBITRUM',
+  ARC: 'ARC',
+  AVAX: 'AVAX',
+  BASE: 'BASE',
+  BERA: 'BERA',
+  BLAST: 'BLAST',
+  BOB: 'BOB',
+  BSC: 'BSC',
+  CELO: 'CELO',
+  CRO: 'CRO',
+  CYBER: 'CYBER',
+  ELYSIUM: 'ELYSIUM',
+  ERA: 'ERA',
+  ETH: 'ETH',
+  FLR: 'FLR',
+  FRAX: 'FRAX',
+  FUSE: 'FUSE',
+  GNOSIS: 'GNOSIS',
+  GRAVITY: 'GRAVITY',
+  HEMI: 'HEMI',
+  HOOD: 'HOOD',
+  HYPER: 'HYPER',
+  INK: 'INK',
+  KATANA: 'KATANA',
+  KLAY: 'KLAY',
+  LENS: 'LENS',
+  LINEA: 'LINEA',
+  LISK: 'LISK',
+  MANTA: 'MANTA',
+  MANTLE: 'MANTLE',
+  MEGAETH: 'MEGAETH',
+  METIS: 'METIS',
+  MODE: 'MODE',
+  MONAD: 'MONAD',
+  MORPH: 'MORPH',
+  OP: 'OP',
+  OPBNB: 'OPBNB',
+  PLASMA: 'PLASMA',
+  PLUME: 'PLUME',
+  POLYGON: 'POLYGON',
+  RONIN: 'RONIN',
+  RSK: 'RSK',
+  SCRL: 'SCRL',
+  SEI: 'SEI',
+  SONEIUM: 'SONEIUM',
+  SONIC: 'SONIC',
+  SOPHON: 'SOPHON',
+  STABLE: 'STABLE',
+  STORY: 'STORY',
+  SWELL: 'SWELL',
+  TAIKO: 'TAIKO',
+  TEMPO: 'TEMPO',
+  UNI: 'UNI',
+  WORLD: 'WORLD',
+  XDC: 'XDC',
+  XLAYER: 'XLAYER',
+  ZIRCUIT: 'ZIRCUIT',
+  ZORA: 'ZORA',
+} as const;
 
-export const CHAINS_ENUM = DBK_CHAINS_ENUM;
+/** Closed union of the chain enums listed in `CHAINS_ENUM`. */
+export type KnownChainEnum = (typeof CHAINS_ENUM)[keyof typeof CHAINS_ENUM];
 
-export const EXTRA_CHAINS = [
-  'XDC',
-  'UNI',
-  'RONIN',
-  'XLAYER',
-  'MONAD',
-  'SONIC',
-  'LENS',
-  'WORLD',
-  'STABLE',
-  'HYPER',
-  'LISK',
-  'SEI',
-  'GRAVITY',
-  'SONEIUM',
-  'SWELL',
-  'ABS',
-  'MORPH',
-  'TEMPO',
-  'MEGAETH',
-  'PLASMA',
-  'APE',
-  'HEMI',
-  'SOPHON',
-  'INK',
-  'BOB',
-  'BERA',
-  'PLUME',
-  'TAIKO',
-  'KATANA',
-  'STORY',
-  'CYBER',
-  'ZIRCUIT',
-  'HOOD',
-  'ARC',
-  'ELYSIUM',
-] as const;
-
-export type ExtraChainEnum = (typeof EXTRA_CHAINS)[number];
-
-export type ChainEnum = DBK_CHAINS_ENUM | ExtraChainEnum;
+/** Open chain enum: any chain name, with the known ones offered for autocomplete. */
+export type ChainEnum = KnownChainEnum | (string & {});
 
 export const SERVER_ID_TO_CHAIN_ENUM = {
   eth: CHAINS_ENUM.ETH,
@@ -50,76 +81,77 @@ export const SERVER_ID_TO_CHAIN_ENUM = {
   flr: CHAINS_ENUM.FLR,
   cro: CHAINS_ENUM.CRO,
   rsk: CHAINS_ENUM.RSK,
-  xdc: 'XDC' as ChainEnum,
+  xdc: CHAINS_ENUM.XDC,
   bsc: CHAINS_ENUM.BSC,
   xdai: CHAINS_ENUM.GNOSIS,
   fuse: CHAINS_ENUM.FUSE,
-  uni: 'UNI' as ChainEnum,
+  uni: CHAINS_ENUM.UNI,
   matic: CHAINS_ENUM.POLYGON,
-  monad: 'MONAD' as ChainEnum,
-  sonic: 'SONIC' as ChainEnum,
+  monad: CHAINS_ENUM.MONAD,
+  sonic: CHAINS_ENUM.SONIC,
   opbnb: CHAINS_ENUM.OPBNB,
-  lens: 'LENS' as ChainEnum,
+  lens: CHAINS_ENUM.LENS,
   frax: CHAINS_ENUM.FRAX,
   era: CHAINS_ENUM.ERA,
-  world: 'WORLD' as ChainEnum,
-  stable: 'STABLE' as ChainEnum,
-  hyper: 'HYPER' as ChainEnum,
+  world: CHAINS_ENUM.WORLD,
+  stable: CHAINS_ENUM.STABLE,
+  hyper: CHAINS_ENUM.HYPER,
   metis: CHAINS_ENUM.METIS,
-  lisk: 'LISK' as ChainEnum,
-  sei: 'SEI' as ChainEnum,
-  gravity: 'GRAVITY' as ChainEnum,
-  soneium: 'SONEIUM' as ChainEnum,
-  swell: 'SWELL' as ChainEnum,
-  ron: 'RONIN' as ChainEnum,
-  xlayer: 'XLAYER' as ChainEnum,
-  abs: 'ABS' as ChainEnum,
-  morph: 'MORPH' as ChainEnum,
-  tempo: 'TEMPO' as ChainEnum,
-  megaeth: 'MEGAETH' as ChainEnum,
+  lisk: CHAINS_ENUM.LISK,
+  sei: CHAINS_ENUM.SEI,
+  gravity: CHAINS_ENUM.GRAVITY,
+  soneium: CHAINS_ENUM.SONEIUM,
+  swell: CHAINS_ENUM.SWELL,
+  ron: CHAINS_ENUM.RONIN,
+  xlayer: CHAINS_ENUM.XLAYER,
+  abs: CHAINS_ENUM.ABS,
+  morph: CHAINS_ENUM.MORPH,
+  tempo: CHAINS_ENUM.TEMPO,
+  megaeth: CHAINS_ENUM.MEGAETH,
   mnt: CHAINS_ENUM.MANTLE,
   klay: CHAINS_ENUM.KLAY,
   base: CHAINS_ENUM.BASE,
-  plasma: 'PLASMA' as ChainEnum,
-  ape: 'APE' as ChainEnum,
+  plasma: CHAINS_ENUM.PLASMA,
+  ape: CHAINS_ENUM.APE,
   mode: CHAINS_ENUM.MODE,
   arb: CHAINS_ENUM.ARBITRUM,
   celo: CHAINS_ENUM.CELO,
-  hemi: 'HEMI' as ChainEnum,
+  hemi: CHAINS_ENUM.HEMI,
   avax: CHAINS_ENUM.AVAX,
-  sophon: 'SOPHON' as ChainEnum,
-  ink: 'INK' as ChainEnum,
+  sophon: CHAINS_ENUM.SOPHON,
+  ink: CHAINS_ENUM.INK,
   linea: CHAINS_ENUM.LINEA,
-  bob: 'BOB' as ChainEnum,
-  bera: 'BERA' as ChainEnum,
+  bob: CHAINS_ENUM.BOB,
+  bera: CHAINS_ENUM.BERA,
   blast: CHAINS_ENUM.BLAST,
-  plume: 'PLUME' as ChainEnum,
-  taiko: 'TAIKO' as ChainEnum,
+  plume: CHAINS_ENUM.PLUME,
+  taiko: CHAINS_ENUM.TAIKO,
   scrl: CHAINS_ENUM.SCRL,
-  katana: 'KATANA' as ChainEnum,
+  katana: CHAINS_ENUM.KATANA,
   manta: CHAINS_ENUM.MANTA,
-  story: 'STORY' as ChainEnum,
-  cyber: 'CYBER' as ChainEnum,
-  zircuit: 'ZIRCUIT' as ChainEnum,
-  hood: 'HOOD' as ChainEnum,
-  arc: 'ARC' as ChainEnum,
-  elysium: 'ELYSIUM' as ChainEnum,
+  story: CHAINS_ENUM.STORY,
+  cyber: CHAINS_ENUM.CYBER,
+  zircuit: CHAINS_ENUM.ZIRCUIT,
+  hood: CHAINS_ENUM.HOOD,
+  arc: CHAINS_ENUM.ARC,
+  elysium: CHAINS_ENUM.ELYSIUM,
   zora: CHAINS_ENUM.ZORA,
-} as const satisfies Record<string, ChainEnum>;
+} as const satisfies Record<string, KnownChainEnum>;
 
 export const CHAIN_ENUM_TO_SERVER_ID = Object.fromEntries(
   Object.entries(SERVER_ID_TO_CHAIN_ENUM).map(([serverId, chainEnum]) => [
     chainEnum,
     serverId,
   ])
-) as Record<ChainEnum, string>;
+) as Record<KnownChainEnum, string>;
 
-export const normalizeChainEnum = (chainId: string): ChainEnum | undefined => {
-  if (
-    (Object.values(CHAINS_ENUM) as string[]).includes(chainId) ||
-    (EXTRA_CHAINS as readonly string[]).includes(chainId)
-  ) {
-    return chainId as ChainEnum;
+const KNOWN_CHAIN_ENUMS: readonly string[] = Object.values(CHAINS_ENUM);
+
+export const normalizeChainEnum = (
+  chainId: string
+): KnownChainEnum | undefined => {
+  if (KNOWN_CHAIN_ENUMS.includes(chainId)) {
+    return chainId as KnownChainEnum;
   }
 
   const serverId = chainId.toLowerCase() as keyof typeof SERVER_ID_TO_CHAIN_ENUM;

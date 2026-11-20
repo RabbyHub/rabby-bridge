@@ -381,13 +381,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@debank/common@npm:^0.3.60":
-  version: 0.3.60
-  resolution: "@debank/common@npm:0.3.60"
-  checksum: 10c0/9b73a317e12fa27d978958055a2bf91e0c1083bc6f56694966c9d620230e2bd5fb12e352a571cceeedf6b5b6c52a849fbddb88da0cc08d90ebe68b4d1e185a7b
-  languageName: node
-  linkType: hard
-
 "@ethersproject/abstract-provider@npm:^5.8.0":
   version: 5.8.0
   resolution: "@ethersproject/abstract-provider@npm:5.8.0"
@@ -908,7 +901,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rabby-wallet/rabby-bridge@workspace:."
   dependencies:
-    "@debank/common": "npm:^0.3.60"
     "@ethersproject/hash": "npm:5.8.0"
     "@ethersproject/strings": "npm:5.8.0"
     "@rabby-wallet/rabby-api": "npm:^0.9.58"
@@ -917,7 +909,6 @@ __metadata:
     rimraf: "npm:^3.0.2"
     typescript: "npm:^5.8.3"
   peerDependencies:
-    "@debank/common": ">=0.3.60"
     "@rabby-wallet/rabby-api": ">=0.9.58"
   languageName: unknown
   linkType: soft
