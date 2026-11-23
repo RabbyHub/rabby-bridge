@@ -3,17 +3,27 @@ import { BRIDGE_ERRORS, BridgeError, asBridgeError, reportBridgeError } from './
 import { InvalidBridgeCalldataError, validateBridgeCalldata } from './calldata/index.js';
 import type { BridgeCallExpectation } from './calldata/expect.js';
 import { finishCheck, isNativeToken, knownCompare } from './calldata/expect.js';
+import { sourceChainMismatch } from './calldata/chains.js';
 import type { BridgeCheck } from './calldata/types.js';
+import { txValue } from './calldata/types.js';
 import { calldataDiagnostics } from './calldata/diagnostics.js';
 import { sanitizeBridgeError } from './errors/sanitize.js';
 import { BRIDGE_ENUM } from './consts.js';
 import type { BridgeAggregatorId } from './consts.js';
-import { getBridgeAltContracts, getBridgeRouter, getBridgeSpender } from './list.js';
+import {
+  getBridgeAltContracts,
+  getBridgeRouter,
+  getBridgeSpender,
+  isSupportedBridgeChain,
+} from './list.js';
 import { verifyRelayOrder } from './calldata/relay/order.js';
 import type {
   BridgeValidationOptions,
   BridgeValidationResult,
   BridgeTx,
+  DepositBridgeAggregatorId,
+  DepositBridgeQuote,
+  DepositBridgeValidationParams,
 } from './types.js';
 
 // ---- 合约白名单 ----
@@ -372,3 +382,199 @@ export const validateBridgeTx = (
   options: BridgeValidationOptions = {},
 ): BridgeValidationResult =>
   checkBridgeTx(aggregatorId, fromChainId, bridgeId, tx, expectation, options);
+
+const DEPOSIT_BRIDGE_AGGREGATORS: ReadonlySet<string> = new Set<DepositBridgeAggregatorId>([
+  BRIDGE_ENUM.RELAY,
+  BRIDGE_ENUM.ACROSS,
+]);
+
+const quotedDepositRawAmount = (quote: DepositBridgeQuote): string | undefined => {
+  if (quote.to_token_raw_amount_hex_str) {
+    return quote.to_token_raw_amount_hex_str;
+  }
+  if (typeof quote.to_token_raw_amount === 'string' && quote.to_token_raw_amount) {
+    return quote.to_token_raw_amount;
+  }
+  if (
+    typeof quote.to_token_raw_amount === 'number' &&
+    Number.isSafeInteger(quote.to_token_raw_amount)
+  ) {
+    return String(quote.to_token_raw_amount);
+  }
+  return undefined;
+};
+
+/**
+ * 单段式跨链充值统一校验入口（Perps / Gas Account 等）。
+ * 串联：① 聚合器/源链准入（仅限 relay/across）→ ② Spender 白名单（非原生币禁止空 Spender）
+ * → ③ Router 白名单（且 tx.to !== fromTokenId）→ ④ tx.from / chainId / value（ERC20 强制 value === 0n）
+ * → ⑤ checkBridgeTx（含 Across HyperCore Handler / Relay orderData 绑定校验）。
+ */
+export const validateDepositBridgeQuote = (
+  quote: DepositBridgeQuote,
+  params: DepositBridgeValidationParams,
+): BridgeValidationResult => {
+  const rawAggregatorId = (params.aggregatorId ?? quote?.bridge_id ?? '').toLowerCase();
+  const bridgeId = quote?.bridge_id || rawAggregatorId;
+  const baseContext: BridgeErrorContext = {
+    aggregatorId: rawAggregatorId || undefined,
+    chainId: params.fromChainId,
+    toChainId: params.toChainId,
+    bridgeId: bridgeId || undefined,
+    operation: 'verifyTx',
+    blocking: true,
+  };
+  const fail = (error: BridgeError, extraContext: BridgeErrorContext = {}): never => {
+    const context = { ...baseContext, ...extraContext };
+    const normalized = asBridgeError(error, BRIDGE_ERRORS.UNKNOWN, context);
+    reportBridgeError(params.onError, normalized, context);
+    throw normalized;
+  };
+
+  // ① 聚合器与源链准入（仅限 relay / across）
+  if (!DEPOSIT_BRIDGE_AGGREGATORS.has(rawAggregatorId)) {
+    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_BRIDGE_AGGREGATOR, {
+      ...baseContext,
+      pass: false,
+    });
+    error.message = `${rawAggregatorId || 'unknown'} is not supported for deposit`;
+    fail(error, { pass: false });
+  }
+  const aggregatorId = rawAggregatorId as DepositBridgeAggregatorId;
+  if (!isSupportedBridgeChain(aggregatorId, params.fromChainId)) {
+    const error = new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_SOURCE_CHAIN, {
+      ...baseContext,
+      pass: false,
+    });
+    error.message = `${aggregatorId} does not support ${params.fromChainId}`;
+    fail(error, { pass: false });
+  }
+
+  if (!quote || !quote.tx || typeof quote.tx !== 'object') {
+    fail(new BridgeError(BRIDGE_ERRORS.INVALID_TRANSACTION, { ...baseContext, pass: false }), {
+      pass: false,
+    });
+  }
+  const tx = quote.tx as BridgeTx & { order_data?: unknown };
+
+  // ② Spender 白名单（非原生币禁止空 approve_contract_id）
+  try {
+    validateBridgeQuote(aggregatorId, params.fromChainId, quote, params.fromTokenId);
+  } catch (error) {
+    fail(asBridgeError(error, BRIDGE_ERRORS.SPENDER_NOT_ALLOWED), {
+      pass: false,
+      routerPass: false,
+      fromPass: false,
+      toPass: false,
+      receiverPass: false,
+    });
+  }
+
+  // ③ Router 白名单（且非原生币禁止 tx.to === fromTokenId）
+  const isNativeSource = isNativeToken(params.fromTokenId, params.fromChainId);
+  if (!tx.to || typeof tx.to !== 'string' || (!isNativeSource && isSameAddress(tx.to, params.fromTokenId))) {
+    const expectedRouter = getBridgeRouter(aggregatorId, params.fromChainId);
+    const allowedRouters = [
+      ...(expectedRouter ? [expectedRouter] : []),
+      ...getBridgeAltContracts(aggregatorId),
+    ];
+    fail(
+      new InvalidBridgeContractError(
+        'router',
+        aggregatorId,
+        params.fromChainId,
+        expectedRouter || allowedRouters.join(',') || 'configured router',
+        tx.to || 'missing',
+        bridgeId,
+      ),
+      {
+        ...calldataDiagnostics(tx.data),
+        pass: false,
+        routerPass: false,
+        fromPass: false,
+        toPass: false,
+        receiverPass: false,
+      },
+    );
+  }
+  try {
+    validateBridgeRouter(aggregatorId, params.fromChainId, bridgeId, tx);
+  } catch (error) {
+    fail(asBridgeError(error, BRIDGE_ERRORS.ROUTER_NOT_ALLOWED), {
+      ...calldataDiagnostics(tx.data),
+      pass: false,
+      routerPass: false,
+      fromPass: false,
+      toPass: false,
+      receiverPass: false,
+    });
+  }
+
+  // ④ tx.from / tx.chainId / tx.value（ERC20 强制 value === 0n）
+  const txFieldErrors: BridgeErrorDefinition[] = [];
+  if (!tx.from || typeof tx.from !== 'string' || !isSameAddress(tx.from, params.userAddress)) {
+    txFieldErrors.push(BRIDGE_ERRORS.FROM_ADDRESS_MISMATCH);
+  }
+  if (
+    tx.chainId === undefined ||
+    tx.chainId === null ||
+    (typeof tx.chainId === 'string' && tx.chainId === '') ||
+    sourceChainMismatch(params.fromChainId, tx.chainId)
+  ) {
+    txFieldErrors.push(BRIDGE_ERRORS.FROM_CHAIN_MISMATCH);
+  }
+  try {
+    const value = txValue(tx);
+    if (!isNativeSource && value !== 0n) {
+      txFieldErrors.push(BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE);
+    }
+  } catch {
+    txFieldErrors.push(BRIDGE_ERRORS.INVALID_TRANSACTION_VALUE);
+  }
+  if (txFieldErrors.length > 0) {
+    const context: BridgeErrorContext = {
+      ...baseContext,
+      ...calldataDiagnostics(tx.data),
+      pass: false,
+      routerPass: true,
+      fromPass: false,
+      toPass: false,
+      receiverPass: false,
+    };
+    const errors = txFieldErrors.map((item) => sanitizeBridgeError({ ...item, ...context }));
+    const error = new InvalidBridgeCalldataError(
+      aggregatorId,
+      params.fromChainId,
+      undefined,
+      errors[0].message,
+      errors,
+    );
+    reportBridgeError(params.onError, error, context);
+    throw error;
+  }
+
+  // ⑤ Calldata 与 Relay orderData 绑定校验
+  const expectation: BridgeCallExpectation = {
+    userAddress: params.userAddress,
+    receiverAddress: params.receiverAddress,
+    fromTokenId: params.fromTokenId,
+    fromTokenRawAmount: params.fromTokenRawAmount,
+    toChainId: params.toChainId,
+    toTokenId: params.toTokenId,
+    toTokenRawAmount: params.toTokenRawAmount ?? quotedDepositRawAmount(quote),
+    slippage: params.slippage ?? '0',
+    orderData: params.orderData ?? quote.order_data ?? tx.order_data,
+  };
+  return checkBridgeTx(
+    aggregatorId,
+    params.fromChainId,
+    bridgeId,
+    tx,
+    expectation,
+    {
+      onError: params.onError,
+      allowMissingRelayOrder: params.allowMissingRelayOrder,
+    },
+    'verifyTx',
+  );
+};

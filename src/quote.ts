@@ -12,7 +12,12 @@ import type {
   BridgeTx,
 } from './types.js';
 
-export { InvalidBridgeContractError, validateBridgeQuote, validateBridgeTx } from './validation.js';
+export {
+  InvalidBridgeContractError,
+  validateBridgeQuote,
+  validateBridgeTx,
+  validateDepositBridgeQuote,
+} from './validation.js';
 export type {
   BridgeApi,
   BridgeBuildTxParams,
@@ -22,6 +27,9 @@ export type {
   BridgeValidationOptions,
   BridgeValidationResult,
   BridgeTx,
+  DepositBridgeAggregatorId,
+  DepositBridgeQuote,
+  DepositBridgeValidationParams,
 } from './types.js';
 
 // ---- 请求参数 ----
