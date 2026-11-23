@@ -52,6 +52,19 @@ export const RELAY_EVM_CHAIN_IDS: Record<string, bigint> = {
   ethereal: 5064014n, zora: 7777777n, elysium: 99901n,
 };
 
+// Non-EVM destination chains explicitly supported by Relay v2 deposit orders.
+export const RELAY_HYPERCORE_CHAIN_IDS: Record<string, bigint> = {
+  hyperliquid: 1337n,
+};
+
+// HyperCore USDC uses a 16-byte zero currency identifier in Relay v2 orders.
+export const RELAY_HYPERCORE_USDC_CURRENCIES = new Set<string>([
+  '0x00000000000000000000000000000000',
+]);
+
+const isHyperCoreChain = (protocolId: string): boolean =>
+  Object.prototype.hasOwnProperty.call(RELAY_HYPERCORE_CHAIN_IDS, protocolId);
+
 export const relayOrder = (raw: unknown) => {
   const o = object(raw);
   if (o.version !== 'v1') throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_RELAY_ORDER_VERSION);
@@ -61,6 +74,27 @@ export const relayOrder = (raw: unknown) => {
     return protocolId;
   };
   const output = object(o.output);
+  const outputChainId = (() => {
+    const protocolId = text(output.chainId);
+    if (!Object.prototype.hasOwnProperty.call(RELAY_EVM_CHAIN_IDS, protocolId) && !isHyperCoreChain(protocolId)) {
+      throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_RELAY_VM);
+    }
+    return protocolId;
+  })();
+  const refundChain = (id: unknown) => {
+    const protocolId = text(id);
+    if (Object.prototype.hasOwnProperty.call(RELAY_EVM_CHAIN_IDS, protocolId)) return protocolId;
+    if (isHyperCoreChain(protocolId) && protocolId === outputChainId) return protocolId;
+    throw new BridgeError(BRIDGE_ERRORS.UNSUPPORTED_RELAY_VM);
+  };
+  const currencyForChain = (chainId: string, value: unknown) => {
+    if (isHyperCoreChain(chainId)) {
+      const currency = bytes(value, 16);
+      if (!RELAY_HYPERCORE_USDC_CURRENCIES.has(currency)) throw new BridgeError(BRIDGE_ERRORS.INVALID_ADDRESS);
+      return currency;
+    }
+    return address(value);
+  };
   return {
     version: o.version,
     solverChainId: evm(o.solverChainId), solver: address(o.solver), salt: uint(o.salt).toString(),
@@ -70,17 +104,18 @@ export const relayOrder = (raw: unknown) => {
         payment: { chainId: evm(payment.chainId), currency: address(payment.currency), amount: uint(payment.amount).toString(), weight: uint(payment.weight).toString() },
         refunds: array(input.refunds).map((rawRefund) => {
           const r = object(rawRefund);
-          return { chainId: evm(r.chainId), recipient: address(r.recipient), currency: address(r.currency),
+          const chainId = refundChain(r.chainId);
+          return { chainId, recipient: address(r.recipient), currency: currencyForChain(chainId, r.currency),
             minimumAmount: uint(r.minimumAmount).toString(), deadline: uint(r.deadline, 32).toString(), extraData: bytes(r.extraData) };
         }),
       };
     }),
     output: {
-      chainId: evm(output.chainId), deadline: uint(output.deadline, 32).toString(), extraData: bytes(output.extraData),
+      chainId: outputChainId, deadline: uint(output.deadline, 32).toString(), extraData: bytes(output.extraData),
       calls: array(output.calls).map((call) => bytes(call)),
       payments: array(output.payments).map((rawPayment) => {
         const p = object(rawPayment);
-        return { recipient: address(p.recipient), currency: address(p.currency),
+        return { recipient: address(p.recipient), currency: currencyForChain(outputChainId, p.currency),
           minimumAmount: uint(p.minimumAmount).toString(), expectedAmount: uint(p.expectedAmount).toString() };
       }),
     },
@@ -98,19 +133,37 @@ export const relayOrder = (raw: unknown) => {
  * This binds the order's terms and recipients, not intermediate funding or final delivery.
  */
 export const verifyRelayOrder = (
-  orderData: unknown, parsed: ParsedBridgeCall, fromChainId: string, userAddress: string, target: string
+  orderData: unknown,
+  parsed: ParsedBridgeCall,
+  fromChainId: string,
+  userAddress: string,
+  target: string,
+  expectedReceiver?: string,
 ): BridgeErrorDefinition[] => {
   let order: ReturnType<typeof relayOrder>;
   try { order = relayOrder(orderData); }
   catch { return [BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH]; }
   const hash = _TypedDataEncoder.hashStruct('Order', ORDER_TYPES, order).toLowerCase();
   const user = userAddress.toLowerCase();
+  const receiver = (expectedReceiver ?? userAddress).toLowerCase();
   const errors: BridgeErrorDefinition[] = [];
   if (hash !== parsed.orderId?.toLowerCase()) errors.push(BRIDGE_ERRORS.RELAY_ORDER_HASH_MISMATCH);
-  if (order.output.payments.length === 0 || order.output.payments.some((payment) => payment.recipient !== user)) {
+  if (order.output.payments.length === 0 || order.output.payments.some((payment) => payment.recipient !== receiver)) {
     errors.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);
   }
-  if (order.inputs.some((input) => input.refunds.some((refund) => refund.recipient !== user))) {
+  const outputCurrency = order.output.payments[0]?.currency;
+  const invalidRefund = order.inputs.some((input) =>
+    input.refunds.some((refund) => {
+      if (refund.recipient === user) return false;
+      const isDestinationFallback =
+        refund.chainId === order.output.chainId &&
+        outputCurrency !== undefined &&
+        refund.currency === outputCurrency &&
+        refund.recipient === receiver;
+      return !isDestinationFallback;
+    })
+  );
+  if (invalidRefund) {
     errors.push(BRIDGE_ERRORS.RELAY_REFUND_RECIPIENT_MISMATCH);
   }
   if (order.output.payments.length !== 1 || order.output.calls.length !== 0) {
@@ -125,7 +178,9 @@ export const verifyRelayOrder = (
   if (errors.length === 0) {
     const output = order.output.payments[0];
     Object.assign(parsed, {
-      destinationChainId: RELAY_EVM_CHAIN_IDS[order.output.chainId],
+      destinationChainId:
+        RELAY_EVM_CHAIN_IDS[order.output.chainId] ??
+        RELAY_HYPERCORE_CHAIN_IDS[order.output.chainId],
       outputToken: output.currency, minOutputAmount: BigInt(output.minimumAmount), receiver: output.recipient,
     });
   }

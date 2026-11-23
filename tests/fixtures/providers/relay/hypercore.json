@@ -1,0 +1,197 @@
+{
+  "provenance": "Live Relay /quote/v2 responses captured for HyperCore (1337) and distinct collector recipient verification.",
+  "perpsErc20": {
+    "fromChainId": "arb",
+    "toChainId": "hyperliquid",
+    "fromTokenId": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    "fromTokenRawAmount": "10000000",
+    "toTokenId": "0x00000000000000000000000000000000",
+    "toTokenRawAmount": "1000000000",
+    "tx": {
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
+      "data": "0xe80179520000000000000000000000001111111111111111111111111111111111111111000000000000000000000000af88d065e77c8cc2239327c5edb3a432268e583100000000000000000000000000000000000000000000000000000000009896806bd6c4b2204f5b5387a2a2d37c583b68b4280875810170d46bf5ccb2da79bb77",
+      "value": "0",
+      "chainId": 42161
+    },
+    "order_data": {
+      "version": "v1",
+      "solverChainId": "base",
+      "solver": "0xf70da97812cb96acdf810712aa562db8dfa3dbef",
+      "salt": "0x93a02c4f7bfab3fefad6c64b4cd39cdc14ab70012d9ce211b89b6829757ca958",
+      "inputs": [
+        {
+          "payment": {
+            "chainId": "arbitrum",
+            "currency": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+            "amount": "10000000",
+            "weight": "1"
+          },
+          "refunds": [
+            {
+              "chainId": "arbitrum",
+              "recipient": "0x1111111111111111111111111111111111111111",
+              "currency": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+              "minimumAmount": "0",
+              "deadline": 1796031252,
+              "extraData": "0x0000000000000000000000000729e2a4716d9f7dd17858d5d504426d228697f7"
+            },
+            {
+              "chainId": "hyperliquid",
+              "recipient": "0x1111111111111111111111111111111111111111",
+              "currency": "0x00000000000000000000000000000000",
+              "minimumAmount": "0",
+              "deadline": 1796031252,
+              "extraData": "0x"
+            }
+          ]
+        }
+      ],
+      "output": {
+        "chainId": "hyperliquid",
+        "payments": [
+          {
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "currency": "0x00000000000000000000000000000000",
+            "minimumAmount": "980000000",
+            "expectedAmount": "1000000000"
+          }
+        ],
+        "calls": [],
+        "deadline": 1796031252,
+        "extraData": "0x"
+      },
+      "fees": []
+    }
+  },
+  "nativeToHypercoreCollector": {
+    "fromChainId": "base",
+    "toChainId": "hyperliquid",
+    "fromTokenId": "base",
+    "fromTokenRawAmount": "5000000000000000",
+    "toTokenId": "0x00000000000000000000000000000000",
+    "toTokenRawAmount": "859512100",
+    "receiverAddress": "0x2222222222222222222222222222222222222222",
+    "tx": {
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
+      "data": "0x49290c1c000000000000000000000000111111111111111111111111111111111111111109578dd935c031e67a27ee964477a0675f5fca5f6d1644347eb4af4b48d739a2",
+      "value": "5000000000000000",
+      "chainId": 8453
+    },
+    "order_data": {
+      "version": "v1",
+      "solverChainId": "base",
+      "solver": "0xf70da97812cb96acdf810712aa562db8dfa3dbef",
+      "salt": "0xca1b99e73d52692041dcf4f68a09f69a53c6373970af9817b3fe0f3e13c2f58f",
+      "inputs": [
+        {
+          "payment": {
+            "chainId": "base",
+            "currency": "0x0000000000000000000000000000000000000000",
+            "amount": "5000000000000000",
+            "weight": "1"
+          },
+          "refunds": [
+            {
+              "chainId": "base",
+              "recipient": "0x1111111111111111111111111111111111111111",
+              "currency": "0x0000000000000000000000000000000000000000",
+              "minimumAmount": "0",
+              "deadline": 1796031274,
+              "extraData": "0x0000000000000000000000000729e2a4716d9f7dd17858d5d504426d228697f7"
+            },
+            {
+              "chainId": "hyperliquid",
+              "recipient": "0x2222222222222222222222222222222222222222",
+              "currency": "0x00000000000000000000000000000000",
+              "minimumAmount": "0",
+              "deadline": 1796031274,
+              "extraData": "0x"
+            }
+          ]
+        }
+      ],
+      "output": {
+        "chainId": "hyperliquid",
+        "payments": [
+          {
+            "recipient": "0x2222222222222222222222222222222222222222",
+            "currency": "0x00000000000000000000000000000000",
+            "minimumAmount": "842321900",
+            "expectedAmount": "859512100"
+          }
+        ],
+        "calls": [],
+        "deadline": 1796031274,
+        "extraData": "0x"
+      },
+      "fees": []
+    }
+  },
+  "evmCollector": {
+    "fromChainId": "base",
+    "toChainId": "arb",
+    "fromTokenId": "base",
+    "fromTokenRawAmount": "5000000000000000",
+    "toTokenId": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    "toTokenRawAmount": "8590877",
+    "receiverAddress": "0x2222222222222222222222222222222222222222",
+    "tx": {
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
+      "data": "0x49290c1c00000000000000000000000011111111111111111111111111111111111111119d035232a83bf19435609e27eeb70629e3fb69e689c3e0d60929c9987ac7359e",
+      "value": "5000000000000000",
+      "chainId": 8453
+    },
+    "order_data": {
+      "version": "v1",
+      "solverChainId": "base",
+      "solver": "0xf70da97812cb96acdf810712aa562db8dfa3dbef",
+      "salt": "0x9221c3ca9e928328a4af0904839eae45eeb5a049804f5a5e2a9adb2680cb360a",
+      "inputs": [
+        {
+          "payment": {
+            "chainId": "base",
+            "currency": "0x0000000000000000000000000000000000000000",
+            "amount": "5000000000000000",
+            "weight": "1"
+          },
+          "refunds": [
+            {
+              "chainId": "base",
+              "recipient": "0x1111111111111111111111111111111111111111",
+              "currency": "0x0000000000000000000000000000000000000000",
+              "minimumAmount": "0",
+              "deadline": 1796031295,
+              "extraData": "0x0000000000000000000000000729e2a4716d9f7dd17858d5d504426d228697f7"
+            },
+            {
+              "chainId": "arbitrum",
+              "recipient": "0x2222222222222222222222222222222222222222",
+              "currency": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+              "minimumAmount": "0",
+              "deadline": 1796031295,
+              "extraData": "0x0000000000000000000000000729e2a4716d9f7dd17858d5d504426d228697f7"
+            }
+          ]
+        }
+      ],
+      "output": {
+        "chainId": "arbitrum",
+        "payments": [
+          {
+            "recipient": "0x2222222222222222222222222222222222222222",
+            "currency": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+            "minimumAmount": "8419059",
+            "expectedAmount": "8590877"
+          }
+        ],
+        "calls": [],
+        "deadline": 1796031295,
+        "extraData": "0x0000000000000000000000000729e2a4716d9f7dd17858d5d504426d228697f7"
+      },
+      "fees": []
+    }
+  }
+}

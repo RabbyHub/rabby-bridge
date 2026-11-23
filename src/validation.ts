@@ -218,6 +218,7 @@ export const checkBridgeTx = (
               fromChainId,
               expectation.userAddress,
               tx.to,
+              expectation.receiverAddress,
             )
           : [BRIDGE_ERRORS.MISSING_RELAY_ORDER_ID];
     if (orderErrors.length === 0 && check.parsed) {
