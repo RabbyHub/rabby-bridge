@@ -1,6 +1,6 @@
 import { BRIDGE_ERRORS, BridgeError, asBridgeError } from '../errors/index.js';
 import { asArray, asBigint, asRecord, asString, decodeCall, decodeParameters, type AbiParam, type AbiValue } from './abi.js';
-import { isZeroWord, readSelector } from './hex.js';
+import { isZeroWord, normalizeHex, readSelector } from './hex.js';
 import { NATIVE_TOKEN, WRAPPED_NATIVE_TOKENS, subtractFees } from './protocols.js';
 import type { ParsedBridgeCall } from './types.js';
 import { calldataDiagnostics } from './diagnostics.js';
@@ -45,6 +45,8 @@ const instructions: AbiParam = {
   ],
 };
 
+export const ACROSS_HYPERCORE_HANDLER = '0xbfb53e9c8acce6d6ac54885a8e33a7aec95427d5';
+
 const ACROSS_MESSAGE_HANDLERS: Record<string, string> = {
   143: '0xec41f75c686e376ab2a4f18bde263ab5822c4511',
   999: '0x5e7840e06faccb6d1c3b5f5e0d1d3d07f2829bba',
@@ -73,6 +75,17 @@ const readAcrossMessage = (parsed: ParsedBridgeCall, message: string): ParsedBri
   delete parsed.receiver;
   delete parsed.outputToken;
   delete parsed.minOutputAmount;
+  if (parsed.destinationChainId === 999n && handler?.toLowerCase() === ACROSS_HYPERCORE_HANDLER) {
+    const hex = normalizeHex(message);
+    if (hex.length >= 66 && hex.slice(2, 26) === '0'.repeat(24)) {
+      const receiver = `0x${hex.slice(26, 66)}`;
+      if (!isZeroWord(receiver)) {
+        parsed.receiver = receiver;
+        parsed.destinationChainId = 1337n;
+      }
+    }
+    return parsed;
+  }
   // Other message handlers can implement arbitrary destination logic.
   const expectedHandler = ACROSS_MESSAGE_HANDLERS[parsed.destinationChainId?.toString() ?? ''] ??
     '0x0f7ae28de1c8532170ad4ee566b5801485c13a0e';

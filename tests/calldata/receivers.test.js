@@ -10,7 +10,7 @@ import {
   getBridgeRouter,
 } from '../../dist/index.js';
 import { expectCalldataError } from '../helpers/assert-validation-error.js';
-import { applyAcrossMessage, readDestinationTransfers } from '../../dist/calldata/destination.js';
+import { ACROSS_HYPERCORE_HANDLER, applyAcrossMessage, readDestinationTransfers } from '../../dist/calldata/destination.js';
 import { decodeFastMctpBridge } from '../../dist/calldata/mayan/fastMctpBridge.js';
 import { readOft } from '../../dist/calldata/socket/protocols/oft.js';
 import { resolveParsed } from '../../dist/calldata/resolve.js';
@@ -416,6 +416,126 @@ describe('local receiver recovery without chain-state requests', () => {
     expect(split.outputToken).toBeUndefined();
     expect(split.minOutputAmount).toBeUndefined();
     expect(() => across([{ target: handler, data, value: 0n }, drain(zero, user)], other, wrapped)).toThrow('fallback recipient');
+  });
+
+  describe('Across HyperCore deposit handler', () => {
+    const arbUsdc = '0xaf88d065e77c8cc2239327c5edb3a432268e5831';
+    const hyperEvmUsdc = '0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb';
+    const hyperCoreUsdc = '0x00000000000000000000000000000000';
+    const hyperCoreMessage = (recipient, mode = '00', tail = '0'.repeat(64)) =>
+      `0x${mode}${'0'.repeat(24)}${recipient.slice(2).toLowerCase()}${tail}`;
+    const depositV3Tx = (recipientHandler, destChainId, msg) => ({
+      from: user,
+      to: getBridgeRouter('across', 'arb'),
+      value: '0x0',
+      chainId: 42161,
+      data: '0x7b939232' + [
+        user, recipientHandler, arbUsdc, hyperEvmUsdc, 10000000, 9950000, destChainId,
+        zero, 1794499200, 1794501000, 0, 384,
+      ].map(word).join('') + bytes(msg),
+    });
+    const swapAndBridgeTx = (recipientHandler, destChainId, msg) => {
+      const spokePool = getBridgeRouter('across', 'arb');
+      const depositMessage = bytes(msg);
+      const depositTuple = [
+        arbUsdc, hyperEvmUsdc, 9950000, user, recipientHandler, destChainId,
+        zero, 1794499200, 1794501000, 0, 352,
+      ].map(word).join('') + depositMessage;
+      const swapData = bytes('0x12345678');
+      const submissionFees = word(0) + word(zero);
+      const depositOffset = (2 + 1 + 9) * 32;
+      const routerCalldataOffset = depositOffset + depositTuple.length / 2;
+      const tuple = submissionFees +
+        word(depositOffset) +
+        word(arbUsdc) +
+        word(other) +
+        word(0) +
+        word(10000000) +
+        word(9980000) +
+        word(routerCalldataOffset) +
+        word(0) +
+        word(spokePool) +
+        word(1) +
+        depositTuple +
+        swapData;
+      return {
+        from: user,
+        to: '0x10d8b8daa26d307489803e10477de69c0492b610',
+        value: '0x0',
+        chainId: 42161,
+        data: '0x110560ad' + word(32) + tuple,
+      };
+    };
+    const intent = {
+      userAddress: user,
+      fromTokenId: arbUsdc,
+      fromTokenRawAmount: '10000000',
+      toChainId: 'hyperliquid',
+      toTokenId: hyperCoreUsdc,
+      toTokenRawAmount: '995000000',
+      slippage: '0.01',
+    };
+
+    test('decodes depositV3 and swapAndBridge targeting HyperCore handler and normalizes chain to 1337', () => {
+      const msg = hyperCoreMessage(user);
+      expect(msg.slice(2).length).toBe(130);
+      for (const tx of [
+        depositV3Tx(ACROSS_HYPERCORE_HANDLER, 999, msg),
+        swapAndBridgeTx(ACROSS_HYPERCORE_HANDLER, 999, msg),
+      ]) {
+        const parsed = decodeBridgeCalldata('across', tx);
+        expect(parsed).toMatchObject({
+          receiver: user,
+          destinationChainId: 1337n,
+          bridgeReceiver: ACROSS_HYPERCORE_HANDLER,
+          bridgeOutputToken: hyperEvmUsdc,
+          bridgeOutputAmount: 9950000n,
+        });
+        expect(parsed.outputToken).toBeUndefined();
+        expect(parsed.minOutputAmount).toBeUndefined();
+        expect(validateBridgeTx('across', 'arb', 'across', tx, intent))
+          .toMatchObject({ pass: true, routerPass: true, fromPass: true, receiverPass: true, errors: [] });
+      }
+    });
+
+    test('supports future direct destinationChainId 1337 without message', () => {
+      const tx = depositV3Tx(user, 1337, '0x');
+      const parsed = decodeBridgeCalldata('across', tx);
+      expect(parsed).toMatchObject({
+        receiver: user,
+        destinationChainId: 1337n,
+        bridgeOutputToken: hyperEvmUsdc,
+        minOutputAmount: 9950000n,
+      });
+      expect(parsed.outputToken).toBeUndefined();
+      expect(validateBridgeTx('across', 'arb', 'across', tx, { ...intent, toTokenRawAmount: '9950000' }))
+        .toMatchObject({ pass: true, routerPass: true, fromPass: true, receiverPass: true, errors: [] });
+    });
+
+    test('rejects tampered HyperCore receiver, handler, destination chain, or malformed message', () => {
+      const tamperedReceiver = depositV3Tx(ACROSS_HYPERCORE_HANDLER, 999, hyperCoreMessage(other));
+      expect(expectCalldataError(() => validateBridgeTx('across', 'arb', 'across', tamperedReceiver, intent))
+        .errors.map((e) => e.error_code)).toContain('BRIDGE_RECEIVER_MISMATCH');
+
+      const tamperedHandler = depositV3Tx(other, 999, hyperCoreMessage(user));
+      expect(expectCalldataError(() => validateBridgeTx('across', 'arb', 'across', tamperedHandler, intent))
+        .errors.map((e) => e.error_code)).toContain('BRIDGE_UNSUPPORTED_DESTINATION_CALL');
+
+      const wrongExpectedChain = depositV3Tx(ACROSS_HYPERCORE_HANDLER, 999, hyperCoreMessage(user));
+      expect(expectCalldataError(() => validateBridgeTx('across', 'arb', 'across', wrongExpectedChain, { ...intent, toChainId: 'base' }))
+        .errors.map((e) => e.error_code)).toContain('BRIDGE_TO_CHAIN_MISMATCH');
+
+      for (const badMsg of [
+        '0x001234', // too short (< 66 hex chars)
+        hyperCoreMessage(zero), // zero address
+        `0x00${'11'.repeat(12)}${user.slice(2)}${'0'.repeat(64)}`, // non-zero padding before address
+      ]) {
+        const tx = depositV3Tx(ACROSS_HYPERCORE_HANDLER, 999, badMsg);
+        expect(decodeBridgeCalldata('across', tx).receiver).toBeUndefined();
+        expect(expectCalldataError(() => validateBridgeTx('across', 'arb', 'across', tx, intent))
+          .errors.map((e) => e.error_code)).toContain('BRIDGE_UNSUPPORTED_DESTINATION_CALL');
+      }
+    });
   });
 
   const fastBridge = (payloadType, payload) => '0xf58b6de8' + [token, 1000000, 0, 0, 0, user, 6, zero, 0,
