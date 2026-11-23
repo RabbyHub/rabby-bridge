@@ -2,7 +2,7 @@ import type { BridgeErrorContext, BridgeErrorDefinition } from './errors/index.j
 import { BRIDGE_ERRORS, BridgeError, asBridgeError, reportBridgeError } from './errors/index.js';
 import { InvalidBridgeCalldataError, validateBridgeCalldata } from './calldata/index.js';
 import type { BridgeCallExpectation } from './calldata/expect.js';
-import { finishCheck, knownCompare } from './calldata/expect.js';
+import { finishCheck, isNativeToken, knownCompare } from './calldata/expect.js';
 import type { BridgeCheck } from './calldata/types.js';
 import { calldataDiagnostics } from './calldata/diagnostics.js';
 import { sanitizeBridgeError } from './errors/sanitize.js';
@@ -13,7 +13,6 @@ import { verifyRelayOrder } from './calldata/relay/order.js';
 import type {
   BridgeValidationOptions,
   BridgeValidationResult,
-  BridgeQuoteListItem,
   BridgeTx,
 } from './types.js';
 
@@ -52,40 +51,40 @@ const shouldValidateBridgeContracts = (aggregatorId: BridgeAggregatorId) =>
 export const validateBridgeQuote = (
   aggregatorId: BridgeAggregatorId,
   fromChainId: string,
-  quote: BridgeQuoteListItem,
+  quote: { approve_contract_id?: string | null; bridge_id?: string },
+  fromTokenId?: string,
 ) => {
   if (!shouldValidateBridgeContracts(aggregatorId)) {
     return true;
   }
 
   const expectedSpender = getBridgeSpender(aggregatorId, fromChainId);
-  const receivedSpender = quote.approve_contract_id;
-
-  if (!receivedSpender) {
-    return true;
-  }
-  if (!expectedSpender) {
-    throw new InvalidBridgeContractError(
-      'spender',
-      aggregatorId,
-      fromChainId,
-      'configured spender',
-      receivedSpender,
-      quote.bridge_id,
-    );
-  }
-
   const allowedSpenders = [
-    expectedSpender,
+    ...(expectedSpender ? [expectedSpender] : []),
     ...getBridgeAltContracts(aggregatorId),
   ];
+  const receivedSpender = quote.approve_contract_id?.trim() || '';
+
+  if (!receivedSpender) {
+    if (fromTokenId && !isNativeToken(fromTokenId, fromChainId)) {
+      throw new InvalidBridgeContractError(
+        'spender',
+        aggregatorId,
+        fromChainId,
+        expectedSpender || allowedSpenders.join(',') || 'configured spender',
+        'missing',
+        quote.bridge_id,
+      );
+    }
+    return true;
+  }
 
   if (!allowedSpenders.some((addr) => isSameAddress(addr, receivedSpender))) {
     throw new InvalidBridgeContractError(
       'spender',
       aggregatorId,
       fromChainId,
-      expectedSpender,
+      expectedSpender || allowedSpenders.join(',') || 'configured spender',
       receivedSpender,
       quote.bridge_id,
     );
