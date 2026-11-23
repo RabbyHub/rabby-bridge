@@ -16,6 +16,7 @@ import {
   SERVER_ID_TO_CHAIN_ENUM,
   normalizeChainEnum,
 } from '../dist/chains.js';
+import { evmChainId } from '../dist/calldata/chains.js';
 
 describe('chain normalization', () => {
   test('accepts canonical chain enums and server ids case-insensitively', () => {
@@ -34,6 +35,15 @@ describe('chain normalization', () => {
     expect(CHAIN_ENUM_TO_SERVER_ID[CHAINS_ENUM.ETH]).toBe('eth');
     expect(SERVER_ID_TO_CHAIN_ENUM.hood).toBe('HOOD');
     expect(CHAIN_ENUM_TO_SERVER_ID.HOOD).toBe('hood');
+  });
+
+  test('resolves HyperCore chain aliases to 1337', () => {
+    expect(evmChainId('hyperliquid')).toBe(1337n);
+    expect(evmChainId('HYPERLIQUID')).toBe(1337n);
+    expect(evmChainId('hypercore')).toBe(1337n);
+    expect(evmChainId('HyperCore')).toBe(1337n);
+    expect(evmChainId('1337')).toBe(1337n);
+    expect(evmChainId('hyper')).toBe(999n);
   });
 });
 

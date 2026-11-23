@@ -6,8 +6,11 @@ import type { BridgeErrorDefinition } from './constants.js';
 import type { BridgeErrorDetail } from './index.js';
 
 const definitions = new Map<string, BridgeErrorDefinition>(Object.values(BRIDGE_ERRORS).map((error) => [error.error_code, { ...error }]));
-const chains = new Set(Object.entries(SERVER_ID_TO_CHAIN_ENUM).flatMap(([id, chain]) =>
-  [id, chain, evmChainId(id)?.toString()].filter((value): value is string => typeof value === 'string')));
+const chains = new Set([
+  ...Object.entries(SERVER_ID_TO_CHAIN_ENUM).flatMap(([id, chain]) =>
+    [id, chain, evmChainId(id)?.toString()].filter((value): value is string => typeof value === 'string')),
+  'hyperliquid', 'hypercore', '1337',
+]);
 const bridges = new Set([
   ...BRIDGE_AGGREGATORS, 'celercircle', 'celercirclefast', 'gnosis', 'layerswap', 'lifiIntents',
   'mayanMCTP', 'paxos', 'polygon', 'polymer', 'polymerStandard', 'superset', 'FASTMCTP',
