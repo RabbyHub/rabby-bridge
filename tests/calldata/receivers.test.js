@@ -598,4 +598,47 @@ describe('refund beneficiaries are checked independently of the final receiver',
       await rejectsRefund('socket', native.bridgeId, native.tx, nativeIntent);
     });
   });
+
+  test('supports separate receiverAddress while keeping depositor and refundRecipients bound to userAddress', () => {
+    const collector = '0x3333333333333333333333333333333333333333';
+    const acrossDepositTx = (depositor, recipient) => ({
+      from: user,
+      to: getBridgeRouter('across', 'eth'),
+      value: '0x0',
+      chainId: 1,
+      data: '0xea86bd46' + words([depositor, recipient, input, output, 10000000, 9900000, 8453, 0, 1800, 0, 352, 0]),
+    });
+
+    const collectorIntent = { ...intent, receiverAddress: collector };
+    expect(validateBridgeTx('across', 'eth', 'across', acrossDepositTx(user, collector), collectorIntent))
+      .toMatchObject({ pass: true, fromPass: true, toPass: true, receiverPass: true, errors: [] });
+
+    const wrongReceiver = expectCalldataError(() =>
+      validateBridgeTx('across', 'eth', 'across', acrossDepositTx(user, other), collectorIntent));
+    expect(wrongReceiver.errors.map((e) => e.error_code)).toContain('BRIDGE_RECEIVER_MISMATCH');
+
+    const wrongDepositor = expectCalldataError(() =>
+      validateBridgeTx('across', 'eth', 'across', acrossDepositTx(collector, collector), collectorIntent));
+    expect(wrongDepositor.errors.map((e) => e.error_code)).toContain('BRIDGE_DEPOSITOR_MISMATCH');
+
+    // Refund recipients must still match userAddress even when receiverAddress is a collector.
+    const lifiToCollector = {
+      ...acrossTx('standard', user),
+      data: '0xa1f1ce43' + words([64, 64 + 12 * 32]) +
+        words([1, 320, 352, 0, input, collector, 10000000, 8453, 0, 0, 0, 0]) +
+        words([collector, user, input, output, 9900000, 10n ** 18n, 0, 1794499200, 1794501000, 0, 352, 0]),
+    };
+    expect(validateBridgeTx('lifi', 'eth', 'across', lifiToCollector, collectorIntent))
+      .toMatchObject({ pass: true, receiverPass: true });
+
+    const lifiRefundToCollector = {
+      ...acrossTx('standard', collector),
+      data: '0xa1f1ce43' + words([64, 64 + 12 * 32]) +
+        words([1, 320, 352, 0, input, collector, 10000000, 8453, 0, 0, 0, 0]) +
+        words([collector, collector, input, output, 9900000, 10n ** 18n, 0, 1794499200, 1794501000, 0, 352, 0]),
+    };
+    const badRefund = expectCalldataError(() =>
+      validateBridgeTx('lifi', 'eth', 'across', lifiRefundToCollector, collectorIntent));
+    expect(badRefund.errors.map((e) => e.error_code)).toContain(code);
+  });
 });
