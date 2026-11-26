@@ -51,13 +51,16 @@ const buildAcrossDepositV3Tx = ({
 });
 
 const buildAcrossSwapAndBridgeTx = ({
+  inputToken,
+  chainId,
+  spokePool,
+  to,
   recipient = ACROSS_HYPERCORE_HANDLER,
   destChainId = 999,
   message = hyperCoreMessage(user),
-} = {}) => {
-  const spokePool = getBridgeRouter('across', 'arb');
+}) => {
   const depositTuple = [
-    arbUsdc, hyperEvmUsdc, 9950000, user, recipient, destChainId,
+    inputToken, hyperEvmUsdc, 9950000, user, recipient, destChainId,
     zero, 1794499200, 1794501000, 0, 352,
   ].map(word).join('') + bytes(message);
   const swapData = bytes('0x12345678');
@@ -66,7 +69,7 @@ const buildAcrossSwapAndBridgeTx = ({
   const routerCalldataOffset = depositOffset + depositTuple.length / 2;
   const tuple = submissionFees +
     word(depositOffset) +
-    word(arbUsdc) +
+    word(inputToken) +
     word(attacker) +
     word(0) +
     word(10000000) +
@@ -79,9 +82,9 @@ const buildAcrossSwapAndBridgeTx = ({
     swapData;
   return {
     from: user,
-    to: '0x10d8b8daa26d307489803e10477de69c0492b610',
+    to,
     value: '0x0',
-    chainId: 42161,
+    chainId,
     data: '0x110560ad' + word(32) + tuple,
   };
 };
@@ -186,8 +189,17 @@ describe('validateDepositBridgeQuote — positive cases (Perps & Gas Account)', 
     expect(result).toMatchObject({ pass: true, routerPass: true, fromPass: true, toPass: true, receiverPass: true, errors: [] });
   });
 
-  test('Perps via Across depositV3 and swapAndBridge targeting HyperCore handler', () => {
-    for (const tx of [buildAcrossDepositV3Tx(), buildAcrossSwapAndBridgeTx()]) {
+  test.each([
+    ['arb', 42161, arbUsdc, '0x10d8b8daa26d307489803e10477de69c0492b610', user],
+    ['tempo', 4217, '0x20c000000000000000000000b9537d11c60e8b50', '0x4e9ef0a5fe749079dd11e68aad5d75fccfaaf9af', collector],
+  ])('validates Across direct and Periphery HyperCore deposits from %s', (chain, chainId, inputToken, periphery, receiver) => {
+    const spokePool = getBridgeRouter('across', chain);
+    const message = hyperCoreMessage(receiver);
+    const txs = [
+      buildAcrossDepositV3Tx({ inputToken, chainId, to: spokePool, message }),
+      buildAcrossSwapAndBridgeTx({ inputToken, chainId, to: periphery, spokePool, message }),
+    ];
+    for (const tx of txs) {
       const quote = {
         bridge_id: 'across',
         approve_contract_id: tx.to,
@@ -196,9 +208,9 @@ describe('validateDepositBridgeQuote — positive cases (Perps & Gas Account)', 
       };
       const result = validateDepositBridgeQuote(quote, {
         userAddress: user,
-        receiverAddress: user,
-        fromChainId: 'arb',
-        fromTokenId: arbUsdc,
+        receiverAddress: receiver,
+        fromChainId: chain,
+        fromTokenId: inputToken,
         fromTokenRawAmount: '10000000',
         toChainId: 'hyperliquid',
         toTokenId: hyperCoreUsdc,

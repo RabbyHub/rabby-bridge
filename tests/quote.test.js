@@ -427,6 +427,39 @@ describe('getQuoteListWithTx', () => {
 });
 
 
+describe('X Layer, Stable and Tempo routes', () => {
+  const relayDepository = '0x4cd00e387622c35bddb9b4c962c136462338bc31';
+  const tempoSpokePool = '0x2d4710f04da90184255782d3715224a6c776955d';
+  const acrossPeriphery = '0x4e9ef0a5fe749079dd11e68aad5d75fccfaaf9af';
+
+  test.each([
+    ['relay', 'xlayer', relayDepository],
+    ['relay', 'stable', relayDepository],
+    ['relay', 'tempo', relayDepository],
+    ['across', 'tempo', tempoSpokePool],
+  ])('requests and accepts a %s quote from %s', async (aggregator, fromChainId, contract) => {
+    const quote = makeQuote({ bridge_id: aggregator, approve_contract_id: contract });
+    const api = { getBridgeQuoteListV2: jest.fn(async () => [quote]) };
+    await expect(getQuote(aggregator, { ...baseParams, fromChainId }, api)).resolves.toEqual([quote]);
+    expect(api.getBridgeQuoteListV2).toHaveBeenCalledTimes(1);
+  });
+
+  test.each(['xlayer', 'stable'])('skips Across quotes from %s', async (fromChainId) => {
+    const api = { getBridgeQuoteListV2: jest.fn() };
+    await expect(getQuote('across', { ...baseParams, fromChainId }, api))
+      .rejects.toMatchObject({ error_code: 'BRIDGE_UNSUPPORTED_SOURCE_CHAIN' });
+    expect(api.getBridgeQuoteListV2).not.toHaveBeenCalled();
+  });
+
+  test.each(['tempo', 'eth'])('accepts the shared Across Periphery on %s', (chain) => {
+    const quote = makeQuote({ approve_contract_id: acrossPeriphery });
+    const tx = makeTx({ to: acrossPeriphery });
+    expect(validateBridgeQuote('across', chain, quote)).toBe(true);
+    expect(expectCalldataError(() => validateBridgeTx('across', chain, 'across', tx))
+      .errors[0].routerPass).toBe(true);
+  });
+});
+
 describe('Arc contract validation', () => {
   const relayRouter = '0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f';
 
