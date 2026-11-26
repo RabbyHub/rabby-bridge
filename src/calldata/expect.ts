@@ -9,6 +9,8 @@ const RATIO_SCALE = 1_000_000n;
 
 export type BridgeCallExpectation = {
   userAddress: string;
+  /** 目标收款人地址；未传时默认回退 userAddress（退款与付款人仍严格比对 userAddress）。 */
+  receiverAddress?: string;
   fromTokenId: string;
   fromTokenRawAmount: string;
   toTokenId: string;
@@ -41,7 +43,7 @@ export const knownCompare = (parsed: ParsedBridgeCall): CompareMask => ({
 
 const isHexAddress = (value: string) => /^0x[0-9a-f]{40}$/i.test(value);
 
-const isNativeToken = (value: string, chainId: string) => {
+export const isNativeToken = (value: string, chainId: string) => {
   const normalized = value.toLowerCase();
   const network = evmChainId(normalized);
   return (
@@ -148,7 +150,12 @@ export const expectationFailures = (
       reasons.push(BRIDGE_ERRORS.MIN_RECEIVE_MISMATCH);
     }
   }
-  if (mask.receiver && !parsed.fixedReceiver && !sameToken(parsed.receiver, expectation.userAddress, chainId)) {
+  const expectedReceiver = expectation.receiverAddress ?? expectation.userAddress;
+  if (
+    mask.receiver &&
+    !parsed.fixedReceiver &&
+    (!parsed.receiver || parsed.receiver.toLowerCase() !== expectedReceiver.toLowerCase())
+  ) {
     reasons.push(BRIDGE_ERRORS.RECEIVER_MISMATCH);
   }
   if (parsed.refundRecipients?.some((recipient) => recipient.toLowerCase() !== expectation.userAddress.toLowerCase())) {

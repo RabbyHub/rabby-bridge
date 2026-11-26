@@ -179,6 +179,10 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
   // Socket Swap V3: allowance holder is the approve target and tx.to on all registered chains.
   socket: SOCKET_V3_CONTRACTS,
   relay: {
+    // https://api.relay.link/chains — protocol.v2.depository on X Layer, Stable and Tempo.
+    [EXTRA_CHAINS.XLAYER]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.STABLE]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.TEMPO]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.ETH]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.OP]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.CRO]: '0x59916da825d2d2ec1bf878d71c88826f6633ecca',
@@ -268,6 +272,8 @@ export const BRIDGE_SPENDER_WHITELIST_DATA = {
   // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
   // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
   across: {
+    // Across chain 4217: https://github.com/across-protocol/contracts/blob/master/broadcast/deployed-addresses.json
+    [EXTRA_CHAINS.TEMPO]: '0x2d4710f04da90184255782d3715224a6c776955d',
     [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
     [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',
     [CHAINS_ENUM.ARBITRUM]: '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a',
@@ -304,6 +310,7 @@ export const BRIDGE_ALT_CONTRACTS_DATA = {
     // SpokePoolPeriphery(zkSync 系: era / lens,v1 / v2)
     '0x5a148a9260c1f670429361c34d40b477280f01a9',
     '0x7c99ced6d8011af8a52488884f7ba2c61b0fa57d',
+    '0x4e9ef0a5fe749079dd11e68aad5d75fccfaaf9af', // SpokePoolPeriphery
   ],
   relay: [
     // ApprovalProxy v3 全局地址,按 EVM fork 类型区分,与逐链 Depository 同时在用
@@ -403,6 +410,9 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
   // Socket Swap V3: allowance holder is the approve target and tx.to on all registered chains.
   socket: SOCKET_V3_CONTRACTS,
   relay: {
+    [EXTRA_CHAINS.XLAYER]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.STABLE]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
+    [EXTRA_CHAINS.TEMPO]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.ETH]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.OP]: '0x4cd00e387622c35bddb9b4c962c136462338bc31',
     [CHAINS_ENUM.CRO]: '0x59916da825d2d2ec1bf878d71c88826f6633ecca',
@@ -492,6 +502,7 @@ export const BRIDGE_ROUTER_WHITELIST_DATA = {
   // across 逐链 SpokePool/直连合约(depositV3 路由的 approve 目标与 tx.to)。
   // swap+bridge 路由会切到全局 SpokePoolPeriphery,额外合法地址见 BRIDGE_ALT_CONTRACTS_DATA。
   across: {
+    [EXTRA_CHAINS.TEMPO]: '0x2d4710f04da90184255782d3715224a6c776955d',
     [CHAINS_ENUM.ETH]: '0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5',
     [CHAINS_ENUM.OP]: '0x6f26bf09b1c792e3228e5467807a900a503c0281',
     [CHAINS_ENUM.ARBITRUM]: '0xe35e9842fceaca96570b734083f4a58e8f7c5f2a',

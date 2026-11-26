@@ -17,6 +17,7 @@ const CHAIN_IDS: Record<string, bigint> = {
   ethlink: 42793n, chiliz: 88888n, elysium: 99901n, btr: 200901n, dbk: 20240603n,
   ethereum: 1n, optimism: 10n, gnosis: 100n, polygon: 137n, mantle: 5000n,
   arbitrum: 42161n, avalanche: 43114n, fraxtal: 252n,
+  hyperliquid: 1337n, hypercore: 1337n,
 };
 
 export const evmChainId = (chain: string): bigint | undefined => {

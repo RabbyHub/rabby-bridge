@@ -320,3 +320,124 @@ describe('[Relay] complete Bridge Lab capture', () => {
     }
   );
 });
+
+describe('[Relay] HyperCore and independent receiver orders', () => {
+  const captured = readFixture('providers/relay/hypercore.json');
+  const attacker = '0x9999999999999999999999999999999999999999';
+  const replaceOrder = (sample, mutate) => {
+    const order = structuredClone(sample.order_data);
+    mutate(order);
+    const oldHash = hash(sample.order_data).slice(2);
+    const newHash = hash(order).slice(2);
+    return {
+      order,
+      tx: { ...sample.tx, data: sample.tx.data.replace(oldHash, newHash) },
+    };
+  };
+
+  test('verifies captured live Relay HyperCore Perps ERC20 deposit order', () => {
+    const sample = captured.perpsErc20;
+    expect(decodeBridgeCalldata('relay', sample.tx).orderId).toBe(hash(sample.order_data).toLowerCase());
+    const result = validateBridgeTx('relay', sample.fromChainId, 'relay', sample.tx, {
+      userAddress: sample.tx.from,
+      fromTokenId: sample.fromTokenId,
+      fromTokenRawAmount: sample.fromTokenRawAmount,
+      toChainId: sample.toChainId,
+      toTokenId: sample.toTokenId,
+      toTokenRawAmount: sample.toTokenRawAmount,
+      slippage: '0.02',
+      orderData: sample.order_data,
+    });
+    expect(result).toMatchObject({ pass: true, routerPass: true, fromPass: true, toPass: true, receiverPass: true, unverifiedFields: [] });
+  });
+
+  test.each(['nativeToHypercoreCollector', 'evmCollector'])(
+    'verifies captured %s order with distinct receiverAddress and user origin refund',
+    (key) => {
+      const sample = captured[key];
+      const result = validateBridgeTx('relay', sample.fromChainId, 'relay', sample.tx, {
+        userAddress: sample.tx.from,
+        receiverAddress: sample.receiverAddress,
+        fromTokenId: sample.fromTokenId,
+        fromTokenRawAmount: sample.fromTokenRawAmount,
+        toChainId: sample.toChainId,
+        toTokenId: sample.toTokenId,
+        toTokenRawAmount: sample.toTokenRawAmount,
+        slippage: '0.02',
+        orderData: sample.order_data,
+      });
+      expect(result).toMatchObject({ pass: true, routerPass: true, fromPass: true, toPass: true, receiverPass: true, unverifiedFields: [] });
+    }
+  );
+
+  test('rejects tampered HyperCore currency, non-empty calls, tampered receiver, or hijacked refunds', () => {
+    const perps = captured.perpsErc20;
+    const perpsExpect = {
+      userAddress: perps.tx.from,
+      fromTokenId: perps.fromTokenId,
+      fromTokenRawAmount: perps.fromTokenRawAmount,
+      toChainId: perps.toChainId,
+      toTokenId: perps.toTokenId,
+      toTokenRawAmount: perps.toTokenRawAmount,
+      slippage: '0.02',
+    };
+
+    // Unallowlisted 16-byte HyperCore currency fails relayOrder parsing -> hash mismatch
+    const badCurrency = replaceOrder(perps, (o) => {
+      o.output.payments[0].currency = '0x00000000000000000000000000000001';
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', perps.fromChainId, 'relay', badCurrency.tx, {
+      ...perpsExpect, orderData: badCurrency.order,
+    })).error_code).toBe('BRIDGE_RELAY_ORDER_HASH_MISMATCH');
+
+    // Non-empty output.calls is rejected
+    const withCalls = replaceOrder(perps, (o) => {
+      o.output.calls = ['0x12345678'];
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', perps.fromChainId, 'relay', withCalls.tx, {
+      ...perpsExpect, orderData: withCalls.order,
+    })).errors.map((e) => e.error_code)).toContain('BRIDGE_UNSUPPORTED_RELAY_ORDER_SHAPE');
+
+    // Origin refund hijacked to collector or attacker is rejected on collector deposits
+    const collectorSample = captured.evmCollector;
+    const collectorExpect = {
+      userAddress: collectorSample.tx.from,
+      receiverAddress: collectorSample.receiverAddress,
+      fromTokenId: collectorSample.fromTokenId,
+      fromTokenRawAmount: collectorSample.fromTokenRawAmount,
+      toChainId: collectorSample.toChainId,
+      toTokenId: collectorSample.toTokenId,
+      toTokenRawAmount: collectorSample.toTokenRawAmount,
+      slippage: '0.02',
+    };
+
+    const originRefundToCollector = replaceOrder(collectorSample, (o) => {
+      o.inputs[0].refunds[0].recipient = collectorSample.receiverAddress;
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', collectorSample.fromChainId, 'relay', originRefundToCollector.tx, {
+      ...collectorExpect, orderData: originRefundToCollector.order,
+    })).errors.map((e) => e.error_code)).toContain('BRIDGE_RELAY_REFUND_RECIPIENT_MISMATCH');
+
+    const destRefundToAttacker = replaceOrder(collectorSample, (o) => {
+      o.inputs[0].refunds[1].recipient = attacker;
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', collectorSample.fromChainId, 'relay', destRefundToAttacker.tx, {
+      ...collectorExpect, orderData: destRefundToAttacker.order,
+    })).errors.map((e) => e.error_code)).toContain('BRIDGE_RELAY_REFUND_RECIPIENT_MISMATCH');
+
+    const outputToAttacker = replaceOrder(collectorSample, (o) => {
+      o.output.payments[0].recipient = attacker;
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', collectorSample.fromChainId, 'relay', outputToAttacker.tx, {
+      ...collectorExpect, orderData: outputToAttacker.order,
+    })).errors.map((e) => e.error_code)).toContain('BRIDGE_RECEIVER_MISMATCH');
+
+    // HyperCore chain is still disallowed in inputs[].payment.chainId
+    const hypercoreInput = replaceOrder(perps, (o) => {
+      o.inputs[0].payment.chainId = 'hyperliquid';
+    });
+    expect(expectCalldataError(() => validateBridgeTx('relay', perps.fromChainId, 'relay', hypercoreInput.tx, {
+      ...perpsExpect, orderData: hypercoreInput.order,
+    })).error_code).toBe('BRIDGE_RELAY_ORDER_HASH_MISMATCH');
+  });
+});

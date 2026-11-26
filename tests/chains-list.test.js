@@ -16,6 +16,7 @@ import {
   SERVER_ID_TO_CHAIN_ENUM,
   normalizeChainEnum,
 } from '../dist/chains.js';
+import { evmChainId } from '../dist/calldata/chains.js';
 
 describe('chain normalization', () => {
   test('accepts canonical chain enums and server ids case-insensitively', () => {
@@ -34,6 +35,15 @@ describe('chain normalization', () => {
     expect(CHAIN_ENUM_TO_SERVER_ID[CHAINS_ENUM.ETH]).toBe('eth');
     expect(SERVER_ID_TO_CHAIN_ENUM.hood).toBe('HOOD');
     expect(CHAIN_ENUM_TO_SERVER_ID.HOOD).toBe('hood');
+  });
+
+  test('resolves HyperCore chain aliases to 1337', () => {
+    expect(evmChainId('hyperliquid')).toBe(1337n);
+    expect(evmChainId('HYPERLIQUID')).toBe(1337n);
+    expect(evmChainId('hypercore')).toBe(1337n);
+    expect(evmChainId('HyperCore')).toBe(1337n);
+    expect(evmChainId('1337')).toBe(1337n);
+    expect(evmChainId('hyper')).toBe(999n);
   });
 });
 
@@ -117,12 +127,13 @@ describe('bridge allowlists', () => {
     expect(getBridgeRouter(BRIDGE_ENUM.ACROSS, 'HOOD')).toBe(
       acrossHoodSpokePool
     );
-    // v1 and v2 periphery addresses are globally valid for across
+    // Periphery addresses are shared across supported Across chains.
     expect(getBridgeAltContracts(BRIDGE_ENUM.ACROSS)).toEqual([
       periphery,
       '0x97ccdbea4632140639ad5ea9b944aa034eb15fd4',
       peripheryZkSync,
       '0x7c99ced6d8011af8a52488884f7ba2c61b0fa57d',
+      '0x4e9ef0a5fe749079dd11e68aad5d75fccfaaf9af',
     ]);
     // aggregators without alt contracts return an empty list
     expect(getBridgeAltContracts(BRIDGE_ENUM.LIFI)).toEqual([]);

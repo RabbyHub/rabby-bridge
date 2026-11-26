@@ -228,4 +228,16 @@ describe('privacy-safe bridge diagnostics', () => {
     expect(JSON.stringify(report)).not.toContain(wallet);
     expect(JSON.stringify(report)).not.toContain(secret);
   });
+
+  test('retains HyperCore destination chain labels in sanitized reports', () => {
+    for (const toChainId of ['hyperliquid', 'hypercore', '1337']) {
+      const error = new BridgeError(BRIDGE_ERRORS.TO_CHAIN_MISMATCH, {
+        aggregatorId: 'relay', chainId: 'arb', toChainId,
+      });
+      expect(toBridgeErrorReport(error).errors[0]).toMatchObject({
+        chainId: 'arb',
+        toChainId,
+      });
+    }
+  });
 });

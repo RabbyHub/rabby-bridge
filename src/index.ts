@@ -38,6 +38,7 @@ export {
   getQuoteListWithTx,
   validateBridgeQuote,
   validateBridgeTx,
+  validateDepositBridgeQuote,
 } from './quote.js';
 export type {
   BridgeApi,
@@ -48,6 +49,9 @@ export type {
   BridgeValidationOptions,
   BridgeValidationResult,
   BridgeTx,
+  DepositBridgeAggregatorId,
+  DepositBridgeQuote,
+  DepositBridgeValidationParams,
 } from './quote.js';
 export { BRIDGE_ERRORS, BridgeError, InvalidBridgeProviderError, toBridgeErrorReport } from './errors/index.js';
 export type { BridgeErrorCode, BridgeErrorStage, BridgeErrorDefinition, BridgeErrorContext, BridgeErrorDetail, BridgeErrorReport, BridgeErrorReporter } from './errors/index.js';

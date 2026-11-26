@@ -157,6 +157,28 @@ describe('transaction validation always enforces required checks', () => {
       .toThrow(InvalidBridgeContractError);
   });
 
+  test('falls back to global alt contracts on unconfigured chains and enforces spender for ERC20', () => {
+    const relayApprovalProxy = '0x5567954cd026cebfe486062cb75848e0f1c12e58';
+    const acrossPeriphery = '0x10d8b8daa26d307489803e10477de69c0492b610';
+    expect(validateBridgeQuote('relay', 'not-configured', { bridge_id: 'relay', approve_contract_id: relayApprovalProxy }))
+      .toBe(true);
+    expect(validateBridgeQuote('across', 'not-configured', { bridge_id: 'across', approve_contract_id: acrossPeriphery }))
+      .toBe(true);
+    expect(() => validateBridgeQuote('relay', 'not-configured', { bridge_id: 'relay', approve_contract_id: other }))
+      .toThrow(InvalidBridgeContractError);
+
+    // Non-native tokens require a non-empty allowlisted approve_contract_id when fromTokenId is provided.
+    for (const empty of [undefined, null, '', '   ']) {
+      expect(() => validateBridgeQuote('across', 'eth', { bridge_id: 'across', approve_contract_id: empty }, input))
+        .toThrow(InvalidBridgeContractError);
+    }
+    // Native tokens still allow empty approve_contract_id.
+    for (const nativeId of ['eth', '0x0000000000000000000000000000000000000000', '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']) {
+      expect(validateBridgeQuote('across', 'eth', { bridge_id: 'across', approve_contract_id: '' }, nativeId))
+        .toBe(true);
+    }
+  });
+
   test('reports aggregators without a parser instead of silently counting them as covered', () => {
     const onError = jest.fn();
     const error = expectCalldataError(() => validateBridgeTx('near_intents', 'eth', 'near_intents',
